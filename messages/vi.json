@@ -1,3 +1,6 @@
 {
-  "message": "Tin nhắn"
+  "title": {
+    "app": "Fakebook",
+    "home": "Trang chủ"
+  }
 }

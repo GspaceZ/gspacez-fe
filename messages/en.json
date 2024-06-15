@@ -1,3 +1,6 @@
 {
-  "message": "Message"
+  "title": {
+    "app": "Fakebook",
+    "home": "Home"
+  }
 }
