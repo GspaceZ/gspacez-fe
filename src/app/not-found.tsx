@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 export default function NotFound() {
   return (
@@ -7,5 +7,5 @@ export default function NotFound() {
         <h1>Not Found</h1>
       </body>
     </html>
-  )
+  );
 }
