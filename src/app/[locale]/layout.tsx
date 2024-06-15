@@ -1,4 +1,3 @@
-import { store } from '@/utils/store'
 import { Providers } from '../providers'
 import './globals.css'
 import { NextIntlClientProvider } from 'next-intl'
@@ -15,6 +14,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <title>Fakebook</title>
+      </head>
       <body>
         <NextIntlClientProvider messages={messages}>
           <Providers>{children}</Providers>

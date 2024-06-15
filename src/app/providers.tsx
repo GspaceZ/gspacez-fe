@@ -10,7 +10,6 @@ persistStore(store)
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextUIProvider>
-      {' '}
       <ReduxProvider store={store}>{children}</ReduxProvider>
     </NextUIProvider>
   )
