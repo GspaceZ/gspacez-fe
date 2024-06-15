@@ -1,3 +1,5 @@
 {
-  "message": "Tin nhắn"
+  "title": {
+    "home": "Trang chủ"
+  }
 }
