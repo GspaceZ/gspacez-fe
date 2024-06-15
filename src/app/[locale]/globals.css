@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Laila Regular";
-  src: url("https://db.onlinewebfonts.com/t/002fb8fd16c493171b5c8fa371a85084.eot");
-  src: url("https://db.onlinewebfonts.com/t/002fb8fd16c493171b5c8fa371a85084.eot?#iefix")format("embedded-opentype"),
-  url("https://db.onlinewebfonts.com/t/002fb8fd16c493171b5c8fa371a85084.woff2")format("woff2"),
-  url("https://db.onlinewebfonts.com/t/002fb8fd16c493171b5c8fa371a85084.woff")format("woff"),
-  url("https://db.onlinewebfonts.com/t/002fb8fd16c493171b5c8fa371a85084.ttf")format("truetype"),
-  url("https://db.onlinewebfonts.com/t/002fb8fd16c493171b5c8fa371a85084.svg#Laila Regular")format("svg");
+  font-family: "Noto Sans";
+  src: url("https://db.onlinewebfonts.com/t/bbcc889bed34a1678c6a044df8e83428.eot");
+  src: url("https://db.onlinewebfonts.com/t/bbcc889bed34a1678c6a044df8e83428.eot?#iefix")format("embedded-opentype"),
+  url("https://db.onlinewebfonts.com/t/bbcc889bed34a1678c6a044df8e83428.woff2")format("woff2"),
+  url("https://db.onlinewebfonts.com/t/bbcc889bed34a1678c6a044df8e83428.woff")format("woff"),
+  url("https://db.onlinewebfonts.com/t/bbcc889bed34a1678c6a044df8e83428.ttf")format("truetype"),
+  url("https://db.onlinewebfonts.com/t/bbcc889bed34a1678c6a044df8e83428.svg#Noto Sans")format("svg");
 }
 
 * {
-  font-family: "Laila Regular";
+  font-family: "Noto Sans", sans-serif;
 }

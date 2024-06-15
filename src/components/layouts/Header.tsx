@@ -1,30 +1,26 @@
 'use client'
 
-import { useAppDispatch } from '@/utils/store'
-
 import { GoSidebarCollapse } from 'react-icons/go'
 import * as React from 'react'
-import { Button, toggle } from '@nextui-org/react'
-import { toggleSidebar } from '@/utils/store/sidebar'
+import { Button } from '@nextui-org/react'
 
 interface HeaderProps {
   title: string
+  isSidebarOpen: boolean
+  toggleSidebar: () => void
 }
 
-const Header = ({ title }: HeaderProps) => {
-  const dispatch = useAppDispatch()
-
-  const openSidebar = () => {
-    dispatch(toggleSidebar())
-  }
-
+const Header = ({ title, isSidebarOpen, toggleSidebar }: HeaderProps) => {
   return (
-    <div className="h-[80px] flex items-center border-b border-gray-200 shadow-md sticky top-0">
+    <div
+      className={`h-[80px] flex items-center border-b border-gray-200 shadow-md sticky top-0
+      ${isSidebarOpen ? 'md:ml-[300px]' : ''}`}
+    >
       <Button
         isIconOnly
-        className="ml-4"
+        className={`ml-4 fixed left-0 ${isSidebarOpen && 'hidden'}`}
         variant="light"
-        onClick={() => openSidebar()}
+        onClick={() => toggleSidebar()}
       >
         <GoSidebarCollapse className="text-3xl" />
       </Button>

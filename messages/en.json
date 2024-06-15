@@ -1,5 +1,15 @@
 {
   "title": {
+    "app": "Fakebook",
     "home": "Home"
+  },
+  "sidebar": {
+    "home": "Home",
+    "search": "Search",
+    "profile": "Profile",
+    "your_pages": "Your Pages",
+    "events": "Events",
+    "upcoming_streams": "Upcoming Streams",
+    "logout_switch": "Logout/Switch Account"
   }
 }
