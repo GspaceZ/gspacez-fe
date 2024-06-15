@@ -1,3 +1,15 @@
 {
-  "message": "Tin nhắn"
+  "title": {
+    "app": "Fakebook",
+    "home": "Trang chủ"
+  },
+  "sidebar": {
+    "home": "Trang chủ",
+    "search": "Tìm kiếm",
+    "profile": "Hồ sơ",
+    "your_pages": "Trang của bạn",
+    "events": "Sự kiện",
+    "upcoming_streams": "Stream sắp tới",
+    "logout_switch": "Đăng xuất/Chuyển tài khoản"
+  }
 }

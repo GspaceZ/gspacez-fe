@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("https://db.onlinewebfonts.com/t/bbcc889bed34a1678c6a044df8e83428.eot");
+  src: url("https://db.onlinewebfonts.com/t/bbcc889bed34a1678c6a044df8e83428.eot?#iefix")format("embedded-opentype"),
+  url("https://db.onlinewebfonts.com/t/bbcc889bed34a1678c6a044df8e83428.woff2")format("woff2"),
+  url("https://db.onlinewebfonts.com/t/bbcc889bed34a1678c6a044df8e83428.woff")format("woff"),
+  url("https://db.onlinewebfonts.com/t/bbcc889bed34a1678c6a044df8e83428.ttf")format("truetype"),
+  url("https://db.onlinewebfonts.com/t/bbcc889bed34a1678c6a044df8e83428.svg#Noto Sans")format("svg");
+}
+
+* {
+  font-family: "Noto Sans", sans-serif;
+}
