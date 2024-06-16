@@ -11,5 +11,20 @@
     "events": "Sự kiện",
     "upcoming_streams": "Stream sắp tới",
     "logout_switch": "Đăng xuất/Chuyển tài khoản"
+  },
+  "post": {
+    "read_more": "Đọc thêm",
+    "like": "Thích",
+    "comment": "Bình luận",
+    "share": "Chia sẻ",
+    "hide": "Ẩn bài viết",
+    "report": "Báo cáo"
+  },
+  "landing": {
+    "text_1": "Đơn giản hơn, dễ hơn, ...",
+    "text_2": "Bạn có thể tập trung hơn vào bài viết, các bức ảnh, ...",
+    "slogan": "Real comfortability",
+    "sign_in": "Đăng nhập",
+    "sign_up": "Đăng kí"
   }
 }
