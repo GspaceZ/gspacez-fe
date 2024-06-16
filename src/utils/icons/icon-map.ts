@@ -8,6 +8,8 @@ import {
 import { CgProfile } from 'react-icons/cg'
 import { CiStreamOn } from 'react-icons/ci'
 import { LuFlag } from 'react-icons/lu'
+import { BsSend } from "react-icons/bs"
+import { IoNotificationsOutline, IoSettingsOutline, IoTrendingUpOutline } from "react-icons/io5"
 
 export const iconMap: Record<string, IconType> = {
   GoSidebarCollapse: GoSidebarCollapse,
@@ -16,5 +18,9 @@ export const iconMap: Record<string, IconType> = {
   GoStopwatch: GoStopwatch,
   CgProfile: CgProfile,
   CiStreamOn: CiStreamOn,
-  LuFlag: LuFlag
+  LuFlag: LuFlag,
+  BsSend: BsSend,
+  IoNotificationsOutline: IoNotificationsOutline,
+  IoSettingsOutline: IoSettingsOutline,
+  IoTrendingUpOutline: IoTrendingUpOutline
 }
