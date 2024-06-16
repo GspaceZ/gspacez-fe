@@ -3,6 +3,9 @@
 import * as React from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
+import TrendingPosts from './TrendingPosts'
+import { trendingPostsData, maybeYouKnowData } from '@/utils/constant/trendingPostsData'
+import { buttonOptions } from '@/utils/constant/buttonOptions'
 import { useState } from 'react'
 
 interface MainLayoutProps {
@@ -26,6 +29,7 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
         toggleSidebar={toggleSidebar}
       />
       <div>{children}</div>
+      <TrendingPosts posts={trendingPostsData} maybeYouKnows={maybeYouKnowData} buttons={buttonOptions} />
     </div>
   )
 }

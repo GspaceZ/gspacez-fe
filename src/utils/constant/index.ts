@@ -1,5 +1,11 @@
 export const TITLE = {
-  home: 'Fakebook'
+  home: 'Fakebook',
+}
+
+export const TITLEPOSTS = {
+  trendingPosts: 'Trending Posts',
+  maybeYouKnow: 'Maybe You Know',
+  more: 'More'
 }
 
 export enum PostTypeEnum {
