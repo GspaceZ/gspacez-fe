@@ -26,5 +26,11 @@
     "slogan": "Real comfortability",
     "sign_in": "Đăng nhập",
     "sign_up": "Đăng kí"
+  },
+  "trending_posts": {
+    "trending_post": "Bài viết xu hướng",
+    "trending_people": "Có thể bạn biết",
+    "more": "Thêm",
+    "time": "Bây giờ"
   }
 }
