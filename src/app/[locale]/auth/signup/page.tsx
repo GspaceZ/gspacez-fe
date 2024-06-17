@@ -4,48 +4,58 @@ import * as React from 'react'
 import AuthLayout from '@/components/layouts/AuthLayout'
 import { Button, Input } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
-import { FormEvent, MouseEvent } from 'react'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { IFormValues } from '@/helpers/form-value/signup-value'
+import { ISignUpFormValues } from '@/helpers/form-value/signup-value'
 import InputWithError from '@/components/common/InputWithError'
+import { ROUTE } from '@/utils/constant/route'
+import { usePathname, useRouter } from 'next/navigation'
+import { pathWithLocale } from '@/helpers/path-with-locale'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
 
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleRedirect = (path: string) => {
+    const destinationPath = pathWithLocale(pathname, path)
+    router.push(destinationPath)
+  }
+
   const signUpSchema = z
     .object({
-      email: z.string().email({ message: t('sign_up_error_messages.email') }),
+      email: z.string().email({ message: t('error_messages.email') }),
       firstName: z
         .string()
-        .min(1, { message: t('sign_up_error_messages.first_name') })
+        .min(1, { message: t('error_messages.first_name') })
         .max(20, {
-          message: t('sign_up_error_messages.first_name')
+          message: t('error_messages.first_name')
         }),
       lastName: z
         .string()
-        .min(1, { message: t('sign_up_error_messages.last_name') })
-        .max(20, { message: t('sign_up_error_messages.last_name') }),
+        .min(1, { message: t('error_messages.last_name') })
+        .max(20, { message: t('error_messages.last_name') }),
       password: z
         .string()
-        .min(8, { message: t('sign_up_error_messages.password.length') })
+        .min(8, { message: t('error_messages.password.length') })
         .regex(/[a-z]/, {
-          message: t('sign_up_error_messages.password.lowercase')
+          message: t('error_messages.password.lowercase')
         })
         .regex(/[A-Z]/, {
-          message: t('sign_up_error_messages.password.uppercase')
+          message: t('error_messages.password.uppercase')
         })
         .regex(/[0-9]/, {
-          message: t('sign_up_error_messages.password.number')
+          message: t('error_messages.password.number')
         })
         .regex(/[^a-zA-Z0-9]/, {
-          message: t('sign_up_error_messages.password.special')
+          message: t('error_messages.password.special')
         }),
       confirmPassword: z.string()
     })
     .refine((data) => data.password === data.confirmPassword, {
-      message: t('sign_up_error_messages.password.confirm'),
+      message: t('error_messages.password.confirm'),
       path: ['confirmPassword']
     })
 
@@ -53,11 +63,11 @@ const Page: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<IFormValues>({
+  } = useForm<ISignUpFormValues>({
     resolver: zodResolver(signUpSchema)
   })
 
-  const onSubmit = (data: IFormValues) => {
+  const onSubmit = (data: ISignUpFormValues) => {
     try {
       console.log('Submitted data: ', data)
     } catch (error) {
@@ -146,6 +156,7 @@ const Page: React.FC = () => {
             className="w-[90px] h-[38px]"
             color="primary"
             variant="bordered"
+            onPress={() => handleRedirect(ROUTE.auth.signin)}
           >
             {t('sign_in')}
           </Button>

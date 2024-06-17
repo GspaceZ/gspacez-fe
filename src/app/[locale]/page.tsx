@@ -35,12 +35,16 @@ export default function Home() {
               {t('slogan')}
             </span>
             <div className="flex flex-col md:flex-row mt-9 gap-[20px] md:gap-[40px] fixed md:relative bottom-[40px] md:bottom-0">
-              <Button color="primary" className="text-xl w-[150px] h-[48px]">
+              <Button
+                color="primary"
+                className="text-xl w-[150px] h-[48px]"
+                onPress={() => handleRedirect(ROUTE.auth.signin)}
+              >
                 {t('sign_in')}
               </Button>
               <Button
                 className="text-primary text-xl w-[150px] h-[48px]"
-                onPress={() => handleRedirect(ROUTE.home.signup)}
+                onPress={() => handleRedirect(ROUTE.auth.signup)}
               >
                 {t('sign_up')}
               </Button>
