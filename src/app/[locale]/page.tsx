@@ -1,12 +1,25 @@
+'use client'
+
 import Post from '@/components/common/Post'
 import BlankLayout from '@/components/layouts/BlankLayout'
 import { Button } from '@nextui-org/button'
 import { Image } from '@nextui-org/react'
 import { landingProfile, landingPost } from '@/utils/constant/landing'
 import { useTranslations } from 'next-intl'
+import { usePathname, useRouter } from 'next/navigation'
+import { pathWithLocale } from '@/helpers/path-with-locale'
+import { ROUTE } from '@/utils/constant/route'
 
 export default function Home() {
   const t = useTranslations('landing')
+
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const handleRedirect = (path: string) => {
+    const destinationPath = pathWithLocale(pathname, path)
+    router.push(destinationPath)
+  }
 
   return (
     <BlankLayout>
@@ -25,7 +38,10 @@ export default function Home() {
               <Button color="primary" className="text-xl w-[150px] h-[48px]">
                 {t('sign_in')}
               </Button>
-              <Button className="text-primary text-xl w-[150px] h-[48px]">
+              <Button
+                className="text-primary text-xl w-[150px] h-[48px]"
+                onPress={() => handleRedirect(ROUTE.home.signup)}
+              >
                 {t('sign_up')}
               </Button>
             </div>

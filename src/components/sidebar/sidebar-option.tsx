@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { pathWithLocale } from '@/utils/helpers/path-with-locale'
+import { pathWithLocale } from '@/helpers/path-with-locale'
 import { iconMap } from '@/utils/icons/icon-map'
 import { Button } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.6.0",
     "@nextui-org/react": "^2.4.1",
     "@reduxjs/toolkit": "^2.2.5",
     "framer-motion": "^11.2.10",
@@ -16,9 +17,11 @@
     "next-intl": "^3.14.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.52.0",
     "react-icons": "^5.2.1",
     "react-redux": "^9.1.2",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -1,32 +1,34 @@
+import { ROUTE } from '@/utils/constant/route'
+
 export const sidebarOptions = [
   {
     name: 'home',
     icon: 'GoHome',
-    path: 'home'
+    path: ROUTE.sidebar.home
   },
   {
     name: 'search',
     icon: 'GoSearch',
-    path: 'home'
+    path: ROUTE.sidebar.home
   },
   {
     name: 'profile',
     icon: 'CgProfile',
-    path: 'home'
+    path: ROUTE.sidebar.home
   },
   {
     name: 'your_pages',
     icon: 'LuFlag',
-    path: 'home'
+    path: ROUTE.sidebar.home
   },
   {
     name: 'events',
     icon: 'GoStopwatch',
-    path: 'home'
+    path: ROUTE.sidebar.home
   },
   {
     name: 'upcoming_streams',
     icon: 'CiStreamOn',
-    path: 'home'
+    path: ROUTE.sidebar.home
   }
 ]
