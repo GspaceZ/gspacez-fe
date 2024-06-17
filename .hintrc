@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "scrollbar-width",
+          "backdrop-filter",
+          "-webkit-tap-highlight-color",
+          "text-underline-offset",
+          "height: fit-content",
+          "-webkit-text-size-adjust"
+        ]
+      }
+    ]
+  }
+}

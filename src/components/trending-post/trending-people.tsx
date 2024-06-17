@@ -4,15 +4,14 @@ import * as React from 'react'
 import { Image } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
 
-export interface MaybeYouKnowProps {
+export interface TrendingPeopleProps {
   user: {
     name: string
     profileImage: string
   }
 }
-const MaybeYouKnow = ({ user }: MaybeYouKnowProps) => {
-  const t = useTranslations('maybeYouKnow')
-
+const TrendingPeople = ({ user }: TrendingPeopleProps) => {
+  
   return (
     <div className="flex items-center border-b border-gray-300 p-4">
       <Image
@@ -29,4 +28,4 @@ const MaybeYouKnow = ({ user }: MaybeYouKnowProps) => {
   )
 }
 
-export default MaybeYouKnow
+export default TrendingPeople

@@ -26,5 +26,11 @@
     "slogan": "Real comfortability",
     "sign_in": "Sign In",
     "sign_up": "Sign Up"
+  },
+  "trendingPosts" : {
+    "title-post": "Trending Posts",
+    "title-people": "Maybe You Know",
+    "more": "More",
+    "time": "Now"
   }
 }

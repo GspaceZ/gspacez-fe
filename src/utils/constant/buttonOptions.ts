@@ -19,7 +19,7 @@ export const buttonOptions = [
   },
   {
     name: 'messages',
-    icon: 'PiMessengerLogo',
+    icon: 'IoTrendingUpOutline',
     path: 'home',
     count: 0
   },

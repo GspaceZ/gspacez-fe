@@ -14,7 +14,7 @@ export interface TrendingPostProps {
 }
 
 const TrendingPost = ({ post }: TrendingPostProps) => {
-  const t = useTranslations('trendingPost')
+  const t = useTranslations('trendingPosts')
 
   return (
     <div className="flex items-start p-4 border-b border-gray-300">
@@ -29,7 +29,7 @@ const TrendingPost = ({ post }: TrendingPostProps) => {
           />
           <div className="ml-4">
             <span className="text-sm font-bold">{post.name}</span>
-            <span className="text-sm text-gray-500 block">{post.time}</span>
+            <span className="text-sm text-gray-500 block">{t('time')}</span>
           </div>
         </div>
         <div className="mt-2 flex-1">

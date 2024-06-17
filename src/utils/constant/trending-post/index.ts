@@ -17,15 +17,9 @@ export const trendingPostsData = [
     profileImage: '/profile.png',
     content: 'Super Trendings',
   },
-  {
-    name: '',
-    time: '',
-    profileImage: '',
-    content: '',
-  },
 ]
 
-export const maybeYouKnowData = [
+export const trendingPeopleData = [
   {
     name: 'Junior Garcia',
     profileImage: '/profile.png',

@@ -3,8 +3,9 @@
 import * as React from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
-import TrendingPosts from './TrendingPosts'
-import { trendingPostsData, maybeYouKnowData } from '@/utils/constant/trendingPostsData'
+import TrendingSidebar from './TrendingSidebar'
+import { trendingPostsData, trendingPeopleData } from '@/utils/constant/trending-post/index'
+import ButtonOption from '@/components/trending-post/button-option'
 import { buttonOptions } from '@/utils/constant/buttonOptions'
 import { useState } from 'react'
 
@@ -15,21 +16,47 @@ interface MainLayoutProps {
 
 const MainLayout = ({ children, title }: MainLayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [isTrendingSidebarOpen, setIsTrendingSidebarOpen] = useState(false)
+  const [selectedButtonIndex, setSelectedButtonIndex] = useState(-1);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen)
   }
 
+  const toggleTrendingSidebar = (index: number) => {
+    if (index === buttonOptions.length - 1) { 
+      setIsTrendingSidebarOpen(!isTrendingSidebarOpen);
+      setSelectedButtonIndex(isTrendingSidebarOpen ? -1 : index); 
+    }
+  };
+
   return (
-    <div>
+    <div className="relative min-h-screen flex">
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      <Header
-        title={title}
-        isSidebarOpen={isSidebarOpen}
-        toggleSidebar={toggleSidebar}
+      <div className={`flex-1 flex flex-col transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'ml-[300px]' : ''}`}>
+        <Header
+          title={title}
+          isSidebarOpen={isSidebarOpen}
+          toggleSidebar={toggleSidebar}
+        />
+        <main className="flex-1">{children}</main>
+      </div>
+      <TrendingSidebar
+        posts={trendingPostsData}
+        trendingPeople={trendingPeopleData}
+        buttons={buttonOptions}
+        isVisible={isTrendingSidebarOpen}
       />
-      <div>{children}</div>
-      <TrendingPosts posts={trendingPostsData} maybeYouKnows={maybeYouKnowData} buttons={buttonOptions} />
+      <div className={`md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 flex justify-around items-center z-20 transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-y-full' : 'translate-y-0'}`}>
+        {buttonOptions.map((buttonOption, index) => (
+          <ButtonOption
+            key={index}
+            button={buttonOption}
+            onClick={() => toggleTrendingSidebar(index)}
+            isActive={selectedButtonIndex === index}
+          />
+        ))}
+      </div>
     </div>
   )
 }
