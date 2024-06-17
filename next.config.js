@@ -1,8 +1,12 @@
-const createNextIntlPlugin = require("next-intl/plugin");
+const createNextIntlPlugin = require('next-intl/plugin')
 
-const withNextIntl = createNextIntlPlugin();
+const withNextIntl = createNextIntlPlugin()
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  compiler: {
+    styledComponents: true
+  }
+}
 
-module.exports = withNextIntl(nextConfig);
+module.exports = withNextIntl(nextConfig)
