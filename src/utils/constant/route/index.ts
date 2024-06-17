@@ -1,6 +1,7 @@
 export const ROUTE = {
-  home: {
-    signup: 'auth/signup'
+  auth: {
+    signup: 'auth/signup',
+    signin: 'auth/signin'
   },
   sidebar: {
     home: 'home'

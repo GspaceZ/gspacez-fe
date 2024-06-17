@@ -1,4 +1,4 @@
-export interface IFormValues {
+export interface ISignUpFormValues {
   email: string
   firstName: string
   lastName: string

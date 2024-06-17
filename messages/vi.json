@@ -42,7 +42,8 @@
     "password": "Mật khẩu",
     "confirm_password": "Xác nhận mật khẩu",
     "have_account": "Bạn có tài khoản?",
-    "sign_up_error_messages": {
+    "not_have_account": "Bạn chưa có tài khoản?",
+    "error_messages": {
       "email": "Vui lòng nhập địa chỉ email hợp lệ.",
       "first_name": "Tên phải dài từ 1 đến 20 ký tự.",
       "last_name": "Họ phải dài từ 1 đến 20 ký tự.",
