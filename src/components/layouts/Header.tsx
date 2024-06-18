@@ -14,7 +14,7 @@ const Header = ({ title, isSidebarOpen, toggleSidebar }: HeaderProps) => {
   return (
     <div
       className={`h-[80px] flex items-center border-b border-gray-200 shadow-md sticky top-0
-      ${isSidebarOpen ? 'md:ml-[300px]' : ''}`}
+      ${isSidebarOpen ? '-ml-[300px]' : ''}`}
     >
       <Button
         isIconOnly

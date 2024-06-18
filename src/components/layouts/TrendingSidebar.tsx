@@ -1,15 +1,9 @@
 'use client'
 
 import * as React from 'react'
-import TrendingPost, {
-  TrendingPostProps
-} from '@/components/trending-post/trending-post'
-import TrendingPeople, {
-  TrendingPeopleProps
-} from '@/components/trending-post/trending-people'
-import ButtonOption, {
-  ButtonOptionsProps
-} from '@/components/trending-post/button-option'
+import TrendingPost, { TrendingPostProps } from '@/components/trending-post/trending-post'
+import TrendingPeople, { TrendingPeopleProps } from '@/components/trending-post/trending-people'
+import ButtonOption, { ButtonOptionsProps } from '@/components/trending-post/button-option'
 import { useTranslations } from 'next-intl'
 
 interface TrendingSidebarProps {
@@ -19,17 +13,16 @@ interface TrendingSidebarProps {
   isVisible: boolean
 }
 
-const TrendingSidebar = ({
-  posts,
-  trendingPeople,
-  buttons,
-  isVisible
-}: TrendingSidebarProps) => {
+const TrendingSidebar = ({ posts, trendingPeople, buttons, isVisible }: TrendingSidebarProps) => {
   const t = useTranslations('trending_posts')
 
   return (
     <div
-      className={`fixed bottom-0 right-0 h-full w-[300px] bg-white shadow-md transform transition-transform duration-300 ease-in-out ${isVisible ? 'translate-x-0' : 'translate-x-full'} md:translate-x-0 md:w-[300px] md:h-screen md:top-0 md:right-0 md:flex md:flex-col md:border-l md:border-gray-300 md:shadow-md md:bg-white`}
+      className={`fixed bottom-0 right-0 h-full w-[300px] bg-white shadow-md transform 
+        transition-transform duration-300 ease-in-out ${
+          isVisible ? 'translate-x-0' : 'translate-x-full'
+        } md:translate-x-0 md:w-[300px] md:h-screen md:top-0 md:right-0 md:flex 
+        md:flex-col md:border-l md:border-gray-300 md:shadow-md md:bg-white`}
     >
       <div className="h-[80px] w-full flex justify-between items-center border-b border-gray-300 p-4">
         <span className="text-xl font-bold">{t('trending_post')}</span>

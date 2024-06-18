@@ -17,8 +17,10 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
 
   return (
     <div
-      className={`w-[300px] h-screen fixed top-0 left-0 flex flex-col border-r border-gray-200 shadow-md justify-between background-white bg-zinc-50 z-10
-    ${isSidebarOpen ? '' : 'hidden'}`}
+      className={`w-[300px] h-screen fixed top-0 left-0 flex flex-col border-r border-gray-200 shadow-md justify-between 
+        background-white bg-zinc-50 z-10 transition-transform duration-300 ${
+          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
     >
       <div>
         <div className="h-[80px] w-full flex justify-between items-center border-gray-200">

@@ -4,13 +4,11 @@ import * as React from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import TrendingSidebar from './TrendingSidebar'
-import {
-  trendingPostsData,
-  trendingPeopleData
-} from '@/utils/constant/trending-post/index'
+import { trendingPostsData, trendingPeopleData } from '@/utils/constant/trending-post/index'
 import ButtonOption from '@/components/trending-post/button-option'
 import { buttonOptions } from '@/utils/constant/buttonOptions'
 import { useState } from 'react'
+import Overlay from '../common/Overlay'
 
 interface MainLayoutProps {
   children: React.ReactNode
@@ -44,11 +42,8 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
           isSidebarOpen ? 'ml-[300px]' : ''
         }`}
       >
-        <Header
-          title={title}
-          isSidebarOpen={isSidebarOpen}
-          toggleSidebar={toggleSidebar}
-        />
+        <Overlay isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        <Header title={title} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <main className="flex-1">{children}</main>
       </div>
       <TrendingSidebar
@@ -62,9 +57,7 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
           isSidebarOpen ? 'translate-y-full' : 'translate-y-0'
         } md:hidden`}
       >
-        <div
-          className={`flex gap-4 ${buttonOptions.length > 0 ? 'order-last' : ''}`}
-        >
+        <div className={`flex gap-4 ${buttonOptions.length > 0 ? 'order-last' : ''}`}>
           {buttonOptions.map((buttonOption, index) => (
             <ButtonOption
               key={index}
