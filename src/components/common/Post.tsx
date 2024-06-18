@@ -30,7 +30,10 @@ const Post = ({ profile, post }: PostProps) => {
   }
 
   return (
-    <div className="max-w-[460px] w-full min-h-[220px] drop-shadow-md border border-gray-200 flex-col justify-between rounded-[20px] hidden md:flex">
+    <div
+      className="max-w-[460px] w-full min-h-[220px] drop-shadow-md border
+    border-gray-200 flex-col justify-between rounded-[20px] hidden md:flex"
+    >
       <div className="mx-3 md:mx-6 mt-4 flex flex-col items-start gap-[20px]">
         <div className="flex justify-between w-full items-start">
           <User
@@ -40,12 +43,7 @@ const Post = ({ profile, post }: PostProps) => {
             className="text-xl font-bold"
           />
           <div className="flex flex-col items-end">
-            <Button
-              isIconOnly
-              className="text-2xl"
-              variant="light"
-              onPress={() => toggleMenu()}
-            >
+            <Button isIconOnly className="text-2xl" variant="light" onPress={() => toggleMenu()}>
               <CiCircleMore />
             </Button>
             <div
@@ -53,18 +51,10 @@ const Post = ({ profile, post }: PostProps) => {
                 isMenuOpen ? '' : 'hidden'
               } border border-gray-200 flex flex-col rounded-[8px] absolute top-[55px] right-[30px]`}
             >
-              <Button
-                variant="light"
-                className="w-[80px] h-[30px]"
-                radius="none"
-              >
+              <Button variant="light" className="w-[80px] h-[30px]" radius="none">
                 {t('hide')}
               </Button>
-              <Button
-                variant="light"
-                className="w-[80px] h-[30px]"
-                radius="none"
-              >
+              <Button variant="light" className="w-[80px] h-[30px]" radius="none">
                 {t('report')}
               </Button>
             </div>
@@ -75,9 +65,7 @@ const Post = ({ profile, post }: PostProps) => {
         </span>
         <Button
           variant="light"
-          className={`text-gray-500 w-fit ${
-            content.isNeedReadMore ? '' : 'hidden'
-          }`}
+          className={`text-gray-500 w-fit ${content.isNeedReadMore ? '' : 'hidden'}`}
         >
           {t('read_more')}
         </Button>
@@ -86,18 +74,10 @@ const Post = ({ profile, post }: PostProps) => {
         <Button variant="light" startContent={<GoStar />} className="text-base">
           {t('like')}
         </Button>
-        <Button
-          variant="light"
-          startContent={<GoComment />}
-          className="text-base"
-        >
+        <Button variant="light" startContent={<GoComment />} className="text-base">
           {t('comment')}
         </Button>
-        <Button
-          variant="light"
-          startContent={<GoPaperAirplane />}
-          className="text-base"
-        >
+        <Button variant="light" startContent={<GoPaperAirplane />} className="text-base">
           {t('share')}
         </Button>
       </div>
