@@ -9,6 +9,6 @@ const Page = () => {
       <div></div>
     </MainLayout>
   )
-}
+} 
 
 export default Page
