@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { ISignInFormValues } from '@/helpers/form-value/signin-value'
 import { usePathname, useRouter } from 'next/navigation'
-import { pathWithLocale } from '@/helpers/path-with-locale'
+import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
 
 const Page: React.FC = () => {
@@ -48,9 +48,7 @@ const Page: React.FC = () => {
     <AuthLayout>
       <div className="mt-[50px] flex flex-col w-[360px] md:w-[420px] min-h-[420px] rounded-[20px] border border-gray-200 justify-between shadow-md">
         <div className="flex flex-col items-center">
-          <span className="text-3xl font-extrabold mt-[20px]">
-            {t('sign_in')}
-          </span>
+          <span className="text-3xl font-extrabold mt-[20px]">{t('sign_in')}</span>
           <form className="flex flex-col items-center w-fit mt-[20px] gap-[14px]">
             <InputWithError>
               <Input
@@ -70,19 +68,13 @@ const Page: React.FC = () => {
                 size="lg"
               />
             </InputWithError>
-            <Button
-              className="w-[90px] h-[38px]"
-              color="primary"
-              onClick={handleSubmit(onSubmit)}
-            >
+            <Button className="w-[90px] h-[38px]" color="primary" onClick={handleSubmit(onSubmit)}>
               {t('sign_in')}
             </Button>
           </form>
         </div>
         <div className="flex mx-auto flex items-center mb-[30px] mt-[40px] gap-[10px]">
-          <span className="text-gray-500 font-bold">
-            {t('not_have_account')}
-          </span>
+          <span className="text-gray-500 font-bold">{t('not_have_account')}</span>
           <Button
             className="w-[90px] h-[38px]"
             color="primary"

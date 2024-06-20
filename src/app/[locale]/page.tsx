@@ -7,7 +7,7 @@ import { Image } from '@nextui-org/react'
 import { landingProfile, landingPost } from '@/utils/constant/landing'
 import { useTranslations } from 'next-intl'
 import { usePathname, useRouter } from 'next/navigation'
-import { pathWithLocale } from '@/helpers/path-with-locale'
+import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
 
 export default function Home() {
@@ -31,9 +31,7 @@ export default function Home() {
         <div className="mt-[60px] md:mt-[150px] gap-[200px] md:justify-center flex flex-col md:flex-row items-center w-full">
           <div className="flex flex-col items-center w-full md:w-fit">
             <Image className="w-[240px]" alt="Logo" src="/logo.png" />
-            <span className="font-bold text-gray-500 text-4xl mt-3">
-              {t('slogan')}
-            </span>
+            <span className="font-bold text-gray-500 text-4xl mt-3">{t('slogan')}</span>
             <div className="flex flex-col md:flex-row mt-9 gap-[20px] md:gap-[40px] fixed md:relative bottom-[40px] md:bottom-0">
               <Button
                 color="primary"

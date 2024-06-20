@@ -37,7 +37,7 @@ const Post = ({ profile, post }: PostProps) => {
       <div className="mx-3 md:mx-6 mt-4 flex flex-col items-start gap-[20px]">
         <div className="flex justify-between w-full items-start">
           <User
-            name={fullName(profile)}
+            name={fullName(profile.firstName, profile.lastName)}
             description={postTime(post)}
             avatarProps={{ src: profile.avtUrl }}
             className="text-xl font-bold"
