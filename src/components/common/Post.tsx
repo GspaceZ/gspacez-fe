@@ -1,7 +1,5 @@
 'use client'
 
-import { PostType } from '@/types/post'
-import { Profile } from '@/types/profile'
 import { fullName } from '@/helpers/user/full-name'
 import { postTime } from '@/helpers/post/post-time'
 import { User } from '@nextui-org/user'
@@ -12,11 +10,7 @@ import { useTranslations } from 'next-intl'
 import { GoComment, GoPaperAirplane, GoStar } from 'react-icons/go'
 import { CiCircleMore } from 'react-icons/ci'
 import { useState } from 'react'
-
-interface PostProps {
-  profile: Profile
-  post: PostType
-}
+import { PostProps } from '@/types/props/common'
 
 const Post = ({ profile, post }: PostProps) => {
   const t = useTranslations('post')

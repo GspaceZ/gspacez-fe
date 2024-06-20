@@ -1,17 +1,11 @@
 'use client'
 
 import * as React from 'react'
-import TrendingPost, { TrendingPostProps } from '@/components/trending-post/trending-post'
-import TrendingPeople, { TrendingPeopleProps } from '@/components/trending-post/trending-people'
-import ButtonOption, { ButtonOptionsProps } from '@/components/trending-post/button-option'
+import TrendingPost from '@/components/trending-post/trending-post'
+import TrendingPeople from '@/components/trending-post/trending-people'
+import ButtonOption from '@/components/trending-post/button-option'
 import { useTranslations } from 'next-intl'
-
-interface TrendingSidebarProps {
-  posts: TrendingPostProps['post'][]
-  trendingPeople: TrendingPeopleProps['user'][]
-  buttons: ButtonOptionsProps['button'][]
-  isVisible: boolean
-}
+import { TrendingSidebarProps } from '@/types/props/layouts'
 
 const TrendingSidebar = ({ posts, trendingPeople, buttons, isVisible }: TrendingSidebarProps) => {
   const t = useTranslations('trending_posts')

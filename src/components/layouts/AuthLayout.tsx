@@ -2,10 +2,7 @@
 
 import * as React from 'react'
 import { Image } from '@nextui-org/react'
-
-interface AuthLayoutProps {
-  children: React.ReactNode
-}
+import { AuthLayoutProps } from '@/types/props/layouts'
 
 const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
