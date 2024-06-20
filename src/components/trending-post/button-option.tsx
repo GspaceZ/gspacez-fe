@@ -2,17 +2,7 @@
 
 import * as React from 'react'
 import { iconMap } from '@/utils/icons/icon-map'
-
-export interface ButtonOptionsProps {
-  button: {
-    name: string
-    icon: string
-    path: string
-    count?: number
-  }
-  onClick?: () => void
-  isActive?: boolean
-}
+import { ButtonOptionsProps } from '@/types/props/layouts'
 
 const ButtonOption = ({ button, onClick, isActive }: ButtonOptionsProps) => {
   const IconComponent = iconMap[button.icon]

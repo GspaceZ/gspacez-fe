@@ -1,9 +1,6 @@
 'use client'
 
-interface OverlayProps {
-  isSidebarOpen: boolean
-  toggleSidebar: () => void
-}
+import { OverlayProps } from '@/types/props/common'
 
 const Overlay = ({ isSidebarOpen, toggleSidebar }: OverlayProps) => {
   return (

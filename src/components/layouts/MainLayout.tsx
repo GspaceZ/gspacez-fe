@@ -9,11 +9,7 @@ import ButtonOption from '@/components/trending-post/button-option'
 import { buttonOptions } from '@/utils/constant/buttonOptions'
 import { useState } from 'react'
 import Overlay from '../common/Overlay'
-
-interface MainLayoutProps {
-  children: React.ReactNode
-  title: string
-}
+import { MainLayoutProps } from '@/types/props/layouts'
 
 const MainLayout = ({ children, title }: MainLayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)

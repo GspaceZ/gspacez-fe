@@ -3,12 +3,7 @@
 import { GoSidebarCollapse } from 'react-icons/go'
 import * as React from 'react'
 import { Button } from '@nextui-org/react'
-
-interface HeaderProps {
-  title: string
-  isSidebarOpen: boolean
-  toggleSidebar: () => void
-}
+import { HeaderProps } from '@/types/props/layouts'
 
 const Header = ({ title, isSidebarOpen, toggleSidebar }: HeaderProps) => {
   return (

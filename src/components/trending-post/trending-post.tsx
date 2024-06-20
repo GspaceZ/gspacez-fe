@@ -3,15 +3,7 @@
 import * as React from 'react'
 import { Image } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
-
-export interface TrendingPostProps {
-  post: {
-    name: string
-    time: string
-    profileImage: string
-    content: string
-  }
-}
+import { TrendingPostProps } from '@/types/props/layouts'
 
 const TrendingPost = ({ post }: TrendingPostProps) => {
   const t = useTranslations('trending_posts')
