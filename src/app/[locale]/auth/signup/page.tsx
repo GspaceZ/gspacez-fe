@@ -11,7 +11,11 @@ import { ISignUpFormValues } from '@/helpers/form-value/signup-value'
 import InputWithError from '@/components/common/InputWithError'
 import { ROUTE } from '@/utils/constant/route'
 import { usePathname, useRouter } from 'next/navigation'
-import { pathWithLocale } from '@/helpers/path-with-locale'
+import { pathWithLocale } from '@/helpers/url/path-with-locale'
+import { sendActivationMail } from '@/app/api/route/send-activation'
+import { getLocale } from '@/helpers/url/get-locale'
+import { generateActivationLink } from '@/helpers/activation/activation-link'
+import { getBaseUrl } from '@/helpers/url/base-url'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
@@ -67,9 +71,20 @@ const Page: React.FC = () => {
     resolver: zodResolver(signUpSchema)
   })
 
-  const onSubmit = (data: ISignUpFormValues) => {
+  const onSubmit = async (data: ISignUpFormValues) => {
     try {
+      const locale = getLocale(pathname)
+      const baseUrl = getBaseUrl()
+      const activationLink = generateActivationLink({ email: data.email, locale, baseUrl })
+      console.log(activationLink)
+      await sendActivationMail({
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        activationLink
+      })
       console.log('Submitted data: ', data)
+      handleRedirect(ROUTE.auth.activate)
     } catch (error) {
       console.error('Error: ', error)
     }
@@ -79,9 +94,7 @@ const Page: React.FC = () => {
     <AuthLayout>
       <div className="mt-[50px] flex flex-col w-[360px] md:w-[420px] min-h-[485px] rounded-[20px] border border-gray-200 justify-between shadow-md">
         <div className="flex flex-col items-center">
-          <span className="text-3xl font-extrabold mt-[20px]">
-            {t('sign_up')}
-          </span>
+          <span className="text-3xl font-extrabold mt-[20px]">{t('sign_up')}</span>
           <form className="flex flex-col items-center w-fit mt-[20px] gap-[14px]">
             <InputWithError>
               <Input
@@ -110,12 +123,8 @@ const Page: React.FC = () => {
                   size="lg"
                 />
               </div>
-              <p className="text-red-500 text-sm">
-                {errors?.firstName?.message}
-              </p>
-              <p className="text-red-500 text-sm">
-                {errors?.lastName?.message}
-              </p>
+              <p className="text-red-500 text-sm">{errors?.firstName?.message}</p>
+              <p className="text-red-500 text-sm">{errors?.lastName?.message}</p>
             </InputWithError>
             <InputWithError>
               <Input
@@ -125,9 +134,7 @@ const Page: React.FC = () => {
                 className="w-[314px] md:w-[340px] h-[48px]"
                 size="lg"
               />
-              <p className="text-red-500 text-sm">
-                {errors?.password?.message}
-              </p>
+              <p className="text-red-500 text-sm">{errors?.password?.message}</p>
             </InputWithError>
             <InputWithError>
               <Input
@@ -137,15 +144,9 @@ const Page: React.FC = () => {
                 className="w-[314px] md:w-[340px] h-[48px]"
                 size="lg"
               />
-              <p className="text-red-500 text-sm">
-                {errors?.confirmPassword?.message}
-              </p>
+              <p className="text-red-500 text-sm">{errors?.confirmPassword?.message}</p>
             </InputWithError>
-            <Button
-              className="w-[90px] h-[38px]"
-              color="primary"
-              onClick={handleSubmit(onSubmit)}
-            >
+            <Button className="w-[90px] h-[38px]" color="primary" onClick={handleSubmit(onSubmit)}>
               {t('sign_up')}
             </Button>
           </form>

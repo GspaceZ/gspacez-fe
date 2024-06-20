@@ -55,6 +55,12 @@
         "special": "Mật khẩu phải chứa ít nhất một ký tự đặc biệt.",
         "confirm": "Mật khẩu không khớp. Vui lòng thử lại."
       }
+    },
+    "activate": {
+      "welcome": "Chào mừng tới Fakebook!",
+      "mail_sent": "Mail kích hoạt đã được gửi! Vui lòng kiểm tra email",
+      "success": "Kích hoạt thành công!",
+      "and_start_now": " và Bắt đầu ngay bây giờ!"
     }
   }
 }

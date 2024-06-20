@@ -43,7 +43,7 @@
     "confirm_password": "Confirm password",
     "have_account": "You have account?",
     "not_have_account": "You don't have any account?",
-    "sign_up_error_messages": {
+    "error_messages": {
       "email": "Please enter a valid email address.",
       "first_name": "First name must be between 1 and 20 characters.",
       "last_name": "Last name must be between 1 and 20 characters.",
@@ -55,6 +55,12 @@
         "special": "Password must contain at least one special character.",
         "confirm": "Those passwords don't match. Please try again."
       }
+    },
+    "activate": {
+      "welcome": "Welcome to Fakebook!",
+      "mail_sent": "Activation Mail is sent! Please check your email!",
+      "success": "Activated Successfully!",
+      "and_start_now": " and Start now!"
     }
   }
 }
