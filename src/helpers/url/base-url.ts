@@ -1,5 +1,5 @@
 export const getBaseUrl = () => {
-  if (process.env.NODE_ENV === 'development') {
+  if (typeof window !== 'undefined') {
     console.log(window.location.origin)
     return window.location.origin
   } else {
