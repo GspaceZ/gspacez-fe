@@ -40,28 +40,30 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
       >
         <Overlay isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <Header title={title} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        <main className="flex-1">{children}</main>
-      </div>
-      <TrendingSidebar
-        posts={trendingPostsData}
-        trendingPeople={trendingPeopleData}
-        buttons={buttonOptions}
-        isVisible={isTrendingSidebarOpen}
-      />
-      <div
-        className={`fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 flex justify-around items-center z-20 transition-transform duration-300 ease-in-out ${
-          isSidebarOpen ? 'translate-y-full' : 'translate-y-0'
-        } md:hidden`}
-      >
-        <div className={`flex gap-4 ${buttonOptions.length > 0 ? 'order-last' : ''}`}>
-          {buttonOptions.map((buttonOption, index) => (
-            <ButtonOption
-              key={index}
-              button={buttonOption}
-              onClick={() => handleButtonOptionClick(index)}
-              isActive={selectedButtonIndex === index}
-            />
-          ))}
+        <main className="flex-1">
+          {children}
+        </main>
+        <TrendingSidebar
+          posts={trendingPostsData}
+          trendingPeople={trendingPeopleData}
+          buttons={buttonOptions}
+          isVisible={isTrendingSidebarOpen}
+        />
+        <div
+          className={`fixed bottom-0 left-0 right-0 bg-white shadow-lg px-2 py-1 flex justify-around items-center transition-transform duration-300 ease-in-out ${
+            isSidebarOpen ? 'translate-y-full' : 'translate-y-0'
+          } md:hidden`}
+        >
+          <div className="flex justify-between w-full mx-2">
+            {buttonOptions.map((buttonOption, index) => (
+              <ButtonOption
+                key={index}
+                button={buttonOption}
+                onClick={() => handleButtonOptionClick(index)}
+                isActive={selectedButtonIndex === index}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
