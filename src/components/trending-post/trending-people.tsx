@@ -2,17 +2,11 @@
 
 import * as React from 'react'
 import { Image } from '@nextui-org/react'
+import { TrendingPeopleProps } from '@/types/props/layouts'
 
-export interface TrendingPeopleProps {
-  user: {
-    name: string
-    profileImage: string
-  }
-}
 const TrendingPeople = ({ user }: TrendingPeopleProps) => {
-  
   return (
-    <div className="flex items-center border-b border-gray-300 p-4">
+    <div className="flex items-center rounded-lg md:rounded-none border border-gray-300 mx-4 md:m-0 p-4 cursor-pointer hover:bg-gray-200">
       <Image
         src={user.profileImage}
         alt={user.name}

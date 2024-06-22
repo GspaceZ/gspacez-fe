@@ -3,21 +3,13 @@
 import * as React from 'react'
 import { Image } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
-
-export interface TrendingPostProps {
-  post: {
-    name: string
-    time: string
-    profileImage: string
-    content: string
-  }
-}
+import { TrendingPostProps } from '@/types/props/layouts'
 
 const TrendingPost = ({ post }: TrendingPostProps) => {
   const t = useTranslations('trending_posts')
 
   return (
-    <div className="flex items-start p-4 border-b border-gray-300">
+    <div className="flex items-center rounded-2xl md:rounded-none border border-gray-300 m-4 md:m-0 p-4 cursor-pointer hover:bg-gray-200">
       <div className="flex flex-col">
         <div className="flex">
           <Image

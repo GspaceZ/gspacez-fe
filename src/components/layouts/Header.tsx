@@ -3,18 +3,13 @@
 import { GoSidebarCollapse } from 'react-icons/go'
 import * as React from 'react'
 import { Button } from '@nextui-org/react'
-
-interface HeaderProps {
-  title: string
-  isSidebarOpen: boolean
-  toggleSidebar: () => void
-}
+import { HeaderProps } from '@/types/props/layouts'
 
 const Header = ({ title, isSidebarOpen, toggleSidebar }: HeaderProps) => {
   return (
     <div
       className={`h-[80px] flex items-center border-b border-gray-200 shadow-md sticky top-0
-      ${isSidebarOpen ? 'md:ml-[300px]' : ''}`}
+      ${isSidebarOpen ? '-ml-[300px] hidden md:flex' : ''}`}
     >
       <Button
         isIconOnly

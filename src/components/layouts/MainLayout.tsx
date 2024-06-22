@@ -4,18 +4,12 @@ import * as React from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import TrendingSidebar from './TrendingSidebar'
-import {
-  trendingPostsData,
-  trendingPeopleData
-} from '@/utils/constant/trending-post/index'
+import { trendingPostsData, trendingPeopleData } from '@/utils/constant/trending-post/index'
 import ButtonOption from '@/components/trending-post/button-option'
 import { buttonOptions } from '@/utils/constant/buttonOptions'
 import { useState } from 'react'
-
-interface MainLayoutProps {
-  children: React.ReactNode
-  title: string
-}
+import Overlay from '../common/Overlay'
+import { MainLayoutProps } from '@/types/props/layouts'
 
 const MainLayout = ({ children, title }: MainLayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -44,35 +38,32 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
           isSidebarOpen ? 'ml-[300px]' : ''
         }`}
       >
-        <Header
-          title={title}
-          isSidebarOpen={isSidebarOpen}
-          toggleSidebar={toggleSidebar}
+        <Overlay isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        <Header title={title} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        <main className="flex-1">
+          {children}
+        </main>
+        <TrendingSidebar
+          posts={trendingPostsData}
+          trendingPeople={trendingPeopleData}
+          buttons={buttonOptions}
+          isVisible={isTrendingSidebarOpen}
         />
-        <main className="flex-1">{children}</main>
-      </div>
-      <TrendingSidebar
-        posts={trendingPostsData}
-        trendingPeople={trendingPeopleData}
-        buttons={buttonOptions}
-        isVisible={isTrendingSidebarOpen}
-      />
-      <div
-        className={`fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 flex justify-around items-center z-20 transition-transform duration-300 ease-in-out ${
-          isSidebarOpen ? 'translate-y-full' : 'translate-y-0'
-        } md:hidden`}
-      >
         <div
-          className={`flex gap-4 ${buttonOptions.length > 0 ? 'order-last' : ''}`}
+          className={`fixed bottom-0 left-0 right-0 bg-white shadow-lg px-2 py-1 flex justify-around items-center transition-transform duration-300 ease-in-out ${
+            isSidebarOpen ? 'translate-y-full' : 'translate-y-0'
+          } md:hidden`}
         >
-          {buttonOptions.map((buttonOption, index) => (
-            <ButtonOption
-              key={index}
-              button={buttonOption}
-              onClick={() => handleButtonOptionClick(index)}
-              isActive={selectedButtonIndex === index}
-            />
-          ))}
+          <div className="flex justify-between w-full mx-2">
+            {buttonOptions.map((buttonOption, index) => (
+              <ButtonOption
+                key={index}
+                button={buttonOption}
+                onClick={() => handleButtonOptionClick(index)}
+                isActive={selectedButtonIndex === index}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
