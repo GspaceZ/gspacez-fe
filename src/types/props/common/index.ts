@@ -1,9 +1,9 @@
-import { PostType } from '@/types/post'
-import { Profile } from '@/types/profile'
+import { IPost } from '@/types/post'
+import { IProfile } from '@/types/profile'
 
 export interface PostProps {
-  profile: Profile
-  post: PostType
+  profile: IProfile
+  post: IPost
 }
 
 export interface OverlayProps {

@@ -62,5 +62,20 @@
       "success": "Kích hoạt thành công!",
       "and_start_now": " và Bắt đầu ngay bây giờ!"
     }
+  },
+  "profile": {
+    "choose_avatar": "Chọn ảnh đại diện khác",
+    "first_name": "Tên",
+    "last_name": "Họ",
+    "country": "Quốc gia",
+    "city": "Thành phố",
+    "address": "Địa chỉ",
+    "dob": "Ngày sinh",
+    "save": "Lưu hồ sơ",
+    "cancel": "Hủy",
+    "error_messages": {
+      "first_name": "Tên phải có từ 1 đến 20 ký tự.",
+      "last_name": "Họ phải có từ 1 đến 20 ký tự."
+    }
   }
 }

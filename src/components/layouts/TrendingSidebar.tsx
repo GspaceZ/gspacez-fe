@@ -27,7 +27,7 @@ const TrendingSidebar = ({ posts, trendingPeople, buttons, isVisible }: Trending
       <div className="flex flex-col m-0 h-full overflow-y-auto md:border md:border-gray-300">
         <div className="flex justify-between md:border-l md:border-gray-300 px-4 py-5">
           <span className="text-xl font-bold p-1">{t('trending_post')}</span>
-          <Button 
+          <Button
             onPress={() => handleRedirect()}
             className="text-lg text-blue-500 bg-transparent border-none cursor-pointer -mx-3"
           >
@@ -41,7 +41,7 @@ const TrendingSidebar = ({ posts, trendingPeople, buttons, isVisible }: Trending
         </div>
         <div className="flex justify-between md:border md:border-gray-300 px-4 py-5 mt-[50px]">
           <span className="text-xl font-bold p-1">{t('trending_people')}</span>
-          <Button 
+          <Button
             onPress={() => handleRedirect()}
             className="text-lg text-blue-500 bg-transparent border-none cursor-pointer -mx-3"
           >

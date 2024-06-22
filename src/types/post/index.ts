@@ -1,6 +1,6 @@
 import { PostPrivacyEnum, PostTypeEnum } from '@/utils/constant'
 
-export interface PostType {
+export interface IPost {
   id: string
   authorId: string
   content: string
