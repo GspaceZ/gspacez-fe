@@ -132,5 +132,20 @@
       "cancel": "Cancel",
       "choose_avatar": "Choose an avatar from your device"
     }
+  },
+  "profile": {
+    "choose_avatar": "Choose another avatar",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "country": "Country",
+    "city": "City",
+    "address": "Address",
+    "dob": "Date of birth",
+    "save": "Save profile",
+    "cancel": "Cancel",
+    "error_messages": {
+      "first_name": "First name must be between 1 and 20 characters.",
+      "last_name": "Last name must be between 1 and 20 characters."
+    }
   }
 }
