@@ -9,9 +9,20 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { IForgotPasswordFormValues } from '@/helpers/form-value/forgotpassword-value'
+import { usePathname, useRouter } from 'next/navigation'
+import { pathWithLocale } from '@/helpers/url/path-with-locale'
+import { ROUTE } from '@/utils/constant/route'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth.forgot_password')
+
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleRedirect = (path: string) => {
+    const destinationPath = pathWithLocale(pathname, path)
+    router.push(destinationPath)
+  }
 
   const forgotPasswordSchema = z.object({
     email: z.string().email({ message: t('error_messages.email') })
@@ -28,6 +39,7 @@ const Page: React.FC = () => {
   const onSubmit = (data: IForgotPasswordFormValues) => {
     try {
       console.log('Submitted data: ', data)
+      handleRedirect(ROUTE.auth.recovery_email)
     } catch (error) {
       console.error('Error: ', error)
     }

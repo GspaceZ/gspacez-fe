@@ -70,6 +70,10 @@
         "email": "Please enter a valid email address."
       }
     },
-    "forgot_password_button": "Forgot Password?"
+    "forgot_password_button": "Forgot Password?",
+    "recovery_email": {
+      "forgot_password": "Forgot Password",
+      "recovery_notification": "Recovery Mail is sent! Please check your email!"
+    }
   }
 }

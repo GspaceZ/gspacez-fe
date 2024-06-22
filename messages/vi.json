@@ -70,6 +70,10 @@
         "email": "Vui lòng nhập địa chỉ email hợp lệ."
       }
     },
-    "forgot_password_button": "Quên mật khẩu?"
+    "forgot_password_button": "Quên mật khẩu?",
+    "recovery_email": {
+      "forgot_password": "Quên mật khẩu",
+      "recovery_notification": "Thư khôi phục đã được gửi! Vui lòng kiểm tra email của bạn!"
+    }
   }
 }

@@ -76,7 +76,11 @@ const Page: React.FC = () => {
                 {t('forgot_password_button')}
               </Button>
             </div>
-            <Button className="w-[90px] h-[38px] mt-4" color="primary" onClick={handleSubmit(onSubmit)}>
+            <Button
+              className="w-[90px] h-[38px] mt-4"
+              color="primary"
+              onClick={handleSubmit(onSubmit)}
+            >
               {t('sign_in')}
             </Button>
           </form>
