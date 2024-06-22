@@ -68,7 +68,15 @@ const Page: React.FC = () => {
                 size="lg"
               />
             </InputWithError>
-            <Button className="w-[90px] h-[38px]" color="primary" onClick={handleSubmit(onSubmit)}>
+            <div className="flex justify-end w-full mr-2 -mt-2">
+              <Button
+                className="text-[16px] text-gray-500 font-bold bg-white border-none cursor-pointer -p-2"
+                onPress={() => handleRedirect(ROUTE.auth.forgot_password)}
+              >
+                {t('forgot_password_button')}
+              </Button>
+            </div>
+            <Button className="w-[90px] h-[38px] mt-4" color="primary" onClick={handleSubmit(onSubmit)}>
               {t('sign_in')}
             </Button>
           </form>
