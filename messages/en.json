@@ -61,6 +61,19 @@
       "mail_sent": "Activation Mail is sent! Please check your email!",
       "success": "Activated Successfully!",
       "and_start_now": " and Start now!"
+    },
+    "forgot_password": {
+      "send_recovery_email": "Send Recovery Email",
+      "forgot_password": "Forgot Password",
+      "email": "Email",
+      "error_messages": {
+        "email": "Please enter a valid email address."
+      }
+    },
+    "forgot_password_button": "Forgot Password?",
+    "recovery_email": {
+      "forgot_password": "Forgot Password",
+      "recovery_notification": "Recovery Mail is sent! Please check your email!"
     }
   }
 }

@@ -61,6 +61,19 @@
       "mail_sent": "Mail kích hoạt đã được gửi! Vui lòng kiểm tra email",
       "success": "Kích hoạt thành công!",
       "and_start_now": " và Bắt đầu ngay bây giờ!"
+    },
+    "forgot_password": {
+      "send_recovery_email": "Gửi email khôi phục",
+      "forgot_password": "Quên mật khẩu",
+      "email": "Email",
+      "error_messages": {
+        "email": "Vui lòng nhập địa chỉ email hợp lệ."
+      }
+    },
+    "forgot_password_button": "Quên mật khẩu?",
+    "recovery_email": {
+      "forgot_password": "Quên mật khẩu",
+      "recovery_notification": "Thư khôi phục đã được gửi! Vui lòng kiểm tra email của bạn!"
     }
   }
 }
