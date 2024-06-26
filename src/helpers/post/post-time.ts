@@ -1,6 +1,6 @@
-import { PostType } from '@/types/post'
+import { IPost } from '@/types/post'
 
-export const postTime = (post: PostType): string => {
+export const postTime = (post: IPost): string => {
   const now = new Date()
   const postCreatedAt = new Date(post.createdAt)
   const timeDiff = now.getTime() - postCreatedAt.getTime()
@@ -27,7 +27,7 @@ export const postTime = (post: PostType): string => {
         month: 'long',
         day: 'numeric'
       })
-      return `${formattedDate} ago`
+      return `${formattedDate}`
     } else {
       const formattedDate = postCreatedAt.toLocaleDateString('en-US', {
         weekday: 'short',
@@ -35,7 +35,7 @@ export const postTime = (post: PostType): string => {
         day: 'numeric',
         year: 'numeric'
       })
-      return `${formattedDate} ago`
+      return `${formattedDate}`
     }
   }
 }

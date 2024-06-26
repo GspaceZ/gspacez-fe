@@ -40,9 +40,7 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
       >
         <Overlay isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <Header title={title} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        <main className="flex-1">
-          {children}
-        </main>
+        <main className="flex-1 md:mr-[300px]">{children}</main>
         <TrendingSidebar
           posts={trendingPostsData}
           trendingPeople={trendingPeopleData}

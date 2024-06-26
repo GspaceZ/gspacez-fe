@@ -54,8 +54,8 @@ const Page: React.FC = () => {
               <Input
                 type="email"
                 {...register('email')}
-                placeholder={t('email')}
-                className="w-[314px] md:w-[340px] h-[48px]"
+                label={t('email')}
+                className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
               />
               <p className="text-red-500 text-sm">{errors?.email?.message}</p>
@@ -63,8 +63,8 @@ const Page: React.FC = () => {
             <InputWithError>
               <Input
                 type="password"
-                placeholder={t('password')}
-                className="w-[314px] md:w-[340px] h-[48px]"
+                label={t('password')}
+                className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
               />
             </InputWithError>

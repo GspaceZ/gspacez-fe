@@ -1,5 +1,5 @@
-import { Profile } from '@/types/profile'
-import { PostPrivacyEnum, PostTypeEnum } from '..'
+import { IProfile } from '@/types/profile'
+import { PostPrivacyEnum, PostTypeEnum } from '../../utils/constant'
 
 export const landingProfile = {
   id: '12334',
@@ -15,7 +15,7 @@ export const landingProfile = {
   firstName: 'Fakebook',
   lastName: 'User',
   isActivated: true
-} as Profile
+} as IProfile
 
 export const landingPost = {
   id: '12334',
