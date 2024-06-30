@@ -1,7 +1,9 @@
 {
   "title": {
     "app": "Fakebook",
-    "home": "Trang chủ"
+    "home": "Trang chủ",
+    "profile": "Hồ sơ",
+    "avatar": "Ảnh đại diện"
   },
   "sidebar": {
     "home": "Trang chủ",

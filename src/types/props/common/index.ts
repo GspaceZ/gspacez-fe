@@ -10,3 +10,9 @@ export interface OverlayProps {
   isSidebarOpen: boolean
   toggleSidebar: () => void
 }
+
+export interface FImageProps {
+  src: string
+  alt: string
+  className?: string
+}

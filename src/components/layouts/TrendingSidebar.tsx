@@ -20,12 +20,12 @@ const TrendingSidebar = ({ posts, trendingPeople, buttons, isVisible }: Trending
   return (
     <div
       className={`fixed bottom-0 right-0 h-[88vh] w-[100vw] overflow-y-auto pb-[12vh] border-l border-gray-300 bg-white shadow-md transform border-none
-        transition-transform duration-300 ease-in-out ${
+        transition-transform duration-300 ease-in-out bg-white ${
           isVisible ? 'translate-y-0' : 'translate-y-full'
         } md:pb-0 md:translate-y-0 md:translate-x-0 md:h-full md:w-[300px] md:h-screen md:border-l md:border-gray-300 md:flex md:flex-col`}
     >
       <div className="flex flex-col m-0 h-full overflow-y-auto md:border md:border-gray-300">
-        <div className="flex justify-between md:border-l md:border-gray-300 px-4 py-5">
+        <div className="flex justify-between md:border-l md:border-gray-300 px-4 py-5 z-10">
           <span className="text-xl font-bold p-1">{t('trending_post')}</span>
           <Button
             onPress={() => handleRedirect()}
