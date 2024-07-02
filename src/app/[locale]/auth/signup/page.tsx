@@ -100,8 +100,8 @@ const Page: React.FC = () => {
               <Input
                 type="email"
                 {...register('email')}
-                placeholder={t('email')}
-                className="w-[314px] md:w-[340px] h-[48px]"
+                label={t('email')}
+                className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
               />
               <p className="text-red-500 text-sm">{errors?.email?.message}</p>
@@ -111,15 +111,15 @@ const Page: React.FC = () => {
                 <Input
                   type="text"
                   {...register('firstName')}
-                  placeholder={t('first_name')}
-                  className="w-[150px] md:w-[162px] h-[48px]"
+                  label={t('first_name')}
+                  className="w-[150px] md:w-[162px] h-[56px]"
                   size="lg"
                 />
                 <Input
                   type="text"
                   {...register('lastName')}
-                  placeholder={t('last_name')}
-                  className="w-[150px] md:w-[162px] h-[48px]"
+                  label={t('last_name')}
+                  className="w-[150px] md:w-[162px] h-[56px]"
                   size="lg"
                 />
               </div>
@@ -129,9 +129,9 @@ const Page: React.FC = () => {
             <InputWithError>
               <Input
                 type="password"
-                placeholder={t('password')}
+                label={t('password')}
                 {...register('password')}
-                className="w-[314px] md:w-[340px] h-[48px]"
+                className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
               />
               <p className="text-red-500 text-sm">{errors?.password?.message}</p>
@@ -140,8 +140,8 @@ const Page: React.FC = () => {
               <Input
                 type="password"
                 {...register('confirmPassword')}
-                placeholder={t('confirm_password')}
-                className="w-[314px] md:w-[340px] h-[48px]"
+                label={t('confirm_password')}
+                className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
               />
               <p className="text-red-500 text-sm">{errors?.confirmPassword?.message}</p>

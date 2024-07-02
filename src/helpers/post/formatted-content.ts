@@ -1,4 +1,4 @@
-import { PostType } from '@/types/post'
+import { IPost } from '@/types/post'
 
 interface ContentProps {
   isBigContent: boolean
@@ -7,7 +7,7 @@ interface ContentProps {
   fullContent: string
 }
 
-export const formattedContent = (post: PostType): ContentProps => {
+export const formattedContent = (post: IPost): ContentProps => {
   const isBigContent = post.content.length <= 50
   const isNeedReadMore = post.content.length >= 200
 

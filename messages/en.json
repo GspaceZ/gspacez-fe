@@ -1,7 +1,9 @@
 {
   "title": {
     "app": "Fakebook",
-    "home": "Home"
+    "home": "Home",
+    "profile": "Profile",
+    "avatar": "Avatar"
   },
   "sidebar": {
     "home": "Home",
@@ -61,6 +63,39 @@
       "mail_sent": "Activation Mail is sent! Please check your email!",
       "success": "Activated Successfully!",
       "and_start_now": " and Start now!"
+    },
+    "forgot_password": {
+      "send_recovery_email": "Send Recovery Email",
+      "forgot_password": "Forgot Password",
+      "email": "Email",
+      "error_messages": {
+        "email": "Please enter a valid email address."
+      }
+    },
+    "forgot_password_button": "Forgot Password?",
+    "recovery_email": {
+      "forgot_password": "Forgot Password",
+      "recovery_notification": "Recovery Mail is sent! Please check your email!"
+    }
+  },
+  "profile": {
+    "choose_avatar": "Choose another avatar",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "country": "Country",
+    "city": "City",
+    "address": "Address",
+    "dob": "Date of birth",
+    "save": "Save profile",
+    "cancel": "Cancel",
+    "error_messages": {
+      "first_name": "First name must be between 1 and 20 characters.",
+      "last_name": "Last name must be between 1 and 20 characters."
+    },
+    "avatar": {
+      "save": "Save avatar",
+      "cancel": "Cancel",
+      "choose_avatar": "Choose an avatar from your device"
     }
   }
 }
