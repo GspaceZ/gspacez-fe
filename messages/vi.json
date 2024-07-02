@@ -78,6 +78,11 @@
     "error_messages": {
       "first_name": "Tên phải có từ 1 đến 20 ký tự.",
       "last_name": "Họ phải có từ 1 đến 20 ký tự."
+    },
+    "avatar": {
+      "save": "Lưu ảnh đại diện",
+      "cancel": "Hủy",
+      "choose_avatar": "Chọn ảnh đại diện từ thiết bị"
     }
   }
 }
