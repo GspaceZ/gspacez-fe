@@ -8,7 +8,7 @@ const Page: React.FC = () => {
   const t = useTranslations('title')
 
   return (
-    <MainLayout title="Profile">
+    <MainLayout title={t('profile')}>
       <div className="w-screen max-w-[600px] min-h-screen mx-auto border border-gray-200">
         <MainProfileForm />
       </div>

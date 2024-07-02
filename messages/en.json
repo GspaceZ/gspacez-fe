@@ -1,7 +1,9 @@
 {
   "title": {
     "app": "Fakebook",
-    "home": "Home"
+    "home": "Home",
+    "profile": "Profile",
+    "avatar": "Avatar"
   },
   "sidebar": {
     "home": "Home",
@@ -89,6 +91,11 @@
     "error_messages": {
       "first_name": "First name must be between 1 and 20 characters.",
       "last_name": "Last name must be between 1 and 20 characters."
+    },
+    "avatar": {
+      "save": "Save avatar",
+      "cancel": "Cancel",
+      "choose_avatar": "Choose an avatar from your device"
     }
   }
 }

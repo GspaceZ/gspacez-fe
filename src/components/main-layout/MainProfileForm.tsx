@@ -1,10 +1,11 @@
-import { Input, Image, Button } from '@nextui-org/react'
+import { Input, Button } from '@nextui-org/react'
 import InputWithError from '../common/InputWithError'
 import { IMainProfileFormValues } from '@/helpers/form-value/main-profile-value'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import FImage from '../common/FImage'
 
 const MainProfileForm = () => {
   const t = useTranslations('profile')
@@ -40,9 +41,9 @@ const MainProfileForm = () => {
   }
 
   return (
-    <form className="w-screen max-w-[314px] mx-auto flex flex-col items-center mt-[50px] gap-[14px]">
+    <form className="w-screen max-w-[314px] mx-auto flex flex-col items-center mt-[50px] gap-[14px] -z-10">
       <div className="flex items-center h-[56px] mb-[20px]">
-        <Image src="/landingAvatar.png" alt="avatar" className="h-[70px] rounded-[1000px]" />
+        <FImage src="/landingAvatar.png" alt="avatar" className="h-[70px] rounded-[1000px]" />
         <Button className="text-center" color="primary" variant="light">
           {t('choose_avatar')}
         </Button>
@@ -114,7 +115,12 @@ const MainProfileForm = () => {
         <Button className="w-[90px] h-[38px]" color="primary" onClick={handleSubmit(onSubmit)}>
           {t('save')}
         </Button>
-        <Button className="w-[90px] h-[38px]" color="primary" onClick={handleSubmit(onSubmit)}>
+        <Button
+          className="w-[90px] h-[38px]"
+          color="primary"
+          variant="bordered"
+          onClick={handleSubmit(onSubmit)}
+        >
           {t('cancel')}
         </Button>
       </div>

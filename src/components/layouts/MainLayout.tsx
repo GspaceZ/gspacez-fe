@@ -31,16 +31,15 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
   }
 
   return (
-    <div className="relative min-h-screen flex">
+    <div className="relative min-h-screen">
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div
-        className={`flex-1 flex flex-col transition-transform duration-300 ease-in-out ${
-          isSidebarOpen ? 'ml-[300px]' : ''
-        }`}
+        className={`flex-1 flex flex-col transition-transform duration-300 ease-in-out
+          ${isSidebarOpen ? 'ml-[300px]' : ''}`}
       >
         <Overlay isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <Header title={title} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        <main className="flex-1 md:mr-[300px]">{children}</main>
+        <main className={`md:ml-[-300px] ${isSidebarOpen && 'hidden md:block'}`}>{children}</main>
         <TrendingSidebar
           posts={trendingPostsData}
           trendingPeople={trendingPeopleData}
