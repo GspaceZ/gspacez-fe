@@ -16,12 +16,15 @@ import { sendActivationMail } from '@/app/api/route/send-activation'
 import { getLocale } from '@/helpers/url/get-locale'
 import { generateActivationLink } from '@/helpers/activation/activation-link'
 import { getBaseUrl } from '@/helpers/url/base-url'
+import { useAuth } from '@/hooks/useAuth'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
 
   const router = useRouter()
   const pathname = usePathname()
+
+  const { getEncodedUrl, signUp } = useAuth()
 
   const handleRedirect = (path: string) => {
     const destinationPath = pathWithLocale(pathname, path)
@@ -73,18 +76,27 @@ const Page: React.FC = () => {
 
   const onSubmit = async (data: ISignUpFormValues) => {
     try {
-      const locale = getLocale(pathname)
-      const baseUrl = getBaseUrl()
-      const activationLink = generateActivationLink({ email: data.email, locale, baseUrl })
-      console.log(activationLink)
-      await sendActivationMail({
-        email: data.email,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        activationLink
-      })
-      console.log('Submitted data: ', data)
-      handleRedirect(ROUTE.auth.activate)
+      const signUpRes = await signUp(data.email, data.firstName, data.lastName, data.password)
+      if (signUpRes && signUpRes.code === 1000) {
+        const { email, firstName, lastName } = signUpRes.result
+        const locale = getLocale(pathname)
+        const baseUrl = getBaseUrl()
+        const activationLink = generateActivationLink({
+          email,
+          locale,
+          baseUrl
+        })
+        const plainUrl = await getEncodedUrl(email, activationLink)
+        if (plainUrl) {
+          await sendActivationMail({
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            activationLink: plainUrl.result.urlEncoded
+          })
+        }
+      }
+      // handleRedirect(ROUTE.auth.activate)
     } catch (error) {
       console.error('Error: ', error)
     }

@@ -7,10 +7,13 @@ export async function callApi<T>(
 ): Promise<AxiosResponse<T>> {
   try {
     const response = await axios({
-      url,
+      url: process.env.NEXT_PUBLIC_BACKEND_URL + url,
       method,
       data,
-      headers: { Accept: 'application/json' }
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
     })
     return response
   } catch (error) {
