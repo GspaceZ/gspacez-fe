@@ -1,7 +1,7 @@
 'use client'
 
 import MainLayout from '@/components/layouts/MainLayout'
-import MainProfileForm from '@/components/main-layout/MainProfileForm'
+import MainProfileForm from '@/components/main-profile/MainProfileForm'
 import { useTranslations } from 'next-intl'
 
 const Page: React.FC = () => {
