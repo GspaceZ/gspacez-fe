@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast'
 import { Providers } from '../providers'
 import './globals.css'
 import { NextIntlClientProvider } from 'next-intl'
@@ -19,6 +20,7 @@ export default async function RootLayout({
       </head>
       <body>
         <NextIntlClientProvider messages={messages}>
+          <Toaster />
           <Providers>{children}</Providers>
         </NextIntlClientProvider>
       </body>
