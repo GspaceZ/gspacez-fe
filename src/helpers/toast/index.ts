@@ -1,15 +1,6 @@
 import toast from 'react-hot-toast'
 
 export const fToast = (message: string, variant: string) => {
-  const commonStyles = {
-    borderRadius: '12px',
-    border: '0.5px solid #ccc',
-    minHeight: '30px',
-    minLength: '150px',
-    padding: '8px 12px',
-    fontSize: '1.25rem'
-  }
-
   const customVariants = ['success', 'danger', 'info', 'warning']
   const index = customVariants.findIndex((customVariant: string) => {
     return customVariant === variant
@@ -39,7 +30,13 @@ export const fToast = (message: string, variant: string) => {
 
   toast(message, {
     icon: icon.name,
-    style: commonStyles,
-    duration: 1500
+    style: {
+      borderRadius: '12px',
+      border: '0.5px solid #ccc',
+      minHeight: '30px',
+      width: '1000px',
+      padding: '10px 16px'
+    },
+    duration: 2000
   })
 }

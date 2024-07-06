@@ -69,11 +69,13 @@ const Page: React.FC = () => {
             break
 
           default:
-            fToast(t('toast.signin.unknown'), 'danger')
+            fToast(t('toast.unknown'), 'danger')
         }
+      } else {
+        fToast(t('toast.unknown'), 'danger')
       }
     } catch (error) {
-      fToast(t('toast.signin.unknown'), 'danger')
+      fToast(t('toast.unknown'), 'danger')
       console.error('Error: ', error)
     } finally {
       setIsLoading(false)
