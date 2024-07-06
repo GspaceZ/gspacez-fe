@@ -1,6 +1,5 @@
 import callApi from '@/axios'
-import { EncodedUrlResponse } from '@/types/response/auth/EncodedUrlResponse'
-import { SignUpResponse } from '@/types/response/auth/SignUpResponse'
+import { EncodedUrlResponse, SignInResponse, SignUpResponse } from '@/types/response/auth'
 
 export const useAuth = () => {
   const getEncodedUrl = async (email: string, url: string) => {
@@ -11,7 +10,6 @@ export const useAuth = () => {
       })
 
       const data = response.data
-      console.log(data)
       return data
     } catch (error) {
       console.log('Error encoding image: ', error)
@@ -28,12 +26,25 @@ export const useAuth = () => {
       })
 
       const data = response.data
-      console.log(data)
       return data
     } catch (error) {
       console.log('Error signing up: ', error)
     }
   }
 
-  return { getEncodedUrl, signUp }
+  const signIn = async (email: string, password: string) => {
+    try {
+      const response = await callApi<SignInResponse>('/identity/auth/login', 'POST', {
+        email,
+        password
+      })
+
+      const data = response.data
+      return data
+    } catch (error) {
+      console.log('Error signing in: ', error)
+    }
+  }
+
+  return { getEncodedUrl, signUp, signIn }
 }

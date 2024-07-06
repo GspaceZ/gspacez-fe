@@ -9,5 +9,8 @@ export const ROUTE = {
   },
   sidebar: {
     home: 'home'
+  },
+  pages: {
+    home: 'home'
   }
 }
