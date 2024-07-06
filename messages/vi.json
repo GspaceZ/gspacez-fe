@@ -76,6 +76,14 @@
     "recovery_email": {
       "forgot_password": "Quên mật khẩu",
       "recovery_notification": "Thư khôi phục đã được gửi! Vui lòng kiểm tra email của bạn!"
+    },
+    "toast": {
+      "signin": {
+        "success": "Đăng nhập thành công!",
+        "not_exist": "Tài khoản đã tồn tại!",
+        "wrong_password": "Sai mật khẩu!",
+        "unknown": "Có lỗi xảy ra! Hãy thử lại sau!"
+      }
     }
   },
   "profile": {

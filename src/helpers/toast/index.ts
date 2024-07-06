@@ -6,7 +6,8 @@ export const fToast = (message: string, variant: string) => {
     border: '0.5px solid #ccc',
     minHeight: '30px',
     minLength: '150px',
-    padding: '4px 8px'
+    padding: '8px 12px',
+    fontSize: '1.25rem'
   }
 
   const customVariants = ['success', 'danger', 'info', 'warning']

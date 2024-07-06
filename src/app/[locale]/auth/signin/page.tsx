@@ -12,13 +12,22 @@ import { ISignInFormValues } from '@/helpers/form-value/signin-value'
 import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
+import { useAuth } from '@/hooks/useAuth'
+import { useAppDispatch } from '@/utils/store'
+import { setAuth } from '@/utils/store/auth'
 import { fToast } from '@/helpers/toast'
+import { RESPONSE_CODES } from '@/utils/constant/codes'
+import { useState } from 'react'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
 
   const router = useRouter()
   const pathname = usePathname()
+  const dispatch = useAppDispatch()
+
+  const { signIn } = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleRedirect = (path: string) => {
     const destinationPath = pathWithLocale(pathname, path)
@@ -26,7 +35,8 @@ const Page: React.FC = () => {
   }
 
   const signInSchema = z.object({
-    email: z.string().email({ message: t('error_messages.email') })
+    email: z.string().email({ message: t('error_messages.email') }),
+    password: z.string()
   })
 
   const {
@@ -37,11 +47,36 @@ const Page: React.FC = () => {
     resolver: zodResolver(signInSchema)
   })
 
-  const onSubmit = (data: ISignInFormValues) => {
+  const onSubmit = async (data: ISignInFormValues) => {
+    setIsLoading(true)
     try {
-      console.log('Submitted data: ', data)
+      const signInRes = await signIn(data.email, data.password)
+      if (signInRes) {
+        const code = signInRes.code
+        switch (code) {
+          case RESPONSE_CODES.SUCCESS:
+            dispatch(setAuth(signInRes.result))
+            fToast(t('toast.signin.success'), 'success')
+            handleRedirect(ROUTE.pages.home)
+            break
+
+          case RESPONSE_CODES.USER_NOT_EXISTED:
+            fToast(t('toast.signin.not_exist'), 'danger')
+            break
+
+          case RESPONSE_CODES.WRONG_PASSWORD:
+            fToast(t('toast.signin.wrong_password'), 'danger')
+            break
+
+          default:
+            fToast(t('toast.signin.unknown'), 'danger')
+        }
+      }
     } catch (error) {
+      fToast(t('toast.signin.unknown'), 'danger')
       console.error('Error: ', error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -64,6 +99,7 @@ const Page: React.FC = () => {
             <InputWithError>
               <Input
                 type="password"
+                {...register('password')}
                 label={t('password')}
                 className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
@@ -78,9 +114,10 @@ const Page: React.FC = () => {
               </Button>
             </div>
             <Button
-              className="w-[90px] h-[38px] mt-4"
+              className={`w-[90px] h-[38px] mt-4 ${isLoading ? 'cursor-not-allowed' : ''}`}
               color="primary"
               onClick={handleSubmit(onSubmit)}
+              disabled={isLoading}
             >
               {t('sign_in')}
             </Button>

@@ -76,6 +76,14 @@
     "recovery_email": {
       "forgot_password": "Forgot Password",
       "recovery_notification": "Recovery Mail is sent! Please check your email!"
+    },
+    "toast": {
+      "signin": {
+        "success": "Signin successfully!",
+        "not_exist": "Your account is not existed!",
+        "wrong_password": "Wrong password!",
+        "unknown": "Something happen! Try it later!"
+      }
     }
   },
   "profile": {
