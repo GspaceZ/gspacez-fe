@@ -81,9 +81,13 @@
       "signin": {
         "success": "Signin successfully!",
         "not_exist": "Your account is not existed!",
-        "wrong_password": "Wrong password!",
-        "unknown": "Something happen! Try it later!"
-      }
+        "wrong_password": "Wrong password!"
+      },
+      "signup": {
+        "success": "Signup successfully!",
+        "existed": "An account with this email is existed!"
+      },
+      "unknown": "Something happen! Try it later!"
     }
   },
   "profile": {

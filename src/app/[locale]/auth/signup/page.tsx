@@ -17,6 +17,9 @@ import { getLocale } from '@/helpers/url/get-locale'
 import { generateActivationLink } from '@/helpers/activation/activation-link'
 import { getBaseUrl } from '@/helpers/url/base-url'
 import { useAuth } from '@/hooks/useAuth'
+import { useState } from 'react'
+import { RESPONSE_CODES } from '@/utils/constant/codes'
+import { fToast } from '@/helpers/toast'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
@@ -25,6 +28,7 @@ const Page: React.FC = () => {
   const pathname = usePathname()
 
   const { getEncodedUrl, signUp } = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleRedirect = (path: string) => {
     const destinationPath = pathWithLocale(pathname, path)
@@ -75,30 +79,49 @@ const Page: React.FC = () => {
   })
 
   const onSubmit = async (data: ISignUpFormValues) => {
+    setIsLoading(true)
     try {
       const signUpRes = await signUp(data.email, data.firstName, data.lastName, data.password)
-      if (signUpRes && signUpRes.code === 1000) {
-        const { email, firstName, lastName } = signUpRes.result
-        const locale = getLocale(pathname)
-        const baseUrl = getBaseUrl()
-        const activationLink = generateActivationLink({
-          email,
-          locale,
-          baseUrl
-        })
-        const plainUrl = await getEncodedUrl(email, activationLink)
-        if (plainUrl) {
-          await sendActivationMail({
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            activationLink: plainUrl.result.urlEncoded
-          })
+      if (signUpRes) {
+        const code = signUpRes.code
+        switch (code) {
+          case RESPONSE_CODES.SUCCESS:
+            fToast(t('toast.signup.success'), 'success')
+            const { email, firstName, lastName } = signUpRes.result
+            const locale = getLocale(pathname)
+            const baseUrl = getBaseUrl()
+            const activationLink = generateActivationLink({
+              email,
+              locale,
+              baseUrl
+            })
+            const plainUrl = await getEncodedUrl(email, activationLink)
+            if (plainUrl) {
+              await sendActivationMail({
+                email: email,
+                firstName: firstName,
+                lastName: lastName,
+                activationLink: plainUrl.result.urlEncoded
+              })
+            }
+            // handleRedirect(ROUTE.auth.activate)
+            break
+
+          case RESPONSE_CODES.USER_EXISTED:
+            fToast(t('toast.signup.existed'), 'danger')
+            break
+
+          default:
+            fToast(t('toast.unknown'), 'danger')
         }
+      } else {
+        fToast(t('toast.unknown'), 'danger')
       }
-      // handleRedirect(ROUTE.auth.activate)
     } catch (error) {
+      fToast(t('toast.unknown'), 'danger')
       console.error('Error: ', error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -158,7 +181,12 @@ const Page: React.FC = () => {
               />
               <p className="text-red-500 text-sm">{errors?.confirmPassword?.message}</p>
             </InputWithError>
-            <Button className="w-[90px] h-[38px]" color="primary" onClick={handleSubmit(onSubmit)}>
+            <Button
+              className={`w-[90px] h-[38px] ${isLoading ? 'cursor-not-allowed' : ''}`}
+              color="primary"
+              onClick={handleSubmit(onSubmit)}
+              disabled={isLoading}
+            >
               {t('sign_up')}
             </Button>
           </form>

@@ -81,9 +81,13 @@
       "signin": {
         "success": "Đăng nhập thành công!",
         "not_exist": "Tài khoản đã tồn tại!",
-        "wrong_password": "Sai mật khẩu!",
-        "unknown": "Có lỗi xảy ra! Hãy thử lại sau!"
-      }
+        "wrong_password": "Sai mật khẩu!"
+      },
+      "signup": {
+        "success": "Đăng ký thành công!",
+        "existed": "Email này đã được đăng ký tài khoản!"
+      },
+      "unknown": "Có lỗi xảy ra! Hãy thử lại sau!"
     }
   },
   "profile": {
