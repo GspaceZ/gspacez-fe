@@ -19,3 +19,24 @@ export type SignInResponse = {
     refreshToken: string
   }
 }
+
+export type ForgotPasswordResponse = {
+  code: number
+  result: {
+    message: string
+  }
+}
+
+export type VerifyOTPResponse = {
+  code: number
+  result: {
+    message: string
+  }
+}
+
+export type ResetPasswordResponse = {
+  code: number
+  result: {
+    message: string
+  }
+}

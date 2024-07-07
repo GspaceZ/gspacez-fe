@@ -8,9 +8,9 @@ import { Button, Input } from '@nextui-org/react'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useAppDispatch } from '@/utils/store'
-import { setResetEmail } from '@/utils/store/email'
-import { IForgotPasswordFormValues } from '@/helpers/form-value/forgot-password-value'
+import { useAppSelector, useAppDispatch } from '@/utils/store'
+import { clearResetEmail } from '@/utils/store/email'
+import { IResetPasswordFormValues } from '@/helpers/form-value/reset-password-value'
 import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
@@ -26,8 +26,9 @@ const Page: React.FC = () => {
   const pathname = usePathname()
 
   const dispatch = useAppDispatch()
+  const resetEmail = useAppSelector((state) => state.email.resetEmail)
 
-  const { forgotPassword } = useAuth()
+  const { resetPassword } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
 
   const handleRedirect = (path: string) => {
@@ -35,33 +36,54 @@ const Page: React.FC = () => {
     router.push(destinationPath)
   }
 
-  const forgotPasswordSchema = z.object({
-    email: z.string().email({ message: t('error_messages.email') })
-  })
+  const resetPasswordSchema = z
+    .object({
+      password: z
+        .string()
+        .min(8, { message: t('error_messages.password.length') })
+        .regex(/[a-z]/, {
+          message: t('error_messages.password.lowercase')
+        })
+        .regex(/[A-Z]/, {
+          message: t('error_messages.password.uppercase')
+        })
+        .regex(/[0-9]/, {
+          message: t('error_messages.password.number')
+        })
+        .regex(/[^a-zA-Z0-9]/, {
+          message: t('error_messages.password.special')
+        }),
+      confirmPassword: z.string()
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t('error_messages.password.confirm'),
+      path: ['confirmPassword']
+    })
 
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<IForgotPasswordFormValues>({
-    resolver: zodResolver(forgotPasswordSchema)
+  } = useForm<IResetPasswordFormValues>({
+    resolver: zodResolver(resetPasswordSchema)
   })
 
-  const onSubmit = async (data: IForgotPasswordFormValues) => {
+  const onSubmit = async (data: IResetPasswordFormValues) => {
     setIsLoading(true)
     try {
-      dispatch(setResetEmail({ email: data.email }))
-      const forgotPasswordRes = await forgotPassword(data.email)
-      if (forgotPasswordRes) {
-        const code = forgotPasswordRes.code
+      const resetPasswordRes = await resetPassword(resetEmail, data.password)
+      if (resetPasswordRes) {
+        const code = resetPasswordRes.code
         switch (code) {
           case RESPONSE_CODES.SUCCESS:
-            fToast(t('toast.forgot_password.success'), 'success')
-            handleRedirect(ROUTE.auth.verify_otp)
+            fToast(t('toast.reset_password.success'), 'success')
+            dispatch(clearResetEmail())
+            handleRedirect(ROUTE.auth.signin)
+            const { message } = resetPasswordRes.result
             break
 
           case RESPONSE_CODES.USER_EXISTED:
-            fToast(t('toast.signup.existed'), 'danger')
+            fToast(t('toast.reset_password.not_exist'), 'danger')
             break
 
           default:
@@ -83,18 +105,28 @@ const Page: React.FC = () => {
       <div className="mt-[50px] flex flex-col w-[360px] md:w-[420px] min-h-[100vh] md:min-h-[232px] rounded-[20px] border border-gray-200 justify-between shadow-md">
         <div className="flex flex-col items-center">
           <span className="text-3xl font-extrabold mt-[28px]">
-            {t('forgot_password.forgot_password_title')}
+            {t('reset_password.recover_account')}
           </span>
           <form className="flex flex-col items-center w-fit mt-[24px] gap-[14px]">
             <InputWithError>
               <Input
-                type="email"
-                {...register('email')}
-                label={t('forgot_password.email')}
+                type="password"
+                label={t('password')}
+                {...register('password')}
                 className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
               />
-              <p className="text-red-500 text-sm">{errors?.email?.message}</p>
+              <p className="text-red-500 text-sm">{errors?.password?.message}</p>
+            </InputWithError>
+            <InputWithError>
+              <Input
+                type="password"
+                {...register('confirmPassword')}
+                label={t('confirm_password')}
+                className="w-[314px] md:w-[340px] h-[56px]"
+                size="lg"
+              />
+              <p className="text-red-500 text-sm">{errors?.confirmPassword?.message}</p>
             </InputWithError>
             <Button
               className="my-4 h-[38px]"
@@ -102,7 +134,7 @@ const Page: React.FC = () => {
               onClick={handleSubmit(onSubmit)}
               isLoading={isLoading}
             >
-              {t('forgot_password.send_recovery_email')}
+              {t('reset_password.reset_password_button')}
             </Button>
           </form>
         </div>

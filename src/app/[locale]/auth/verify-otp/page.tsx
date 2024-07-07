@@ -8,9 +8,9 @@ import { Button, Input } from '@nextui-org/react'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useAppDispatch } from '@/utils/store'
-import { setResetEmail } from '@/utils/store/email'
-import { IForgotPasswordFormValues } from '@/helpers/form-value/forgot-password-value'
+import { useAppSelector, useAppDispatch } from '@/utils/store'
+import { clearResetEmail } from '@/utils/store/email'
+import { IVerifyOTPFormValues } from '@/helpers/form-value/verify-otp-value'
 import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
@@ -26,8 +26,9 @@ const Page: React.FC = () => {
   const pathname = usePathname()
 
   const dispatch = useAppDispatch()
+  const resetEmail = useAppSelector((state) => state.email.resetEmail)
 
-  const { forgotPassword } = useAuth()
+  const { verifyOTP } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
 
   const handleRedirect = (path: string) => {
@@ -35,33 +36,41 @@ const Page: React.FC = () => {
     router.push(destinationPath)
   }
 
-  const forgotPasswordSchema = z.object({
-    email: z.string().email({ message: t('error_messages.email') })
+  const verifyOTPSchema = z.object({
+    otp: z
+      .string()
+      .length(6, { message: t('error_messages.verify_otp.length') })
+      .regex(/^\d+$/, { message: t('error_messages.verify_otp.number') })
   })
 
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<IForgotPasswordFormValues>({
-    resolver: zodResolver(forgotPasswordSchema)
+  } = useForm<IVerifyOTPFormValues>({
+    resolver: zodResolver(verifyOTPSchema)
   })
 
-  const onSubmit = async (data: IForgotPasswordFormValues) => {
+  const onSubmit = async (data: IVerifyOTPFormValues) => {
     setIsLoading(true)
     try {
-      dispatch(setResetEmail({ email: data.email }))
-      const forgotPasswordRes = await forgotPassword(data.email)
-      if (forgotPasswordRes) {
-        const code = forgotPasswordRes.code
+      const verifyOTPRes = await verifyOTP(resetEmail, data.otp)
+      if (verifyOTPRes) {
+        const code = verifyOTPRes.code
         switch (code) {
           case RESPONSE_CODES.SUCCESS:
-            fToast(t('toast.forgot_password.success'), 'success')
-            handleRedirect(ROUTE.auth.verify_otp)
+            fToast(t('toast.verify_otp.correct'), 'success')
+            handleRedirect(ROUTE.auth.reset_password)
+            const { message } = verifyOTPRes.result
             break
 
-          case RESPONSE_CODES.USER_EXISTED:
-            fToast(t('toast.signup.existed'), 'danger')
+          case RESPONSE_CODES.OTP_INCORRECT:
+            fToast(t('toast.verify_otp.incorrect'), 'danger')
+            break
+
+          case RESPONSE_CODES.OTP_EXPIRED:
+            fToast(t('toast.verify_otp.expired'), 'danger')
+            dispatch(clearResetEmail())
             break
 
           default:
@@ -83,18 +92,18 @@ const Page: React.FC = () => {
       <div className="mt-[50px] flex flex-col w-[360px] md:w-[420px] min-h-[100vh] md:min-h-[232px] rounded-[20px] border border-gray-200 justify-between shadow-md">
         <div className="flex flex-col items-center">
           <span className="text-3xl font-extrabold mt-[28px]">
-            {t('forgot_password.forgot_password_title')}
+            {t('verify_otp.recover_account')}
           </span>
           <form className="flex flex-col items-center w-fit mt-[24px] gap-[14px]">
             <InputWithError>
               <Input
-                type="email"
-                {...register('email')}
-                label={t('forgot_password.email')}
+                type="otp"
+                {...register('otp')}
+                label={t('verify_otp.otp')}
                 className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
               />
-              <p className="text-red-500 text-sm">{errors?.email?.message}</p>
+              <p className="text-red-500 text-sm">{errors?.otp?.message}</p>
             </InputWithError>
             <Button
               className="my-4 h-[38px]"
@@ -102,7 +111,7 @@ const Page: React.FC = () => {
               onClick={handleSubmit(onSubmit)}
               isLoading={isLoading}
             >
-              {t('forgot_password.send_recovery_email')}
+              {t('verify_otp.confirm_button')}
             </Button>
           </form>
         </div>
