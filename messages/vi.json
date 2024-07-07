@@ -56,6 +56,10 @@
         "number": "Mật khẩu phải chứa ít nhất một chữ số.",
         "special": "Mật khẩu phải chứa ít nhất một ký tự đặc biệt.",
         "confirm": "Mật khẩu không khớp. Vui lòng thử lại."
+      },
+      "verify_otp": {
+        "length": "Mã OTP phải có 6 chữ số.",
+        "number": "Mã OTP chỉ chứa các chữ số."
       }
     },
     "activate": {
@@ -66,16 +70,23 @@
     },
     "forgot_password": {
       "send_recovery_email": "Gửi email khôi phục",
-      "forgot_password": "Quên mật khẩu",
+      "forgot_password_title": "Quên mật khẩu",
       "email": "Email",
       "error_messages": {
         "email": "Vui lòng nhập địa chỉ email hợp lệ."
       }
     },
     "forgot_password_button": "Quên mật khẩu?",
-    "recovery_email": {
-      "forgot_password": "Quên mật khẩu",
-      "recovery_notification": "Thư khôi phục đã được gửi! Vui lòng kiểm tra email của bạn!"
+    "verify_otp": {
+      "recover_account": "Khôi phục tài khoản",
+      "otp": "Mã OTP 6 chữ số của bạn",
+      "confirm_button": "Xác nhận"
+    },
+    "reset_password": {
+      "recover_account": "Khôi phục tài khoản",
+      "new_password": "Mật khẩu mới của bạn",
+      "confirm_new_password": "Xác nhận mật khẩu mới",
+      "reset_password_button": "Đặt lại mật khẩu"
     },
     "toast": {
       "signin": {
@@ -87,7 +98,19 @@
         "success": "Đăng ký thành công!",
         "existed": "Email này đã được đăng ký tài khoản!"
       },
-      "unknown": "Có lỗi xảy ra! Hãy thử lại sau!"
+      "unknown": "Có lỗi xảy ra! Hãy thử lại sau!",
+      "forgot_password": {
+        "success": "Gửi mail thành công!"
+      },
+      "verify_otp": {
+        "correct": "Mã OTP chính xác",
+        "incorrect": "Mã OTP không chính xác",
+        "expired": "Mã OTP đã hết hạn"
+      },
+      "reset_password": {
+        "success": "Đặt lại mật khẩu thành công!",
+        "not_exist": "Tài khoản không tồn tại!"
+      }
     }
   },
   "profile": {

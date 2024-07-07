@@ -5,7 +5,8 @@ export const ROUTE = {
     activate: 'auth/activate',
     activate_account: 'auth/activate-account',
     forgot_password: 'auth/forgot-password',
-    recovery_email: 'auth/recovery-email'
+    verify_otp: 'auth/verify-otp',
+    reset_password: 'auth/reset-password',
   },
   sidebar: {
     home: 'home'

@@ -1,5 +1,12 @@
 import callApi from '@/axios'
-import { EncodedUrlResponse, SignInResponse, SignUpResponse } from '@/types/response/auth'
+import {
+  EncodedUrlResponse,
+  SignInResponse,
+  SignUpResponse,
+  ForgotPasswordResponse,
+  VerifyOTPResponse,
+  ResetPasswordResponse
+} from '@/types/response/auth'
 
 export const useAuth = () => {
   const getEncodedUrl = async (email: string, url: string) => {
@@ -46,5 +53,54 @@ export const useAuth = () => {
     }
   }
 
-  return { getEncodedUrl, signUp, signIn }
+  const forgotPassword = async (email: string) => {
+    try {
+      const response = await callApi<ForgotPasswordResponse>(
+        '/identity/auth/forget-password',
+        'POST',
+        {
+          email
+        }
+      )
+
+      const data = response.data
+      return data
+    } catch (error) {
+      console.log('Error forgot password: ', error)
+    }
+  }
+
+  const verifyOTP = async (email: string, otp: string) => {
+    try {
+      const response = await callApi<VerifyOTPResponse>('/identity/auth/verify-otp', 'POST', {
+        email,
+        otp
+      })
+
+      const data = response.data
+      return data
+    } catch (error) {
+      console.log('Error forgot password: ', error)
+    }
+  }
+
+  const resetPassword = async (email: string, newPassword: string) => {
+    try {
+      const response = await callApi<ResetPasswordResponse>(
+        '/identity/auth/reset-password',
+        'POST',
+        {
+          email,
+          newPassword
+        }
+      )
+
+      const data = response.data
+      return data
+    } catch (error) {
+      console.log('Error reset password: ', error)
+    }
+  }
+
+  return { getEncodedUrl, signUp, signIn, forgotPassword, verifyOTP, resetPassword }
 }
