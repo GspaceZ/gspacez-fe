@@ -8,6 +8,8 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { ISignUpFormValues } from '@/helpers/form-value/signup-value'
+import { EyeSlashFilledIcon } from '@/components/eye-icons/EyeSlashFilledIcon'
+import { EyeFilledIcon } from '@/components/eye-icons/EyeFilledIcon'
 import InputWithError from '@/components/common/InputWithError'
 import { ROUTE } from '@/utils/constant/route'
 import { usePathname, useRouter } from 'next/navigation'
@@ -29,6 +31,12 @@ const Page: React.FC = () => {
 
   const { getEncodedUrl, signUp } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
+
+  const [isShowPassword, setIsShowPassword] = useState(false)
+  const toggleShowPassword = () => setIsShowPassword(!isShowPassword)
+
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false)
+  const toggleShowConfirmPassword = () => setIsShowConfirmPassword(!isShowConfirmPassword)
 
   const handleRedirect = (path: string) => {
     const destinationPath = pathWithLocale(pathname, path)
@@ -163,29 +171,51 @@ const Page: React.FC = () => {
             </InputWithError>
             <InputWithError>
               <Input
-                type="password"
-                label={t('password')}
+                type={isShowPassword ? 'text' : 'password'}
                 {...register('password')}
+                label={t('password')}
                 className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
+                endContent={
+                  <button className="focus:outline-none" type="button" onClick={toggleShowPassword}>
+                    {isShowPassword ? (
+                      <EyeFilledIcon className="text-xl text-default-400 pointer-events-none" />
+                    ) : (
+                      <EyeSlashFilledIcon className="text-xl text-default-400 pointer-events-none" />
+                    )}
+                  </button>
+                }
               />
               <p className="text-red-500 text-sm">{errors?.password?.message}</p>
             </InputWithError>
             <InputWithError>
               <Input
-                type="password"
+                type={isShowConfirmPassword ? 'text' : 'password'}
                 {...register('confirmPassword')}
                 label={t('confirm_password')}
                 className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
+                endContent={
+                  <button
+                    className="focus:outline-none"
+                    type="button"
+                    onClick={toggleShowConfirmPassword}
+                  >
+                    {isShowConfirmPassword ? (
+                      <EyeFilledIcon className="text-xl text-default-400 pointer-events-none" />
+                    ) : (
+                      <EyeSlashFilledIcon className="text-xl text-default-400 pointer-events-none" />
+                    )}
+                  </button>
+                }
               />
               <p className="text-red-500 text-sm">{errors?.confirmPassword?.message}</p>
             </InputWithError>
             <Button
-              className={`w-[90px] h-[38px] ${isLoading ? 'cursor-not-allowed' : ''}`}
+              className="w-[90px] h-[38px]"
               color="primary"
               onClick={handleSubmit(onSubmit)}
-              disabled={isLoading}
+              isLoading={isLoading}
             >
               {t('sign_up')}
             </Button>

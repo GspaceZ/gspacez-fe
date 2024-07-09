@@ -11,6 +11,8 @@ import { useForm } from 'react-hook-form'
 import { useAppSelector, useAppDispatch } from '@/utils/store'
 import { clearResetEmail } from '@/utils/store/email'
 import { IResetPasswordFormValues } from '@/helpers/form-value/reset-password-value'
+import { EyeSlashFilledIcon } from '@/components/eye-icons/EyeSlashFilledIcon'
+import { EyeFilledIcon } from '@/components/eye-icons/EyeFilledIcon'
 import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
@@ -30,6 +32,12 @@ const Page: React.FC = () => {
 
   const { resetPassword } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
+
+  const [isShowPassword, setIsShowPassword] = useState(false)
+  const toggleShowPassword = () => setIsShowPassword(!isShowPassword)
+
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false)
+  const toggleShowConfirmPassword = () => setIsShowConfirmPassword(!isShowConfirmPassword)
 
   const handleRedirect = (path: string) => {
     const destinationPath = pathWithLocale(pathname, path)
@@ -110,21 +118,43 @@ const Page: React.FC = () => {
           <form className="flex flex-col items-center w-fit mt-[24px] gap-[14px]">
             <InputWithError>
               <Input
-                type="password"
-                label={t('password')}
+                type={isShowPassword ? 'text' : 'password'}
                 {...register('password')}
+                label={t('password')}
                 className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
+                endContent={
+                  <button className="focus:outline-none" type="button" onClick={toggleShowPassword}>
+                    {isShowPassword ? (
+                      <EyeFilledIcon className="text-xl text-default-400 pointer-events-none" />
+                    ) : (
+                      <EyeSlashFilledIcon className="text-xl text-default-400 pointer-events-none" />
+                    )}
+                  </button>
+                }
               />
               <p className="text-red-500 text-sm">{errors?.password?.message}</p>
             </InputWithError>
             <InputWithError>
               <Input
-                type="password"
+                type={isShowConfirmPassword ? 'text' : 'password'}
                 {...register('confirmPassword')}
                 label={t('confirm_password')}
                 className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
+                endContent={
+                  <button
+                    className="focus:outline-none"
+                    type="button"
+                    onClick={toggleShowConfirmPassword}
+                  >
+                    {isShowConfirmPassword ? (
+                      <EyeFilledIcon className="text-xl text-default-400 pointer-events-none" />
+                    ) : (
+                      <EyeSlashFilledIcon className="text-xl text-default-400 pointer-events-none" />
+                    )}
+                  </button>
+                }
               />
               <p className="text-red-500 text-sm">{errors?.confirmPassword?.message}</p>
             </InputWithError>
