@@ -130,7 +130,7 @@ const Page: React.FC = () => {
               </Button>
             </div>
             <Button
-              className="w-[90px] h-[38px] mt-4"
+              className="h-[38px] mt-4 my-4"
               color="primary"
               onClick={handleSubmit(onSubmit)}
               isLoading={isLoading}
