@@ -9,6 +9,8 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { ISignInFormValues } from '@/helpers/form-value/signin-value'
+import { EyeSlashFilledIcon } from '@/utils/icons/EyeSlashFilledIcon'
+import { EyeFilledIcon } from '@/utils/icons/EyeFilledIcon'
 import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
@@ -28,6 +30,9 @@ const Page: React.FC = () => {
 
   const { signIn } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
+
+  const [isVisible, setIsVisible] = useState(false)
+  const toggleVisibility = () => setIsVisible(!isVisible)
 
   const handleRedirect = (path: string) => {
     const destinationPath = pathWithLocale(pathname, path)
@@ -100,11 +105,20 @@ const Page: React.FC = () => {
             </InputWithError>
             <InputWithError>
               <Input
-                type="password"
+                type={isVisible ? 'text' : 'password'}
                 {...register('password')}
                 label={t('password')}
                 className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
+                endContent={
+                  <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
+                    {isVisible ? (
+                      <EyeFilledIcon className="text-xl text-default-400 pointer-events-none" />
+                    ) : (
+                      <EyeSlashFilledIcon className="text-xl text-default-400 pointer-events-none" />
+                    )}
+                  </button>
+                }
               />
             </InputWithError>
             <div className="flex justify-end w-full mr-2 -mt-2">
@@ -116,10 +130,10 @@ const Page: React.FC = () => {
               </Button>
             </div>
             <Button
-              className={`w-[90px] h-[38px] mt-4 ${isLoading ? 'cursor-not-allowed' : ''}`}
+              className="w-[90px] h-[38px] mt-4"
               color="primary"
               onClick={handleSubmit(onSubmit)}
-              disabled={isLoading}
+              isLoading={isLoading}
             >
               {t('sign_in')}
             </Button>
