@@ -3,19 +3,44 @@
 import FImage from '@/components/common/FImage'
 import MainLayout from '@/components/layouts/MainLayout'
 import { Button } from '@nextui-org/react'
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, useEffect } from 'react'
 import { useProfile } from '@/hooks/useProfile'
 import { useTranslations } from 'next-intl'
+import { useAppSelector, RootState } from '@/utils/store'
+import { pathWithLocale } from '@/helpers/url/path-with-locale'
+import { usePathname, useRouter } from 'next/navigation'
+import { ROUTE } from '@/utils/constant/route'
+import { RESPONSE_CODES } from '@/utils/constant/codes'
+import { fToast } from '@/helpers/toast'
 
 const Page: React.FC = () => {
   const t = useTranslations('profile.avatar')
+  const tTitle = useTranslations('title')
+
+  const initialUrl = useAppSelector((state) => state.user.avtUrl)
 
   const [imageUrl, setImageUrl] = useState<string>(
-    'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png'
+    initialUrl ||
+      'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png'
   )
   const [defaultImageUrl, setDefaultImageUrl] = useState<string>(imageUrl)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const { uploadImage } = useProfile()
+  const { uploadImage, uploadAvatar } = useProfile()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const token = useAppSelector((state: RootState) => state.auth.token)
+
+  useEffect(() => {
+    const handleRedirect = (path: string) => {
+      const destinationPath = pathWithLocale(pathname, path)
+      router.push(destinationPath)
+    }
+
+    if (!token) {
+      handleRedirect(ROUTE.auth.signin)
+    }
+  }, [pathname, router, token])
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader()
@@ -38,7 +63,28 @@ const Page: React.FC = () => {
       if (response) {
         setImageUrl(response.secure_url)
         setDefaultImageUrl(imageUrl)
-        clearImage()
+
+        const uploadAvatarRes = await uploadAvatar(imageUrl)
+
+        if (uploadAvatarRes) {
+          const code = uploadAvatarRes.code
+          switch (code) {
+            case RESPONSE_CODES.SUCCESS:
+              fToast(t('toast.success'), 'success')
+              break
+
+            case RESPONSE_CODES.UNAUTHENTICATED_2:
+              fToast(t('toast.unauthenticated'), 'danger')
+              break
+
+            default:
+              fToast(t('toast.unknown'), 'danger')
+          }
+        } else {
+          fToast(t('toast.unknown'), 'danger')
+        }
+      } else {
+        fToast(t('toast.unknown'), 'danger')
       }
     } catch (error) {
       console.log('Error uploading image: ', error)
@@ -51,7 +97,7 @@ const Page: React.FC = () => {
   }
 
   return (
-    <MainLayout title="Avatar">
+    <MainLayout title={tTitle('avatar')}>
       <div className="flex flex-col items-center mt-[100px] gap-10">
         <div>
           <FImage

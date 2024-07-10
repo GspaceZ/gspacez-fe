@@ -1,13 +1,13 @@
-export interface Role {
+export interface IRole {
   description: string
   name: string
   permissions: any[]
 }
 
-export interface User {
+export interface IUser {
+  id: string
   email: string
   firstName: string
-  id: string
   lastName: string
-  roles: Role[]
+  roles: IRole[]
 }

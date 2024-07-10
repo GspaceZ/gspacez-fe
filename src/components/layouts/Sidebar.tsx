@@ -6,6 +6,13 @@ import { GoSidebarExpand } from 'react-icons/go'
 import SidebarOption from '../sidebar/sidebar-option'
 import { sidebarOptions } from '../../utils/constant/sidebarOptions'
 import { useTranslations } from 'next-intl'
+import { pathWithLocale } from '@/helpers/url/path-with-locale'
+import { usePathname, useRouter } from 'next/navigation'
+import { ROUTE } from '@/utils/constant/route'
+import { useAppDispatch } from '@/utils/store'
+import { logout } from '@/utils/store/auth'
+import { logout as logoutUser } from '@/utils/store/user'
+import { fToast } from '@/helpers/toast'
 
 interface SidebarProps {
   isSidebarOpen: boolean
@@ -14,6 +21,22 @@ interface SidebarProps {
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
   const t = useTranslations('sidebar')
+
+  const pathname = usePathname()
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+
+  const handleRedirect = (path: string) => {
+    const destinationPath = pathWithLocale(pathname, path)
+    router.push(destinationPath)
+  }
+
+  const handleLogout = () => {
+    dispatch(logout())
+    dispatch(logoutUser())
+    handleRedirect(ROUTE.pages.default)
+    fToast('Logout successfully', 'success')
+  }
 
   return (
     <div
@@ -49,6 +72,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
         variant="light"
         className="text-center text-xl font-bold h-[60px] border-t border-gray-200"
         radius="none"
+        onClick={handleLogout}
       >
         {t('logout_switch')}
       </Button>

@@ -12,6 +12,7 @@ export const ROUTE = {
     home: 'home'
   },
   pages: {
-    home: 'home'
+    home: 'home',
+    default: ''
   }
 }

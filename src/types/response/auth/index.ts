@@ -1,8 +1,8 @@
-import { User } from '@/types/user'
+import { IUser } from '@/types/user'
 
 export type SignUpResponse = {
   code: number
-  result: User
+  result: IUser
 }
 
 export type EncodedUrlResponse = {
