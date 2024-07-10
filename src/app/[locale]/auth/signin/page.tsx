@@ -18,6 +18,7 @@ import { setAuth } from '@/utils/store/auth'
 import { fToast } from '@/helpers/toast'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
 import { useState } from 'react'
+import ShowPassword from '@/components/common/ShowPassword'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
@@ -28,6 +29,11 @@ const Page: React.FC = () => {
 
   const { signIn } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
+
+  const toggleShowPassword = () => {
+    setIsShowPassword(!isShowPassword)
+  }
 
   const handleRedirect = (path: string) => {
     const destinationPath = pathWithLocale(pathname, path)
@@ -100,11 +106,17 @@ const Page: React.FC = () => {
             </InputWithError>
             <InputWithError>
               <Input
-                type="password"
+                type={isShowPassword ? 'text' : 'password'}
                 {...register('password')}
                 label={t('password')}
                 className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
+                endContent={
+                  <ShowPassword
+                    isVisible={isShowPassword}
+                    toggleShowPassword={toggleShowPassword}
+                  />
+                }
               />
             </InputWithError>
             <div className="flex justify-end w-full mr-2 -mt-2">
@@ -119,7 +131,7 @@ const Page: React.FC = () => {
               className={`w-[90px] h-[38px] mt-4 ${isLoading ? 'cursor-not-allowed' : ''}`}
               color="primary"
               onClick={handleSubmit(onSubmit)}
-              disabled={isLoading}
+              isLoading={isLoading}
             >
               {t('sign_in')}
             </Button>

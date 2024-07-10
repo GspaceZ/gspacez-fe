@@ -20,6 +20,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { useState } from 'react'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
 import { fToast } from '@/helpers/toast'
+import ShowPassword from '@/components/common/ShowPassword'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
@@ -29,6 +30,16 @@ const Page: React.FC = () => {
 
   const { getEncodedUrl, signUp } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState<boolean>(false)
+
+  const toggleShowPassword = () => {
+    setIsShowPassword(!isShowPassword)
+  }
+
+  const toggleShowConfirmPassword = () => {
+    setIsShowConfirmPassword(!isShowConfirmPassword)
+  }
 
   const handleRedirect = (path: string) => {
     const destinationPath = pathWithLocale(pathname, path)
@@ -163,21 +174,33 @@ const Page: React.FC = () => {
             </InputWithError>
             <InputWithError>
               <Input
-                type="password"
+                type={isShowPassword ? 'text' : 'password'}
                 label={t('password')}
                 {...register('password')}
                 className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
+                endContent={
+                  <ShowPassword
+                    isVisible={isShowPassword}
+                    toggleShowPassword={toggleShowPassword}
+                  />
+                }
               />
               <p className="text-red-500 text-sm">{errors?.password?.message}</p>
             </InputWithError>
             <InputWithError>
               <Input
-                type="password"
+                type={isShowConfirmPassword ? 'text' : 'password'}
                 {...register('confirmPassword')}
                 label={t('confirm_password')}
                 className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
+                endContent={
+                  <ShowPassword
+                    isVisible={isShowConfirmPassword}
+                    toggleShowPassword={toggleShowConfirmPassword}
+                  />
+                }
               />
               <p className="text-red-500 text-sm">{errors?.confirmPassword?.message}</p>
             </InputWithError>
@@ -185,7 +208,7 @@ const Page: React.FC = () => {
               className={`w-[90px] h-[38px] ${isLoading ? 'cursor-not-allowed' : ''}`}
               color="primary"
               onClick={handleSubmit(onSubmit)}
-              disabled={isLoading}
+              isLoading={isLoading}
             >
               {t('sign_up')}
             </Button>
