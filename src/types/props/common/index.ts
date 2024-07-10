@@ -16,3 +16,8 @@ export interface FImageProps {
   alt: string
   className?: string
 }
+
+export interface ShowPasswordProps {
+  isVisible: boolean
+  toggleShowPassword: () => void
+}
