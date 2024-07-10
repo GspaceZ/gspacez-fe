@@ -130,7 +130,12 @@
     "avatar": {
       "save": "Lưu ảnh đại diện",
       "cancel": "Hủy",
-      "choose_avatar": "Chọn ảnh đại diện từ thiết bị"
+      "choose_avatar": "Chọn ảnh đại diện từ thiết bị",
+      "toast": {
+        "success": "Cập nhật ảnh đại diện thành công!",
+        "unauthenticated": "Bạn không có quyền cập nhật ảnh đại diện cho tài khoản này!",
+        "unknown": "Có lỗi xảy ra! Hãy thử lại sau!"
+      }
     }
   }
 }

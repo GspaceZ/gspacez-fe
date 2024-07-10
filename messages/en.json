@@ -130,7 +130,12 @@
     "avatar": {
       "save": "Save avatar",
       "cancel": "Cancel",
-      "choose_avatar": "Choose an avatar from your device"
+      "choose_avatar": "Choose an avatar from your device",
+      "toast": {
+        "success": "Upload avatar successfully!",
+        "unauthenticated": "You are not authorized to update avatar for this account!",
+        "unknown": "Something happen! Try it later!"
+      }
     }
   }
 }

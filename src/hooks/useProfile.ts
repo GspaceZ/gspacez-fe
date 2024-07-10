@@ -1,8 +1,8 @@
 import callApi from '@/axios'
+import { UploadAvatarResponse } from '@/types/response/profile'
 
 export const useProfile = () => {
   const uploadImage = async (file: File | null) => {
-    console.log(process.env)
     const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string
     const apiKey = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY as string
     if (file) {
@@ -27,5 +27,18 @@ export const useProfile = () => {
     }
   }
 
-  return { uploadImage }
+  const uploadAvatar = async (avatarUrl: string) => {
+    try {
+      const response = await callApi<UploadAvatarResponse>('profile/users/avatar', 'POST', {
+        avatarUrl
+      })
+
+      const data = response.data
+      return data
+    } catch (error) {
+      console.log('Error uploading avatar: ', error)
+    }
+  }
+
+  return { uploadImage, uploadAvatar }
 }
