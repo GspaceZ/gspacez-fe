@@ -97,7 +97,7 @@ const Page: React.FC = () => {
           <form className="flex flex-col items-center w-fit mt-[24px] gap-[14px]">
             <InputWithError>
               <Input
-                type="otp"
+                type="number"
                 {...register('otp')}
                 label={t('verify_otp.otp')}
                 className="w-[314px] md:w-[340px] h-[56px]"
