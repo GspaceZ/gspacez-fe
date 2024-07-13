@@ -8,7 +8,7 @@ import { HeaderProps } from '@/types/props/layouts'
 const Header = ({ title, isSidebarOpen, toggleSidebar }: HeaderProps) => {
   return (
     <div
-      className={`h-[80px] flex items-center border-b border-gray-200 shadow-md sticky top-0 bg-white z-10
+      className={`h-[80px] flex items-center border-b border-gray-200 shadow-md sticky top-0
       md:mr-[300px] ${isSidebarOpen ? 'hidden md:flex' : ''}`}
     >
       <Button

@@ -5,4 +5,5 @@ export interface IMainProfileFormValues {
   city: string
   address: string
   dob: Date
+  phone: string
 }

@@ -2,20 +2,18 @@
 
 import * as React from 'react'
 import AuthLayout from '@/components/layouts/AuthLayout'
-import { Button, Input } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
+import InputWithError from '@/components/common/InputWithError'
+import { Button, Input } from '@nextui-org/react'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { ISignUpFormValues } from '@/helpers/form-value/signup-value'
-import InputWithError from '@/components/common/InputWithError'
-import { ROUTE } from '@/utils/constant/route'
+import { useAppSelector, useAppDispatch } from '@/utils/store'
+import { clearResetEmail } from '@/utils/store/email'
+import { IResetPasswordFormValues } from '@/helpers/form-value/reset-password-value'
 import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
-import { sendActivationMail } from '@/app/api/route/send-activation'
-import { getLocale } from '@/helpers/url/get-locale'
-import { generateActivationLink } from '@/helpers/activation/activation-link'
-import { getBaseUrl } from '@/helpers/url/base-url'
+import { ROUTE } from '@/utils/constant/route'
 import { useAuth } from '@/hooks/useAuth'
 import { useState } from 'react'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
@@ -28,7 +26,10 @@ const Page: React.FC = () => {
   const router = useRouter()
   const pathname = usePathname()
 
-  const { getEncodedUrl, signUp } = useAuth()
+  const dispatch = useAppDispatch()
+  const resetEmail = useAppSelector((state) => state.email.resetEmail)
+
+  const { resetPassword } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState<boolean>(false)
@@ -46,19 +47,8 @@ const Page: React.FC = () => {
     router.push(destinationPath)
   }
 
-  const signUpSchema = z
+  const resetPasswordSchema = z
     .object({
-      email: z.string().email({ message: t('error_messages.email') }),
-      firstName: z
-        .string()
-        .min(1, { message: t('error_messages.first_name') })
-        .max(20, {
-          message: t('error_messages.first_name')
-        }),
-      lastName: z
-        .string()
-        .min(1, { message: t('error_messages.last_name') })
-        .max(20, { message: t('error_messages.last_name') }),
       password: z
         .string()
         .min(8, { message: t('error_messages.password.length') })
@@ -85,41 +75,25 @@ const Page: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<ISignUpFormValues>({
-    resolver: zodResolver(signUpSchema)
+  } = useForm<IResetPasswordFormValues>({
+    resolver: zodResolver(resetPasswordSchema)
   })
 
-  const onSubmit = async (data: ISignUpFormValues) => {
+  const onSubmit = async (data: IResetPasswordFormValues) => {
     setIsLoading(true)
     try {
-      const signUpRes = await signUp(data.email, data.firstName, data.lastName, data.password)
-      if (signUpRes) {
-        const code = signUpRes.code
+      const resetPasswordRes = await resetPassword(resetEmail, data.password)
+      if (resetPasswordRes) {
+        const code = resetPasswordRes.code
         switch (code) {
           case RESPONSE_CODES.SUCCESS:
-            fToast(t('toast.signup.success'), 'success')
-            const { email, firstName, lastName } = signUpRes.result
-            const locale = getLocale(pathname)
-            const baseUrl = getBaseUrl()
-            const activationLink = generateActivationLink({
-              email,
-              locale,
-              baseUrl
-            })
-            const plainUrl = await getEncodedUrl(email, activationLink)
-            if (plainUrl) {
-              await sendActivationMail({
-                email: email,
-                firstName: firstName,
-                lastName: lastName,
-                activationLink: plainUrl.result.urlEncoded
-              })
-            }
-            // handleRedirect(ROUTE.auth.activate)
+            fToast(t('toast.reset_password.success'), 'success')
+            dispatch(clearResetEmail())
+            handleRedirect(ROUTE.auth.signin)
             break
 
           case RESPONSE_CODES.USER_EXISTED:
-            fToast(t('toast.signup.existed'), 'danger')
+            fToast(t('toast.reset_password.not_exist'), 'danger')
             break
 
           default:
@@ -138,40 +112,12 @@ const Page: React.FC = () => {
 
   return (
     <AuthLayout>
-      <div className="mt-[50px] flex flex-col w-[360px] md:w-[420px] min-h-[485px] rounded-[20px] border border-gray-200 justify-between shadow-md">
+      <div className="mt-[50px] flex flex-col w-[360px] md:w-[420px] min-h-[100vh] md:min-h-[232px] rounded-[20px] border border-gray-200 justify-between shadow-md">
         <div className="flex flex-col items-center">
-          <span className="text-3xl font-extrabold mt-[20px]">{t('sign_up')}</span>
-          <form className="flex flex-col items-center w-fit mt-[20px] gap-[14px]">
-            <InputWithError>
-              <Input
-                type="email"
-                {...register('email')}
-                label={t('email')}
-                className="w-[314px] md:w-[340px] h-[56px]"
-                size="lg"
-              />
-              <p className="text-red-500 text-sm">{errors?.email?.message}</p>
-            </InputWithError>
-            <InputWithError>
-              <div className="flex justify-between w-full">
-                <Input
-                  type="text"
-                  {...register('firstName')}
-                  label={t('first_name')}
-                  className="w-[150px] md:w-[162px] h-[56px]"
-                  size="lg"
-                />
-                <Input
-                  type="text"
-                  {...register('lastName')}
-                  label={t('last_name')}
-                  className="w-[150px] md:w-[162px] h-[56px]"
-                  size="lg"
-                />
-              </div>
-              <p className="text-red-500 text-sm">{errors?.firstName?.message}</p>
-              <p className="text-red-500 text-sm">{errors?.lastName?.message}</p>
-            </InputWithError>
+          <span className="text-3xl font-extrabold mt-[28px]">
+            {t('reset_password.recover_account')}
+          </span>
+          <form className="flex flex-col items-center w-fit mt-[24px] gap-[14px]">
             <InputWithError>
               <Input
                 type={isShowPassword ? 'text' : 'password'}
@@ -205,25 +151,14 @@ const Page: React.FC = () => {
               <p className="text-red-500 text-sm">{errors?.confirmPassword?.message}</p>
             </InputWithError>
             <Button
-              className={`w-[90px] h-[38px] ${isLoading ? 'cursor-not-allowed' : ''}`}
+              className="my-4 h-[38px]"
               color="primary"
               onClick={handleSubmit(onSubmit)}
               isLoading={isLoading}
             >
-              {t('sign_up')}
+              {t('reset_password.reset_password_button')}
             </Button>
           </form>
-        </div>
-        <div className="flex mx-auto flex items-center mb-[30px] mt-[40px] gap-[10px]">
-          <span className="text-gray-500 font-bold">{t('have_account')}</span>
-          <Button
-            className="w-[90px] h-[38px]"
-            color="primary"
-            variant="bordered"
-            onPress={() => handleRedirect(ROUTE.auth.signin)}
-          >
-            {t('sign_in')}
-          </Button>
         </div>
       </div>
     </AuthLayout>

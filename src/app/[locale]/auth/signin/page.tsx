@@ -12,12 +12,28 @@ import { ISignInFormValues } from '@/helpers/form-value/signin-value'
 import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
+import { useAuth } from '@/hooks/useAuth'
+import { useAppDispatch } from '@/utils/store'
+import { setAuth } from '@/utils/store/auth'
+import { fToast } from '@/helpers/toast'
+import { RESPONSE_CODES } from '@/utils/constant/codes'
+import { useState } from 'react'
+import ShowPassword from '@/components/common/ShowPassword'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
 
   const router = useRouter()
   const pathname = usePathname()
+  const dispatch = useAppDispatch()
+
+  const { signIn } = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
+
+  const toggleShowPassword = () => {
+    setIsShowPassword(!isShowPassword)
+  }
 
   const handleRedirect = (path: string) => {
     const destinationPath = pathWithLocale(pathname, path)
@@ -25,7 +41,8 @@ const Page: React.FC = () => {
   }
 
   const signInSchema = z.object({
-    email: z.string().email({ message: t('error_messages.email') })
+    email: z.string().email({ message: t('error_messages.email') }),
+    password: z.string()
   })
 
   const {
@@ -36,11 +53,38 @@ const Page: React.FC = () => {
     resolver: zodResolver(signInSchema)
   })
 
-  const onSubmit = (data: ISignInFormValues) => {
+  const onSubmit = async (data: ISignInFormValues) => {
+    setIsLoading(true)
     try {
-      console.log('Submitted data: ', data)
+      const signInRes = await signIn(data.email, data.password)
+      if (signInRes) {
+        const code = signInRes.code
+        switch (code) {
+          case RESPONSE_CODES.SUCCESS:
+            dispatch(setAuth(signInRes.result))
+            fToast(t('toast.signin.success'), 'success')
+            handleRedirect(ROUTE.pages.home)
+            break
+
+          case RESPONSE_CODES.USER_NOT_EXISTED:
+            fToast(t('toast.signin.not_exist'), 'danger')
+            break
+
+          case RESPONSE_CODES.WRONG_PASSWORD:
+            fToast(t('toast.signin.wrong_password'), 'danger')
+            break
+
+          default:
+            fToast(t('toast.unknown'), 'danger')
+        }
+      } else {
+        fToast(t('toast.unknown'), 'danger')
+      }
     } catch (error) {
+      fToast(t('toast.unknown'), 'danger')
       console.error('Error: ', error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -62,10 +106,17 @@ const Page: React.FC = () => {
             </InputWithError>
             <InputWithError>
               <Input
-                type="password"
+                type={isShowPassword ? 'text' : 'password'}
+                {...register('password')}
                 label={t('password')}
                 className="w-[314px] md:w-[340px] h-[56px]"
                 size="lg"
+                endContent={
+                  <ShowPassword
+                    isVisible={isShowPassword}
+                    toggleShowPassword={toggleShowPassword}
+                  />
+                }
               />
             </InputWithError>
             <div className="flex justify-end w-full mr-2 -mt-2">
@@ -77,9 +128,10 @@ const Page: React.FC = () => {
               </Button>
             </div>
             <Button
-              className="w-[90px] h-[38px] mt-4"
+              className={`w-[90px] h-[38px] mt-4 ${isLoading ? 'cursor-not-allowed' : ''}`}
               color="primary"
               onClick={handleSubmit(onSubmit)}
+              isLoading={isLoading}
             >
               {t('sign_in')}
             </Button>

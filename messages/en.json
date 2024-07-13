@@ -56,6 +56,10 @@
         "number": "Password must contain at least one number.",
         "special": "Password must contain at least one special character.",
         "confirm": "Those passwords don't match. Please try again."
+      },
+      "verify_otp": {
+        "length": "OTP must be exactly 6 digits.",
+        "number": "OTP must contain only numbers."
       }
     },
     "activate": {
@@ -66,16 +70,47 @@
     },
     "forgot_password": {
       "send_recovery_email": "Send Recovery Email",
-      "forgot_password": "Forgot Password",
+      "forgot_password_title": "Forgot Password",
       "email": "Email",
       "error_messages": {
         "email": "Please enter a valid email address."
       }
     },
     "forgot_password_button": "Forgot Password?",
-    "recovery_email": {
-      "forgot_password": "Forgot Password",
-      "recovery_notification": "Recovery Mail is sent! Please check your email!"
+    "verify_otp": {
+      "recover_account": "Recover Account",
+      "otp": "Your 6-digit OTP",
+      "confirm_button": "Confirm"
+    },
+    "reset_password": {
+      "recover_account": "Recover Account",
+      "new_password": "Your new password",
+      "confirm_new_password": "Confirm new password",
+      "reset_password_button": "Reset Password"
+    },
+    "toast": {
+      "signin": {
+        "success": "Signin successfully!",
+        "not_exist": "Your account is not existed!",
+        "wrong_password": "Wrong password!"
+      },
+      "signup": {
+        "success": "Signup successfully!",
+        "existed": "An account with this email is existed!"
+      },
+      "unknown": "Something happen! Try it later!",
+      "forgot_password": {
+        "success": "Email sent successfully!"
+      },
+      "verify_otp": {
+        "correct": "OTP is correct",
+        "incorrect": "OTP incorrect",
+        "expired": "OTP expired"
+      },
+      "reset_password": {
+        "success": "Reset password successfully!",
+        "not_exist": "Your account is not existed!"
+      }
     }
   },
   "profile": {
@@ -95,7 +130,17 @@
     "avatar": {
       "save": "Save avatar",
       "cancel": "Cancel",
-      "choose_avatar": "Choose an avatar from your device"
+      "choose_avatar": "Choose an avatar from your device",
+      "toast": {
+        "success": "Upload avatar successfully!",
+        "unauthenticated": "You are not authorized to update avatar for this account!",
+        "unknown": "Something happen! Try it later!"
+      }
+    },
+    "toast": {
+      "success": "Update profile successfully!",
+      "unauthenticated": "You are not authorized to update profile for this account!",
+      "unknown": "Something happen! Try it later!"
     }
   }
 }
