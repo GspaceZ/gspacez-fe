@@ -44,7 +44,6 @@ const Page: React.FC = () => {
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader()
-    console.log(event.target.files)
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0]
       setSelectedFile(file)
@@ -60,11 +59,14 @@ const Page: React.FC = () => {
   const handleSave = async () => {
     try {
       const response = await uploadImage(selectedFile)
-      if (response) {
-        setImageUrl(response.secure_url)
-        setDefaultImageUrl(imageUrl)
+      console.log('Selected file:', selectedFile)
 
-        const uploadAvatarRes = await uploadAvatar(imageUrl)
+      if (response) {
+        const secureUrl = response.secure_url
+        setImageUrl(secureUrl)
+        setDefaultImageUrl(secureUrl)
+
+        const uploadAvatarRes = await uploadAvatar(secureUrl, token)
 
         if (uploadAvatarRes) {
           const code = uploadAvatarRes.code
@@ -87,7 +89,7 @@ const Page: React.FC = () => {
         fToast(t('toast.unknown'), 'danger')
       }
     } catch (error) {
-      console.log('Error uploading image: ', error)
+      console.error('Error uploading image: ', error)
     }
   }
 
