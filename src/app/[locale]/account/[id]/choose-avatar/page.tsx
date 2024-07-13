@@ -59,7 +59,6 @@ const Page: React.FC = () => {
   const handleSave = async () => {
     try {
       const response = await uploadImage(selectedFile)
-      console.log('Selected file:', selectedFile)
 
       if (response) {
         const secureUrl = response.secure_url

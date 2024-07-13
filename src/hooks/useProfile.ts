@@ -1,5 +1,5 @@
 import callApi from '@/axios'
-import { UploadAvatarResponse } from '@/types/response/profile'
+import { UploadAvatarResponse, UpdateProfileResponse } from '@/types/response/profile'
 import axios from 'axios'
 
 export const useProfile = () => {
@@ -40,9 +40,14 @@ export const useProfile = () => {
 
   const uploadAvatar = async (avatarUrl: string, token: string) => {
     try {
-      const response = await callApi<UploadAvatarResponse>('/profile/users/avatar', 'POST', {
-        avatarUrl
-      }, token)
+      const response = await callApi<UploadAvatarResponse>(
+        '/profile/users/avatar',
+        'POST',
+        {
+          avatarUrl
+        },
+        token
+      )
 
       const data = response.data
       return data
@@ -51,5 +56,38 @@ export const useProfile = () => {
     }
   }
 
-  return { uploadImage, uploadAvatar }
+  const updateProfile = async (
+    firstName: string,
+    lastName: string,
+    dob: Date,
+    phone: string,
+    country: string,
+    city: string,
+    address: string,
+    token: string
+  ) => {
+    try {
+      const response = await callApi<UpdateProfileResponse>(
+        '/profile/users',
+        'PUT',
+        {
+          firstName,
+          lastName,
+          dob,
+          phone,
+          country,
+          city,
+          address
+        },
+        token
+      )
+
+      const data = response.data
+      return data
+    } catch (error) {
+      console.log('Error update profile: ', error)
+    }
+  }
+
+  return { uploadImage, uploadAvatar, updateProfile }
 }

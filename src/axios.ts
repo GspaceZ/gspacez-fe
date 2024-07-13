@@ -7,16 +7,20 @@ export async function callApi<T>(
   token?: string
 ): Promise<AxiosResponse<T>> {
   try {
-    console.log(token)
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    };
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     const response = await axios({
       url: process.env.NEXT_PUBLIC_BACKEND_URL + url,
       method,
       data,
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`
-      }
+      headers
     })
     return response
   } catch (error) {
