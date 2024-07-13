@@ -136,6 +136,11 @@
         "unauthenticated": "You are not authorized to update avatar for this account!",
         "unknown": "Something happen! Try it later!"
       }
+    },
+    "toast": {
+      "success": "Update profile successfully!",
+      "unauthenticated": "You are not authorized to update profile for this account!",
+      "unknown": "Something happen! Try it later!"
     }
   }
 }

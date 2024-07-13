@@ -136,6 +136,11 @@
         "unauthenticated": "Bạn không có quyền cập nhật ảnh đại diện cho tài khoản này!",
         "unknown": "Có lỗi xảy ra! Hãy thử lại sau!"
       }
+    },
+    "toast": {
+      "success": "Cập nhật thông tin thành công!",
+      "unauthenticated": "Bạn không có quyền cập nhật thông tin cho tài khoản này!",
+      "unknown": "Có lỗi xảy ra! Hãy thử lại sau!"
     }
   }
 }

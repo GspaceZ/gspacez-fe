@@ -4,3 +4,8 @@ export type UploadAvatarResponse = {
   code: number
   result: IProfile
 }
+
+export type UpdateProfileResponse = {
+  code: number
+  result: IProfile
+}

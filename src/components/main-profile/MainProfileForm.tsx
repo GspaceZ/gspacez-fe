@@ -1,16 +1,45 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import { Input, Button } from '@nextui-org/react'
 import InputWithError from '../common/InputWithError'
 import { IMainProfileFormValues } from '@/helpers/form-value/main-profile-value'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useProfile } from '@/hooks/useProfile'
 import { useTranslations } from 'next-intl'
+import { useAppSelector, RootState } from '@/utils/store'
+import { pathWithLocale } from '@/helpers/url/path-with-locale'
+import { usePathname, useRouter } from 'next/navigation'
+import { ROUTE } from '@/utils/constant/route'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import FImage from '../common/FImage'
+import { RESPONSE_CODES } from '@/utils/constant/codes'
+import { fToast } from '@/helpers/toast'
 
 const MainProfileForm = () => {
   const t = useTranslations('profile')
 
-  const createProfileSchema = z.object({
+  const { updateProfile } = useProfile()
+  const [isLoading, setIsLoading] = useState(false)
+
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const token = useAppSelector((state: RootState) => state.auth.token)
+
+  useEffect(() => {
+    const handleRedirect = (path: string) => {
+      const destinationPath = pathWithLocale(pathname, path)
+      router.push(destinationPath)
+    }
+
+    if (!token) {
+      handleRedirect(ROUTE.auth.signin)
+    }
+  }, [pathname, router, token])
+
+  const updateProfileSchema = z.object({
     firstName: z
       .string()
       .trim()
@@ -29,14 +58,44 @@ const MainProfileForm = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<IMainProfileFormValues>({
-    resolver: zodResolver(createProfileSchema)
+    resolver: zodResolver(updateProfileSchema)
   })
 
-  const onSubmit = async (data: IMainProfileFormValues) => {
+  const onSave = async (data: IMainProfileFormValues) => {
+    setIsLoading(true)
     try {
-      console.log('Submitted data: ', data)
+      const updateProfileRes = await updateProfile(
+        data.firstName,
+        data.lastName,
+        data.dob,
+        data.phone,
+        data.country,
+        data.city,
+        data.address,
+        token
+      )
+      if (updateProfileRes) {
+        const code = updateProfileRes.code
+        switch (code) {
+          case RESPONSE_CODES.SUCCESS:
+            fToast(t('toast.success'), 'success')
+            break
+
+          case RESPONSE_CODES.UNAUTHENTICATED_2:
+            fToast(t('toast.unauthenticated'), 'danger')
+            break
+
+          default:
+            fToast(t('toast.unknown'), 'danger')
+        }
+      } else {
+        fToast(t('toast.unknown'), 'danger')
+      }
     } catch (error) {
-      console.error('Error: ', error)
+      fToast(t('toast.unknown'), 'danger')
+      console.error('Error update profile: ', error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -112,16 +171,13 @@ const MainProfileForm = () => {
         />
       </InputWithError>
       <div className="flex items-center justify-center gap-[20px]">
-        <Button className="w-[90px] h-[38px]" color="primary" onClick={handleSubmit(onSubmit)}>
-          {t('save')}
-        </Button>
         <Button
           className="w-[90px] h-[38px]"
           color="primary"
-          variant="bordered"
-          onClick={handleSubmit(onSubmit)}
+          onClick={handleSubmit(onSave)}
+          isLoading={isLoading}
         >
-          {t('cancel')}
+          {t('save')}
         </Button>
       </div>
     </form>
