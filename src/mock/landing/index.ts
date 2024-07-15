@@ -18,10 +18,35 @@ export const landingProfile = {
 } as IProfile
 
 export const landingPost = {
-  id: '12334',
-  authorId: '12334',
-  content: 'Welcome to Fakebook!!!',
-  type: PostTypeEnum.USER,
+  id: '3',
+  user: {
+    id: '1',
+    phone: '',
+    country: '',
+    city: '',
+    address: 'string',
+    dob: new Date('1900/01/01'),
+    shortDescription: 'string',
+    fullDescription: 'string',
+    avtUrl:
+      'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
+    firstName: 'Fakebook',
+    lastName: 'User'
+  },
+  content: {
+    text: 'Welcome to Fakebook',
+    imageUrls: [],
+    videoUrls: [],
+    location: '',
+    feeling: '',
+    tag: []
+  },
+  comments: [],
+  reacts: [],
+  shares: [],
   privacy: PostPrivacyEnum.PUBLIC,
-  createdAt: new Date('2024/06/15')
+  location: '',
+  type: PostTypeEnum.USER,
+  createdAt: new Date('2024/06/01'),
+  updatedAt: new Date('2024/06/01')
 }

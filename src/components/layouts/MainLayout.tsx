@@ -43,7 +43,6 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
         <TrendingSidebar
           posts={trendingPostsData}
           trendingPeople={trendingPeopleData}
-          buttons={buttonOptions}
           isVisible={isTrendingSidebarOpen}
         />
         <div

@@ -63,7 +63,7 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <Post profile={landingProfile} post={landingPost} />
+          <Post post={landingPost} />
         </div>
       </div>
     </BlankLayout>

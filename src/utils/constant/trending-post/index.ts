@@ -1,39 +1,164 @@
-export const trendingPostsData = [
+import { IPost } from '@/types/post'
+import { IProfile } from '@/types/profile'
+import { PostPrivacyEnum, PostTypeEnum } from '..'
+
+export const trendingPostsData: IPost[] = [
   {
-    name: 'Junior Garcia',
-    time: 'Now',
-    profileImage: '/profile.png',
-    content: 'Super Trendings',
+    id: '1',
+    user: {
+      id: '1',
+      phone: '',
+      country: '',
+      city: '',
+      address: 'string',
+      dob: new Date('1900/01/01'),
+      shortDescription: 'string',
+      fullDescription: 'string',
+      avtUrl:
+        'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
+      firstName: 'Dung',
+      lastName: 'Tran'
+    },
+    content: {
+      text: 'Super Trendings',
+      imageUrls: [],
+      videoUrls: [],
+      location: '',
+      feeling: '',
+      tag: []
+    },
+    comments: [],
+    reacts: [],
+    shares: [],
+    privacy: PostPrivacyEnum.PUBLIC,
+    location: '',
+    type: PostTypeEnum.USER,
+    createdAt: new Date('2024/06/01'),
+    updatedAt: new Date('2024/06/01')
   },
   {
-    name: 'Junior Garcia',
-    time: 'Now',
-    profileImage: '/profile.png',
-    content: 'Super Trendings',
+    id: '2',
+    user: {
+      id: '1',
+      phone: '',
+      country: '',
+      city: '',
+      address: 'string',
+      dob: new Date('1900/01/01'),
+      shortDescription: 'string',
+      fullDescription: 'string',
+      avtUrl:
+        'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
+      firstName: 'Dung',
+      lastName: 'Tran'
+    },
+    content: {
+      text: 'Super Trendings',
+      imageUrls: [],
+      videoUrls: [],
+      location: '',
+      feeling: '',
+      tag: []
+    },
+    comments: [],
+    reacts: [],
+    shares: [],
+    privacy: PostPrivacyEnum.PUBLIC,
+    location: '',
+    type: PostTypeEnum.USER,
+    createdAt: new Date('2024/06/01'),
+    updatedAt: new Date('2024/06/01')
   },
   {
-    name: 'Junior Garcia',
-    time: 'Now',
-    profileImage: '/profile.png',
-    content: 'Super Trendings',
-  },
+    id: '3',
+    user: {
+      id: '1',
+      phone: '',
+      country: '',
+      city: '',
+      address: 'string',
+      dob: new Date('1900/01/01'),
+      shortDescription: 'string',
+      fullDescription: 'string',
+      avtUrl:
+        'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
+      firstName: 'Dung',
+      lastName: 'Tran'
+    },
+    content: {
+      text: 'Super Trendings',
+      imageUrls: [],
+      videoUrls: [],
+      location: '',
+      feeling: '',
+      tag: []
+    },
+    comments: [],
+    reacts: [],
+    shares: [],
+    privacy: PostPrivacyEnum.PUBLIC,
+    location: '',
+    type: PostTypeEnum.USER,
+    createdAt: new Date('2024/06/01'),
+    updatedAt: new Date('2024/06/01')
+  }
 ]
 
-export const trendingPeopleData = [
+export const trendingPeopleData: IProfile[] = [
   {
-    name: 'Junior Garcia',
-    profileImage: '/profile.png',
+    id: '1',
+    phone: '',
+    country: '',
+    city: '',
+    address: 'string',
+    dob: new Date('1900/01/01'),
+    shortDescription: 'string',
+    fullDescription: 'string',
+    avtUrl:
+      'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
+    firstName: 'Dung',
+    lastName: 'Tran'
   },
   {
-    name: 'Junior Garcia',
-    profileImage: '/profile.png',
+    id: '2',
+    phone: '',
+    country: '',
+    city: '',
+    address: 'string',
+    dob: new Date('1900/01/01'),
+    shortDescription: 'string',
+    fullDescription: 'string',
+    avtUrl:
+      'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
+    firstName: 'Dung',
+    lastName: 'Tran'
   },
   {
-    name: 'Junior Garcia',
-    profileImage: '/profile.png',
+    id: '3',
+    phone: '',
+    country: '',
+    city: '',
+    address: 'string',
+    dob: new Date('1900/01/01'),
+    shortDescription: 'string',
+    fullDescription: 'string',
+    avtUrl:
+      'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
+    firstName: 'Dung',
+    lastName: 'Tran'
   },
   {
-    name: 'Junior Garcia',
-    profileImage: '/profile.png',
-  },
+    id: '4',
+    phone: '',
+    country: '',
+    city: '',
+    address: 'string',
+    dob: new Date('1900/01/01'),
+    shortDescription: 'string',
+    fullDescription: 'string',
+    avtUrl:
+      'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
+    firstName: 'Dung',
+    lastName: 'Tran'
+  }
 ]
