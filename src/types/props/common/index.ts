@@ -1,9 +1,10 @@
 import { IPost } from '@/types/post'
 import { IProfile } from '@/types/profile'
+import { POST_VARIANTS } from '@/utils/constant/variants'
 
 export interface PostProps {
-  profile: IProfile
   post: IPost
+  variant?: POST_VARIANTS
 }
 
 export interface OverlayProps {

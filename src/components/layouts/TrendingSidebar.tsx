@@ -6,10 +6,14 @@ import TrendingPeople from '@/components/trending-post/trending-people'
 import ButtonOption from '@/components/trending-post/button-option'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { Button } from '@nextui-org/react'
+import { Button, User } from '@nextui-org/react'
 import { TrendingSidebarProps } from '@/types/props/layouts'
+import Post from '../common/Post'
+import { buttonOptions } from '@/utils/constant/buttonOptions'
+import { fullName } from '@/helpers/user/full-name'
+import { POST_VARIANTS } from '@/utils/constant/variants'
 
-const TrendingSidebar = ({ posts, trendingPeople, buttons, isVisible }: TrendingSidebarProps) => {
+const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarProps) => {
   const t = useTranslations('trending_posts')
   const router = useRouter()
 
@@ -36,7 +40,7 @@ const TrendingSidebar = ({ posts, trendingPeople, buttons, isVisible }: Trending
         </div>
         <div>
           {posts.map((post, index) => (
-            <TrendingPost key={index} post={post} />
+            <Post key={index} post={post} variant={POST_VARIANTS.sidebar} />
           ))}
         </div>
         <div className="flex justify-between md:border md:border-gray-300 px-4 py-5 mt-[50px]">
@@ -48,15 +52,20 @@ const TrendingSidebar = ({ posts, trendingPeople, buttons, isVisible }: Trending
             {t('more')}
           </Button>
         </div>
-        <div>
+        <div className="flex flex-col w-full">
           {trendingPeople.map((user, index) => (
-            <TrendingPeople key={index} user={user} />
+            <div
+              className="w-full py-2 pl-4 border border-gray-100 cursor-pointer hover:bg-gray-50"
+              key={index}
+            >
+              <User name={fullName(user.firstName, user.firstName)} />
+            </div>
           ))}
         </div>
       </div>
       <div className="hidden md:flex md:border-l md:border-gray-300 bg-white shadow-md">
         <div className="flex items-center rounded-xl justify-around w-full space-x-1">
-          {buttons.map((buttonOption, index) => (
+          {buttonOptions.map((buttonOption, index) => (
             <ButtonOption key={index} button={buttonOption} />
           ))}
         </div>
