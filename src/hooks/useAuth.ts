@@ -11,7 +11,7 @@ import {
 export const useAuth = () => {
   const getEncodedUrl = async (email: string, url: string) => {
     try {
-      const response = await callApi<EncodedUrlResponse>('/identity/auth/encodeUrl', 'POST', {
+      const response = await callApi<EncodedUrlResponse>('/identity/auth/send-active', 'POST', {
         email,
         url
       })
