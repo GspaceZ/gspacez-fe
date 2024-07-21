@@ -9,6 +9,7 @@ import { useTranslations } from 'next-intl'
 import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
+import { POST_VARIANTS } from '@/utils/constant/variants'
 
 export default function Home() {
   const t = useTranslations('landing')
@@ -63,7 +64,7 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <Post post={landingPost} />
+          <Post post={landingPost} variant={POST_VARIANTS.landing} />
         </div>
       </div>
     </BlankLayout>

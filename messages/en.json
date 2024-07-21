@@ -20,7 +20,13 @@
     "comment": "Comment",
     "share": "Share",
     "hide": "Hide post",
-    "report": "Report"
+    "report": "Report",
+    "create_placeholder": "What are you thinking?",
+    "options": {
+      "hide": "Hide",
+      "privacy": "Privacy",
+      "edit": "Edit"
+    }
   },
   "landing": {
     "text_1": "Simpler, easier, ...",
