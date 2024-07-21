@@ -20,7 +20,13 @@
     "comment": "Bình luận",
     "share": "Chia sẻ",
     "hide": "Ẩn bài viết",
-    "report": "Báo cáo"
+    "report": "Báo cáo",
+    "create_placeholder": "Bạn đang nghĩ gì?",
+    "options": {
+      "hide": "Ẩn",
+      "privacy": "Quyền riêng tư",
+      "edit": "Chỉnh sửa"
+    }
   },
   "landing": {
     "text_1": "Đơn giản hơn, dễ hơn, ...",

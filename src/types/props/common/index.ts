@@ -1,5 +1,4 @@
 import { IPost } from '@/types/post'
-import { IProfile } from '@/types/profile'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 
 export interface PostProps {
@@ -21,4 +20,15 @@ export interface FImageProps {
 export interface ShowPasswordProps {
   isVisible: boolean
   toggleShowPassword: () => void
+}
+
+export interface FCarouselItemProps {
+  id: string
+  mediaUrl: string
+  type: string
+}
+
+export interface FVideoProps {
+  src: string
+  className?: string
 }
