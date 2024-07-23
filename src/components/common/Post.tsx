@@ -20,6 +20,7 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
+  const [isLiked, setIsLiked] = useState(false)
 
   const content = formattedContent(post)
 
@@ -124,13 +125,26 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
               variant === POST_VARIANTS.sidebar ? 'hidden' : ''
             }`}
           >
-            <Button variant="light" startContent={<GoStar />} className="text-base">
+            <Button
+              variant="light"
+              startContent={<GoStar />}
+              className={`text-base ${isLiked ? 'text-yellow-500' : ''} ${
+                variant === POST_VARIANTS.feed ? 'md:ml-10' : ''
+              }`}
+              onClick={() => {
+                setIsLiked(!isLiked)
+              }}
+            >
               {t('like')}
             </Button>
             <Button variant="light" startContent={<GoComment />} className="text-base">
               {t('comment')}
             </Button>
-            <Button variant="light" startContent={<GoPaperAirplane />} className="text-base">
+            <Button
+              variant="light"
+              startContent={<GoPaperAirplane />}
+              className={`text-base ${variant === POST_VARIANTS.feed ? 'md:mr-10' : ''}`}
+            >
               {t('share')}
             </Button>
           </div>
