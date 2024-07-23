@@ -35,6 +35,10 @@
       "feeling": "Feeling:",
       "privacy": "Privacy",
       "placeholder": "What are you thinking?"
+    },
+    "toggle": {
+      "hide": "Post is hidden.",
+      "restore": "Restore?"
     }
   },
   "landing": {

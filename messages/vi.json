@@ -35,6 +35,10 @@
       "feeling": "Cảm xúc:",
       "privacy": "Quyền riêng tư",
       "placeholder": "Bạn đang nghĩ gì?"
+    },
+    "toggle": {
+      "hide": "Bài đăng đã bị ẩn.",
+      "restore": "Khôi phục?"
     }
   },
   "landing": {
