@@ -45,14 +45,14 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
     <div
       className={`w-full ${
         variant === POST_VARIANTS.feed
-          ? 'max-w-[600px]'
+          ? 'max-w-[600px] rounded-lg bg-white'
           : variant === POST_VARIANTS.landing
           ? 'max-w-[448px] rounded-[20px] min-h-[220px] drop-shadow-md'
           : variant === POST_VARIANTS.sidebar
           ? 'h-[110px] cursor-pointer hover:bg-gray-50'
           : 'bg-white border-gray-50 rounded-lg min-h-[220px]'
       } border border-gray-200 
-        flex-col justify-between  hidden md:flex`}
+        flex-col justify-between md:flex`}
     >
       <div
         className={`mx-3 md:mx-6 mt-4 flex flex-col items-start ${
