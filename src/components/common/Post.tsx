@@ -19,11 +19,16 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
   const t = useTranslations('post')
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isHidden, setIsHidden] = useState(false)
 
   const content = formattedContent(post)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
+  }
+
+  const togglePost = () => {
+    setIsHidden(!isHidden)
   }
 
   const items: FCarouselItemProps[] = [
@@ -42,85 +47,96 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
   ]
 
   return (
-    <div
-      className={`w-full ${
-        variant === POST_VARIANTS.feed
-          ? 'max-w-[600px] rounded-lg bg-white'
-          : variant === POST_VARIANTS.landing
-          ? 'max-w-[448px] rounded-[20px] min-h-[220px] drop-shadow-md'
-          : variant === POST_VARIANTS.sidebar
-          ? 'h-[110px] cursor-pointer hover:bg-gray-50'
-          : 'bg-white border-gray-50 rounded-lg min-h-[220px]'
-      } border border-gray-200 
-        flex-col justify-between md:flex`}
-    >
-      <div
-        className={`mx-3 md:mx-6 mt-4 flex flex-col items-start ${
-          variant === POST_VARIANTS.sidebar ? 'gap-1' : 'gap-5'
-        }`}
-      >
-        <div className="flex justify-between w-full items-start">
-          <User
-            name={fullName(post.user.firstName, post.user.lastName)}
-            description={postTime(post)}
-            avatarProps={{ src: post.user.avtUrl }}
-            className="text-xl font-bold"
-          />
-          <div className="flex flex-col items-end">
-            <div className="relative">
-              <Button
-                isIconOnly
-                className={`${variant === POST_VARIANTS.sidebar ? 'hidden' : 'text-2xl'}`}
-                variant="light"
-                onPress={() => toggleMenu()}
-              >
-                <CiCircleMore />
-              </Button>
-              {isMenuOpen && <Options />}
-            </div>
-            <div
-              className={`${
-                isMenuOpen ? '' : 'hidden'
-              } border border-gray-200 flex flex-col rounded-[8px] absolute top-[55px] right-[30px]`}
-            >
-              <Button variant="light" className="w-[80px] h-[30px]" radius="none">
-                {t('hide')}
-              </Button>
-              <Button variant="light" className="w-[80px] h-[30px]" radius="none">
-                {t('report')}
-              </Button>
-            </div>
+    <>
+      {isHidden ? (
+        <div className="w-full max-w-[600px] bg-white border border-gray-200 rounded-lg">
+          <div className="my-2 mx-3 flex flex-col">
+            <span>{t('toggle.hide')}</span>
+            <Button onClick={() => togglePost()}>{t('toggle.restore')}</Button>
           </div>
         </div>
-        <span className={`${content.isBigContent ? 'text-2xl' : 'text-xl'}`}>
-          {content.shortContent}
-        </span>
-        <Button
-          variant="light"
-          className={`text-gray-500 w-fit ${
-            content.isNeedReadMore && variant !== POST_VARIANTS.sidebar ? '' : 'hidden'
-          }`}
+      ) : (
+        <div
+          className={`w-full ${
+            variant === POST_VARIANTS.feed
+              ? 'max-w-[600px] rounded-lg bg-white'
+              : variant === POST_VARIANTS.landing
+              ? 'max-w-[448px] rounded-[20px] min-h-[220px] drop-shadow-md'
+              : variant === POST_VARIANTS.sidebar
+              ? 'h-[110px] cursor-pointer hover:bg-gray-50'
+              : 'bg-white border-gray-50 rounded-lg min-h-[220px]'
+          } border border-gray-200 
+        flex-col justify-between md:flex`}
         >
-          {t('read_more')}
-        </Button>
-        {variant === POST_VARIANTS.feed && <FCarousel items={items} />}
-      </div>
-      <div
-        className={`h-[48px] w-full flex justify-between border-t border-gray-200 items-center ${
-          variant === POST_VARIANTS.sidebar ? 'hidden' : ''
-        }`}
-      >
-        <Button variant="light" startContent={<GoStar />} className="text-base">
-          {t('like')}
-        </Button>
-        <Button variant="light" startContent={<GoComment />} className="text-base">
-          {t('comment')}
-        </Button>
-        <Button variant="light" startContent={<GoPaperAirplane />} className="text-base">
-          {t('share')}
-        </Button>
-      </div>
-    </div>
+          <div
+            className={`mx-3 md:mx-6 mt-4 flex flex-col items-start ${
+              variant === POST_VARIANTS.sidebar ? 'gap-1' : 'gap-5'
+            }`}
+          >
+            <div className="flex justify-between w-full items-start">
+              <User
+                name={fullName(post.user.firstName, post.user.lastName)}
+                description={postTime(post)}
+                avatarProps={{ src: post.user.avtUrl }}
+                className="text-xl font-bold"
+              />
+              <div className="flex flex-col items-end">
+                <div className="relative">
+                  <Button
+                    isIconOnly
+                    className={`${variant === POST_VARIANTS.sidebar ? 'hidden' : 'text-2xl'}`}
+                    variant="light"
+                    onClick={() => toggleMenu()}
+                  >
+                    <CiCircleMore />
+                  </Button>
+                  {isMenuOpen && <Options hidePost={togglePost} />}
+                </div>
+                <div
+                  className={`${
+                    isMenuOpen ? '' : 'hidden'
+                  } border border-gray-200 flex flex-col rounded-[8px] absolute top-[55px] right-[30px]`}
+                >
+                  <Button variant="light" className="w-[80px] h-[30px]" radius="none">
+                    {t('hide')}
+                  </Button>
+                  <Button variant="light" className="w-[80px] h-[30px]" radius="none">
+                    {t('report')}
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <span className={`${content.isBigContent ? 'text-2xl' : 'text-xl'}`}>
+              {content.shortContent}
+            </span>
+            <Button
+              variant="light"
+              className={`text-gray-500 w-fit ${
+                content.isNeedReadMore && variant !== POST_VARIANTS.sidebar ? '' : 'hidden'
+              }`}
+            >
+              {t('read_more')}
+            </Button>
+            {variant === POST_VARIANTS.feed && <FCarousel items={items} />}
+          </div>
+          <div
+            className={`h-[48px] w-full flex justify-between border-t border-gray-200 items-center ${
+              variant === POST_VARIANTS.sidebar ? 'hidden' : ''
+            }`}
+          >
+            <Button variant="light" startContent={<GoStar />} className="text-base">
+              {t('like')}
+            </Button>
+            <Button variant="light" startContent={<GoComment />} className="text-base">
+              {t('comment')}
+            </Button>
+            <Button variant="light" startContent={<GoPaperAirplane />} className="text-base">
+              {t('share')}
+            </Button>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
