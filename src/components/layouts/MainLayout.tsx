@@ -39,7 +39,7 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
       >
         <Overlay isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <Header title={title} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        <main className={`md:ml-[-300px] ${isSidebarOpen && 'hidden md:block'}`}>
+        <main className={`md:ml-[-300px] ${isSidebarOpen ? 'hidden md:block' : ''}`}>
           {children}
         </main>
         <TrendingSidebar

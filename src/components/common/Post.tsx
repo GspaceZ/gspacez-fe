@@ -13,7 +13,7 @@ import { useState } from 'react'
 import { FCarouselItemProps, PostProps } from '@/types/props/common'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import FCarousel from './FCarousel'
-import Options from './posts/Options'
+import Options from '../posts/Options'
 
 const Post: React.FC<PostProps> = ({ post, variant }) => {
   const t = useTranslations('post')
@@ -43,8 +43,10 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
 
   return (
     <div
-      className={`max-w-[600px] w-full ${
-        variant === POST_VARIANTS.landing
+      className={`w-full ${
+        variant === POST_VARIANTS.feed
+          ? 'max-w-[600px]'
+          : variant === POST_VARIANTS.landing
           ? 'max-w-[448px] rounded-[20px] min-h-[220px] drop-shadow-md'
           : variant === POST_VARIANTS.sidebar
           ? 'h-[110px] cursor-pointer hover:bg-gray-50'
@@ -65,7 +67,7 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
             className="text-xl font-bold"
           />
           <div className="flex flex-col items-end">
-            <div className='relative'>
+            <div className="relative">
               <Button
                 isIconOnly
                 className={`${variant === POST_VARIANTS.sidebar ? 'hidden' : 'text-2xl'}`}

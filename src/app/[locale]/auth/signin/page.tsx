@@ -19,6 +19,8 @@ import { fToast } from '@/helpers/toast'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
 import { useState } from 'react'
 import ShowPassword from '@/components/common/ShowPassword'
+import { useProfile } from '@/hooks/useProfile'
+import { setUser } from '@/utils/store/user'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
@@ -28,6 +30,7 @@ const Page: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const { signIn } = useAuth()
+  const { getProfile } = useProfile()
   const [isLoading, setIsLoading] = useState(false)
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
 
@@ -53,33 +56,55 @@ const Page: React.FC = () => {
     resolver: zodResolver(signInSchema)
   })
 
+  const handleSignInResponse = (signInRes: any) => {
+    const { code, result } = signInRes
+    switch (code) {
+      case RESPONSE_CODES.SUCCESS:
+        return result
+      case RESPONSE_CODES.USER_NOT_EXISTED:
+        fToast(t('toast.signin.not_exist'), 'danger')
+        break
+      case RESPONSE_CODES.WRONG_PASSWORD:
+        fToast(t('toast.signin.wrong_password'), 'danger')
+        break
+      default:
+        fToast(t('toast.unknown'), 'danger')
+    }
+    return null
+  }
+
+  const handleGetProfileResponse = (getProfileRes: any) => {
+    const { code, result } = getProfileRes
+    switch (code) {
+      case RESPONSE_CODES.SUCCESS:
+        return result
+      default:
+        fToast(t('toast.unknown'), 'danger')
+    }
+    return null
+  }
+
   const onSubmit = async (data: ISignInFormValues) => {
     setIsLoading(true)
     try {
       const signInRes = await signIn(data.email, data.password)
-      if (signInRes) {
-        const code = signInRes.code
-        switch (code) {
-          case RESPONSE_CODES.SUCCESS:
-            dispatch(setAuth(signInRes.result))
-            fToast(t('toast.signin.success'), 'success')
-            handleRedirect(ROUTE.pages.home)
-            break
+      const signInResult = handleSignInResponse(signInRes)
 
-          case RESPONSE_CODES.USER_NOT_EXISTED:
-            fToast(t('toast.signin.not_exist'), 'danger')
-            break
-
-          case RESPONSE_CODES.WRONG_PASSWORD:
-            fToast(t('toast.signin.wrong_password'), 'danger')
-            break
-
-          default:
-            fToast(t('toast.unknown'), 'danger')
-        }
-      } else {
-        fToast(t('toast.unknown'), 'danger')
+      if (!signInResult) {
+        return
       }
+
+      dispatch(setAuth(signInResult))
+
+      const getProfileRes = await getProfile(signInResult.token)
+      const userProfile = handleGetProfileResponse(getProfileRes)
+
+      if (userProfile) {
+        dispatch(setUser(userProfile))
+      }
+
+      fToast(t('toast.signin.success'), 'success')
+      handleRedirect(ROUTE.pages.home)
     } catch (error) {
       fToast(t('toast.unknown'), 'danger')
       console.error('Error: ', error)

@@ -26,6 +26,15 @@
       "hide": "Hide",
       "privacy": "Privacy",
       "edit": "Edit"
+    },
+    "new": {
+      "cancel": "Cancel",
+      "post": "Post",
+      "tags": "Tags",
+      "location": "Location:",
+      "feeling": "Feeling:",
+      "privacy": "Privacy",
+      "placeholder": "What are you thinking?"
     }
   },
   "landing": {
