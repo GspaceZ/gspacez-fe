@@ -32,3 +32,10 @@ export interface FVideoProps {
   src: string
   className?: string
 }
+
+export interface MediaFile {
+  id: number
+  file: File
+  url: string
+  preview?: string
+}
