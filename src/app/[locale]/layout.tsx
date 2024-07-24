@@ -3,6 +3,7 @@ import { Providers } from '../providers'
 import './globals.css'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export default async function RootLayout({
   children,
@@ -19,6 +20,7 @@ export default async function RootLayout({
         <title>Fakebook</title>
       </head>
       <body>
+        <SpeedInsights />
         <NextIntlClientProvider messages={messages}>
           <Toaster />
           <Providers>{children}</Providers>
