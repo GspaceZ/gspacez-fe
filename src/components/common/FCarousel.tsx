@@ -28,7 +28,7 @@ const FCarousel: React.FC<FCarouselProps> = ({ items }) => {
       {items.map((item) => (
         <div key={item.id} className="min-h-[100px] h-full px-10 items-center flex justify-center">
           {item.type === 'video' ? (
-            <FVideo className='w-fit' src={item.mediaUrl} />
+            <FVideo className="w-fit" src={item.mediaUrl} />
           ) : (
             <FImage src={item.mediaUrl} alt="Image"></FImage>
           )}

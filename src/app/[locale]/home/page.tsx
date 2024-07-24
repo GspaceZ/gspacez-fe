@@ -38,7 +38,7 @@ const Page = () => {
               {tPost('create_placeholder')}
             </Button>
           </div>
-          <div>
+          <div className="pb-[80px]">
             <Posts posts={fakePosts} />
           </div>
         </div>

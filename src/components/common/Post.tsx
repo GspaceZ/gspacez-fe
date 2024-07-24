@@ -62,7 +62,7 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
             variant === POST_VARIANTS.feed
               ? 'max-w-[600px] rounded-lg bg-white'
               : variant === POST_VARIANTS.landing
-              ? 'max-w-[448px] rounded-[20px] min-h-[220px] drop-shadow-md'
+              ? 'max-w-[448px] rounded-lg min-h-[220px] drop-shadow-md'
               : variant === POST_VARIANTS.sidebar
               ? 'h-[110px] cursor-pointer hover:bg-gray-50'
               : 'bg-white border-gray-50 rounded-lg min-h-[220px]'
