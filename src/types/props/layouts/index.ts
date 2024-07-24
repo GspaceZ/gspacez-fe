@@ -1,3 +1,7 @@
+import { IPost } from '@/types/post'
+import { IProfile } from '@/types/profile'
+import { IUser } from '@/types/user'
+
 export interface HeaderProps {
   title: string
   isSidebarOpen: boolean
@@ -18,9 +22,8 @@ export interface MainLayoutProps {
 }
 
 export interface TrendingSidebarProps {
-  posts: TrendingPostProps['post'][]
-  trendingPeople: TrendingPeopleProps['user'][]
-  buttons: ButtonOptionsProps['button'][]
+  posts: IPost[]
+  trendingPeople: IProfile[]
   isVisible: boolean
 }
 

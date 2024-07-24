@@ -9,3 +9,8 @@ export type UpdateProfileResponse = {
   code: number
   result: IProfile
 }
+
+export type GetProfileResponse = {
+  code: number
+  result: IProfile
+}

@@ -20,7 +20,26 @@
     "comment": "Bình luận",
     "share": "Chia sẻ",
     "hide": "Ẩn bài viết",
-    "report": "Báo cáo"
+    "report": "Báo cáo",
+    "create_placeholder": "Bạn đang nghĩ gì?",
+    "options": {
+      "hide": "Ẩn",
+      "privacy": "Quyền riêng tư",
+      "edit": "Chỉnh sửa"
+    },
+    "new": {
+      "cancel": "Hủy",
+      "post": "Đăng",
+      "tags": "Tag",
+      "location": "Địa điểm:",
+      "feeling": "Cảm xúc:",
+      "privacy": "Quyền riêng tư",
+      "placeholder": "Bạn đang nghĩ gì?"
+    },
+    "toggle": {
+      "hide": "Bài đăng đã bị ẩn.",
+      "restore": "Khôi phục?"
+    }
   },
   "landing": {
     "text_1": "Đơn giản hơn, dễ hơn, ...",

@@ -1,5 +1,9 @@
 import callApi from '@/axios'
-import { UploadAvatarResponse, UpdateProfileResponse } from '@/types/response/profile'
+import {
+  UploadAvatarResponse,
+  UpdateProfileResponse,
+  GetProfileResponse
+} from '@/types/response/profile'
 import axios from 'axios'
 
 export const useProfile = () => {
@@ -89,5 +93,16 @@ export const useProfile = () => {
     }
   }
 
-  return { uploadImage, uploadAvatar, updateProfile }
+  const getProfile = async (token: string) => {
+    try {
+      const response = await callApi<GetProfileResponse>('/profile/users', 'GET', {}, token)
+
+      const data = response.data
+      return data
+    } catch (error) {
+      console.log('Error update profile: ', error)
+    }
+  }
+
+  return { uploadImage, uploadAvatar, updateProfile, getProfile }
 }

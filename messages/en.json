@@ -20,7 +20,26 @@
     "comment": "Comment",
     "share": "Share",
     "hide": "Hide post",
-    "report": "Report"
+    "report": "Report",
+    "create_placeholder": "What are you thinking?",
+    "options": {
+      "hide": "Hide",
+      "privacy": "Privacy",
+      "edit": "Edit"
+    },
+    "new": {
+      "cancel": "Cancel",
+      "post": "Post",
+      "tags": "Tags",
+      "location": "Location:",
+      "feeling": "Feeling:",
+      "privacy": "Privacy",
+      "placeholder": "What are you thinking?"
+    },
+    "toggle": {
+      "hide": "Post is hidden.",
+      "restore": "Restore?"
+    }
   },
   "landing": {
     "text_1": "Simpler, easier, ...",
