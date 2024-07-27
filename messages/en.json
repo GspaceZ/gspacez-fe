@@ -27,8 +27,9 @@
       "privacy": "Privacy",
       "edit": "Edit"
     },
-    "new": {
+    "modal": {
       "cancel": "Cancel",
+      "save": "Save",
       "post": "Post",
       "tags": "Tags",
       "location": "Location:",

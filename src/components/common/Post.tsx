@@ -15,7 +15,7 @@ import { POST_VARIANTS } from '@/utils/constant/variants'
 import FCarousel from './FCarousel'
 import Options from '../posts/Options'
 
-const Post: React.FC<PostProps> = ({ post, variant }) => {
+const Post: React.FC<PostProps> = ({ post, variant, toggleEditModal }) => {
   const t = useTranslations('post')
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -30,6 +30,10 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
 
   const togglePost = () => {
     setIsHidden(!isHidden)
+  }
+
+  const toggleEditPost = () => {
+    toggleEditModal()
   }
 
   const items: FCarouselItemProps[] = [
@@ -66,7 +70,7 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
               : variant === POST_VARIANTS.sidebar
               ? 'h-[110px] cursor-pointer hover:bg-gray-50'
               : 'bg-white border-gray-50 rounded-lg min-h-[220px]'
-          } border border-gray-200 
+          } border border-gray-200
         flex-col justify-between md:flex`}
         >
           <div
@@ -91,7 +95,7 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
                   >
                     <CiCircleMore />
                   </Button>
-                  {isMenuOpen && <Options hidePost={togglePost} />}
+                  {isMenuOpen && <Options hidePost={togglePost} editPost={toggleEditPost} />}
                 </div>
                 <div
                   className={`${

@@ -1,7 +1,7 @@
 'use client'
 
 import FImage from '@/components/common/FImage'
-import NewPost from '@/components/posts/NewPost'
+import PostModal from '@/components/posts/PostModal'
 import Posts from '@/components/home/Posts'
 import MainLayout from '@/components/layouts/MainLayout'
 import { fakePosts } from '@/mock/posts'
@@ -9,14 +9,17 @@ import { useAppSelector } from '@/utils/store'
 import { Button } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
 import { useState, useEffect } from 'react'
+import { IPost } from '@/types/post'
 
 const Page = () => {
   const t = useTranslations('title')
   const tPost = useTranslations('post')
-  const [isNewPostOpen, setIsNewPostOpen] = useState(false)
+
+  const [isPostModalOpen, setIsPostModalOpen] = useState(false)
+  const [selectedPost, setSelectedPost] = useState<IPost | undefined>(undefined)
   const user = useAppSelector((state) => state.user)
 
-  const [imageUrl, setImageUrl] = useState('')
+  const [imageUrl, setImageUrl] = useState<string>('')
 
   useEffect(() => {
     setImageUrl(
@@ -24,6 +27,28 @@ const Page = () => {
         'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png'
     )
   }, [user.avtUrl])
+
+  const getPostById = (postId: string): IPost => {
+    const post = fakePosts.find((post) => post.id === postId)
+    if (!post) {
+      throw new Error(`Post with ID ${postId} not found`)
+    }
+    return post
+  }
+
+  const togglePostModal = (post?: IPost) => {
+    setSelectedPost(post)
+    setIsPostModalOpen(true)
+  }
+
+  const handleSelectedPost = (postId: string) => {
+    try {
+      const post = getPostById(postId)
+      togglePostModal(post)
+    } catch (error) {
+      console.error(error instanceof Error ? error.message : 'An unknown error occurred')
+    }
+  }
 
   return (
     <MainLayout title={t('home')}>
@@ -33,22 +58,17 @@ const Page = () => {
             {imageUrl && <FImage src={imageUrl} alt="Avatar" className="w-12 h-12" />}
             <Button
               className="ml-4 grow bg-gray-200 text-gray-700"
-              onClick={() => setIsNewPostOpen(!isNewPostOpen)}
+              onClick={() => togglePostModal()}
             >
               {tPost('create_placeholder')}
             </Button>
           </div>
           <div className="pb-[80px]">
-            <Posts posts={fakePosts} />
+            <Posts posts={fakePosts} toggleEditPost={(postId) => handleSelectedPost(postId)} />
           </div>
         </div>
-        {isNewPostOpen && (
-          <NewPost
-            user={user}
-            closePost={() => {
-              setIsNewPostOpen(false)
-            }}
-          />
+        {isPostModalOpen && (
+          <PostModal user={user} post={selectedPost} closePost={() => setIsPostModalOpen(false)} />
         )}
       </div>
     </MainLayout>
