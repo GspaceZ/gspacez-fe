@@ -21,6 +21,10 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
     router.push('/')
   }
 
+  const handleSelectedPost = () => {
+    // handle
+  }
+
   return (
     <div
       className={`fixed bottom-0 right-0 h-[88vh] w-[100vw] overflow-y-auto pb-[12vh] border-l border-gray-300 bg-white shadow-md transform border-none
@@ -40,7 +44,12 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
         </div>
         <div>
           {posts.map((post, index) => (
-            <Post key={index} post={post} variant={POST_VARIANTS.sidebar} />
+            <Post
+              key={index}
+              post={post}
+              variant={POST_VARIANTS.sidebar}
+              toggleEditModal={() => handleSelectedPost}
+            />
           ))}
         </div>
         <div className="flex justify-between md:border md:border-gray-300 px-4 py-5 mt-[50px]">

@@ -27,9 +27,10 @@
       "privacy": "Quyền riêng tư",
       "edit": "Chỉnh sửa"
     },
-    "new": {
+    "modal": {
       "cancel": "Hủy",
       "post": "Đăng",
+      "save": "Lưu",
       "tags": "Tag",
       "location": "Địa điểm:",
       "feeling": "Cảm xúc:",

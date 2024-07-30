@@ -22,6 +22,10 @@ export default function Home() {
     router.push(destinationPath)
   }
 
+  const handleSelectedPost = () => {
+    // handle landing post
+  }
+
   return (
     <BlankLayout>
       <div className="h-screen flex flex-col-reverse md:flex-col justify-end md:justify-start">
@@ -64,7 +68,11 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <Post post={landingPost} variant={POST_VARIANTS.landing} />
+          <Post
+            post={landingPost}
+            variant={POST_VARIANTS.landing}
+            toggleEditModal={() => handleSelectedPost}
+          />
         </div>
       </div>
     </BlankLayout>

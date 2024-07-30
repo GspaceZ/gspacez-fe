@@ -4,6 +4,7 @@ import { POST_VARIANTS } from '@/utils/constant/variants'
 export interface PostProps {
   post: IPost
   variant?: POST_VARIANTS
+  toggleEditModal: () => void
 }
 
 export interface OverlayProps {

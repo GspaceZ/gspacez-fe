@@ -1,7 +1,9 @@
+import { IPost } from '@/types/post'
 import { IProfile } from '@/types/profile'
 
-export interface NewPostProps {
+export interface PostModalProps {
   user: IProfile
+  post?: IPost
   closePost: () => void
 }
 

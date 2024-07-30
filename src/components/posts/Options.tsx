@@ -1,13 +1,15 @@
 'use client'
 
+import { IPost } from '@/types/post'
 import { Button } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
 
 interface OptionsProps {
   hidePost: () => void
+  editPost?: () => void
 }
 
-const Options: React.FC<OptionsProps> = ({ hidePost }) => {
+const Options: React.FC<OptionsProps> = ({ hidePost, editPost }) => {
   const t = useTranslations('post.options')
 
   return (
@@ -16,7 +18,9 @@ const Options: React.FC<OptionsProps> = ({ hidePost }) => {
         {t('hide')}
       </Button>
       <Button className="w-full bg-white h-8 rounded-none">{t('privacy')}</Button>
-      <Button className="w-full bg-white h-8 rounded-none">{t('edit')}</Button>
+      <Button className="w-full bg-white h-8 rounded-none" onClick={editPost}>
+        {t('edit')}
+      </Button>
     </div>
   )
 }
