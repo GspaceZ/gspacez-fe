@@ -13,6 +13,7 @@ import { useAppDispatch } from '@/utils/store'
 import { logout } from '@/utils/store/auth'
 import { logout as logoutUser } from '@/utils/store/user'
 import { fToast } from '@/helpers/toast'
+import Logo from '@/public/logo.png'
 
 interface SidebarProps {
   isSidebarOpen: boolean
@@ -40,14 +41,13 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
 
   return (
     <div
-      className={`w-[300px] h-screen fixed top-0 left-0 flex flex-col border-r z-20 border-gray-200 shadow-md justify-between 
-        background-white bg-zinc-50 z-10 transition-transform duration-300 ${
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+      className={`background-white fixed left-0 top-0 z-10 z-20 flex h-screen w-[300px] flex-col justify-between border-r border-gray-200 bg-zinc-50 shadow-md transition-transform duration-300 ${
+        isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}
     >
       <div>
-        <div className="h-[80px] w-full flex justify-between items-center border-gray-200">
-          <Image className="ml-4 w-[180px]" alt="Logo" src="/logo.png" />
+        <div className="flex h-[80px] w-full items-center justify-between border-gray-200">
+          <Image className="ml-4 w-[180px]" alt="Logo" src={Logo.src} />
           <Button
             isIconOnly
             className={`mr-4 ${isSidebarOpen ? '' : 'hidden'}`}
@@ -70,7 +70,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
       </div>
       <Button
         variant="light"
-        className="text-center text-xl font-bold h-[60px] border-t border-gray-200"
+        className="h-[60px] border-t border-gray-200 text-center text-xl font-bold"
         radius="none"
         onClick={handleLogout}
       >
