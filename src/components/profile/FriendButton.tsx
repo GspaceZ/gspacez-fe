@@ -2,25 +2,28 @@
 
 import { Button } from '@nextui-org/react'
 import { IconCheck } from '@tabler/icons-react'
+import { useTranslations } from 'next-intl'
 
 interface FriendButtonProps {
   status: string
 }
 
 const FriendButton = (props: FriendButtonProps) => {
+  const tFriend = useTranslations('profile.friend')
+
   return (
     <>
       {props.status === 'No friend' ? (
         <Button size="sm" color="primary" className="font-bold">
-          Add friend
+          {tFriend('add')}
         </Button>
       ) : props.status === 'Sent' ? (
         <Button size="sm" className="font-bold">
-          Sent request
+          {tFriend('sent')}
         </Button>
       ) : props.status === 'Pending' ? (
         <Button size="sm" color="primary" className="font-bold">
-          Accept request
+          {tFriend('pending')}
         </Button>
       ) : (
         <Button
@@ -30,7 +33,7 @@ const FriendButton = (props: FriendButtonProps) => {
           className="flex items-center gap-2 font-bold"
         >
           <IconCheck size="14" />
-          <span>Friend</span>
+          <span>{tFriend('friend')}</span>
         </Button>
       )}
     </>

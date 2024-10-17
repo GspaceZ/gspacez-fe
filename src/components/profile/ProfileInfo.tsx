@@ -9,11 +9,13 @@ import FriendButton from '@/components/profile/FriendButton'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { usePathname, useRouter } from 'next/navigation'
 import { ROUTE } from '@/utils/constant/route'
+import { useTranslations } from 'next-intl'
 
 const ProfileInfo = (props: ProfileInfoProps) => {
   const [isShowFullProfile, setIsShowFullProfile] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
+  const tProfile = useTranslations('profile')
 
   const handleEdit = (path: string) => {
     const destinationPath = pathWithLocale(pathname, path)
@@ -25,12 +27,12 @@ const ProfileInfo = (props: ProfileInfoProps) => {
       <div className="flex items-center gap-6">
         <Avatar src={props.avatar} size="lg" />
         <div className="flex items-center gap-2">
-          <FriendButton status="Pending" />
+          <FriendButton status="Sent" />
           <Button size="sm" color="primary" className="font-bold">
-            Follow
+            {tProfile('follow')}
           </Button>
           <Button size="sm" color="primary" className="font-bold" variant="bordered">
-            Message
+            {tProfile('message')}
           </Button>
         </div>
       </div>
@@ -41,11 +43,11 @@ const ProfileInfo = (props: ProfileInfoProps) => {
           <span className="text-md mt-2">{props.fullDesc}</span>
           <Link href={props.facebook} className="flex items-center gap-1 hover:underline">
             <IconBrandFacebook size="18" />
-            <span>Facebook</span>
+            <span>{tProfile('facebook')}</span>
           </Link>
           <Link href={props.facebook} className="flex items-center gap-1 hover:underline">
             <IconBrandInstagram size="18" />
-            <span>Instagram</span>
+            <span>{tProfile('instagram')}</span>
           </Link>
         </>
       )}
@@ -54,13 +56,13 @@ const ProfileInfo = (props: ProfileInfoProps) => {
           className="text-md mt-1 w-fit p-0 font-bold text-primary"
           onClick={() => setIsShowFullProfile(!isShowFullProfile)}
         >
-          {isShowFullProfile ? 'Hide' : 'More'}
+          {isShowFullProfile ? tProfile('hide') : tProfile('more')}
         </button>
         <button
           onClick={() => handleEdit(ROUTE.profile.edit)}
           className="text-md mt-1 w-fit p-0 font-bold text-primary"
         >
-          Edit profile
+          {tProfile('edit')}
         </button>
       </div>
     </div>
