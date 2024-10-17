@@ -34,13 +34,13 @@ Use single quotes, unless you are writing JSON.
 ✅ Do
 
 ```ts
-let foo = "bar";
+let foo = 'bar'
 ```
 
 ❌ Don't
 
 ```ts
-let foo = "bar";
+let foo = 'bar'
 ```
 
 #### Opening braces go on the same line
@@ -51,7 +51,7 @@ Your opening braces go on the same line as the statement.
 
 ```ts
 if (true) {
-  console.log("winning");
+  console.log('winning')
 }
 ```
 
@@ -59,7 +59,7 @@ if (true) {
 
 ```ts
 if (true) {
-  console.log("losing");
+  console.log('losing')
 }
 ```
 
@@ -74,14 +74,14 @@ abbreviations should generally be avoided.
 ✅ Do
 
 ```ts
-let adminUser = "";
+let adminUser = ''
 function barFunc() {}
 ```
 
 ❌ Don't
 
 ```ts
-let admin_user = "";
+let admin_user = ''
 function bar_func() {}
 function BarFunc() {}
 ```
@@ -134,14 +134,14 @@ the triple equality operator as it will work just as expected.
 ✅ Do
 
 ```ts
-if (a !== "") {
+if (a !== '') {
 }
 ```
 
 ❌ Don't
 
 ```ts
-if (a != "") {
+if (a != '') {
 }
 ```
 
@@ -152,10 +152,10 @@ Any non-trivial conditions should be assigned to a descriptively named variable 
 ✅ Do
 
 ```ts
-var isValidPassword = password.length >= 4 && /^(?=.*\d).{4,}$/.test(password);
+var isValidPassword = password.length >= 4 && /^(?=.*\d).{4,}$/.test(password)
 
 if (isValidPassword) {
-  console.log("winning");
+  console.log('winning')
 }
 ```
 
@@ -163,7 +163,7 @@ if (isValidPassword) {
 
 ```ts
 if (password.length >= 4 && /^(?=.*\d).{4,}$/.test(password)) {
-  console.log("losing");
+  console.log('losing')
 }
 ```
 
@@ -181,14 +181,14 @@ as possible.
 ```ts
 function isPercentage(val) {
   if (val < 0) {
-    return false;
+    return false
   }
 
   if (val > 100) {
-    return false;
+    return false
   }
 
-  return true;
+  return true
 }
 ```
 
@@ -198,12 +198,12 @@ function isPercentage(val) {
 function isPercentage(val) {
   if (val >= 0) {
     if (val < 100) {
-      return true;
+      return true
     } else {
-      return false;
+      return false
     }
   } else {
-    return false;
+    return false
   }
 }
 ```
@@ -213,8 +213,8 @@ further:
 
 ```ts
 function isPercentage(val) {
-  var isInRange = val >= 0 && val <= 100;
-  return isInRange;
+  var isInRange = val >= 0 && val <= 100
+  return isInRange
 }
 ```
 
@@ -226,11 +226,11 @@ Use closures, but don't nest them. Otherwise your code will become a mess.
 
 ```ts
 setTimeout(function () {
-  client.connect(afterConnect);
-}, 1000);
+  client.connect(afterConnect)
+}, 1000)
 
 function afterConnect() {
-  console.log("winning");
+  console.log('winning')
 }
 ```
 
@@ -239,9 +239,9 @@ function afterConnect() {
 ```ts
 setTimeout(function () {
   client.connect(function () {
-    console.log("losing");
-  });
-}, 1000);
+    console.log('losing')
+  })
+}, 1000)
 ```
 
 ## TS coding conventions
@@ -253,13 +253,13 @@ Use `undefined`. Do not use `null` except where external libraries require it.
 ✅ Do
 
 ```ts
-let userType = undefined;
+let userType = undefined
 ```
 
 ❌ Don't
 
 ```ts
-let userType = null;
+let userType = null
 ```
 
 #### Do not use any
@@ -269,12 +269,12 @@ Do not use `any` anywhere in the code.
 ✅ Do
 
 ```ts
-type Result = "success" | "failure";
+type Result = 'success' | 'failure'
 function verifyResult(result: Result) {
-  if (result === "success") {
-    console.log("Passed");
+  if (result === 'success') {
+    console.log('Passed')
   } else {
-    console.log("Failed");
+    console.log('Failed')
   }
 }
 ```
@@ -283,10 +283,10 @@ function verifyResult(result: Result) {
 
 ```ts
 function verifyResult(result: any) {
-  if (result === "success") {
-    console.log("Passed");
+  if (result === 'success') {
+    console.log('Passed')
   } else {
-    console.log("Failed");
+    console.log('Failed')
   }
 }
 ```
@@ -298,15 +298,15 @@ Name files with `camelCase`. E.g. `utils.ts`, `map.ts` etc.
 ✅ Do
 
 ```ts
-getUser.ts;
+getUser.ts
 ```
 
 ❌ Don't
 
 ```ts
-getuser.ts;
-get - user.ts;
-get_user.ts;
-GetUser.ts;
-Get_User.ts;
+getuser.ts
+get - user.ts
+get_user.ts
+GetUser.ts
+Get_User.ts
 ```

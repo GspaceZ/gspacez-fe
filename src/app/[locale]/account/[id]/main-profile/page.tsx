@@ -9,7 +9,7 @@ const Page: React.FC = () => {
 
   return (
     <MainLayout title={t('profile')}>
-      <div className="w-screen max-w-[600px] min-h-screen mx-auto border border-gray-200">
+      <div className="mx-auto min-h-screen w-screen max-w-[600px] border border-gray-200">
         <MainProfileForm />
       </div>
     </MainLayout>

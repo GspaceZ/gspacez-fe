@@ -115,26 +115,26 @@ const Page: React.FC = () => {
 
   return (
     <AuthLayout>
-      <div className="mt-[50px] flex flex-col w-[360px] md:w-[420px] min-h-[420px] rounded-[20px] border border-gray-200 justify-between shadow-md">
+      <div className="mt-[50px] flex min-h-[420px] w-[360px] flex-col justify-between rounded-[20px] border border-gray-200 shadow-md md:w-[420px]">
         <div className="flex flex-col items-center">
-          <span className="text-3xl font-extrabold mt-[20px]">{t('sign_in')}</span>
-          <form className="flex flex-col items-center w-fit mt-[20px] gap-[14px]">
+          <span className="mt-[20px] text-3xl font-extrabold">{t('sign_in')}</span>
+          <form className="mt-[20px] flex w-fit flex-col items-center gap-[14px]">
             <InputWithError>
               <Input
                 type="email"
                 {...register('email')}
                 label={t('email')}
-                className="w-[314px] md:w-[340px] h-[56px]"
+                className="h-[56px] w-[314px] md:w-[340px]"
                 size="lg"
               />
-              <p className="text-red-500 text-sm">{errors?.email?.message}</p>
+              <p className="text-sm text-red-500">{errors?.email?.message}</p>
             </InputWithError>
             <InputWithError>
               <Input
                 type={isShowPassword ? 'text' : 'password'}
                 {...register('password')}
                 label={t('password')}
-                className="w-[314px] md:w-[340px] h-[56px]"
+                className="h-[56px] w-[314px] md:w-[340px]"
                 size="lg"
                 endContent={
                   <ShowPassword
@@ -144,16 +144,16 @@ const Page: React.FC = () => {
                 }
               />
             </InputWithError>
-            <div className="flex justify-end w-full mr-2 -mt-2">
+            <div className="-mt-2 mr-2 flex w-full justify-end">
               <Button
-                className="text-[16px] text-gray-500 font-bold bg-white border-none cursor-pointer -p-2"
+                className="-p-2 cursor-pointer border-none bg-white text-[16px] font-bold text-gray-500"
                 onPress={() => handleRedirect(ROUTE.auth.forgot_password)}
               >
                 {t('forgot_password_button')}
               </Button>
             </div>
             <Button
-              className={`w-[90px] h-[38px] mt-4 ${isLoading ? 'cursor-not-allowed' : ''}`}
+              className={`mt-4 h-[38px] w-[90px] ${isLoading ? 'cursor-not-allowed' : ''}`}
               color="primary"
               onClick={handleSubmit(onSubmit)}
               isLoading={isLoading}
@@ -162,10 +162,10 @@ const Page: React.FC = () => {
             </Button>
           </form>
         </div>
-        <div className="flex mx-auto flex items-center mb-[30px] mt-[40px] gap-[10px]">
-          <span className="text-gray-500 font-bold">{t('not_have_account')}</span>
+        <div className="mx-auto mb-[30px] mt-[40px] flex items-center gap-[10px]">
+          <span className="font-bold text-gray-500">{t('not_have_account')}</span>
           <Button
-            className="w-[90px] h-[38px]"
+            className="h-[38px] w-[90px]"
             color="primary"
             variant="bordered"
             onPress={() => handleRedirect(ROUTE.auth.signup)}
