@@ -3,7 +3,8 @@
     "app": "Fakebook",
     "home": "Home",
     "profile": "Profile",
-    "avatar": "Avatar"
+    "avatar": "Avatar",
+    "message": "Message"
   },
   "sidebar": {
     "home": "Home",
@@ -143,6 +144,13 @@
     "dob": "Date of birth",
     "save": "Save profile",
     "cancel": "Cancel",
+    "edit": "Edit profile",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "follow": "Follow",
+    "message": "Message",
+    "hide": "Hide",
+    "more": "More",
     "error_messages": {
       "first_name": "First name must be between 1 and 20 characters.",
       "last_name": "Last name must be between 1 and 20 characters."
@@ -161,6 +169,12 @@
       "success": "Update profile successfully!",
       "unauthenticated": "You are not authorized to update profile for this account!",
       "unknown": "Something happen! Try it later!"
+    },
+    "friend": {
+      "add": "Add friend",
+      "sent": "Sent request",
+      "pending": "Accept request",
+      "friend": "Friend"
     }
   }
 }

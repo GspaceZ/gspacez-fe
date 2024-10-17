@@ -3,7 +3,8 @@
     "app": "Fakebook",
     "home": "Trang chủ",
     "profile": "Hồ sơ",
-    "avatar": "Ảnh đại diện"
+    "avatar": "Ảnh đại diện",
+    "message": "Tin nhắn"
   },
   "sidebar": {
     "home": "Trang chủ",
@@ -143,6 +144,13 @@
     "dob": "Ngày sinh",
     "save": "Lưu hồ sơ",
     "cancel": "Hủy",
+    "edit": "Chỉnh sửa hồ sơ",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "follow": "Theo dõi",
+    "message": "Nhắn tin",
+    "hide": "Ẩn",
+    "more": "Thêm",
     "error_messages": {
       "first_name": "Tên phải có từ 1 đến 20 ký tự.",
       "last_name": "Họ phải có từ 1 đến 20 ký tự."
@@ -161,6 +169,12 @@
       "success": "Cập nhật thông tin thành công!",
       "unauthenticated": "Bạn không có quyền cập nhật thông tin cho tài khoản này!",
       "unknown": "Có lỗi xảy ra! Hãy thử lại sau!"
+    },
+    "friend": {
+      "add": "Thêm bạn",
+      "sent": "Đã gửi yêu cầu",
+      "pending": "Chấp nhận",
+      "friend": "Bạn bè"
     }
   }
 }
