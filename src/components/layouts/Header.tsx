@@ -8,7 +8,7 @@ import { HeaderProps } from '@/types/props/layouts'
 const Header = ({ title, isSidebarOpen, toggleSidebar }: HeaderProps) => {
   return (
     <div
-      className={`sticky top-0 z-10 flex h-[80px] items-center border-b border-gray-200 bg-white shadow-md md:mr-[300px] ${isSidebarOpen ? 'hidden md:flex' : ''}`}
+      className={`sticky top-0 z-10 flex h-[80px] items-center border-b border-gray-200 bg-white shadow-md lg:mr-[300px] ${isSidebarOpen ? 'hidden lg:flex' : ''}`}
     >
       <Button
         isIconOnly
