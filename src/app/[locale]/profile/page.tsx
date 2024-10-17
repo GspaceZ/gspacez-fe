@@ -5,6 +5,7 @@ import MainLayout from '@/components/layouts/MainLayout'
 import PostModal from '@/components/posts/PostModal'
 import NewPost from '@/components/profile/NewPost'
 import ProfileInfo from '@/components/profile/ProfileInfo'
+import { fullName } from '@/helpers/user/full-name'
 import { fakePosts } from '@/mock/posts'
 import ProfileAvatar from '@/public/profileAvatar.png'
 import { IPost } from '@/types/post'
@@ -20,7 +21,8 @@ const Page: React.FC = () => {
 
   const profileData = {
     avatar: ProfileAvatar.src,
-    name: 'Fan MU',
+    firstName: 'Fan',
+    lastName: 'MU',
     shortDesc: 'Glory glory Man United',
     fullDesc: 'Glory glory gloryyyyyyyyyyyyyyyyy',
     facebook: 'https://facebook.com',
@@ -55,7 +57,7 @@ const Page: React.FC = () => {
         <div className="mx-auto min-h-screen w-screen max-w-[632px] border border-gray-200 bg-gray-50">
           <ProfileInfo
             avatar={profileData.avatar}
-            name={profileData.name}
+            name={fullName(profileData.firstName, profileData.lastName)}
             shortDesc={profileData.shortDesc}
             fullDesc={profileData.fullDesc}
             facebook={profileData.facebook}
