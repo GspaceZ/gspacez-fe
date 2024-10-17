@@ -10,7 +10,6 @@ import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
 import { POST_VARIANTS } from '@/utils/constant/variants'
-import Logo from '@/public/logo.png'
 
 export default function Home() {
   const t = useTranslations('landing')

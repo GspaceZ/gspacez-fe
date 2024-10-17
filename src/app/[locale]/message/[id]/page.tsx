@@ -17,9 +17,7 @@ const Page = () => {
     <MessageLayout profile={profile}>
       <div className="flex w-full grow overflow-y-auto">
         <MessageContacts />
-        <div className="hidden h-full grow lg:flex">
-          <span className="mx-auto my-auto">Choose a conversation to start</span>
-        </div>
+        Message
       </div>
     </MessageLayout>
   )
