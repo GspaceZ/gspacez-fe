@@ -27,12 +27,12 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
 
   return (
     <div
-      className={`fixed bottom-0 right-0 h-[88vh] w-[100vw] transform overflow-y-auto border-l border-none border-gray-300 bg-white pb-[12vh] shadow-md transition-transform duration-300 ease-in-out ${
+      className={`fixed bottom-0 right-0 h-[88vh] w-[100vw] transform overflow-y-auto border-l border-none border-gray-300 bg-white pb-[12vh] shadow-lg transition-transform duration-300 ease-in-out ${
         isVisible ? 'translate-y-0' : 'translate-y-full'
-      } md:flex md:h-full md:h-screen md:w-[300px] md:translate-x-0 md:translate-y-0 md:flex-col md:border-l md:border-gray-300 md:pb-0`}
+      } lg:flex lg:h-full lg:h-screen lg:w-[300px] lg:translate-x-0 lg:translate-y-0 lg:flex-col lg:border-l lg:border-gray-300 lg:pb-0`}
     >
-      <div className="m-0 flex h-full flex-col overflow-y-auto md:border md:border-gray-300">
-        <div className="z-10 flex justify-between px-4 py-5 md:border-l md:border-gray-300">
+      <div className="m-0 flex h-full flex-col overflow-y-auto lg:border lg:border-gray-300">
+        <div className="z-10 flex justify-between px-4 py-5 lg:border-l lg:border-gray-300">
           <span className="p-1 text-xl font-bold">{t('trending_post')}</span>
           <Button
             onPress={() => handleRedirect()}
@@ -51,7 +51,7 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
             />
           ))}
         </div>
-        <div className="mt-[50px] flex justify-between px-4 py-5 md:border md:border-gray-300">
+        <div className="mt-[50px] flex justify-between px-4 py-5 lg:border lg:border-gray-300">
           <span className="p-1 text-xl font-bold">{t('trending_people')}</span>
           <Button
             onPress={() => handleRedirect()}
@@ -71,7 +71,7 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
           ))}
         </div>
       </div>
-      <div className="hidden bg-white shadow-md md:flex md:border-l md:border-gray-300">
+      <div className="hidden bg-white shadow-lg lg:flex lg:border-l lg:border-gray-300">
         <div className="flex w-full items-center justify-around space-x-1 rounded-xl">
           {buttonOptions.map((buttonOption, index) => (
             <ButtonOption key={index} button={buttonOption} />

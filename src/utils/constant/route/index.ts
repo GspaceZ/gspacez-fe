@@ -14,5 +14,8 @@ export const ROUTE = {
   pages: {
     home: 'home',
     default: ''
+  },
+  profile: {
+    edit: 'profile/edit'
   }
 }
