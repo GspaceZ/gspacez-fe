@@ -5,7 +5,7 @@ import MessageHeader from './MessageHeader'
 
 const MessageLayout = (props: MessageLayoutProps) => {
   return (
-    <div className="h-screen w-screen">
+    <div className="flex h-screen w-screen flex-col">
       <MessageHeader avatar={props.profile?.avtUrl} />
       {props.children}
     </div>
