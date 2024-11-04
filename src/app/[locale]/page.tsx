@@ -26,6 +26,10 @@ export default function Home() {
     // handle landing post
   }
 
+  const setPrivacyModal = () => {
+    // set privacy modal
+  }
+
   return (
     <BlankLayout>
       <div className="flex h-screen flex-col-reverse justify-end md:flex-col md:justify-start">
@@ -72,6 +76,7 @@ export default function Home() {
             post={landingPost}
             variant={POST_VARIANTS.landing}
             toggleEditModal={() => handleSelectedPost}
+            togglePrivacyModal={() => setPrivacyModal}
           />
         </div>
       </div>
