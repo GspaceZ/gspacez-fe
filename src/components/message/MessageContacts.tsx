@@ -16,12 +16,20 @@ const MessageContacts = () => {
     setLatestContacts(mockContacts)
   }, [])
 
+  const handleScroll = (event: React.WheelEvent<HTMLDivElement>) => {
+    const container = event.currentTarget
+    container.scrollLeft += event.deltaY
+  }
+
   return (
     <div className="flex h-full w-full flex-col border-r border-gray-200 lg:w-[320px]">
       <div className="w-full border-b border-gray-200 px-5 py-4">
         <Input placeholder="Search..." size="md" color="default" variant="flat" />
       </div>
-      <div className="flex w-full items-center gap-8 overflow-x-auto border-b border-gray-200 px-5 py-4">
+      <div
+        className="md:h-[180px flex h-[200px] w-full items-center gap-4 overflow-x-auto border-b border-gray-200 px-5 lg:h-[160px]"
+        onWheel={handleScroll}
+      >
         {contacts.map((contact) => (
           <AvatarContact
             key={contact.id}

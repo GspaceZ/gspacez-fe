@@ -10,9 +10,9 @@ interface AvatarContactProps {
 
 const AvatarContact = (props: AvatarContactProps) => {
   return (
-    <div className="flex w-max cursor-pointer flex-col items-center gap-1">
+    <div className="overflow flex cursor-pointer flex-col items-center gap-1 rounded-lg px-2 pt-2 hover:bg-gray-100">
       <Avatar src={props.avatar} size="md" />
-      <span className="whitespace-nowrap text-xs">{props.firstName}</span>
+      <span className="whitespace-nowrap pb-2 text-xs">{props.firstName}</span>
     </div>
   )
 }
