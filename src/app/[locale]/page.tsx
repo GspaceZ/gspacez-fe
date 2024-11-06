@@ -10,6 +10,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
 import { POST_VARIANTS } from '@/utils/constant/variants'
+import Logo from '@/public/logo.png'
 
 export default function Home() {
   const t = useTranslations('landing')
@@ -48,11 +49,19 @@ export default function Home() {
             </Button>
           </div>
         </div>
+<<<<<<< Updated upstream
         <div className="mt-[60px] md:mt-[150px] gap-[200px] md:justify-center flex flex-col md:flex-row items-center w-full">
           <div className="flex flex-col items-center w-full md:w-fit">
             <Image className="w-[240px]" alt="Logo" src="/logo.png" />
             <span className="font-bold text-gray-500 text-4xl mt-3">{t('slogan')}</span>
             <div className="flex-row mt-9 gap-[40px] hidden md:flex bottom-0">
+=======
+        <div className="mt-[60px] flex w-full flex-col items-center gap-[200px] md:mt-[150px] md:flex-row md:justify-center">
+          <div className="flex w-full flex-col items-center md:w-fit">
+            <Image className="w-[240px]" alt="Logo" src={Logo.src} />
+            <span className="mt-3 text-4xl font-bold text-gray-500">{t('slogan')}</span>
+            <div className="bottom-0 mt-9 hidden flex-row gap-[40px] md:flex">
+>>>>>>> Stashed changes
               <Button
                 color="primary"
                 className="text-xl w-[150px] h-[48px]"
