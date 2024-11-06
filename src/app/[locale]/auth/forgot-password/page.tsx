@@ -80,21 +80,21 @@ const Page: React.FC = () => {
 
   return (
     <AuthLayout>
-      <div className="mt-[50px] flex flex-col w-[360px] md:w-[420px] min-h-[100vh] md:min-h-[232px] rounded-[20px] border border-gray-200 justify-between shadow-md">
+      <div className="mt-[50px] flex min-h-[100vh] w-[360px] flex-col justify-between rounded-[20px] border border-gray-200 shadow-md md:min-h-[232px] md:w-[420px]">
         <div className="flex flex-col items-center">
-          <span className="text-3xl font-extrabold mt-[28px]">
+          <span className="mt-[28px] text-3xl font-extrabold">
             {t('forgot_password.forgot_password_title')}
           </span>
-          <form className="flex flex-col items-center w-fit mt-[24px] gap-[14px]">
+          <form className="mt-[24px] flex w-fit flex-col items-center gap-[14px]">
             <InputWithError>
               <Input
                 type="email"
                 {...register('email')}
                 label={t('forgot_password.email')}
-                className="w-[314px] md:w-[340px] h-[56px]"
+                className="h-[56px] w-[314px] md:w-[340px]"
                 size="lg"
               />
-              <p className="text-red-500 text-sm">{errors?.email?.message}</p>
+              <p className="text-sm text-red-500">{errors?.email?.message}</p>
             </InputWithError>
             <Button
               className="my-4 h-[38px]"

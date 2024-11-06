@@ -25,19 +25,22 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
     // handle
   }
 
+  const setPrivacy = () => {
+    // handle
+  }
+
   return (
     <div
-      className={`fixed bottom-0 right-0 h-[88vh] w-[100vw] overflow-y-auto pb-[12vh] border-l border-gray-300 bg-white shadow-md transform border-none
-        transition-transform duration-300 ease-in-out bg-white ${
-          isVisible ? 'translate-y-0' : 'translate-y-full'
-        } md:pb-0 md:translate-y-0 md:translate-x-0 md:h-full md:w-[300px] md:h-screen md:border-l md:border-gray-300 md:flex md:flex-col`}
+      className={`fixed bottom-0 right-0 h-[88vh] w-[100vw] transform overflow-y-auto border-l border-none border-gray-300 bg-white pb-[12vh] shadow-lg transition-transform duration-300 ease-in-out ${
+        isVisible ? 'translate-y-0' : 'translate-y-full'
+      } lg:flex lg:h-full lg:h-screen lg:w-[300px] lg:translate-x-0 lg:translate-y-0 lg:flex-col lg:border-l lg:border-gray-300 lg:pb-0`}
     >
-      <div className="flex flex-col m-0 h-full overflow-y-auto md:border md:border-gray-300">
-        <div className="flex justify-between md:border-l md:border-gray-300 px-4 py-5 z-10">
-          <span className="text-xl font-bold p-1">{t('trending_post')}</span>
+      <div className="m-0 flex h-full flex-col overflow-y-auto lg:border lg:border-gray-300">
+        <div className="z-10 flex justify-between px-4 py-5 lg:border-l lg:border-gray-300">
+          <span className="p-1 text-xl font-bold">{t('trending_post')}</span>
           <Button
             onPress={() => handleRedirect()}
-            className="text-lg text-blue-500 bg-transparent border-none cursor-pointer -mx-3"
+            className="-mx-3 cursor-pointer border-none bg-transparent text-lg text-blue-500"
           >
             {t('more')}
           </Button>
@@ -49,22 +52,23 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
               post={post}
               variant={POST_VARIANTS.sidebar}
               toggleEditModal={() => handleSelectedPost}
+              togglePrivacyModal={() => setPrivacy}
             />
           ))}
         </div>
-        <div className="flex justify-between md:border md:border-gray-300 px-4 py-5 mt-[50px]">
-          <span className="text-xl font-bold p-1">{t('trending_people')}</span>
+        <div className="mt-[50px] flex justify-between px-4 py-5 lg:border lg:border-gray-300">
+          <span className="p-1 text-xl font-bold">{t('trending_people')}</span>
           <Button
             onPress={() => handleRedirect()}
-            className="text-lg text-blue-500 bg-transparent border-none cursor-pointer -mx-3"
+            className="-mx-3 cursor-pointer border-none bg-transparent text-lg text-blue-500"
           >
             {t('more')}
           </Button>
         </div>
-        <div className="flex flex-col w-full">
+        <div className="flex w-full flex-col">
           {trendingPeople.map((user, index) => (
             <div
-              className="w-full py-2 pl-4 border border-gray-100 cursor-pointer hover:bg-gray-50"
+              className="w-full cursor-pointer border border-gray-100 py-2 pl-4 hover:bg-gray-50"
               key={index}
             >
               <User name={fullName(user.firstName, user.firstName)} />
@@ -72,8 +76,8 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
           ))}
         </div>
       </div>
-      <div className="hidden md:flex md:border-l md:border-gray-300 bg-white shadow-md">
-        <div className="flex items-center rounded-xl justify-around w-full space-x-1">
+      <div className="hidden bg-white shadow-lg lg:flex lg:border-l lg:border-gray-300">
+        <div className="flex w-full items-center justify-around space-x-1 rounded-xl">
           {buttonOptions.map((buttonOption, index) => (
             <ButtonOption key={index} button={buttonOption} />
           ))}

@@ -9,7 +9,7 @@ const TrendingPost = ({ post }: TrendingPostProps) => {
   const t = useTranslations('trending_posts')
 
   return (
-    <div className="flex items-center rounded-2xl md:rounded-none border border-gray-300 m-4 md:m-0 p-4 cursor-pointer hover:bg-gray-200">
+    <div className="m-4 flex cursor-pointer items-center rounded-2xl border border-gray-300 p-4 hover:bg-gray-200 md:m-0 md:rounded-none">
       <div className="flex flex-col">
         <div className="flex">
           <Image
@@ -21,7 +21,7 @@ const TrendingPost = ({ post }: TrendingPostProps) => {
           />
           <div className="ml-4">
             <span className="text-sm font-bold">{post.name}</span>
-            <span className="text-sm text-gray-500 block">{t('time')}</span>
+            <span className="block text-sm text-gray-500">{t('time')}</span>
           </div>
         </div>
         <div className="mt-2 flex-1">

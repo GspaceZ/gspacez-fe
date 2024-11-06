@@ -19,4 +19,9 @@ input[type='number']::-webkit-inner-spin-button {
 
 input[type='number'] {
   -moz-appearance: textfield;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

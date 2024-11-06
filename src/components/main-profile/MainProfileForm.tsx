@@ -16,6 +16,7 @@ import { z } from 'zod'
 import FImage from '../common/FImage'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
 import { fToast } from '@/helpers/toast'
+import LandingAvatar from '@/public/landingAvatar.png'
 
 const MainProfileForm = () => {
   const t = useTranslations('profile')
@@ -100,20 +101,20 @@ const MainProfileForm = () => {
   }
 
   return (
-    <form className="w-screen max-w-[314px] mx-auto flex flex-col items-center mt-[50px] gap-[14px] -z-10">
-      <div className="flex items-center h-[56px] mb-[20px]">
-        <FImage src="/landingAvatar.png" alt="avatar" className="h-[70px] rounded-[1000px]" />
+    <form className="-z-10 mx-auto mt-[50px] flex w-screen max-w-[314px] flex-col items-center gap-[14px]">
+      <div className="mb-[20px] flex h-[56px] items-center">
+        <FImage src={LandingAvatar.src} alt="avatar" className="h-[70px] rounded-[1000px]" />
         <Button className="text-center" color="primary" variant="light">
           {t('choose_avatar')}
         </Button>
       </div>
       <InputWithError>
-        <div className="flex flex-col sm:flex-row justify-between w-full gap-[14px] sm:gap-0">
+        <div className="flex w-full flex-col justify-between gap-[14px] sm:flex-row sm:gap-0">
           <Input
             type="text"
             {...register('firstName')}
             label={t('first_name')}
-            className="w-full sm:w-[148px] h-[56px]"
+            className="h-[56px] w-full sm:w-[148px]"
             isRequired
             size="lg"
           />
@@ -121,20 +122,20 @@ const MainProfileForm = () => {
             type="text"
             {...register('lastName')}
             label={t('last_name')}
-            className="w-full sm:w-[148px] h-[56px]"
+            className="h-[56px] w-full sm:w-[148px]"
             isRequired
             size="lg"
           />
         </div>
-        <p className="text-red-500 text-sm">{errors?.firstName?.message}</p>
-        <p className="text-red-500 text-sm">{errors?.lastName?.message}</p>
+        <p className="text-sm text-red-500">{errors?.firstName?.message}</p>
+        <p className="text-sm text-red-500">{errors?.lastName?.message}</p>
       </InputWithError>
       <InputWithError>
         <Input
           type="text"
           {...register('country')}
           label={t('country')}
-          className="w-full h-[56px]"
+          className="h-[56px] w-full"
           isRequired
           size="lg"
         />
@@ -144,7 +145,7 @@ const MainProfileForm = () => {
           type="text"
           {...register('city')}
           label={t('city')}
-          className="w-full h-[56px]"
+          className="h-[56px] w-full"
           isRequired
           size="lg"
         />
@@ -154,25 +155,25 @@ const MainProfileForm = () => {
           type="text"
           {...register('address')}
           label={t('address')}
-          className="w-full h-[56px]"
+          className="h-[56px] w-full"
           isRequired
           size="lg"
         />
-        <p className="text-red-500 text-sm">{errors?.address?.message}</p>
+        <p className="text-sm text-red-500">{errors?.address?.message}</p>
       </InputWithError>
       <InputWithError>
         <Input
           type="date"
           {...register('dob')}
           label={t('dob')}
-          className="w-full h-[56px]"
+          className="h-[56px] w-full"
           isRequired
           size="lg"
         />
       </InputWithError>
       <div className="flex items-center justify-center gap-[20px]">
         <Button
-          className="w-[90px] h-[38px]"
+          className="h-[38px] w-[90px]"
           color="primary"
           onClick={handleSubmit(onSave)}
           isLoading={isLoading}

@@ -1,6 +1,7 @@
 import { IPost } from '@/types/post'
 import { IProfile } from '@/types/profile'
 import { IUser } from '@/types/user'
+import { ReactNode } from 'react'
 
 export interface HeaderProps {
   title: string
@@ -9,15 +10,15 @@ export interface HeaderProps {
 }
 
 export interface BlankLayoutProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export interface AuthLayoutProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export interface MainLayoutProps {
-  children: React.ReactNode
+  children: ReactNode
   title: string
 }
 
@@ -52,4 +53,9 @@ export interface TrendingPostProps {
     profileImage: string
     content: string
   }
+}
+
+export interface MessageLayoutProps {
+  profile?: IProfile
+  children: ReactNode
 }

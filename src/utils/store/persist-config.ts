@@ -15,10 +15,7 @@ const createNoopStorage = () => {
 }
 
 export const createPersistConfig = (key: string, whitelist: string[]) => {
-  const storage =
-    typeof window !== 'undefined'
-      ? createWebStorage('local')
-      : createNoopStorage()
+  const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage()
 
   return {
     key,

@@ -22,5 +22,5 @@ export const buttonOptions = [
     icon: 'IoTrendingUpOutline',
     path: 'home',
     count: 0
-  },
+  }
 ]

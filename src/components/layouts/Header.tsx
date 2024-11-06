@@ -8,18 +8,17 @@ import { HeaderProps } from '@/types/props/layouts'
 const Header = ({ title, isSidebarOpen, toggleSidebar }: HeaderProps) => {
   return (
     <div
-      className={`h-[80px] flex items-center border-b bg-white z-10 border-gray-200 shadow-md sticky top-0
-      md:mr-[300px] ${isSidebarOpen ? 'hidden md:flex' : ''}`}
+      className={`sticky top-0 z-10 flex h-[80px] items-center border-b border-gray-200 bg-white shadow-md lg:mr-[300px] ${isSidebarOpen ? 'hidden lg:flex' : ''}`}
     >
       <Button
         isIconOnly
-        className={`ml-4 fixed left-0 ${isSidebarOpen && 'hidden'}`}
+        className={`fixed left-0 ml-4 ${isSidebarOpen && 'hidden'}`}
         variant="light"
         onClick={() => toggleSidebar()}
       >
         <GoSidebarCollapse className="text-3xl" />
       </Button>
-      <span className="text-3xl mx-auto font-extrabold">{title}</span>
+      <span className="mx-auto text-3xl font-extrabold">{title}</span>
     </div>
   )
 }
