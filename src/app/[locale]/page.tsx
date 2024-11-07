@@ -10,6 +10,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
 import { POST_VARIANTS } from '@/utils/constant/variants'
+import Logo from '@/public/logo.png'
 
 export default function Home() {
   const t = useTranslations('landing')
@@ -54,7 +55,7 @@ export default function Home() {
         </div>
         <div className="mt-[60px] flex w-full flex-col items-center gap-[200px] md:mt-[150px] md:flex-row md:justify-center">
           <div className="flex w-full flex-col items-center md:w-fit">
-            <Image className="w-[240px]" alt="Logo" src="/logo.png" />
+            <Image className="w-[240px]" alt="Logo" src={Logo.src} />
             <span className="mt-3 text-4xl font-bold text-gray-500">{t('slogan')}</span>
             <div className="bottom-0 mt-9 hidden flex-row gap-[40px] md:flex">
               <Button

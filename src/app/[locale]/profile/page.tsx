@@ -3,18 +3,22 @@
 import Posts from '@/components/home/Posts'
 import MainLayout from '@/components/layouts/MainLayout'
 import PostModal from '@/components/posts/PostModal'
+import PrivacyModal from '@/components/posts/PrivacyModal'
 import NewPost from '@/components/profile/NewPost'
 import ProfileInfo from '@/components/profile/ProfileInfo'
 import { fullName } from '@/helpers/user/full-name'
 import { fakePosts } from '@/mock/posts'
 import ProfileAvatar from '@/public/profileAvatar.png'
 import { IPost } from '@/types/post'
+import { PostPrivacyEnum } from '@/utils/constant'
 import { useAppSelector } from '@/utils/store'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 const Page: React.FC = () => {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false)
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
+  const [selectedPrivacy, setSelectedPrivacy] = useState<PostPrivacyEnum>(PostPrivacyEnum.PUBLIC)
   const [selectedPost, setSelectedPost] = useState<IPost | undefined>(undefined)
   const user = useAppSelector((state) => state.user)
   const tTitle = useTranslations('title')
@@ -51,6 +55,14 @@ const Page: React.FC = () => {
     }
   }
 
+  const togglePrivacyModal = () => {
+    setIsPrivacyModalOpen(true)
+  }
+
+  const handleSavePrivacy = (privacy: PostPrivacyEnum) => {
+    setSelectedPrivacy(privacy)
+  }
+
   return (
     <MainLayout title={tTitle('profile')}>
       <div className="flex w-full flex-col items-center">
@@ -64,11 +76,20 @@ const Page: React.FC = () => {
             instagram={profileData.instagram}
           />
           <NewPost openModal={() => setIsPostModalOpen(true)} avatar={profileData.avatar} />
-          <Posts posts={fakePosts} toggleEditPost={(postId) => handleSelectedPost(postId)} />
+          <Posts
+            posts={fakePosts}
+            toggleEditPost={(postId) => handleSelectedPost(postId)}
+            toggleSetPrivacyModal={togglePrivacyModal}
+          />
         </div>
         {isPostModalOpen && (
           <PostModal user={user} post={selectedPost} closePost={() => setIsPostModalOpen(false)} />
         )}
+        <PrivacyModal
+          isOpen={isPrivacyModalOpen}
+          onClose={() => setIsPrivacyModalOpen(false)}
+          onSave={handleSavePrivacy}
+        />
       </div>
     </MainLayout>
   )
