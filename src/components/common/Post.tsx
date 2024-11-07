@@ -8,14 +8,35 @@ import { formattedContent } from '@/helpers/post/formatted-content'
 import { Button } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
 import { GoComment, GoPaperAirplane, GoStar } from 'react-icons/go'
-import { CiCircleMore } from 'react-icons/ci'
 import { useState } from 'react'
-import { FCarouselItemProps, PostProps } from '@/types/props/common'
+import { FCarouselItemProps } from '@/types/props/common'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import FCarousel from './FCarousel'
 import Options from '../posts/Options'
+import { IPost } from '@/types/post'
+import {
+  IconDotsCircleHorizontal,
+  IconMessage,
+  IconShare3,
+  IconStar,
+  IconStarFilled
+} from '@tabler/icons-react'
 
-const Post: React.FC<PostProps> = ({ post, variant, toggleEditModal, togglePrivacyModal }) => {
+export interface PostProps {
+  post: IPost
+  variant?: POST_VARIANTS
+  toggleEditModal?: () => void
+  togglePrivacyModal?: () => void
+  toggleDeleteModal?: () => void
+}
+
+const Post: React.FC<PostProps> = ({
+  post,
+  variant,
+  toggleEditModal,
+  togglePrivacyModal,
+  toggleDeleteModal
+}) => {
   const t = useTranslations('post')
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -33,11 +54,21 @@ const Post: React.FC<PostProps> = ({ post, variant, toggleEditModal, togglePriva
   }
 
   const toggleEditPost = () => {
-    toggleEditModal()
+    if (toggleEditModal !== undefined) {
+      toggleEditModal()
+    }
   }
 
   const setPrivacy = () => {
-    togglePrivacyModal()
+    if (togglePrivacyModal !== undefined) {
+      togglePrivacyModal()
+    }
+  }
+
+  const deletePost = () => {
+    if (toggleDeleteModal !== undefined) {
+      toggleDeleteModal()
+    }
   }
 
   const items: FCarouselItemProps[] = [
@@ -96,15 +127,16 @@ const Post: React.FC<PostProps> = ({ post, variant, toggleEditModal, togglePriva
                     variant="light"
                     onClick={() => toggleMenu()}
                   >
-                    <CiCircleMore />
+                    <IconDotsCircleHorizontal />
                   </Button>
-                  {isMenuOpen && (
-                    <Options
-                      hidePost={togglePost}
-                      editPost={toggleEditPost}
-                      setPrivacy={setPrivacy}
-                    />
-                  )}
+                  <Options
+                    hidePost={togglePost}
+                    editPost={toggleEditPost}
+                    setPrivacy={setPrivacy}
+                    deletePost={deletePost}
+                    isOpen={isMenuOpen}
+                    onClose={() => setIsMenuOpen(false)}
+                  />
                 </div>
                 <div
                   className={`${
@@ -140,7 +172,7 @@ const Post: React.FC<PostProps> = ({ post, variant, toggleEditModal, togglePriva
           >
             <Button
               variant="light"
-              startContent={<GoStar />}
+              startContent={isLiked ? <IconStarFilled /> : <IconStar />}
               className={`text-base ${isLiked ? 'text-yellow-500' : ''} ${
                 variant === POST_VARIANTS.feed ? 'md:ml-10' : ''
               }`}
@@ -150,12 +182,12 @@ const Post: React.FC<PostProps> = ({ post, variant, toggleEditModal, togglePriva
             >
               {t('like')}
             </Button>
-            <Button variant="light" startContent={<GoComment />} className="text-base">
+            <Button variant="light" startContent={<IconMessage />} className="text-base">
               {t('comment')}
             </Button>
             <Button
               variant="light"
-              startContent={<GoPaperAirplane />}
+              startContent={<IconShare3 />}
               className={`text-base ${variant === POST_VARIANTS.feed ? 'md:mr-10' : ''}`}
             >
               {t('share')}

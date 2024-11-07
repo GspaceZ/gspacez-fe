@@ -26,7 +26,8 @@
     "options": {
       "hide": "Hide",
       "privacy": "Privacy",
-      "edit": "Edit"
+      "edit": "Edit",
+      "delete": "Delete"
     },
     "modal": {
       "cancel": "Cancel",

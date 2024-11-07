@@ -26,7 +26,8 @@
     "options": {
       "hide": "Ẩn",
       "privacy": "Quyền riêng tư",
-      "edit": "Chỉnh sửa"
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa"
     },
     "modal": {
       "cancel": "Hủy",

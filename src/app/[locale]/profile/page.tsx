@@ -82,9 +82,12 @@ const Page: React.FC = () => {
             toggleSetPrivacyModal={togglePrivacyModal}
           />
         </div>
-        {isPostModalOpen && (
-          <PostModal user={user} post={selectedPost} closePost={() => setIsPostModalOpen(false)} />
-        )}
+        <PostModal
+          isOpen={isPostModalOpen}
+          user={user}
+          post={selectedPost}
+          closePost={() => setIsPostModalOpen(false)}
+        />
         <PrivacyModal
           isOpen={isPrivacyModalOpen}
           onClose={() => setIsPrivacyModalOpen(false)}
