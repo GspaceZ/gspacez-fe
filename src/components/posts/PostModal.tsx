@@ -1,11 +1,18 @@
 'use client'
 
 import { fullName } from '@/helpers/user/full-name'
-import { Button, Input, Select, SelectItem, Textarea, User } from '@nextui-org/react'
+import {
+  Button,
+  Input,
+  Modal,
+  ModalContent,
+  ModalFooter,
+  Select,
+  SelectItem,
+  Textarea,
+  User
+} from '@nextui-org/react'
 import { useState, KeyboardEvent, ChangeEvent, useEffect } from 'react'
-import { BsEmojiSmile } from 'react-icons/bs'
-import { CiHashtag, CiImageOn, CiLocationOn } from 'react-icons/ci'
-import { GoLock } from 'react-icons/go'
 import Tags from './modal/Tags'
 import { PostPrivacyEnum } from '@/utils/constant'
 import useFileDialog from '@/hooks/useFileDialog'
@@ -13,9 +20,18 @@ import { MediaFile } from '@/types/props/common'
 import Media from './modal/Media'
 import { generateVideoThumbnail } from '@/helpers/video/preview'
 import { useTranslations } from 'next-intl'
-import { PostModalProps } from '@/types/props/post'
+import { IPost } from '@/types/post'
+import { IProfile } from '@/types/profile'
+import { IconHash, IconLock, IconMapPin, IconMoodHappy, IconPhotoScan } from '@tabler/icons-react'
 
-const PostModal: React.FC<PostModalProps> = ({ user, post, closePost }) => {
+export interface PostModalProps {
+  user: IProfile
+  post?: IPost
+  closePost: () => void
+  isOpen: boolean
+}
+
+const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) => {
   const t = useTranslations('post.modal')
 
   const privacyOptions = Object.values(PostPrivacyEnum)
@@ -39,7 +55,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost }) => {
     if (!post) return
 
     const imageFiles =
-      post.content.imageUrls?.map((url, index) => ({
+      post.content.imageUrls?.map((url: string, index: number) => ({
         id: index + 1,
         file: new File([], ''),
         url,
@@ -47,7 +63,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost }) => {
       })) ?? []
 
     const videoFiles =
-      post.content.videoUrls?.map((url, index) => ({
+      post.content.videoUrls?.map((url: string, index: number) => ({
         id: (post.content.imageUrls?.length ?? 0) + index + 1,
         file: new File([], ''),
         url,
@@ -136,119 +152,134 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost }) => {
 
   return (
     <>
-      <div className="fixed w-full h-full bg-gray-100 opacity-50" onClick={closePost}></div>
-      <div className="fixed w-full top-[100px] max-w-[700px] h-fit min-h-[200px] bg-white rounded-lg shadow-lg opacity-100">
-        <div className="my-6 mx-8">
-          <User
-            name={fullName(user.firstName, user.lastName)}
-            avatarProps={{ src: user.avtUrl }}
-            className="text-xl font-bold"
-          />
-          <div className="flex flex-col w-full bg-white rounded-lg min-h-[200px] mt-4">
-            <Textarea
-              className="text-lg w-full border-b-none"
-              placeholder={t('placeholder')}
-              value={content}
-              onChange={handleChangeContent}
-              minRows={6}
-            />
-            <div className="w-full flex gap-2 flex-wrap mt-2">
-              {mediaFiles.map((mediaFile) => (
-                <Media file={mediaFile} key={mediaFile.id} handleRemoveFile={handleRemoveFile} />
-              ))}
-            </div>
-            <div className="flex gap-4 mt-4 mr-0 ml-auto">
-              <Button color="default" size="sm" className="text-md" onClick={closePost}>
-                {t('cancel')}
-              </Button>
-              <Button
-                color="primary"
-                size="sm"
-                className="text-md"
-                onClick={isEditPost ? handleSave : handlePost}
-              >
-                {isEditPost ? t('save') : t('post')}
-              </Button>
-            </div>
-            <div className="flex flex-wrap gap-4 bg-gray-100 mt-4 w-fit px-2 py-1 rounded-xl">
-              <Button isIconOnly className="bg-gray-100" onClick={openFileDialog}>
-                <CiImageOn className="w-5 h-5" />
-              </Button>
-              <input {...inputProps} />
-              <Button
-                isIconOnly
-                className="bg-gray-100"
-                onClick={() => setIsLocationOn((prev) => !prev)}
-              >
-                <CiLocationOn className="w-5 h-5" />
-              </Button>
-              <Button
-                isIconOnly
-                className="bg-gray-100"
-                onClick={() => setIsFeelingOn((prev) => !prev)}
-              >
-                <BsEmojiSmile className="w-5 h-5" />
-              </Button>
-              <Button
-                isIconOnly
-                className="bg-gray-100"
-                onClick={() => setIsTagOn((prev) => !prev)}
-              >
-                <CiHashtag className="w-5 h-5" />
-              </Button>
-              <Button
-                isIconOnly
-                className="bg-gray-100"
-                onClick={() => setIsPrivacyOn((prev) => !prev)}
-              >
-                <GoLock className="w-5 h-5" />
-              </Button>
-            </div>
-            <div className="flex mt-4 gap-4 items-center">
-              {isLocationOn && (
-                <Input
-                  startContent={t('location')}
-                  className="bg-gray-100 rounded-lg w-[200px]"
-                  value={location}
-                  onChange={handleChangeLocation}
+      <Modal size="3xl" isOpen={isOpen} onClose={closePost}>
+        <ModalContent>
+          <div>
+            <div>
+              <div className="mx-8 my-6">
+                <User
+                  name={fullName(user.firstName, user.lastName)}
+                  avatarProps={{ src: user.avtUrl }}
+                  className="text-xl font-bold"
                 />
-              )}
-              {isFeelingOn && (
-                <Input
-                  startContent={t('feeling')}
-                  className="bg-gray-100 rounded-lg w-[200px]"
-                  value={feeling}
-                  onChange={handleChangeFeeling}
-                />
-              )}
-              {isPrivacyOn && (
-                <Select
-                  startContent={t('privacy')}
-                  aria-label="Privacy"
-                  className="bg-gray-100 rounded-lg w-[200px]"
-                  value={privacy}
-                  onChange={handleChangePrivacy}
-                >
-                  {privacyOptions.map((privacyOption) => (
-                    <SelectItem key={privacyOption} value={privacyOption}>
-                      {privacyOption}
-                    </SelectItem>
-                  ))}
-                </Select>
-              )}
+                <div className="mt-4 flex min-h-[200px] w-full flex-col rounded-lg bg-white">
+                  <Textarea
+                    className="border-b-none w-full text-lg"
+                    placeholder={t('placeholder')}
+                    value={content}
+                    onChange={handleChangeContent}
+                    minRows={6}
+                  />
+                  <div className="mt-2 flex w-full flex-wrap gap-2">
+                    {mediaFiles.map((mediaFile) => (
+                      <Media
+                        file={mediaFile}
+                        key={mediaFile.id}
+                        handleRemoveFile={handleRemoveFile}
+                      />
+                    ))}
+                  </div>
+                  <div className="mt-4 flex w-fit flex-wrap gap-4 rounded-xl bg-gray-100 px-2 py-1">
+                    <Button isIconOnly className="bg-gray-100" onClick={openFileDialog}>
+                      <IconPhotoScan className="h-5 w-5" />
+                    </Button>
+                    <input {...inputProps} />
+                    <Button
+                      isIconOnly
+                      className="bg-gray-100"
+                      onClick={() => setIsLocationOn((prev) => !prev)}
+                    >
+                      <IconMapPin className="h-5 w-5" />
+                    </Button>
+                    <Button
+                      isIconOnly
+                      className="bg-gray-100"
+                      onClick={() => setIsFeelingOn((prev) => !prev)}
+                    >
+                      <IconMoodHappy className="h-5 w-5" />
+                    </Button>
+                    <Button
+                      isIconOnly
+                      className="bg-gray-100"
+                      onClick={() => setIsTagOn((prev) => !prev)}
+                    >
+                      <IconHash className="h-5 w-5" />
+                    </Button>
+                    <Button
+                      isIconOnly
+                      className="bg-gray-100"
+                      onClick={() => setIsPrivacyOn((prev) => !prev)}
+                    >
+                      <IconLock className="h-5 w-5" />
+                    </Button>
+                  </div>
+                  <div className="mt-4 flex items-center gap-4">
+                    {isLocationOn && (
+                      <Input
+                        startContent={
+                          <span className="text-nowrap text-sm text-gray-600">{t('location')}</span>
+                        }
+                        className="w-[200px] max-w-full rounded-lg bg-gray-100"
+                        value={location}
+                        onChange={handleChangeLocation}
+                      />
+                    )}
+                    {isFeelingOn && (
+                      <Input
+                        startContent={
+                          <span className="text-nowrap text-sm text-gray-600">{t('feeling')}</span>
+                        }
+                        className="w-[200px] max-w-full rounded-lg bg-gray-100"
+                        value={feeling}
+                        onChange={handleChangeFeeling}
+                      />
+                    )}
+                    {isPrivacyOn && (
+                      <Select
+                        startContent={
+                          <span className="text-nowrap text-sm text-gray-600">{t('privacy')}</span>
+                        }
+                        aria-label="Privacy"
+                        className="w-[200px] max-w-full rounded-lg bg-gray-100"
+                        value={privacy}
+                        onChange={handleChangePrivacy}
+                      >
+                        {privacyOptions.map((privacyOption) => (
+                          <SelectItem key={privacyOption} value={privacyOption}>
+                            {privacyOption}
+                          </SelectItem>
+                        ))}
+                      </Select>
+                    )}
+                  </div>
+                  {isTagOn && (
+                    <Input
+                      className="mt-4 rounded-lg bg-gray-100"
+                      startContent={<Tags tags={tags} />}
+                      value={currTag}
+                      onChange={handleChangeTag}
+                      onKeyDown={handleTags}
+                    />
+                  )}
+                </div>
+              </div>
             </div>
-            {isTagOn && (
-              <Input
-                className="bg-gray-100 mt-4 rounded-lg"
-                startContent={<Tags tags={tags} />}
-                value={currTag}
-                onChange={handleChangeTag}
-                onKeyDown={handleTags}
-              />
-            )}
           </div>
-        </div>
-      </div>
+          <ModalFooter>
+            <Button color="default" size="sm" className="text-md" onClick={closePost}>
+              {t('cancel')}
+            </Button>
+            <Button
+              color="primary"
+              size="sm"
+              className="text-md"
+              onClick={isEditPost ? handleSave : handlePost}
+            >
+              {isEditPost ? t('save') : t('post')}
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   )
 }

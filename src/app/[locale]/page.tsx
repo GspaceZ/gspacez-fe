@@ -73,12 +73,7 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <Post
-            post={landingPost}
-            variant={POST_VARIANTS.landing}
-            toggleEditModal={() => handleSelectedPost}
-            togglePrivacyModal={() => setPrivacyModal}
-          />
+          <Post post={landingPost} variant={POST_VARIANTS.landing} />
         </div>
       </div>
     </BlankLayout>
