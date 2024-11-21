@@ -13,7 +13,6 @@ const Contact = (props: IContact) => {
   const handleContact = () => {
     const destinationPath = pathWithLocale(pathname, `message/${props.id}`)
     router.push(destinationPath)
-    console.log(1)
   }
 
   return (

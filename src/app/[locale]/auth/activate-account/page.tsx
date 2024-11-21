@@ -16,9 +16,6 @@ const Page: React.FC = () => {
   const pathname = usePathname()
   const t = useTranslations('auth')
 
-  const email = decodeActivationLinkEmail(token)
-  console.log(email)
-
   const handleRedirect = (path: string) => {
     const destinationPath = pathWithLocale(pathname, path)
     router.push(destinationPath)

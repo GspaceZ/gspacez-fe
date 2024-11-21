@@ -88,7 +88,7 @@ const Page: React.FC = () => {
         fToast(t('toast.unknown'), 'danger')
       }
     } catch (error) {
-      console.error('Error uploading image: ', error)
+      fToast(error || '', 'danger')
     }
   }
 
