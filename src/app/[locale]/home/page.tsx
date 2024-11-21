@@ -68,6 +68,10 @@ const Page = () => {
     setSelectedPrivacy(privacy)
   }
 
+  const handleDelete = () => {
+    // Do something later
+  }
+
   return (
     <MainLayout title={t('home')}>
       <div className="flex w-full flex-col items-center">
