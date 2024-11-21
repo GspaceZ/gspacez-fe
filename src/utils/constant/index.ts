@@ -1,5 +1,5 @@
 export const TITLE = {
-  home: 'Fakebook'
+  home: 'GspaceZ'
 }
 
 export enum PostTypeEnum {

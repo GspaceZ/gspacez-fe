@@ -13,7 +13,7 @@ export const landingProfile = {
   shortDesc: 'I am a rapper',
   fullDesc: 'I am a fullstack developer at GDSC HANU',
   avtUrl: LandingAvatar.src,
-  firstName: 'Fakebook',
+  firstName: 'GspaceZ',
   lastName: 'User',
   isActivated: true
 } as IProfile
@@ -29,13 +29,12 @@ export const landingPost = {
     dob: new Date('1900/01/01'),
     shortDesc: 'string',
     fullDesc: 'string',
-    avtUrl:
-      'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
-    firstName: 'Fakebook',
+    avtUrl: LandingAvatar.src,
+    firstName: 'GspaceZ',
     lastName: 'User'
   },
   content: {
-    text: 'Welcome to Fakebook',
+    text: 'Welcome to GspaceZ',
     imageUrls: [],
     videoUrls: [],
     location: '',
