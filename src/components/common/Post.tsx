@@ -173,7 +173,7 @@ const Post: React.FC<PostProps> = ({
             <Button
               variant="light"
               startContent={isLiked ? <IconStarFilled /> : <IconStar />}
-              className={`text-base ${isLiked ? 'text-yellow-500' : ''} ${
+              className={`text-base font-semibold ${isLiked ? 'text-yellow-500' : ''} ${
                 variant === POST_VARIANTS.feed ? 'md:ml-10' : ''
               }`}
               onClick={() => {
@@ -182,13 +182,17 @@ const Post: React.FC<PostProps> = ({
             >
               {t('like')}
             </Button>
-            <Button variant="light" startContent={<IconMessage />} className="text-base">
+            <Button
+              variant="light"
+              startContent={<IconMessage />}
+              className="text-base font-semibold"
+            >
               {t('comment')}
             </Button>
             <Button
               variant="light"
               startContent={<IconShare3 />}
-              className={`text-base ${variant === POST_VARIANTS.feed ? 'md:mr-10' : ''}`}
+              className={`text-base font-semibold ${variant === POST_VARIANTS.feed ? 'md:mr-10' : ''}`}
             >
               {t('share')}
             </Button>

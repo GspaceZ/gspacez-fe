@@ -1,6 +1,6 @@
 {
   "title": {
-    "app": "Fakebook",
+    "app": "GspaceZ",
     "home": "Trang chủ",
     "profile": "Hồ sơ",
     "avatar": "Ảnh đại diện",
@@ -51,8 +51,8 @@
       "cancel": "Hủy",
       "save": "Lưu",
       "description": {
-        "public": "Bất kỳ ai ở trên hoặc ngoài Fakebook.",
-        "friends": "Bạn bè của bạn trên Fakebook.",
+        "public": "Bất kỳ ai ở trên hoặc ngoài GspaceZ.",
+        "friends": "Bạn bè của bạn trên GspaceZ.",
         "private": "Chỉ có bạn mới xem được bài viết này."
       }
     }
@@ -98,7 +98,7 @@
       }
     },
     "activate": {
-      "welcome": "Chào mừng tới Fakebook!",
+      "welcome": "Chào mừng tới GspaceZ!",
       "mail_sent": "Mail kích hoạt đã được gửi! Vui lòng kiểm tra email",
       "success": "Kích hoạt thành công!",
       "and_start_now": " và Bắt đầu ngay bây giờ!"

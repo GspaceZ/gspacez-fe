@@ -12,7 +12,7 @@ const fakeUser: IProfile = {
   shortDesc: 'string',
   fullDesc: 'string',
   avtUrl: 'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
-  firstName: 'Fakebook',
+  firstName: 'GspaceZ',
   lastName: 'User'
 }
 
@@ -35,7 +35,7 @@ export const fakePosts: IPost[] = [
     id: '1',
     user: fakeUser,
     content: {
-      text: 'Welcome to Fakebook',
+      text: 'Welcome to GspaceZ',
       imageUrls: [],
       videoUrls: [],
       location: '',
@@ -55,7 +55,7 @@ export const fakePosts: IPost[] = [
     id: '2',
     user: fakeUser,
     content: {
-      text: 'Welcome to Fakebook',
+      text: 'Welcome to GspaceZ',
       imageUrls: [
         'https://cdn.pixabay.com/photo/2023/11/04/10/03/bear-8364583_640.png',
         'https://media.greatbigphotographyworld.com/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg'
@@ -80,7 +80,7 @@ export const fakePosts: IPost[] = [
     id: '4',
     user: fakeUser2,
     content: {
-      text: 'Welcome to Fakebook',
+      text: 'Welcome to GspaceZ',
       imageUrls: [
         'https://res.cloudinary.com/dszkt92jr/image/upload/v1721463934/fgcnetakyb8nibeqr9do.png'
       ],

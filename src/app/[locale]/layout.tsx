@@ -17,7 +17,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <head>
-        <title>Fakebook</title>
+        <title>GspaceZ</title>
       </head>
       <body>
         <SpeedInsights />

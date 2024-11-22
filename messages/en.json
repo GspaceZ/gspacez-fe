@@ -1,6 +1,6 @@
 {
   "title": {
-    "app": "Fakebook",
+    "app": "GspaceZ",
     "home": "Home",
     "profile": "Profile",
     "avatar": "Avatar",
@@ -98,7 +98,7 @@
       }
     },
     "activate": {
-      "welcome": "Welcome to Fakebook!",
+      "welcome": "Welcome to GspaceZ!",
       "mail_sent": "Activation Mail is sent! Please check your email!",
       "success": "Activated Successfully!",
       "and_start_now": " and Start now!"
