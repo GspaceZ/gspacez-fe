@@ -1,4 +1,5 @@
 import callApi from '@/axios'
+import { fToast } from '@/helpers/toast'
 import {
   UploadAvatarResponse,
   UpdateProfileResponse,
@@ -13,7 +14,6 @@ export const useProfile = () => {
     const cloudName = process.env.NEXT_PUBLIC_CLOUD_NAME as string
 
     if (file) {
-      console.log('File to be uploaded:', file)
       const formData = new FormData()
       formData.append('file', file)
       formData.append('upload_preset', uploadPreset)
@@ -32,13 +32,12 @@ export const useProfile = () => {
         })
 
         const data = response.data
-        console.log('Cloudinary response:', data)
         return data
       } catch (error) {
         console.error('Error uploading image:', error)
       }
     } else {
-      console.log('No file selected')
+      fToast('No file selected', 'danger')
     }
   }
 
@@ -56,7 +55,7 @@ export const useProfile = () => {
       const data = response.data
       return data
     } catch (error) {
-      console.log('Error uploading avatar: ', error)
+      fToast(error, 'danger')
     }
   }
 
@@ -89,7 +88,7 @@ export const useProfile = () => {
       const data = response.data
       return data
     } catch (error) {
-      console.log('Error update profile: ', error)
+      fToast(error, 'danger')
     }
   }
 
@@ -100,7 +99,7 @@ export const useProfile = () => {
       const data = response.data
       return data
     } catch (error) {
-      console.log('Error update profile: ', error)
+      fToast(error, 'danger')
     }
   }
 

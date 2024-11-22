@@ -72,7 +72,6 @@ const Page: React.FC = () => {
       }
     } catch (error) {
       fToast(t('toast.unknown'), 'danger')
-      console.error('Error: ', error)
     } finally {
       setIsLoading(false)
     }

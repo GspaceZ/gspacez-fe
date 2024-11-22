@@ -69,7 +69,7 @@ const Page = () => {
   }
 
   const handleDelete = () => {
-    console.log('delete')
+    // Do something later
   }
 
   return (

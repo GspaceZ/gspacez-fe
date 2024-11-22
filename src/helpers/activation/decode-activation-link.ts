@@ -5,7 +5,6 @@ export const decodeActivationLinkEmail = (token: string): string | null => {
 
   try {
     const decoded = jwt.verify(token, secret) as JwtPayload
-    console.log(decoded)
     return decoded.email
   } catch (error) {
     console.error('Error decoding activation link:', error)
