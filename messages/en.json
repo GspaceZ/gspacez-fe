@@ -203,5 +203,9 @@
     "hide": "Hide",
     "more": "More",
     "page": "Page"
+  },
+  "locale": {
+    "en": "English",
+    "vi": "Vietnamese"
   }
 }

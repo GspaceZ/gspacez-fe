@@ -203,5 +203,9 @@
     "hide": "Ẩn",
     "more": "Thêm",
     "page": "Trang"
+  },
+  "locale": {
+    "en": "Tiếng Anh",
+    "vi": "Tiếng Việt"
   }
 }
