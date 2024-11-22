@@ -2,7 +2,6 @@
 
 import Posts from '@/components/home/Posts'
 import MainLayout from '@/components/layouts/MainLayout'
-import { PageInfo } from '@/components/pages/PageInfo'
 import PostModal from '@/components/posts/PostModal'
 import PrivacyModal from '@/components/posts/PrivacyModal'
 import { fakePosts } from '@/mock/posts'
@@ -11,13 +10,19 @@ import { IPost } from '@/types/post'
 import { PostPrivacyEnum } from '@/utils/constant'
 import { useAppSelector } from '@/utils/store'
 import { useState } from 'react'
+import { PageInfo } from '@/components/pages/PageInfo'
+import NewPost from '@/components/profile/NewPost'
+import { StartEvent } from '@/components/pages/StartEvent'
+import { useTranslations } from 'next-intl'
 
 const Page: React.FC = () => {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false)
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
   const [selectedPrivacy, setSelectedPrivacy] = useState<PostPrivacyEnum>(PostPrivacyEnum.PUBLIC)
   const [selectedPost, setSelectedPost] = useState<IPost | undefined>(undefined)
+  const [isHost, setIsHost] = useState(true) // only set true for get host view
   const user = useAppSelector((state) => state.user)
+  const t = useTranslations('pages')
 
   const pageData = {
     name: 'Fanpage MU',
@@ -26,7 +31,8 @@ const Page: React.FC = () => {
     fullDesc: 'Glory glory gloryyyyyyyyyyyyyyyyy',
     facebook: 'https://facebook.com',
     instagram: 'https://instagram.com',
-    link: ''
+    link: '',
+    host_ids: [1]
   }
 
   const togglePostModal = (post?: IPost) => {
@@ -60,7 +66,7 @@ const Page: React.FC = () => {
   }
 
   return (
-    <MainLayout title={'Page'}>
+    <MainLayout title={t('page')}>
       <div className="mx-auto min-h-screen w-full max-w-[632px] overflow-y-auto border border-gray-200 bg-gray-50">
         <div className="flex flex-col">
           <PageInfo
@@ -72,6 +78,12 @@ const Page: React.FC = () => {
             instagram={pageData.instagram}
             link={pageData.link}
           />
+          {isHost && (
+            <>
+              <NewPost openModal={() => setIsPostModalOpen(true)} avatar={pageData.avatar} />
+              <StartEvent />
+            </>
+          )}
           <Posts
             posts={fakePosts}
             toggleEditPost={(postId) => handleSelectedPost(postId)}
