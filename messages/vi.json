@@ -190,5 +190,18 @@
       "pending": "Chấp nhận",
       "friend": "Bạn bè"
     }
+  },
+  "pages": {
+    "start_event": "Muốn bắt đầu một sự kiện?",
+    "start_event_button": "Bắt đầu ngay!",
+    "followed": "Đã theo dõi",
+    "follow": "Theo dõi",
+    "message": "Nhắn tin",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "link": "Đường dẫn khác",
+    "hide": "Ẩn",
+    "more": "Thêm",
+    "page": "Trang"
   }
 }

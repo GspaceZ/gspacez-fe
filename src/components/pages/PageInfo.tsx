@@ -6,9 +6,11 @@ import { FollowButton } from './FollowButton'
 import { useState } from 'react'
 import Link from 'next/link'
 import { IconBrandFacebook, IconBrandInstagram, IconLink } from '@tabler/icons-react'
+import { useTranslations } from 'next-intl'
 
 export const PageInfo = (props: PageInfoProps) => {
   const [isShowFullPageInfo, setIsShowFullPageInfo] = useState(false)
+  const t = useTranslations('pages')
 
   return (
     <div className="flex flex-col pb-2 pl-6 pt-4">
@@ -17,7 +19,7 @@ export const PageInfo = (props: PageInfoProps) => {
         <div className="flex items-center gap-2">
           <FollowButton status="followed" />
           <Button variant="bordered" color="primary" className="font-bold" size="sm">
-            Message
+            {t('message')}
           </Button>
         </div>
       </div>
@@ -28,15 +30,15 @@ export const PageInfo = (props: PageInfoProps) => {
           <span className="text-md mt-2">{props.fullDesc}</span>
           <Link href={props.facebook} className="flex items-center gap-1 hover:underline">
             <IconBrandFacebook size="18" />
-            <span>Facebook</span>
+            <span>{t('facebook')}</span>
           </Link>
           <Link href={props.facebook} className="flex items-center gap-1 hover:underline">
             <IconBrandInstagram size="18" />
-            <span>Instagram</span>
+            <span>{t('instagram')}</span>
           </Link>
           <Link href={props.link} className="flex items-center gap-1 hover:underline">
             <IconLink size="18" />
-            <span>Other Link</span>
+            <span>{t('link')}</span>
           </Link>
         </>
       )}
@@ -44,7 +46,7 @@ export const PageInfo = (props: PageInfoProps) => {
         className="text-md mt-1 w-fit p-0 font-bold text-primary"
         onClick={() => setIsShowFullPageInfo(!isShowFullPageInfo)}
       >
-        {isShowFullPageInfo ? 'Hide' : 'More'}
+        {isShowFullPageInfo ? t('hide') : t('more')}
       </button>
     </div>
   )

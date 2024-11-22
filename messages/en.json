@@ -190,5 +190,18 @@
       "pending": "Accept request",
       "friend": "Friend"
     }
+  },
+  "pages": {
+    "start_event": "Wanna start an event?",
+    "start_event_button": "Let's go!",
+    "followed": "Followed",
+    "follow": "Follow",
+    "message": "Message",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "link": "Other link",
+    "hide": "Hide",
+    "more": "More",
+    "page": "Page"
   }
 }
