@@ -202,7 +202,18 @@
     "link": "Trang web",
     "hide": "Ẩn",
     "more": "Thêm",
-    "page": "Trang"
+    "page": "Trang",
+    "edit": {
+      "choose_avatar": "Chọn ảnh đại diện khác",
+      "name": "Tên",
+      "shortDesc": "Mô tả ngắn gọn",
+      "fullDesc": "Mô tả đầy đủ",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "link": "Trang web",
+      "save": "Lưu thông tin trang",
+      "cancel": "Hủy"
+    }
   },
   "locale": {
     "en": "Tiếng Anh",
