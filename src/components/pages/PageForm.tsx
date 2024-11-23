@@ -6,8 +6,11 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import LandingAvatar from '@/public/landingAvatar.png'
 import InputWithError from '../common/InputWithError'
+import { useTranslations } from 'next-intl'
 
 export const PageForm = () => {
+  const t = useTranslations('pages.edit')
+
   const pageSchema = z.object({
     name: z.string(),
     shortDesc: z.string().optional(),
@@ -30,14 +33,14 @@ export const PageForm = () => {
       <div className="mb-[20px] flex h-[56px] items-center">
         <Image src={LandingAvatar.src} alt="avatar" className="h-[70px] rounded-[1000px]" />
         <Button className="text-center" color="primary" variant="light">
-          Choose avatar
+          {t('choose_avatar')}
         </Button>
       </div>
       <InputWithError>
         <Input
           type="text"
           {...register('name')}
-          label="Name"
+          label={t('name')}
           className="h-[56px] w-full"
           isRequired
         />
@@ -46,7 +49,7 @@ export const PageForm = () => {
         <Input
           type="text"
           {...register('shortDesc')}
-          label="Short description"
+          label={t('shortDesc')}
           className="h-[56px] w-full"
           isRequired
         />
@@ -55,30 +58,35 @@ export const PageForm = () => {
         <Input
           type="text"
           {...register('fullDesc')}
-          label="Full description"
+          label={t('fullDesc')}
           className="h-[56px] w-full"
           isRequired
         />
       </InputWithError>
       <InputWithError>
-        <Input type="text" {...register('facebook')} label="Facebook" className="h-[56px] w-full" />
+        <Input
+          type="text"
+          {...register('facebook')}
+          label={t('facebook')}
+          className="h-[56px] w-full"
+        />
       </InputWithError>
       <InputWithError>
         <Input
           type="text"
           {...register('instagram')}
-          label="Instagram"
+          label={t('instagram')}
           className="h-[56px] w-full"
         />
       </InputWithError>
       <InputWithError>
-        <Input type="text" {...register('link')} label="Website" className="h-[56px] w-full" />
+        <Input type="text" {...register('link')} label={t('link')} className="h-[56px] w-full" />
       </InputWithError>
       <div className="flex items-center justify-center gap-2">
         <Button color="primary" className="font-bold">
-          Save
+          {t('save')}
         </Button>
-        <Button className="font-bold">Cancel</Button>
+        <Button className="font-bold">{t('cancel')}</Button>
       </div>
     </form>
   )

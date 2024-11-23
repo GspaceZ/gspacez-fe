@@ -202,7 +202,18 @@
     "link": "Website",
     "hide": "Hide",
     "more": "More",
-    "page": "Page"
+    "page": "Page",
+    "edit": {
+      "choose_avatar": "Choose another avatar",
+      "name": "Name",
+      "shortDesc": "Short description",
+      "fullDesc": "Full description",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "link": "Website",
+      "save": "Save page information",
+      "cancel": "Cancel"
+    }
   },
   "locale": {
     "en": "English",
