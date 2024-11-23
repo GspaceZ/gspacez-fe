@@ -6,10 +6,10 @@ import Sidebar from './Sidebar'
 import TrendingSidebar from './TrendingSidebar'
 import { trendingPostsData, trendingPeopleData } from '@/utils/constant/trending-post/index'
 import ButtonOption from '@/components/trending-post/button-option'
-import { buttonOptions } from '@/utils/constant/buttonOptions'
 import { useState } from 'react'
 import Overlay from '../common/Overlay'
 import { MainLayoutProps } from '@/types/props/layouts'
+import { IconBell, IconSend, IconSettings, IconTrendingUp } from '@tabler/icons-react'
 
 const MainLayout = ({ children, title }: MainLayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -19,6 +19,33 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen)
   }
+
+  const buttonOptions = [
+    {
+      name: 'send',
+      icon: <IconSend />,
+      path: 'home',
+      count: 5
+    },
+    {
+      name: 'notifications',
+      icon: <IconBell />,
+      path: 'home',
+      count: 5
+    },
+    {
+      name: 'settings',
+      icon: <IconSettings />,
+      path: 'home',
+      count: 0
+    },
+    {
+      name: 'messages',
+      icon: <IconTrendingUp />,
+      path: 'home',
+      count: 0
+    }
+  ]
 
   const handleButtonOptionClick = (index: number) => {
     if (index === buttonOptions.length - 1) {

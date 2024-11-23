@@ -7,12 +7,10 @@ import * as React from 'react'
 import { formattedContent } from '@/helpers/post/formatted-content'
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
-import { GoComment, GoPaperAirplane, GoStar } from 'react-icons/go'
 import { useState } from 'react'
 import { FCarouselItemProps } from '@/types/props/common'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import FCarousel from './FCarousel'
-import Options from '../posts/Options'
 import { IPost } from '@/types/post'
 import {
   IconDotsCircleHorizontal,
