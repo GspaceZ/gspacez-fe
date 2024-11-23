@@ -5,7 +5,7 @@ import { postTime } from '@/helpers/post/post-time'
 import { User } from '@nextui-org/user'
 import * as React from 'react'
 import { formattedContent } from '@/helpers/post/formatted-content'
-import { Button } from '@nextui-org/react'
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
 import { GoComment, GoPaperAirplane, GoStar } from 'react-icons/go'
 import { useState } from 'react'
@@ -86,6 +86,25 @@ const Post: React.FC<PostProps> = ({
     }
   ]
 
+  const postOptions = [
+    {
+      label: t('options.hide'),
+      onClick: togglePost
+    },
+    {
+      label: t('options.privacy'),
+      onClick: setPrivacy
+    },
+    {
+      label: t('options.edit'),
+      onClick: toggleEditPost
+    },
+    {
+      label: t('options.delete'),
+      onClick: deletePost
+    }
+  ]
+
   return (
     <>
       {isHidden ? (
@@ -120,24 +139,25 @@ const Post: React.FC<PostProps> = ({
                 className="text-xl font-bold"
               />
               <div className="flex flex-col items-end">
-                <div className="relative">
-                  <Button
-                    isIconOnly
-                    className={`${variant === POST_VARIANTS.sidebar ? 'hidden' : 'text-2xl'}`}
-                    variant="light"
-                    onClick={() => toggleMenu()}
-                  >
-                    <IconDotsCircleHorizontal />
-                  </Button>
-                  <Options
-                    hidePost={togglePost}
-                    editPost={toggleEditPost}
-                    setPrivacy={setPrivacy}
-                    deletePost={deletePost}
-                    isOpen={isMenuOpen}
-                    onClose={() => setIsMenuOpen(false)}
-                  />
-                </div>
+                <Dropdown placement="bottom-start" className="w-[100px]">
+                  <DropdownTrigger>
+                    <Button
+                      isIconOnly
+                      className={`${variant === POST_VARIANTS.sidebar ? 'hidden' : 'text-2xl'}`}
+                      variant="light"
+                      onClick={() => toggleMenu()}
+                    >
+                      <IconDotsCircleHorizontal />
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownMenu>
+                    {postOptions.map((option) => (
+                      <DropdownItem key={option.label} onClick={option.onClick}>
+                        {option.label}
+                      </DropdownItem>
+                    ))}
+                  </DropdownMenu>
+                </Dropdown>
                 <div
                   className={`${
                     isMenuOpen ? '' : 'hidden'

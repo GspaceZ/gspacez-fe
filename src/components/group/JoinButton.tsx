@@ -1,10 +1,13 @@
 import { Button } from '@nextui-org/react'
+import { useTranslations } from 'next-intl'
 
 interface JoinButtonProps {
   status: string
 }
 
 export const JoinButton = (props: JoinButtonProps) => {
+  const t = useTranslations('group')
+
   const buttonVariant = () => {
     switch (props.status) {
       case 'joined':
@@ -30,7 +33,7 @@ export const JoinButton = (props: JoinButtonProps) => {
       size="sm"
       className="font-bold capitalize"
     >
-      {props.status}
+      {t(props.status)}
     </Button>
   )
 }

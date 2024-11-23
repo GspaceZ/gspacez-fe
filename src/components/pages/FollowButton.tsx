@@ -20,7 +20,7 @@ export const FollowButton = (props: FollowButtonProps) => {
   }
 
   return (
-    <Button color={buttonVariant()} className="font-bold capitalize" size="sm">
+    <Button color={buttonVariant()} className="font-bold" size="sm">
       {t(props.status)}
     </Button>
   )

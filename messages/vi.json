@@ -218,5 +218,13 @@
   "locale": {
     "en": "Tiếng Anh",
     "vi": "Tiếng Việt"
+  },
+  "group": {
+    "group": "Nhóm",
+    "hide": "Ẩn",
+    "more": "Thêm",
+    "join": "Tham gia",
+    "pending": "Đã gửi yêu cầu",
+    "joined": "Đã tham gia"
   }
 }
