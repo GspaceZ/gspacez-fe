@@ -29,16 +29,16 @@ const MainProfileForm = () => {
 
   const token = useAppSelector((state: RootState) => state.auth.token)
 
-  useEffect(() => {
-    const handleRedirect = (path: string) => {
-      const destinationPath = pathWithLocale(pathname, path)
-      router.push(destinationPath)
-    }
+  // useEffect(() => {
+  //   const handleRedirect = (path: string) => {
+  //     const destinationPath = pathWithLocale(pathname, path)
+  //     router.push(destinationPath)
+  //   }
 
-    if (!token) {
-      handleRedirect(ROUTE.auth.signin)
-    }
-  }, [pathname, router, token])
+  //   if (!token) {
+  //     handleRedirect(ROUTE.auth.signin)
+  //   }
+  // }, [pathname, router, token])
 
   const updateProfileSchema = z.object({
     firstName: z
