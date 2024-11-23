@@ -31,7 +31,7 @@ export interface TrendingSidebarProps {
 export interface ButtonOptionsProps {
   button: {
     name: string
-    icon: string
+    icon: ReactNode
     path: string
     count?: number
   }

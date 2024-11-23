@@ -1,17 +1,15 @@
 'use client'
 
 import * as React from 'react'
-import TrendingPost from '@/components/trending-post/trending-post'
-import TrendingPeople from '@/components/trending-post/trending-people'
 import ButtonOption from '@/components/trending-post/button-option'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { Button, User } from '@nextui-org/react'
 import { TrendingSidebarProps } from '@/types/props/layouts'
 import Post from '../common/Post'
-import { buttonOptions } from '@/utils/constant/buttonOptions'
 import { fullName } from '@/helpers/user/full-name'
 import { POST_VARIANTS } from '@/utils/constant/variants'
+import { IconBell, IconSend, IconSettings, IconTrendingUp } from '@tabler/icons-react'
 
 const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarProps) => {
   const t = useTranslations('trending_posts')
@@ -28,6 +26,33 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
   const setPrivacy = () => {
     // handle
   }
+
+  const buttonOptions = [
+    {
+      name: 'send',
+      icon: <IconSend />,
+      path: 'home',
+      count: 5
+    },
+    {
+      name: 'notifications',
+      icon: <IconBell />,
+      path: 'home',
+      count: 5
+    },
+    {
+      name: 'settings',
+      icon: <IconSettings />,
+      path: 'home',
+      count: 0
+    },
+    {
+      name: 'messages',
+      icon: <IconTrendingUp />,
+      path: 'home',
+      count: 0
+    }
+  ]
 
   return (
     <div

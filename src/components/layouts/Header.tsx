@@ -1,14 +1,21 @@
 'use client'
 
-import { GoSidebarCollapse } from 'react-icons/go'
 import * as React from 'react'
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Image } from '@nextui-org/react'
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Image
+} from '@nextui-org/react'
 import { HeaderProps } from '@/types/props/layouts'
 import { useLocale, useTranslations } from 'next-intl'
 import EN from '@/public/EN.png'
 import VN from '@/public/VN.png'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect, useMemo } from 'react'
+import { IconLayoutSidebarLeftExpandFilled } from '@tabler/icons-react'
 
 type Lang = {
   image: string
@@ -39,7 +46,7 @@ const Header = ({ title, isSidebarOpen, toggleSidebar }: HeaderProps) => {
   }, [t])
 
   const handleChangeLanguage = (lang: string) => {
-    if (lang !== locale && languages.map(lang => lang.value).includes(lang)) {
+    if (lang !== locale && languages.map((lang) => lang.value).includes(lang)) {
       const parts = pathname.split('/')
       parts[1] = lang
       router.push(parts.join('/'))
@@ -47,7 +54,7 @@ const Header = ({ title, isSidebarOpen, toggleSidebar }: HeaderProps) => {
   }
 
   useEffect(() => {
-    setCurrLang(languages.find(lang => lang.value === locale))  
+    setCurrLang(languages.find((lang) => lang.value === locale))
   }, [languages, locale])
 
   return (
@@ -60,18 +67,18 @@ const Header = ({ title, isSidebarOpen, toggleSidebar }: HeaderProps) => {
         variant="light"
         onClick={() => toggleSidebar()}
       >
-        <GoSidebarCollapse className="text-3xl" />
+        <IconLayoutSidebarLeftExpandFilled size="28" />
       </Button>
       <span className="mx-auto text-3xl font-extrabold">{title}</span>
-      <Dropdown placement='bottom-end' className='bg-gray-50'>
-        <DropdownTrigger className='mr-2 cursor-pointer'>
-          <Image src={currLang?.image} alt={currLang?.value} width='32' className='rounded-full' />
+      <Dropdown placement="bottom-end" className="bg-gray-50">
+        <DropdownTrigger className="mr-2 cursor-pointer">
+          <Image src={currLang?.image} alt={currLang?.value} width="32" className="rounded-full" />
         </DropdownTrigger>
-        <DropdownMenu variant='shadow'>
-          {languages.map(lang => (
+        <DropdownMenu variant="shadow">
+          {languages.map((lang) => (
             <DropdownItem key={lang.value} onClick={() => handleChangeLanguage(lang.value)}>
-              <div className='flex items-center gap-2'>
-                <Image src={lang.image} alt={lang.value} width='32' className='rounded-full' />
+              <div className="flex items-center gap-2">
+                <Image src={lang.image} alt={lang.value} width="32" className="rounded-full" />
                 <span>{lang.label}</span>
               </div>
             </DropdownItem>
