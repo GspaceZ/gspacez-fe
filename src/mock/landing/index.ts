@@ -1,5 +1,6 @@
 import { IProfile } from '@/types/profile'
 import { PostPrivacyEnum, PostTypeEnum } from '../../utils/constant'
+import LandingAvatar from '@/public/landingAvatar.png'
 
 export const landingProfile = {
   id: '12334',
@@ -9,10 +10,10 @@ export const landingProfile = {
   city: 'Hanoi',
   address: 'Dinh Thon',
   dob: new Date('2003/09/29'),
-  shortDescription: 'I am a rapper',
-  fullDescription: 'I am a fullstack developer at GDSC HANU',
-  avtUrl: '/landingAvatar.png',
-  firstName: 'Fakebook',
+  shortDesc: 'I am a rapper',
+  fullDesc: 'I am a fullstack developer at GDSC HANU',
+  avtUrl: LandingAvatar.src,
+  firstName: 'GspaceZ',
   lastName: 'User',
   isActivated: true
 } as IProfile
@@ -26,15 +27,14 @@ export const landingPost = {
     city: '',
     address: 'string',
     dob: new Date('1900/01/01'),
-    shortDescription: 'string',
-    fullDescription: 'string',
-    avtUrl:
-      'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
-    firstName: 'Fakebook',
+    shortDesc: 'string',
+    fullDesc: 'string',
+    avtUrl: LandingAvatar.src,
+    firstName: 'GspaceZ',
     lastName: 'User'
   },
   content: {
-    text: 'Welcome to Fakebook',
+    text: 'Welcome to GspaceZ',
     imageUrls: [],
     videoUrls: [],
     location: '',

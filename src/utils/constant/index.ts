@@ -1,5 +1,5 @@
 export const TITLE = {
-  home: 'Fakebook'
+  home: 'GspaceZ'
 }
 
 export enum PostTypeEnum {
@@ -9,6 +9,6 @@ export enum PostTypeEnum {
 
 export enum PostPrivacyEnum {
   PUBLIC = 'public',
-  FIRENDS = 'friends',
+  FRIENDS = 'friends',
   PRIVATE = 'private'
 }

@@ -88,7 +88,7 @@ const Page: React.FC = () => {
         fToast(t('toast.unknown'), 'danger')
       }
     } catch (error) {
-      console.error('Error uploading image: ', error)
+      fToast(error || '', 'danger')
     }
   }
 
@@ -99,12 +99,12 @@ const Page: React.FC = () => {
 
   return (
     <MainLayout title={tTitle('avatar')}>
-      <div className="flex flex-col items-center mt-[100px] gap-10">
+      <div className="mt-[100px] flex flex-col items-center gap-10">
         <div>
           <FImage
             src={imageUrl}
             alt="avatar"
-            className="w-[300px] h-[300px] rounded-full border border-gray-300"
+            className="h-[300px] w-[300px] rounded-full border border-gray-300"
           />
         </div>
         <div className="relative">
@@ -115,7 +115,7 @@ const Page: React.FC = () => {
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            className="absolute z-10 top-0 left-0 w-full h-full opacity-0"
+            className="absolute left-0 top-0 z-10 h-full w-full opacity-0"
           />
         </div>
         <div className={`flex gap-4 ${selectedFile ? '' : 'hidden'}`}>

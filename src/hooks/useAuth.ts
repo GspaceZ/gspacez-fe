@@ -7,6 +7,7 @@ import {
   VerifyOTPResponse,
   ResetPasswordResponse
 } from '@/types/response/auth'
+import { fToast } from '@/helpers/toast'
 
 export const useAuth = () => {
   const getEncodedUrl = async (email: string, url: string) => {
@@ -19,7 +20,7 @@ export const useAuth = () => {
       const data = response.data
       return data
     } catch (error) {
-      console.log('Error encoding image: ', error)
+      fToast(error, 'danger')
     }
   }
 
@@ -35,7 +36,7 @@ export const useAuth = () => {
       const data = response.data
       return data
     } catch (error) {
-      console.log('Error signing up: ', error)
+      fToast(error, 'danger')
     }
   }
 
@@ -49,7 +50,7 @@ export const useAuth = () => {
       const data = response.data
       return data
     } catch (error) {
-      console.log('Error signing in: ', error)
+      fToast(error, 'danger')
     }
   }
 
@@ -66,7 +67,7 @@ export const useAuth = () => {
       const data = response.data
       return data
     } catch (error) {
-      console.log('Error forgot password: ', error)
+      fToast(error, 'danger')
     }
   }
 
@@ -80,7 +81,7 @@ export const useAuth = () => {
       const data = response.data
       return data
     } catch (error) {
-      console.log('Error forgot password: ', error)
+      fToast(error, 'danger')
     }
   }
 
@@ -98,7 +99,7 @@ export const useAuth = () => {
       const data = response.data
       return data
     } catch (error) {
-      console.log('Error reset password: ', error)
+      fToast(error, 'danger')
     }
   }
 

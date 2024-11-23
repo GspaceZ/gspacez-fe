@@ -18,5 +18,5 @@ export const sendActivationMail = async ({
 }: SendActivationProps) => {
   const htmlTemplate = activationTemplate({ firstName, lastName, activationLink })
 
-  await sendEmail({ to: email, subject: 'Activate Your Fakebook Account', html: htmlTemplate })
+  await sendEmail({ to: email, subject: 'Activate Your GspaceZ Account', html: htmlTemplate })
 }

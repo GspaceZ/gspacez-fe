@@ -6,7 +6,7 @@ export const ROUTE = {
     activate_account: 'auth/activate-account',
     forgot_password: 'auth/forgot-password',
     verify_otp: 'auth/verify-otp',
-    reset_password: 'auth/reset-password',
+    reset_password: 'auth/reset-password'
   },
   sidebar: {
     home: 'home'
@@ -14,5 +14,8 @@ export const ROUTE = {
   pages: {
     home: 'home',
     default: ''
+  },
+  profile: {
+    edit: 'profile/edit'
   }
 }

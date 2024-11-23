@@ -5,17 +5,36 @@ import { postTime } from '@/helpers/post/post-time'
 import { User } from '@nextui-org/user'
 import * as React from 'react'
 import { formattedContent } from '@/helpers/post/formatted-content'
-import { Button } from '@nextui-org/react'
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
-import { GoComment, GoPaperAirplane, GoStar } from 'react-icons/go'
-import { CiCircleMore } from 'react-icons/ci'
 import { useState } from 'react'
-import { FCarouselItemProps, PostProps } from '@/types/props/common'
+import { FCarouselItemProps } from '@/types/props/common'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import FCarousel from './FCarousel'
-import Options from '../posts/Options'
+import { IPost } from '@/types/post'
+import {
+  IconDotsCircleHorizontal,
+  IconMessage,
+  IconShare3,
+  IconStar,
+  IconStarFilled
+} from '@tabler/icons-react'
 
-const Post: React.FC<PostProps> = ({ post, variant }) => {
+export interface PostProps {
+  post: IPost
+  variant?: POST_VARIANTS
+  toggleEditModal?: () => void
+  togglePrivacyModal?: () => void
+  toggleDeleteModal?: () => void
+}
+
+const Post: React.FC<PostProps> = ({
+  post,
+  variant,
+  toggleEditModal,
+  togglePrivacyModal,
+  toggleDeleteModal
+}) => {
   const t = useTranslations('post')
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -30,6 +49,24 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
 
   const togglePost = () => {
     setIsHidden(!isHidden)
+  }
+
+  const toggleEditPost = () => {
+    if (toggleEditModal !== undefined) {
+      toggleEditModal()
+    }
+  }
+
+  const setPrivacy = () => {
+    if (togglePrivacyModal !== undefined) {
+      togglePrivacyModal()
+    }
+  }
+
+  const deletePost = () => {
+    if (toggleDeleteModal !== undefined) {
+      toggleDeleteModal()
+    }
   }
 
   const items: FCarouselItemProps[] = [
@@ -47,11 +84,30 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
     }
   ]
 
+  const postOptions = [
+    {
+      label: t('options.hide'),
+      onClick: togglePost
+    },
+    {
+      label: t('options.privacy'),
+      onClick: setPrivacy
+    },
+    {
+      label: t('options.edit'),
+      onClick: toggleEditPost
+    },
+    {
+      label: t('options.delete'),
+      onClick: deletePost
+    }
+  ]
+
   return (
     <>
       {isHidden ? (
-        <div className="w-full max-w-[600px] bg-white border border-gray-200 rounded-lg">
-          <div className="my-2 mx-3 flex flex-col">
+        <div className="w-full max-w-[600px] rounded-lg border border-gray-200 bg-white">
+          <div className="mx-3 my-2 flex flex-col">
             <span>{t('toggle.hide')}</span>
             <Button onClick={() => togglePost()}>{t('toggle.restore')}</Button>
           </div>
@@ -62,19 +118,18 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
             variant === POST_VARIANTS.feed
               ? 'max-w-[600px] rounded-lg bg-white'
               : variant === POST_VARIANTS.landing
-              ? 'max-w-[448px] rounded-lg min-h-[220px] drop-shadow-md'
-              : variant === POST_VARIANTS.sidebar
-              ? 'h-[110px] cursor-pointer hover:bg-gray-50'
-              : 'bg-white border-gray-50 rounded-lg min-h-[220px]'
-          } border border-gray-200 
-        flex-col justify-between md:flex`}
+                ? 'min-h-[220px] max-w-[448px] rounded-lg drop-shadow-md'
+                : variant === POST_VARIANTS.sidebar
+                  ? 'h-[110px] cursor-pointer hover:bg-gray-50'
+                  : 'min-h-[220px] rounded-lg border-gray-50 bg-white'
+          } flex-col justify-between border border-gray-200 md:flex`}
         >
           <div
-            className={`mx-3 md:mx-6 mt-4 flex flex-col items-start ${
+            className={`mx-3 mt-4 flex flex-col items-start md:mx-6 ${
               variant === POST_VARIANTS.sidebar ? 'gap-1' : 'gap-5'
             }`}
           >
-            <div className="flex justify-between w-full items-start">
+            <div className="flex w-full items-start justify-between">
               <User
                 name={fullName(post.user.firstName, post.user.lastName)}
                 description={postTime(post)}
@@ -82,26 +137,34 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
                 className="text-xl font-bold"
               />
               <div className="flex flex-col items-end">
-                <div className="relative">
-                  <Button
-                    isIconOnly
-                    className={`${variant === POST_VARIANTS.sidebar ? 'hidden' : 'text-2xl'}`}
-                    variant="light"
-                    onClick={() => toggleMenu()}
-                  >
-                    <CiCircleMore />
-                  </Button>
-                  {isMenuOpen && <Options hidePost={togglePost} />}
-                </div>
+                <Dropdown placement="bottom-start" className="w-[100px]">
+                  <DropdownTrigger>
+                    <Button
+                      isIconOnly
+                      className={`${variant === POST_VARIANTS.sidebar ? 'hidden' : 'text-2xl'}`}
+                      variant="light"
+                      onClick={() => toggleMenu()}
+                    >
+                      <IconDotsCircleHorizontal />
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownMenu>
+                    {postOptions.map((option) => (
+                      <DropdownItem key={option.label} onClick={option.onClick}>
+                        {option.label}
+                      </DropdownItem>
+                    ))}
+                  </DropdownMenu>
+                </Dropdown>
                 <div
                   className={`${
                     isMenuOpen ? '' : 'hidden'
-                  } border border-gray-200 flex flex-col rounded-[8px] absolute top-[55px] right-[30px]`}
+                  } absolute right-[30px] top-[55px] flex flex-col rounded-[8px] border border-gray-200`}
                 >
-                  <Button variant="light" className="w-[80px] h-[30px]" radius="none">
+                  <Button variant="light" className="h-[30px] w-[80px]" radius="none">
                     {t('hide')}
                   </Button>
-                  <Button variant="light" className="w-[80px] h-[30px]" radius="none">
+                  <Button variant="light" className="h-[30px] w-[80px]" radius="none">
                     {t('report')}
                   </Button>
                 </div>
@@ -112,7 +175,7 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
             </span>
             <Button
               variant="light"
-              className={`text-gray-500 w-fit ${
+              className={`w-fit text-gray-500 ${
                 content.isNeedReadMore && variant !== POST_VARIANTS.sidebar ? '' : 'hidden'
               }`}
             >
@@ -121,14 +184,14 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
             {variant === POST_VARIANTS.feed && <FCarousel items={items} />}
           </div>
           <div
-            className={`h-[48px] w-full flex justify-between border-t border-gray-200 items-center ${
+            className={`flex h-[48px] w-full items-center justify-between border-t border-gray-200 ${
               variant === POST_VARIANTS.sidebar ? 'hidden' : ''
             }`}
           >
             <Button
               variant="light"
-              startContent={<GoStar />}
-              className={`text-base ${isLiked ? 'text-yellow-500' : ''} ${
+              startContent={isLiked ? <IconStarFilled /> : <IconStar />}
+              className={`text-base font-semibold ${isLiked ? 'text-yellow-500' : ''} ${
                 variant === POST_VARIANTS.feed ? 'md:ml-10' : ''
               }`}
               onClick={() => {
@@ -137,13 +200,17 @@ const Post: React.FC<PostProps> = ({ post, variant }) => {
             >
               {t('like')}
             </Button>
-            <Button variant="light" startContent={<GoComment />} className="text-base">
+            <Button
+              variant="light"
+              startContent={<IconMessage />}
+              className="text-base font-semibold"
+            >
               {t('comment')}
             </Button>
             <Button
               variant="light"
-              startContent={<GoPaperAirplane />}
-              className={`text-base ${variant === POST_VARIANTS.feed ? 'md:mr-10' : ''}`}
+              startContent={<IconShare3 />}
+              className={`text-base font-semibold ${variant === POST_VARIANTS.feed ? 'md:mr-10' : ''}`}
             >
               {t('share')}
             </Button>

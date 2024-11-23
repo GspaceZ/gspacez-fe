@@ -19,7 +19,7 @@ const Media: React.FC<MediaProps> = ({ file, handleRemoveFile }) => {
           src={file.url}
           poster={file.preview}
           controls
-          className="rounded-lg w-[100px] border border-gray-300"
+          className="rounded-lg w-[100px] h-[80px] border border-gray-300"
         />
       )}
       <button

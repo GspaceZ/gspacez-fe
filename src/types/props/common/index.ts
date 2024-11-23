@@ -1,11 +1,6 @@
 import { IPost } from '@/types/post'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 
-export interface PostProps {
-  post: IPost
-  variant?: POST_VARIANTS
-}
-
 export interface OverlayProps {
   isSidebarOpen: boolean
   toggleSidebar: () => void

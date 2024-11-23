@@ -7,9 +7,9 @@ const Page: React.FC = () => {
 
   return (
     <AuthLayout>
-      <div className="w-[450px] h-[136px] mt-[60px] flex flex-col items-center my-[4px] border border-gray-200 rounded-[30px] justify-between shadow-md">
-        <span className="text-4xl font-extrabold mt-[20px]">{t('welcome')}</span>
-        <span className="text-lg mb-[20px]">{t('mail_sent')}</span>
+      <div className="my-[4px] mt-[60px] flex h-[136px] w-[450px] flex-col items-center justify-between rounded-[30px] border border-gray-200 shadow-md">
+        <span className="mt-[20px] text-4xl font-extrabold">{t('welcome')}</span>
+        <span className="mb-[20px] text-lg">{t('mail_sent')}</span>
       </div>
     </AuthLayout>
   )

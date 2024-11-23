@@ -1,9 +1,10 @@
 {
   "title": {
-    "app": "Fakebook",
+    "app": "GspaceZ",
     "home": "Trang chủ",
     "profile": "Hồ sơ",
-    "avatar": "Ảnh đại diện"
+    "avatar": "Ảnh đại diện",
+    "message": "Tin nhắn"
   },
   "sidebar": {
     "home": "Trang chủ",
@@ -25,11 +26,13 @@
     "options": {
       "hide": "Ẩn",
       "privacy": "Quyền riêng tư",
-      "edit": "Chỉnh sửa"
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa"
     },
-    "new": {
+    "modal": {
       "cancel": "Hủy",
       "post": "Đăng",
+      "save": "Lưu",
       "tags": "Tag",
       "location": "Địa điểm:",
       "feeling": "Cảm xúc:",
@@ -39,6 +42,19 @@
     "toggle": {
       "hide": "Bài đăng đã bị ẩn.",
       "restore": "Khôi phục?"
+    },
+    "privacy": {
+      "title": "Ai có thể xem bài viết của bạn?",
+      "public": "Công khai",
+      "friends": "Bạn bè",
+      "private": "Riêng tư",
+      "cancel": "Hủy",
+      "save": "Lưu",
+      "description": {
+        "public": "Bất kỳ ai ở trên hoặc ngoài GspaceZ.",
+        "friends": "Bạn bè của bạn trên GspaceZ.",
+        "private": "Chỉ có bạn mới xem được bài viết này."
+      }
     }
   },
   "landing": {
@@ -82,7 +98,7 @@
       }
     },
     "activate": {
-      "welcome": "Chào mừng tới Fakebook!",
+      "welcome": "Chào mừng tới GspaceZ!",
       "mail_sent": "Mail kích hoạt đã được gửi! Vui lòng kiểm tra email",
       "success": "Kích hoạt thành công!",
       "and_start_now": " và Bắt đầu ngay bây giờ!"
@@ -142,6 +158,13 @@
     "dob": "Ngày sinh",
     "save": "Lưu hồ sơ",
     "cancel": "Hủy",
+    "edit": "Chỉnh sửa hồ sơ",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "follow": "Theo dõi",
+    "message": "Nhắn tin",
+    "hide": "Ẩn",
+    "more": "Thêm",
     "error_messages": {
       "first_name": "Tên phải có từ 1 đến 20 ký tự.",
       "last_name": "Họ phải có từ 1 đến 20 ký tự."
@@ -160,6 +183,48 @@
       "success": "Cập nhật thông tin thành công!",
       "unauthenticated": "Bạn không có quyền cập nhật thông tin cho tài khoản này!",
       "unknown": "Có lỗi xảy ra! Hãy thử lại sau!"
+    },
+    "friend": {
+      "add": "Thêm bạn",
+      "sent": "Đã gửi yêu cầu",
+      "pending": "Chấp nhận",
+      "friend": "Bạn bè"
     }
+  },
+  "pages": {
+    "start_event": "Muốn bắt đầu một sự kiện?",
+    "start_event_button": "Bắt đầu ngay!",
+    "followed": "Đã theo dõi",
+    "follow": "Theo dõi",
+    "message": "Nhắn tin",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "link": "Trang web",
+    "hide": "Ẩn",
+    "more": "Thêm",
+    "page": "Trang",
+    "edit": {
+      "choose_avatar": "Chọn ảnh đại diện khác",
+      "name": "Tên",
+      "shortDesc": "Mô tả ngắn gọn",
+      "fullDesc": "Mô tả đầy đủ",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "link": "Trang web",
+      "save": "Lưu thông tin trang",
+      "cancel": "Hủy"
+    }
+  },
+  "locale": {
+    "en": "Tiếng Anh",
+    "vi": "Tiếng Việt"
+  },
+  "group": {
+    "group": "Nhóm",
+    "hide": "Ẩn",
+    "more": "Thêm",
+    "join": "Tham gia",
+    "pending": "Đã gửi yêu cầu",
+    "joined": "Đã tham gia"
   }
 }

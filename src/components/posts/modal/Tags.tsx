@@ -2,13 +2,13 @@ import { TagsProps } from '@/types/props/post'
 import { useTranslations } from 'next-intl'
 
 const Tags: React.FC<TagsProps> = ({ tags }) => {
-  const t = useTranslations('post.new')
+  const t = useTranslations('post.modal')
   return (
-    <div className="flex gap-1 items-center">
+    <div className="flex items-center gap-1">
       {t('tags')}
-      {tags.map((tag) => {
+      {tags.map((tag: string) => {
         return (
-          <span className="py-1 px-2 font-bold bg-gray-200 rounded-full" key={tag}>
+          <span className="rounded-full bg-gray-200 px-2 py-1 font-bold" key={tag}>
             {tag}
           </span>
         )

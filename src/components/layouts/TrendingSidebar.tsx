@@ -1,17 +1,15 @@
 'use client'
 
 import * as React from 'react'
-import TrendingPost from '@/components/trending-post/trending-post'
-import TrendingPeople from '@/components/trending-post/trending-people'
 import ButtonOption from '@/components/trending-post/button-option'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { Button, User } from '@nextui-org/react'
 import { TrendingSidebarProps } from '@/types/props/layouts'
 import Post from '../common/Post'
-import { buttonOptions } from '@/utils/constant/buttonOptions'
 import { fullName } from '@/helpers/user/full-name'
 import { POST_VARIANTS } from '@/utils/constant/variants'
+import { IconBell, IconSend, IconSettings, IconTrendingUp } from '@tabler/icons-react'
 
 const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarProps) => {
   const t = useTranslations('trending_posts')
@@ -21,41 +19,81 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
     router.push('/')
   }
 
+  const handleSelectedPost = () => {
+    // handle
+  }
+
+  const setPrivacy = () => {
+    // handle
+  }
+
+  const buttonOptions = [
+    {
+      name: 'send',
+      icon: <IconSend />,
+      path: 'home',
+      count: 5
+    },
+    {
+      name: 'notifications',
+      icon: <IconBell />,
+      path: 'home',
+      count: 5
+    },
+    {
+      name: 'settings',
+      icon: <IconSettings />,
+      path: 'home',
+      count: 0
+    },
+    {
+      name: 'messages',
+      icon: <IconTrendingUp />,
+      path: 'home',
+      count: 0
+    }
+  ]
+
   return (
     <div
-      className={`fixed bottom-0 right-0 h-[88vh] w-[100vw] overflow-y-auto pb-[12vh] border-l border-gray-300 bg-white shadow-md transform border-none
-        transition-transform duration-300 ease-in-out bg-white ${
-          isVisible ? 'translate-y-0' : 'translate-y-full'
-        } md:pb-0 md:translate-y-0 md:translate-x-0 md:h-full md:w-[300px] md:h-screen md:border-l md:border-gray-300 md:flex md:flex-col`}
+      className={`fixed bottom-0 right-0 h-[88vh] w-[100vw] transform overflow-y-auto border-l border-none border-gray-300 bg-white pb-[12vh] shadow-lg transition-transform duration-300 ease-in-out ${
+        isVisible ? 'translate-y-0' : 'translate-y-full'
+      } lg:flex lg:h-full lg:h-screen lg:w-[300px] lg:translate-x-0 lg:translate-y-0 lg:flex-col lg:border-l lg:border-gray-300 lg:pb-0`}
     >
-      <div className="flex flex-col m-0 h-full overflow-y-auto md:border md:border-gray-300">
-        <div className="flex justify-between md:border-l md:border-gray-300 px-4 py-5 z-10">
-          <span className="text-xl font-bold p-1">{t('trending_post')}</span>
+      <div className="m-0 flex h-full flex-col overflow-y-auto lg:border lg:border-gray-300">
+        <div className="z-10 flex justify-between px-4 py-5 lg:border-l lg:border-gray-300">
+          <span className="p-1 text-xl font-bold">{t('trending_post')}</span>
           <Button
             onPress={() => handleRedirect()}
-            className="text-lg text-blue-500 bg-transparent border-none cursor-pointer -mx-3"
+            className="-mx-3 cursor-pointer border-none bg-transparent text-lg text-blue-500"
           >
             {t('more')}
           </Button>
         </div>
         <div>
           {posts.map((post, index) => (
-            <Post key={index} post={post} variant={POST_VARIANTS.sidebar} />
+            <Post
+              key={index}
+              post={post}
+              variant={POST_VARIANTS.sidebar}
+              toggleEditModal={() => handleSelectedPost}
+              togglePrivacyModal={() => setPrivacy}
+            />
           ))}
         </div>
-        <div className="flex justify-between md:border md:border-gray-300 px-4 py-5 mt-[50px]">
-          <span className="text-xl font-bold p-1">{t('trending_people')}</span>
+        <div className="mt-[50px] flex justify-between px-4 py-5 lg:border lg:border-gray-300">
+          <span className="p-1 text-xl font-bold">{t('trending_people')}</span>
           <Button
             onPress={() => handleRedirect()}
-            className="text-lg text-blue-500 bg-transparent border-none cursor-pointer -mx-3"
+            className="-mx-3 cursor-pointer border-none bg-transparent text-lg text-blue-500"
           >
             {t('more')}
           </Button>
         </div>
-        <div className="flex flex-col w-full">
+        <div className="flex w-full flex-col">
           {trendingPeople.map((user, index) => (
             <div
-              className="w-full py-2 pl-4 border border-gray-100 cursor-pointer hover:bg-gray-50"
+              className="w-full cursor-pointer border border-gray-100 py-2 pl-4 hover:bg-gray-50"
               key={index}
             >
               <User name={fullName(user.firstName, user.firstName)} />
@@ -63,8 +101,8 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
           ))}
         </div>
       </div>
-      <div className="hidden md:flex md:border-l md:border-gray-300 bg-white shadow-md">
-        <div className="flex items-center rounded-xl justify-around w-full space-x-1">
+      <div className="hidden bg-white shadow-lg lg:flex lg:border-l lg:border-gray-300">
+        <div className="flex w-full items-center justify-around space-x-1 rounded-xl">
           {buttonOptions.map((buttonOption, index) => (
             <ButtonOption key={index} button={buttonOption} />
           ))}

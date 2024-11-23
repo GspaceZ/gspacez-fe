@@ -1,26 +1,22 @@
 'use client'
 
 import * as React from 'react'
-import { iconMap } from '@/utils/icons/icon-map'
 import { ButtonOptionsProps } from '@/types/props/layouts'
 
 const ButtonOption = ({ button, onClick, isActive }: ButtonOptionsProps) => {
-  const IconComponent = iconMap[button.icon]
-
   return (
-    <div className="relative flex-shrink-0 m-2">
+    <div className="relative m-2 flex-shrink-0">
       {button.count !== undefined && button.count > 0 && (
-        <div className="absolute -top-2 -right-4 bg-rose-500 text-white rounded-full w-5 h-5 flex items-center justify-center z-10 transform translate-y-0.5">
+        <div className="absolute -right-4 -top-2 z-10 flex h-5 w-5 translate-y-0.5 transform items-center justify-center rounded-full bg-rose-500 text-white">
           <span className="text-xs">{button.count}</span>
         </div>
       )}
       <button
-        className={`rounded-2xl p-3 -mx-3 border border-gray-100 cursor-pointer text-center relative z-0 transition-colors duration-200
-          ${isActive ? 'bg-black text-white' : 'bg-zinc-200 hover:bg-zinc-300'}`}
+        className={`relative z-0 -mx-3 cursor-pointer rounded-2xl border border-gray-100 p-3 text-center transition-colors duration-200 ${isActive ? 'bg-black text-white' : 'bg-zinc-200 hover:bg-zinc-300'}`}
         onClick={onClick}
         aria-label={button.name}
       >
-        <IconComponent className="text-xl" aria-hidden="true" />
+        {button.icon}
       </button>
     </div>
   )

@@ -6,7 +6,7 @@ import { TrendingPeopleProps } from '@/types/props/layouts'
 
 const TrendingPeople = ({ user }: TrendingPeopleProps) => {
   return (
-    <div className="flex items-center rounded-lg md:rounded-none border border-gray-300 mx-4 md:m-0 p-4 cursor-pointer hover:bg-gray-200">
+    <div className="mx-4 flex cursor-pointer items-center rounded-lg border border-gray-300 p-4 hover:bg-gray-200 md:m-0 md:rounded-none">
       <Image
         src={user.profileImage}
         alt={user.name}

@@ -1,9 +1,10 @@
 {
   "title": {
-    "app": "Fakebook",
+    "app": "GspaceZ",
     "home": "Home",
     "profile": "Profile",
-    "avatar": "Avatar"
+    "avatar": "Avatar",
+    "message": "Message"
   },
   "sidebar": {
     "home": "Home",
@@ -25,10 +26,12 @@
     "options": {
       "hide": "Hide",
       "privacy": "Privacy",
-      "edit": "Edit"
+      "edit": "Edit",
+      "delete": "Delete"
     },
-    "new": {
+    "modal": {
       "cancel": "Cancel",
+      "save": "Save",
       "post": "Post",
       "tags": "Tags",
       "location": "Location:",
@@ -39,6 +42,19 @@
     "toggle": {
       "hide": "Post is hidden.",
       "restore": "Restore?"
+    },
+    "privacy": {
+      "title": "Who can see your post?",
+      "public": "Public",
+      "friends": "Friends",
+      "private": "Private",
+      "cancel": "Cancel",
+      "save": "Save",
+      "description": {
+        "public": "Everyone can see this post.",
+        "friends": "Only friends can see this post.",
+        "private": "Only you can see this post."
+      }
     }
   },
   "landing": {
@@ -82,7 +98,7 @@
       }
     },
     "activate": {
-      "welcome": "Welcome to Fakebook!",
+      "welcome": "Welcome to GspaceZ!",
       "mail_sent": "Activation Mail is sent! Please check your email!",
       "success": "Activated Successfully!",
       "and_start_now": " and Start now!"
@@ -142,6 +158,13 @@
     "dob": "Date of birth",
     "save": "Save profile",
     "cancel": "Cancel",
+    "edit": "Edit profile",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "follow": "Follow",
+    "message": "Message",
+    "hide": "Hide",
+    "more": "More",
     "error_messages": {
       "first_name": "First name must be between 1 and 20 characters.",
       "last_name": "Last name must be between 1 and 20 characters."
@@ -160,6 +183,48 @@
       "success": "Update profile successfully!",
       "unauthenticated": "You are not authorized to update profile for this account!",
       "unknown": "Something happen! Try it later!"
+    },
+    "friend": {
+      "add": "Add friend",
+      "sent": "Sent request",
+      "pending": "Accept request",
+      "friend": "Friend"
     }
+  },
+  "pages": {
+    "start_event": "Wanna start an event?",
+    "start_event_button": "Let's go!",
+    "followed": "Followed",
+    "follow": "Follow",
+    "message": "Message",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "link": "Website",
+    "hide": "Hide",
+    "more": "More",
+    "page": "Page",
+    "edit": {
+      "choose_avatar": "Choose another avatar",
+      "name": "Name",
+      "shortDesc": "Short description",
+      "fullDesc": "Full description",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "link": "Website",
+      "save": "Save page information",
+      "cancel": "Cancel"
+    }
+  },
+  "locale": {
+    "en": "English",
+    "vi": "Vietnamese"
+  },
+  "group": {
+    "group": "Group",
+    "hide": "Hide",
+    "more": "More",
+    "join": "Join",
+    "pending": "Sent request",
+    "joined": "Joined"
   }
 }

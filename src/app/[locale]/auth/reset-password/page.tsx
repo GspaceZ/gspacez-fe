@@ -112,18 +112,18 @@ const Page: React.FC = () => {
 
   return (
     <AuthLayout>
-      <div className="mt-[50px] flex flex-col w-[360px] md:w-[420px] min-h-[100vh] md:min-h-[232px] rounded-[20px] border border-gray-200 justify-between shadow-md">
+      <div className="mt-[50px] flex min-h-[100vh] w-[360px] flex-col justify-between rounded-[20px] border border-gray-200 shadow-md md:min-h-[232px] md:w-[420px]">
         <div className="flex flex-col items-center">
-          <span className="text-3xl font-extrabold mt-[28px]">
+          <span className="mt-[28px] text-3xl font-extrabold">
             {t('reset_password.recover_account')}
           </span>
-          <form className="flex flex-col items-center w-fit mt-[24px] gap-[14px]">
+          <form className="mt-[24px] flex w-fit flex-col items-center gap-[14px]">
             <InputWithError>
               <Input
                 type={isShowPassword ? 'text' : 'password'}
                 label={t('password')}
                 {...register('password')}
-                className="w-[314px] md:w-[340px] h-[56px]"
+                className="h-[56px] w-[314px] md:w-[340px]"
                 size="lg"
                 endContent={
                   <ShowPassword
@@ -132,14 +132,14 @@ const Page: React.FC = () => {
                   />
                 }
               />
-              <p className="text-red-500 text-sm">{errors?.password?.message}</p>
+              <p className="text-sm text-red-500">{errors?.password?.message}</p>
             </InputWithError>
             <InputWithError>
               <Input
                 type={isShowConfirmPassword ? 'text' : 'password'}
                 {...register('confirmPassword')}
                 label={t('confirm_password')}
-                className="w-[314px] md:w-[340px] h-[56px]"
+                className="h-[56px] w-[314px] md:w-[340px]"
                 size="lg"
                 endContent={
                   <ShowPassword
@@ -148,7 +148,7 @@ const Page: React.FC = () => {
                   />
                 }
               />
-              <p className="text-red-500 text-sm">{errors?.confirmPassword?.message}</p>
+              <p className="text-sm text-red-500">{errors?.confirmPassword?.message}</p>
             </InputWithError>
             <Button
               className="my-4 h-[38px]"
