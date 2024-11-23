@@ -218,5 +218,13 @@
   "locale": {
     "en": "English",
     "vi": "Vietnamese"
+  },
+  "group": {
+    "group": "Group",
+    "hide": "Hide",
+    "more": "More",
+    "join": "Join",
+    "pending": "Sent request",
+    "joined": "Joined"
   }
 }
