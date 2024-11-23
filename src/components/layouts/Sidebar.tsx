@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { Button, Image } from '@nextui-org/react'
-import { GoSidebarExpand } from 'react-icons/go'
 import SidebarOption from '../sidebar/sidebar-option'
 import { useTranslations } from 'next-intl'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'

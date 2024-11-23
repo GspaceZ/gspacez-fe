@@ -1,10 +1,10 @@
 import { ShowPasswordProps } from '@/types/props/common'
-import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { IconEye, IconEyeOff } from '@tabler/icons-react'
 
 const ShowPassword: React.FC<ShowPasswordProps> = ({ isVisible, toggleShowPassword }) => {
   return (
-    <span className="cursor-pointer my-auto text-xl" onClick={toggleShowPassword}>
-      {isVisible ? <FaEye /> : <FaEyeSlash />}
+    <span className="my-auto cursor-pointer text-xl" onClick={toggleShowPassword}>
+      {isVisible ? <IconEye /> : <IconEyeOff />}
     </span>
   )
 }
