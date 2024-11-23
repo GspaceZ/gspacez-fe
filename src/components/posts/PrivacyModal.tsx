@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Modal, Button, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react'
+import { Button } from '@nextui-org/react'
 import { PostPrivacyEnum } from '@/utils/constant'
 import { useTranslations } from 'next-intl'
 import CustomCheckbox from './modal/CustomCheckbox'
 import { GiWorld } from 'react-icons/gi'
 import { GoLock, GoPeople } from 'react-icons/go'
+import { IconLock, IconUserStar, IconWorld } from '@tabler/icons-react'
 
 interface PrivacyProps {
   isOpen: boolean
@@ -42,22 +43,22 @@ const PrivacyModal: React.FC<PrivacyProps> = ({ isOpen, onClose, onSave }) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-40"
+      className="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-50"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg shadow-lg max-w-2xl w-full p-4 transform -translate-x-40"
+        className="w-full max-w-2xl -translate-x-40 transform rounded-lg bg-white p-4 shadow-lg"
         ref={modalRef}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col">
           <div className="flex justify-center pb-4 text-2xl font-bold">{t('title')}</div>
-          <div className="pt-4 space-y-4 w-full">
+          <div className="w-full space-y-4 pt-4">
             <CustomCheckbox
               description={t('description.public')}
               value={PostPrivacyEnum.PUBLIC}
               label={t('public')}
-              icon={<GiWorld size={20} />}
+              icon={<IconWorld />}
               isSelected={selectedOption === PostPrivacyEnum.PUBLIC}
               onChange={() => handleOptionChange(PostPrivacyEnum.PUBLIC)}
             />
@@ -65,7 +66,7 @@ const PrivacyModal: React.FC<PrivacyProps> = ({ isOpen, onClose, onSave }) => {
               description={t('description.friends')}
               value={PostPrivacyEnum.FRIENDS}
               label={t('friends')}
-              icon={<GoPeople size={20} />}
+              icon={<IconUserStar />}
               isSelected={selectedOption === PostPrivacyEnum.FRIENDS}
               onChange={() => handleOptionChange(PostPrivacyEnum.FRIENDS)}
             />
@@ -73,12 +74,12 @@ const PrivacyModal: React.FC<PrivacyProps> = ({ isOpen, onClose, onSave }) => {
               description={t('description.private')}
               value={PostPrivacyEnum.PRIVATE}
               label={t('private')}
-              icon={<GoLock size={20} />}
+              icon={<IconLock />}
               isSelected={selectedOption === PostPrivacyEnum.PRIVATE}
               onChange={() => handleOptionChange(PostPrivacyEnum.PRIVATE)}
             />
           </div>
-          <div className="pt-4 flex justify-end space-x-4">
+          <div className="flex justify-end space-x-4 pt-4">
             <Button color="default" size="md" onClick={onClose}>
               {t('cancel')}
             </Button>
