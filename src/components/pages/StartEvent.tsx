@@ -8,7 +8,7 @@ export const StartEvent = () => {
   const t = useTranslations('pages')
 
   return (
-    <div className="mx-4 mt-4 flex items-center gap-4 rounded-lg border border-gray-300 bg-white py-2 pl-4">
+    <div className="mx-0 mt-4 flex items-center gap-4 rounded-lg border border-gray-300 bg-white py-2 pl-4 md:mx-4">
       <IconFlag size="24" />
       <span className="font-medium">
         {t('start_event')}{' '}
