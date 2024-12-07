@@ -1,17 +1,14 @@
 'use client'
 
 import AuthLayout from '@/components/layouts/AuthLayout'
-import { decodeActivationLinkEmail } from '@/helpers/activation/decode-activation-link'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
 import { Button } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import * as React from 'react'
 
 const Page: React.FC = () => {
-  const params = useSearchParams()
-  const token = params.get('token') || ''
   const router = useRouter()
   const pathname = usePathname()
   const t = useTranslations('auth')

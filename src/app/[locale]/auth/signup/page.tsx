@@ -96,7 +96,7 @@ const Page: React.FC = () => {
       if (signUpRes) {
         const code = signUpRes.code
         switch (code) {
-          case RESPONSE_CODES.SUCCESS:
+          case RESPONSE_CODES.SUCCESS: {
             fToast(t('toast.signup.success'), 'success')
             const { email, firstName, lastName } = signUpRes.result
             const locale = getLocale(pathname)
@@ -117,13 +117,14 @@ const Page: React.FC = () => {
             }
             // handleRedirect(ROUTE.auth.activate)
             break
-
-          case RESPONSE_CODES.USER_EXISTED:
+          }
+          case RESPONSE_CODES.USER_EXISTED: {
             fToast(t('toast.signup.existed'), 'danger')
             break
-
-          default:
+          }
+          default: {
             fToast(t('toast.unknown'), 'danger')
+          }
         }
       } else {
         fToast(t('toast.unknown'), 'danger')

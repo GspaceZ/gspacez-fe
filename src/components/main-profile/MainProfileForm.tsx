@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Input, Button } from '@nextui-org/react'
 import InputWithError from '../common/InputWithError'
 import { IMainProfileFormValues } from '@/helpers/form-value/main-profile-value'
@@ -8,9 +8,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useProfile } from '@/hooks/useProfile'
 import { useTranslations } from 'next-intl'
 import { useAppSelector, RootState } from '@/utils/store'
-import { pathWithLocale } from '@/helpers/url/path-with-locale'
-import { usePathname, useRouter } from 'next/navigation'
-import { ROUTE } from '@/utils/constant/route'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import FImage from '../common/FImage'
@@ -23,9 +20,6 @@ const MainProfileForm = () => {
 
   const { updateProfile } = useProfile()
   const [isLoading, setIsLoading] = useState(false)
-
-  const router = useRouter()
-  const pathname = usePathname()
 
   const token = useAppSelector((state: RootState) => state.auth.token)
 

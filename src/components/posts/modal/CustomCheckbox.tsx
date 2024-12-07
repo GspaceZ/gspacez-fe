@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox, Link, User, Chip, cn, CheckboxProps } from '@nextui-org/react'
+import { Checkbox, cn, CheckboxProps } from '@nextui-org/react'
 
 interface CustomCheckboxProps extends CheckboxProps {
   icon: React.ReactNode
@@ -36,9 +36,9 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
       }}
       isSelected={isSelected}
     >
-      <div className="w-full flex justify-between gap-2">
+      <div className="flex w-full justify-between gap-2">
         <div className="flex items-center gap-4">
-          <div className="flex-shrink-0 p-3 rounded-full bg-gray-200 border border-gray-300">
+          <div className="flex-shrink-0 rounded-full border border-gray-300 bg-gray-200 p-3">
             {icon}
           </div>
           <div className="flex flex-col">

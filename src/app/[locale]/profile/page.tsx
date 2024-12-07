@@ -18,6 +18,7 @@ import { useState } from 'react'
 const Page: React.FC = () => {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false)
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedPrivacy, setSelectedPrivacy] = useState<PostPrivacyEnum>(PostPrivacyEnum.PUBLIC)
   const [selectedPost, setSelectedPost] = useState<IPost | undefined>(undefined)
   const user = useAppSelector((state) => state.user)
@@ -27,8 +28,8 @@ const Page: React.FC = () => {
     avatar: ProfileAvatar.src,
     firstName: 'Fan',
     lastName: 'MU',
-    shortDesc: 'Glory glory Man United',
-    fullDesc: 'Glory glory gloryyyyyyyyyyyyyyyyy',
+    shortDescription: 'Glory glory Man United',
+    fullDescription: 'Glory glory gloryyyyyyyyyyyyyyyyy',
     facebook: 'https://facebook.com',
     instagram: 'https://instagram.com'
   }
@@ -70,8 +71,8 @@ const Page: React.FC = () => {
           <ProfileInfo
             avatar={profileData.avatar}
             name={fullName(profileData.firstName, profileData.lastName)}
-            shortDesc={profileData.shortDesc}
-            fullDesc={profileData.fullDesc}
+            shortDescription={profileData.shortDescription}
+            fullDescription={profileData.fullDescription}
             facebook={profileData.facebook}
             instagram={profileData.instagram}
           />

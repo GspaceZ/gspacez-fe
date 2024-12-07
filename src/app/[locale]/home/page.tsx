@@ -22,6 +22,7 @@ const Page = () => {
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [selectedPost, setSelectedPost] = useState<IPost | undefined>(undefined)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedPrivacy, setSelectedPrivacy] = useState<PostPrivacyEnum>(PostPrivacyEnum.PUBLIC)
   const user = useAppSelector((state) => state.user)
 

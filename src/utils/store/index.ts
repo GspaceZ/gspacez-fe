@@ -5,6 +5,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
 export const store = configureStore({
   reducer: rootReducer,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   middleware: (getDefaultMiddleware: any) => getDefaultMiddleware({ serializableCheck: false })
 })
 

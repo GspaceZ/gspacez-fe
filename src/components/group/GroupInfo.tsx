@@ -17,8 +17,8 @@ export const GroupInfo = (props: GroupInfoProps) => {
         <JoinButton status="join" />
       </div>
       <span className="mt-2 text-2xl font-bold">{props.name}</span>
-      <span className="text-lg">{props.shortDesc}</span>
-      {isShowFull && <span className="text-md mt-2">{props.fullDesc}</span>}
+      <span className="text-lg">{props.shortDescription}</span>
+      {isShowFull && <span className="text-md mt-2">{props.fullDescription}</span>}
       <button
         className="text-md mt-1 w-fit p-0 font-bold text-primary"
         onClick={() => setIsShowFull(!isShowFull)}

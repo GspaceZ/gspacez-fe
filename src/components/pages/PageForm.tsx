@@ -13,18 +13,14 @@ export const PageForm = () => {
 
   const pageSchema = z.object({
     name: z.string(),
-    shortDesc: z.string().optional(),
-    fullDesc: z.string().optional(),
+    shortDescription: z.string().optional(),
+    fullDescription: z.string().optional(),
     facebook: z.string(),
     instagram: z.string(),
     link: z.string()
   })
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<z.infer<typeof pageSchema>>({
+  const { register } = useForm<z.infer<typeof pageSchema>>({
     resolver: zodResolver(pageSchema)
   })
 
@@ -48,8 +44,8 @@ export const PageForm = () => {
       <InputWithError>
         <Input
           type="text"
-          {...register('shortDesc')}
-          label={t('shortDesc')}
+          {...register('shortDescription')}
+          label={t('shortDescription')}
           className="h-[56px] w-full"
           isRequired
         />
@@ -57,8 +53,8 @@ export const PageForm = () => {
       <InputWithError>
         <Input
           type="text"
-          {...register('fullDesc')}
-          label={t('fullDesc')}
+          {...register('fullDescription')}
+          label={t('fullDescription')}
           className="h-[56px] w-full"
           isRequired
         />

@@ -37,10 +37,10 @@ const ProfileInfo = (props: ProfileInfoProps) => {
         </div>
       </div>
       <span className="mt-2 text-2xl font-bold">{props.name}</span>
-      <span className="text-lg">{props.shortDesc}</span>
+      <span className="text-lg">{props.shortDescription}</span>
       {isShowFullProfile && (
         <>
-          <span className="text-md mt-2">{props.fullDesc}</span>
+          <span className="text-md mt-2">{props.fullDescription}</span>
           <Link href={props.facebook} className="flex items-center gap-1 hover:underline">
             <IconBrandFacebook size="18" />
             <span>{tProfile('facebook')}</span>
