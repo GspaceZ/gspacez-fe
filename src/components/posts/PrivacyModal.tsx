@@ -3,8 +3,6 @@ import { Button } from '@nextui-org/react'
 import { PostPrivacyEnum } from '@/utils/constant'
 import { useTranslations } from 'next-intl'
 import CustomCheckbox from './modal/CustomCheckbox'
-import { GiWorld } from 'react-icons/gi'
-import { GoLock, GoPeople } from 'react-icons/go'
 import { IconLock, IconUserStar, IconWorld } from '@tabler/icons-react'
 
 interface PrivacyProps {

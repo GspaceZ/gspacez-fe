@@ -5,8 +5,8 @@ export interface IProfile {
   city: string
   address: string
   dob: Date
-  shortDesc: string
-  fullDesc: string
+  shortDescription: string
+  fullDescription: string
   avtUrl: string
   firstName: string
   lastName: string
@@ -15,8 +15,8 @@ export interface IProfile {
 export interface ProfileInfoProps {
   avatar: string
   name: string
-  shortDesc: string
-  fullDesc: string
+  shortDescription: string
+  fullDescription: string
   facebook: string
   instagram: string
 }

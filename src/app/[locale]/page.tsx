@@ -23,14 +23,6 @@ export default function Home() {
     router.push(destinationPath)
   }
 
-  const handleSelectedPost = () => {
-    // handle landing post
-  }
-
-  const setPrivacyModal = () => {
-    // set privacy modal
-  }
-
   return (
     <BlankLayout>
       <div className="flex h-screen flex-col-reverse justify-end md:flex-col md:justify-start">

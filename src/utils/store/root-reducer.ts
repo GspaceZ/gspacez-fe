@@ -16,8 +16,8 @@ const userPersistConfig = createPersistConfig('user', [
   'city',
   'address',
   'dob',
-  'shortDesc',
-  'fullDesc',
+  'shortDescription',
+  'fullDescription',
   'avtUrl'
 ])
 

@@ -21,6 +21,20 @@ import { useState } from 'react'
 import ShowPassword from '@/components/common/ShowPassword'
 import { useProfile } from '@/hooks/useProfile'
 import { setUser } from '@/utils/store/user'
+import { IProfile } from '@/types/profile'
+
+type SignInResponse = {
+  code: number
+  result: {
+    token: string
+    refreshToken: string
+  }
+}
+
+type ProfileRes = {
+  code: number
+  result: IProfile
+}
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
@@ -56,7 +70,11 @@ const Page: React.FC = () => {
     resolver: zodResolver(signInSchema)
   })
 
-  const handleSignInResponse = (signInRes: any) => {
+  const handleSignInResponse = (signInRes: SignInResponse | undefined) => {
+    if (signInRes === undefined) {
+      fToast(t('toast.unknown'), 'danger')
+      return
+    }
     const { code, result } = signInRes
     switch (code) {
       case RESPONSE_CODES.SUCCESS:
@@ -73,8 +91,13 @@ const Page: React.FC = () => {
     return null
   }
 
-  const handleGetProfileResponse = (getProfileRes: any) => {
+  const handleGetProfileResponse = (getProfileRes: ProfileRes | undefined) => {
+    if (getProfileRes === undefined) {
+      fToast(t('toast.unknown'), 'danger')
+      return
+    }
     const { code, result } = getProfileRes
+    console.log(getProfileRes)
     switch (code) {
       case RESPONSE_CODES.SUCCESS:
         return result
