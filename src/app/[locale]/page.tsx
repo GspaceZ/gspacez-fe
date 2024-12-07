@@ -49,7 +49,7 @@ export default function Home() {
           <div className="flex w-full flex-col items-center md:w-fit">
             <Image className="w-[240px]" alt="Logo" src={Logo.src} />
             <span className="mt-3 text-4xl font-bold text-gray-500">{t('slogan')}</span>
-            <div className="bottom-0 mt-9 hidden flex-row gap-[40px] md:flex">
+            <div className="mt-9 hidden flex-row gap-[40px] md:!flex">
               <Button
                 color="primary"
                 className="h-[48px] w-[150px] text-xl"

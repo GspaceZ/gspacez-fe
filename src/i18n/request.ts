@@ -3,11 +3,13 @@ import { getRequestConfig } from 'next-intl/server'
 
 const locales = ['en', 'vi']
 
-export default getRequestConfig(async ({ requestLocale }) => {
+export default getRequestConfig(async ({ locale }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if (!locales.includes(requestLocale as any)) notFound()
+  if (!locales.includes(locale as any)) {
+    notFound()
+  }
 
   return {
-    messages: (await import(`../messages/${requestLocale}.json`)).default
+    messages: (await import(`../../messages/${locale}.json`)).default
   }
 })
