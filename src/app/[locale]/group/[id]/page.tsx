@@ -17,14 +17,15 @@ import { useState } from 'react'
 const Page: React.FC = () => {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false)
   const [selectedPost, setSelectedPost] = useState<IPost | undefined>(undefined)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedPrivacy, setSelectedPrivacy] = useState<PostPrivacyEnum>(PostPrivacyEnum.PUBLIC)
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
   const user = useAppSelector((state) => state.user)
   const groupData = {
     avatar: GroupAvatar.src,
     name: 'MU Fangroup',
-    shortDesc: 'Glory glory Man United',
-    fullDesc: 'Glory glory gloryyyyyyyyyyyyyyyyy'
+    shortDescription: 'Glory glory Man United',
+    fullDescription: 'Glory glory gloryyyyyyyyyyyyyyyyy'
   }
   const t = useTranslations('group')
 
@@ -65,8 +66,8 @@ const Page: React.FC = () => {
           <GroupInfo
             avatar={groupData.avatar}
             name={groupData.name}
-            shortDesc={groupData.shortDesc}
-            fullDesc={groupData.fullDesc}
+            shortDescription={groupData.shortDescription}
+            fullDescription={groupData.fullDescription}
           />
         </div>
         <NewPost openModal={() => setIsPostModalOpen(true)} avatar={groupData.avatar} />

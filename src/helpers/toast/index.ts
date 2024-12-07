@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast'
 
-export const fToast = (message: any, variant: string) => {
+export const fToast = (message: string, variant: string) => {
   const customVariants = ['success', 'danger', 'info', 'warning']
   const index = customVariants.findIndex((customVariant: string) => {
     return customVariant === variant

@@ -206,8 +206,8 @@
     "edit": {
       "choose_avatar": "Choose another avatar",
       "name": "Name",
-      "shortDesc": "Short description",
-      "fullDesc": "Full description",
+      "shortDescription": "Short description",
+      "fullDescription": "Full description",
       "facebook": "Facebook",
       "instagram": "Instagram",
       "link": "Website",

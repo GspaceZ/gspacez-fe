@@ -9,8 +9,8 @@ const fakeUser: IProfile = {
   city: '',
   address: 'string',
   dob: new Date('1900/01/01'),
-  shortDesc: 'string',
-  fullDesc: 'string',
+  shortDescription: 'string',
+  fullDescription: 'string',
   avtUrl: 'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
   firstName: 'GspaceZ',
   lastName: 'User'
@@ -23,8 +23,8 @@ const fakeUser2: IProfile = {
   city: '',
   address: 'string',
   dob: new Date('1900/01/01'),
-  shortDesc: 'string',
-  fullDesc: 'string',
+  shortDescription: 'string',
+  fullDescription: 'string',
   avtUrl: 'https://res.cloudinary.com/dszkt92jr/image/upload/v1719943637/vcbhui3dxeusphkgvycg.png',
   firstName: 'Dung',
   lastName: 'Cao'

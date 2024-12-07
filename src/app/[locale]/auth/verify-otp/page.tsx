@@ -58,11 +58,11 @@ const Page: React.FC = () => {
       if (verifyOTPRes) {
         const code = verifyOTPRes.code
         switch (code) {
-          case RESPONSE_CODES.SUCCESS:
+          case RESPONSE_CODES.SUCCESS: {
             fToast(t('toast.verify_otp.correct'), 'success')
             handleRedirect(ROUTE.auth.reset_password)
-            const { message } = verifyOTPRes.result
             break
+          }
 
           case RESPONSE_CODES.OTP_INCORRECT:
             fToast(t('toast.verify_otp.incorrect'), 'danger')

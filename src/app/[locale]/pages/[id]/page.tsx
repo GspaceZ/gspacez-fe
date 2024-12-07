@@ -18,8 +18,10 @@ import { useTranslations } from 'next-intl'
 const Page: React.FC = () => {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false)
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedPrivacy, setSelectedPrivacy] = useState<PostPrivacyEnum>(PostPrivacyEnum.PUBLIC)
   const [selectedPost, setSelectedPost] = useState<IPost | undefined>(undefined)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isHost, setIsHost] = useState(true) // only set true for get host view
   const user = useAppSelector((state) => state.user)
   const t = useTranslations('pages')
@@ -27,8 +29,8 @@ const Page: React.FC = () => {
   const pageData = {
     name: 'Fanpage MU',
     avatar: ProfileAvatar.src,
-    shortDesc: 'Glory glory Man United',
-    fullDesc: 'Glory glory gloryyyyyyyyyyyyyyyyy',
+    shortDescription: 'Glory glory Man United',
+    fullDescription: 'Glory glory gloryyyyyyyyyyyyyyyyy',
     facebook: 'https://facebook.com',
     instagram: 'https://instagram.com',
     link: '',
@@ -71,9 +73,9 @@ const Page: React.FC = () => {
         <div className="flex flex-col">
           <PageInfo
             avatar={pageData.avatar}
-            shortDesc={pageData.shortDesc}
+            shortDescription={pageData.shortDescription}
             name={pageData.name}
-            fullDesc={pageData.fullDesc}
+            fullDescription={pageData.fullDescription}
             facebook={pageData.facebook}
             instagram={pageData.instagram}
             link={pageData.link}

@@ -206,8 +206,8 @@
     "edit": {
       "choose_avatar": "Chọn ảnh đại diện khác",
       "name": "Tên",
-      "shortDesc": "Mô tả ngắn gọn",
-      "fullDesc": "Mô tả đầy đủ",
+      "shortDescription": "Mô tả ngắn gọn",
+      "fullDescription": "Mô tả đầy đủ",
       "facebook": "Facebook",
       "instagram": "Instagram",
       "link": "Trang web",

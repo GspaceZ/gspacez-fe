@@ -1,7 +1,6 @@
 export interface IRole {
   description: string
   name: string
-  permissions: any[]
 }
 
 export interface IUser {

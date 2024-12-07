@@ -10,8 +10,8 @@ const initialState: IProfile = {
   city: '',
   address: '',
   dob: new Date('1900/01/01'),
-  shortDesc: '',
-  fullDesc: '',
+  shortDescription: '',
+  fullDescription: '',
   avtUrl: ''
 }
 

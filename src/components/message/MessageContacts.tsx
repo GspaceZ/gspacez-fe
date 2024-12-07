@@ -9,6 +9,7 @@ import AvatarContact from './AvatarContact'
 
 const MessageContacts = () => {
   const [contacts, setContacts] = useState<IContact[]>([])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [latestContacts, setLatestContacts] = useState<IContact[]>([])
 
   useEffect(() => {

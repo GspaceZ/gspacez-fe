@@ -87,8 +87,8 @@ const Page: React.FC = () => {
       } else {
         fToast(t('toast.unknown'), 'danger')
       }
-    } catch (error) {
-      fToast(error || '', 'danger')
+    } catch {
+      fToast(t('toast.unknown'), 'danger')
     }
   }
 

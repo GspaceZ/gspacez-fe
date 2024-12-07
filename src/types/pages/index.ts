@@ -1,8 +1,8 @@
 export interface PageInfoProps {
   avatar: string
   name: string
-  shortDesc: string
-  fullDesc: string
+  shortDescription: string
+  fullDescription: string
   facebook: string
   instagram: string
   link: string

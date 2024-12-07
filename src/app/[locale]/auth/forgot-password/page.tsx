@@ -49,32 +49,27 @@ const Page: React.FC = () => {
 
   const onSubmit = async (data: IForgotPasswordFormValues) => {
     setIsLoading(true)
-    try {
-      dispatch(setResetEmail({ email: data.email }))
-      const forgotPasswordRes = await forgotPassword(data.email)
-      if (forgotPasswordRes) {
-        const code = forgotPasswordRes.code
-        switch (code) {
-          case RESPONSE_CODES.SUCCESS:
-            fToast(t('toast.forgot_password.success'), 'success')
-            handleRedirect(ROUTE.auth.verify_otp)
-            break
+    dispatch(setResetEmail({ email: data.email }))
+    const forgotPasswordRes = await forgotPassword(data.email)
+    if (forgotPasswordRes) {
+      const code = forgotPasswordRes.code
+      switch (code) {
+        case RESPONSE_CODES.SUCCESS:
+          fToast(t('toast.forgot_password.success'), 'success')
+          handleRedirect(ROUTE.auth.verify_otp)
+          break
 
-          case RESPONSE_CODES.USER_EXISTED:
-            fToast(t('toast.signup.existed'), 'danger')
-            break
+        case RESPONSE_CODES.USER_EXISTED:
+          fToast(t('toast.signup.existed'), 'danger')
+          break
 
-          default:
-            fToast(t('toast.unknown'), 'danger')
-        }
-      } else {
-        fToast(t('toast.unknown'), 'danger')
+        default:
+          fToast(t('toast.unknown'), 'danger')
       }
-    } catch (error) {
+    } else {
       fToast(t('toast.unknown'), 'danger')
-    } finally {
-      setIsLoading(false)
     }
+    setIsLoading(false)
   }
 
   return (
