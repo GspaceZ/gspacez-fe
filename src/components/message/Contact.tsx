@@ -20,7 +20,7 @@ const Contact = (props: IContact) => {
       onClick={() => handleContact()}
       className="flex cursor-pointer items-center gap-3 border-b border-gray-200 py-4 pl-4 hover:bg-gray-50"
     >
-      <Avatar src={props.avatar} size="md" />
+      <Avatar src={props.avatar} size="md" className="border border-gray-300" />
       <div className="flex flex-col justify-center gap-0.5">
         <span className="leading-6">{fullName(props.firstName, props.lastName)}</span>
         <span className="text-sm leading-4 text-gray-500">

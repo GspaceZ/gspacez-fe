@@ -11,7 +11,7 @@ interface AvatarContactProps {
 const AvatarContact = (props: AvatarContactProps) => {
   return (
     <div className="flex w-max cursor-pointer flex-col items-center gap-1">
-      <Avatar src={props.avatar} size="md" />
+      <Avatar src={props.avatar} size="md" className="border border-gray-300" />
       <span className="whitespace-nowrap text-xs">{props.firstName}</span>
     </div>
   )
