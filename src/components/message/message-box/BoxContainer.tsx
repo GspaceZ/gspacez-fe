@@ -11,7 +11,7 @@ import {
   PopoverTrigger,
   Tooltip
 } from '@nextui-org/react'
-import { IconDots } from '@tabler/icons-react'
+import { IconDots, IconMessageCircle, IconQuoteOff } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 import { format } from 'date-fns'
 
@@ -29,11 +29,13 @@ export const BoxContainer = () => {
   const messageActions = [
     {
       label: 'Hide',
-      value: 'hide'
+      value: 'hide',
+      icon: <IconQuoteOff size={16} />
     },
     {
       label: 'Reply',
-      value: 'reply'
+      value: 'reply',
+      icon: <IconMessageCircle size={16} />
     }
   ]
 
@@ -96,7 +98,14 @@ export const BoxContainer = () => {
                     <PopoverContent>
                       <Listbox>
                         {messageActions.map((action) => {
-                          return <ListboxItem key={action.value}>{action.label}</ListboxItem>
+                          return (
+                            <ListboxItem key={action.value}>
+                              <div className="flex items-center gap-2">
+                                <span>{action.icon}</span>
+                                <span>{action.label}</span>
+                              </div>
+                            </ListboxItem>
+                          )
                         })}
                       </Listbox>
                     </PopoverContent>
