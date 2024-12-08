@@ -5,6 +5,7 @@ import MessageLayout from '@/components/layouts/message/MessageLayout'
 import { useEffect, useState } from 'react'
 import { landingProfile } from '@/mock/landing'
 import MessageContacts from '@/components/message/MessageContacts'
+import { MessageBox } from '@/components/message/MessageBox'
 
 const Page = () => {
   const [profile, setProfile] = useState<IProfile>()
@@ -15,9 +16,9 @@ const Page = () => {
 
   return (
     <MessageLayout profile={profile}>
-      <div className="flex w-full grow overflow-y-auto">
+      <div className="flex w-full gap-4 overflow-y-auto">
         <MessageContacts />
-        Message
+        <MessageBox />
       </div>
     </MessageLayout>
   )
