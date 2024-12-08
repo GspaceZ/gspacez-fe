@@ -2,9 +2,22 @@
 
 import { mockUser } from '@/mock/message'
 import { IMessageBaseInfo } from '@/types/message'
-import { Avatar, Button, Listbox, ListboxItem } from '@nextui-org/react'
+import {
+  Avatar,
+  Button,
+  Listbox,
+  ListboxItem,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure
+} from '@nextui-org/react'
 import { IconBan, IconUser } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
+import { NotificationModal } from './modal/Notification'
+import { ReportModal } from './modal/Report'
 
 interface Props {
   show: boolean
@@ -12,6 +25,12 @@ interface Props {
 
 export const MessageInformation = ({ show }: Props) => {
   const [messageUser, setMessageUser] = useState<IMessageBaseInfo>()
+  const { isOpen: isNotiOpen, onOpen: onNotiOpen, onOpenChange: onNotiOpenChange } = useDisclosure()
+  const {
+    isOpen: isReportOpen,
+    onOpen: onReportOpen,
+    onOpenChange: onReportOpenChange
+  } = useDisclosure()
 
   useEffect(() => {
     setMessageUser(mockUser)
@@ -49,6 +68,19 @@ export const MessageInformation = ({ show }: Props) => {
     }
   ]
 
+  const handleAction = (value: string) => {
+    switch (value) {
+      case 'notification':
+        onNotiOpen()
+        break
+      case 'report':
+        onReportOpen()
+        break
+      default:
+        break
+    }
+  }
+
   return (
     <div
       className={`flex h-full ${show ? 'w-[360px]' : 'w-0'} flex-col items-center rounded-lg border-l border-t border-gray-200 bg-white transition-all`}
@@ -74,7 +106,11 @@ export const MessageInformation = ({ show }: Props) => {
           <Listbox className="mt-6">
             {messageActions.map((action) => {
               return (
-                <ListboxItem key={action.value} className="border-t border-gray-100">
+                <ListboxItem
+                  key={action.value}
+                  className="border-t border-gray-100"
+                  onClick={() => handleAction(action.value)}
+                >
                   <div className="flex h-10 w-full items-center">
                     <span className="ml-4">{action.label}</span>
                   </div>
@@ -84,6 +120,46 @@ export const MessageInformation = ({ show }: Props) => {
           </Listbox>
         </>
       )}
+      <Modal isOpen={isNotiOpen} onOpenChange={onNotiOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader>Notification</ModalHeader>
+              <ModalBody>
+                <NotificationModal />
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onClick={onClose}>
+                  Cancel
+                </Button>
+                <Button color="primary" variant="light" onClick={onClose}>
+                  Save
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+      <Modal isOpen={isReportOpen} onOpenChange={onReportOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader>Report a problem</ModalHeader>
+              <ModalBody>
+                <ReportModal />
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onClick={onClose}>
+                  Cancel
+                </Button>
+                <Button color="primary" variant="light" onClick={onClose}>
+                  Send report
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   )
 }
