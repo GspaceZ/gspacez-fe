@@ -77,11 +77,11 @@ export const BoxContainer = () => {
                   </div>
                 )}
                 <div
-                  className={`flex max-w-[60%] items-center gap-4 ${userId && userId === message.from.id ? 'flex-row-reverse self-end' : 'self-start'}`}
+                  className={`group flex max-w-[60%] items-center gap-4 ${userId && userId === message.from.id ? 'flex-row-reverse self-end' : 'self-start'}`}
                 >
                   <Tooltip
                     content={<span>{messageTimeTooltip(message.sentAt)}</span>}
-                    placement="right"
+                    placement="top"
                   >
                     <div
                       className={`w-fit text-wrap ${repliedMessage ? 'rounded-b-xl' : 'rounded-xl'} border border-gray-200 px-3 py-2 shadow ${userId && userId === message.from.id ? 'bg-gray-50' : ''}`}
@@ -90,7 +90,7 @@ export const BoxContainer = () => {
                     </div>
                   </Tooltip>
                   <Popover>
-                    <PopoverTrigger>
+                    <PopoverTrigger className="hidden group-hover:flex">
                       <Button isIconOnly variant="light" size="sm">
                         <IconDots size={16} />
                       </Button>
