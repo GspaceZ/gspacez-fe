@@ -6,7 +6,11 @@ import { useEffect, useState } from 'react'
 import { IMessageBaseInfo } from '@/types/message'
 import { IconInfoCircle, IconPhoneCall, IconVideo } from '@tabler/icons-react'
 
-export const BoxHeader = () => {
+interface Props {
+  setShowInfo: () => void
+}
+
+export const BoxHeader = ({ setShowInfo }: Props) => {
   const [messageUser, setMessageUser] = useState<IMessageBaseInfo>()
 
   useEffect(() => {
@@ -27,7 +31,7 @@ export const BoxHeader = () => {
           <Button isIconOnly variant="light">
             <IconVideo />
           </Button>
-          <Button isIconOnly variant="light">
+          <Button isIconOnly variant="light" onClick={setShowInfo}>
             <IconInfoCircle />
           </Button>
         </div>
