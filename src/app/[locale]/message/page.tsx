@@ -15,7 +15,7 @@ const Page = () => {
 
   return (
     <MessageLayout profile={profile}>
-      <div className="flex w-full grow overflow-y-auto">
+      <div className="flex w-full grow overflow-y-auto px-4 lg:px-0">
         <MessageContacts />
         <div className="hidden h-full grow lg:flex">
           <span className="mx-auto my-auto">Choose a conversation to start</span>
