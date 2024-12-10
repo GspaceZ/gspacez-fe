@@ -17,7 +17,9 @@ const Page = () => {
   return (
     <MessageLayout profile={profile}>
       <div className="flex w-full gap-4 overflow-y-auto">
-        <MessageContacts />
+        <div className="hidden lg:block">
+          <MessageContacts />
+        </div>
         <MessageBox />
       </div>
     </MessageLayout>

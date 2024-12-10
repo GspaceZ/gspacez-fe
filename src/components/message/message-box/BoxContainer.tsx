@@ -11,7 +11,7 @@ import {
   PopoverTrigger,
   Tooltip
 } from '@nextui-org/react'
-import { IconDots } from '@tabler/icons-react'
+import { IconDots, IconMessageCircle, IconQuoteOff } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 import { format } from 'date-fns'
 
@@ -29,11 +29,13 @@ export const BoxContainer = () => {
   const messageActions = [
     {
       label: 'Hide',
-      value: 'hide'
+      value: 'hide',
+      icon: <IconQuoteOff size={16} />
     },
     {
       label: 'Reply',
-      value: 'reply'
+      value: 'reply',
+      icon: <IconMessageCircle size={16} />
     }
   ]
 
@@ -75,11 +77,11 @@ export const BoxContainer = () => {
                   </div>
                 )}
                 <div
-                  className={`flex max-w-[60%] items-center gap-4 ${userId && userId === message.from.id ? 'flex-row-reverse self-end' : 'self-start'}`}
+                  className={`group flex max-w-[60%] items-center gap-4 ${userId && userId === message.from.id ? 'flex-row-reverse self-end' : 'self-start'}`}
                 >
                   <Tooltip
                     content={<span>{messageTimeTooltip(message.sentAt)}</span>}
-                    placement="right"
+                    placement="top"
                   >
                     <div
                       className={`w-fit text-wrap ${repliedMessage ? 'rounded-b-xl' : 'rounded-xl'} border border-gray-200 px-3 py-2 shadow ${userId && userId === message.from.id ? 'bg-gray-50' : ''}`}
@@ -88,7 +90,7 @@ export const BoxContainer = () => {
                     </div>
                   </Tooltip>
                   <Popover>
-                    <PopoverTrigger>
+                    <PopoverTrigger className="hidden group-hover:flex">
                       <Button isIconOnly variant="light" size="sm">
                         <IconDots size={16} />
                       </Button>
@@ -96,7 +98,14 @@ export const BoxContainer = () => {
                     <PopoverContent>
                       <Listbox>
                         {messageActions.map((action) => {
-                          return <ListboxItem key={action.value}>{action.label}</ListboxItem>
+                          return (
+                            <ListboxItem key={action.value}>
+                              <div className="flex items-center gap-2">
+                                <span>{action.icon}</span>
+                                <span>{action.label}</span>
+                              </div>
+                            </ListboxItem>
+                          )
                         })}
                       </Listbox>
                     </PopoverContent>

@@ -18,7 +18,7 @@ const MessageContacts = () => {
   }, [])
 
   return (
-    <div className="flex h-full w-full flex-col rounded-lg border-r border-gray-200 bg-white lg:w-[320px]">
+    <div className="lg:border-l-none flex h-full w-full flex-col rounded-t-lg border-l border-r border-t border-gray-200 bg-white lg:w-[320px] lg:rounded-tl-none lg:rounded-tr-lg lg:border">
       <div className="w-full border-b border-gray-200 px-5 py-4">
         <Input placeholder="Search..." size="md" color="default" variant="flat" />
       </div>
