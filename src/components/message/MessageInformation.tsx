@@ -14,16 +14,17 @@ import {
   ModalHeader,
   useDisclosure
 } from '@nextui-org/react'
-import { IconBan, IconUser } from '@tabler/icons-react'
+import { IconArrowLeft, IconBan, IconUser } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 import { NotificationModal } from './modal/Notification'
 import { ReportModal } from './modal/Report'
 
 interface Props {
   show: boolean
+  toggleShow: (value: boolean) => void
 }
 
-export const MessageInformation = ({ show }: Props) => {
+export const MessageInformation = ({ show, toggleShow }: Props) => {
   const [messageUser, setMessageUser] = useState<IMessageBaseInfo>()
   const { isOpen: isNotiOpen, onOpen: onNotiOpen, onOpenChange: onNotiOpenChange } = useDisclosure()
   const {
@@ -83,11 +84,19 @@ export const MessageInformation = ({ show }: Props) => {
 
   return (
     <div
-      className={`flex h-full ${show ? 'w-[360px]' : 'w-0'} flex-col items-center rounded-lg border-l border-t border-gray-200 bg-white transition-all`}
+      className={`flex h-full ${show ? 'w-full md:w-[360px]' : 'w-0'} flex-col items-center rounded-none border-l border-t border-gray-200 bg-white transition-all md:rounded-tl-lg`}
     >
+      <Button
+        isIconOnly
+        variant="light"
+        className="ml-4 mt-1 self-start md:hidden"
+        onClick={() => toggleShow(!show)}
+      >
+        <IconArrowLeft size={24} />
+      </Button>
       {show && (
         <>
-          <div className="mt-10 flex items-center gap-4">
+          <div className="mt-5 flex items-center gap-4 md:mt-10">
             <Avatar src={messageUser?.avatar} alt="Avatar" className="border border-gray-200" />
             <span className="text-lg">{messageUser?.name}</span>
           </div>
