@@ -14,13 +14,15 @@ export const MessageBox = () => {
   }
 
   return (
-    <div className="flex h-full w-full gap-4">
-      <div className="flex w-full flex-col rounded-lg border border-gray-200 bg-white">
+    <div className={`flex h-full w-full ${showInfo ? 'md:gap-4' : 'md:gap-0'}`}>
+      <div
+        className={`flex ${showInfo ? 'w-0 overflow-hidden' : 'w-full'} flex-col rounded-none border border-gray-200 bg-white transition-all md:w-full md:rounded-tr-lg lg:rounded-t-lg`}
+      >
         <BoxHeader setShowInfo={toggleShowInfo} />
         <BoxContainer />
         <BoxFooter />
       </div>
-      <MessageInformation show={showInfo} />
+      <MessageInformation show={showInfo} toggleShow={setShowInfo} />
     </div>
   )
 }
