@@ -13,7 +13,8 @@ export const ROUTE = {
   },
   pages: {
     home: 'home',
-    default: ''
+    default: '',
+    message: 'message'
   },
   profile: {
     edit: 'profile/edit'
