@@ -3,21 +3,16 @@
 import * as React from 'react'
 import ButtonOption from '@/components/trending-post/button-option'
 import { useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
 import { Button, User } from '@nextui-org/react'
 import { TrendingSidebarProps } from '@/types/props/layouts'
 import Post from '../common/Post'
 import { fullName } from '@/helpers/user/full-name'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import { IconBell, IconSend, IconSettings, IconTrendingUp } from '@tabler/icons-react'
+import { FLink } from '../common/FLink'
 
 const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarProps) => {
   const t = useTranslations('trending_posts')
-  const router = useRouter()
-
-  const handleRedirect = () => {
-    router.push('/')
-  }
 
   const handleSelectedPost = () => {
     // handle
@@ -63,12 +58,11 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
       <div className="m-0 flex h-full flex-col overflow-y-auto lg:border lg:border-gray-300">
         <div className="z-10 flex justify-between px-4 py-5 lg:border-l lg:border-gray-300">
           <span className="p-1 text-xl font-bold">{t('trending_post')}</span>
-          <Button
-            onPress={() => handleRedirect()}
-            className="-mx-3 cursor-pointer border-none bg-transparent text-lg text-blue-500"
-          >
-            {t('more')}
-          </Button>
+          <FLink path="/">
+            <Button className="-mx-3 cursor-pointer border-none bg-transparent text-lg text-blue-500">
+              {t('more')}
+            </Button>
+          </FLink>
         </div>
         <div>
           {posts.map((post, index) => (
@@ -83,12 +77,11 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
         </div>
         <div className="mt-[50px] flex justify-between px-4 py-5 lg:border lg:border-gray-300">
           <span className="p-1 text-xl font-bold">{t('trending_people')}</span>
-          <Button
-            onPress={() => handleRedirect()}
-            className="-mx-3 cursor-pointer border-none bg-transparent text-lg text-blue-500"
-          >
-            {t('more')}
-          </Button>
+          <FLink path="/">
+            <Button className="-mx-3 cursor-pointer border-none bg-transparent text-lg text-blue-500">
+              {t('more')}
+            </Button>
+          </FLink>
         </div>
         <div className="flex w-full flex-col">
           {trendingPeople.map((user, index) => (

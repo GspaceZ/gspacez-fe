@@ -5,9 +5,8 @@ import { mockUser } from '@/mock/message'
 import { useEffect, useState } from 'react'
 import { IMessageBaseInfo } from '@/types/message'
 import { IconArrowLeft, IconInfoCircle, IconPhoneCall, IconVideo } from '@tabler/icons-react'
-import { pathWithLocale } from '@/helpers/url/path-with-locale'
-import { usePathname, useRouter } from 'next/navigation'
 import { ROUTE } from '@/utils/constant/route'
+import { FLink } from '@/components/common/FLink'
 
 interface Props {
   setShowInfo: () => void
@@ -15,30 +14,20 @@ interface Props {
 
 export const BoxHeader = ({ setShowInfo }: Props) => {
   const [messageUser, setMessageUser] = useState<IMessageBaseInfo>()
-  const pathname = usePathname()
-  const router = useRouter()
 
   useEffect(() => {
     setMessageUser(mockUser)
   }, [])
 
-  const handleRedirect = (path: string) => {
-    const destinationPath = pathWithLocale(pathname, path)
-    router.push(destinationPath)
-  }
-
   return (
     <div className="min-h-[60px] w-full border-b border-gray-200">
       <div className="flex h-full w-full items-center justify-between px-4">
         <div className="flex items-center gap-4">
-          <Button
-            isIconOnly
-            variant="light"
-            className="flex md:hidden"
-            onClick={() => handleRedirect(ROUTE.pages.message)}
-          >
-            <IconArrowLeft size={28} />
-          </Button>
+          <FLink path={ROUTE.pages.message}>
+            <Button isIconOnly variant="light" className="flex md:hidden">
+              <IconArrowLeft size={28} />
+            </Button>
+          </FLink>
           <Avatar src={messageUser?.avatar} alt="Avatar" className="border border-gray-300" />
           <span>{messageUser?.name}</span>
         </div>
