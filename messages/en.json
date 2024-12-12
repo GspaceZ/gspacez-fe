@@ -226,5 +226,44 @@
     "join": "Join",
     "pending": "Sent request",
     "joined": "Joined"
+  },
+  "message": {
+    "header": {
+      "title": "Message",
+      "back_home": "Back to home"
+    },
+    "page": {
+      "box": {
+        "no_conversation": "Choose a conversation to start",
+        "no_message": "Start a conversation by send a message"
+      },
+      "contacts": {
+        "last_message_by_me": "You: ",
+        "search": "Search..."
+      },
+      "information": {
+        "profile": "Profile",
+        "block": "Block",
+        "change_nickname": "Change nickname",
+        "media": "Media",
+        "notification": "Notification",
+        "report": "Report",
+        "cancel": "Cancel",
+        "save": "Save",
+        "report_a_problem": "Report a problem",
+        "send_report": "Send report"
+      },
+      "modal": {
+        "report_placeholder": "Report a problem...",
+        "notification": {
+          "never": "Never",
+          "1_hour": "1 hour",
+          "8_hours": "8 hours",
+          "24_hours": "24 hours",
+          "end": "To the end of the day",
+          "manual": "Until I turn on"
+        }
+      }
+    }
   }
 }

@@ -4,6 +4,7 @@ import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
 import { Avatar, Button } from '@nextui-org/react'
 import { IconArrowLeft } from '@tabler/icons-react'
+import { useTranslations } from 'next-intl'
 import { usePathname, useRouter } from 'next/navigation'
 
 interface MessageHeaderProps {
@@ -11,6 +12,8 @@ interface MessageHeaderProps {
 }
 
 const MessageHeader = (props: MessageHeaderProps) => {
+  const t = useTranslations('message.header')
+
   const pathname = usePathname()
   const router = useRouter()
 
@@ -25,10 +28,10 @@ const MessageHeader = (props: MessageHeaderProps) => {
         <Avatar src={props.avatar} className="cursor-pointer border border-gray-300" />
         <Button onClick={() => handleRedirect(ROUTE.pages.home)} variant="light">
           <IconArrowLeft />
-          Back to home
+          {t('back_home')}
         </Button>
       </div>
-      <span className="mx-auto my-auto text-3xl font-extrabold">Message</span>
+      <span className="mx-auto my-auto text-3xl font-extrabold">{t('title')}</span>
     </div>
   )
 }

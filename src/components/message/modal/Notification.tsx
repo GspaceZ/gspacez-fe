@@ -1,31 +1,34 @@
 'use client'
 
 import { Radio, RadioGroup } from '@nextui-org/react'
+import { useTranslations } from 'next-intl'
 
 export const NotificationModal = () => {
+  const t = useTranslations('message.page.modal.notification')
+
   const notificationChoices = [
     {
-      label: 'Never',
+      label: t('never'),
       value: '0'
     },
     {
-      label: '1 hour',
+      label: t('1_hour'),
       value: '1'
     },
     {
-      label: '8 hours',
+      label: t('8_hours'),
       value: '8'
     },
     {
-      label: '24 hours',
+      label: t('24_hours'),
       value: '24'
     },
     {
-      label: 'To the end of the day',
+      label: t('end'),
       value: 'end'
     },
     {
-      label: 'Until I turn on',
+      label: t('manual'),
       value: 'manual'
     }
   ]

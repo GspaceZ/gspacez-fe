@@ -6,8 +6,10 @@ import { Input } from '@nextui-org/react'
 import { useEffect, useState } from 'react'
 import Contact from './Contact'
 import AvatarContact from './AvatarContact'
+import { useTranslations } from 'next-intl'
 
 const MessageContacts = () => {
+  const t = useTranslations('message.page.contacts')
   const [contacts, setContacts] = useState<IContact[]>([])
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [latestContacts, setLatestContacts] = useState<IContact[]>([])
@@ -20,7 +22,7 @@ const MessageContacts = () => {
   return (
     <div className="lg:border-l-none flex h-full w-full flex-col rounded-t-lg border-l border-r border-t border-gray-200 bg-white lg:w-[320px] lg:rounded-tl-none lg:rounded-tr-lg lg:border">
       <div className="w-full border-b border-gray-200 px-5 py-4">
-        <Input placeholder="Search..." size="md" color="default" variant="flat" />
+        <Input placeholder={t('search')} size="md" color="default" variant="flat" />
       </div>
       <div className="flex w-full items-center gap-8 overflow-x-auto border-b border-gray-200 px-5 py-4">
         {contacts.map((contact) => (

@@ -14,8 +14,10 @@ import {
 import { IconDots, IconMessageCircle, IconQuoteOff } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 import { format } from 'date-fns'
+import { useTranslations } from 'next-intl'
 
 export const BoxContainer = () => {
+  const t = useTranslations('message.page.box')
   const [messages, setMessages] = useState<IMessage[]>()
   const [userId, setUserId] = useState<string>()
 
@@ -61,7 +63,7 @@ export const BoxContainer = () => {
   return (
     <div className="flex grow flex-col-reverse gap-2 overflow-y-auto px-6 pb-4">
       {messages === undefined ? (
-        <span>Start a conversation by send a message</span>
+        <span>{t('no_message')}</span>
       ) : (
         <>
           {messages.map((message) => {

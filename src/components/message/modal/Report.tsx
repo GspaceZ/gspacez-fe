@@ -1,7 +1,10 @@
 'use client'
 
 import { Textarea } from '@nextui-org/react'
+import { useTranslations } from 'next-intl'
 
 export const ReportModal = () => {
-  return <Textarea placeholder="Report a problem..." />
+  const t = useTranslations('message.page.modal')
+
+  return <Textarea placeholder={t('report_placeholder')} />
 }
