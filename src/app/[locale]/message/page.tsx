@@ -1,7 +1,7 @@
 'use client'
 
 import { IProfile } from '@/types/profile'
-import MessageLayout from '@/components/layouts/message/MessageLayout'
+import MessageLayout from '@/components/layouts/MessageLayout'
 import { useEffect, useState } from 'react'
 import { landingProfile } from '@/mock/landing'
 import MessageContacts from '@/components/message/MessageContacts'
