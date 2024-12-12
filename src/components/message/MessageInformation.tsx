@@ -18,6 +18,7 @@ import { IconArrowLeft, IconBan, IconUser } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 import { NotificationModal } from './modal/Notification'
 import { ReportModal } from './modal/Report'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   show: boolean
@@ -25,6 +26,7 @@ interface Props {
 }
 
 export const MessageInformation = ({ show, toggleShow }: Props) => {
+  const t = useTranslations('message.page.information')
   const [messageUser, setMessageUser] = useState<IMessageBaseInfo>()
   const { isOpen: isNotiOpen, onOpen: onNotiOpen, onOpenChange: onNotiOpenChange } = useDisclosure()
   const {
@@ -39,12 +41,12 @@ export const MessageInformation = ({ show, toggleShow }: Props) => {
 
   const userActions = [
     {
-      label: 'Profile',
+      label: t('profile'),
       value: 'profile',
       icon: <IconUser size={20} />
     },
     {
-      label: 'Block',
+      label: t('block'),
       value: 'block',
       icon: <IconBan size={20} />
     }
@@ -52,19 +54,19 @@ export const MessageInformation = ({ show, toggleShow }: Props) => {
 
   const messageActions = [
     {
-      label: 'Change nickname',
+      label: t('change_nickname'),
       value: 'change-nickname'
     },
     {
-      label: 'Media',
+      label: t('media'),
       value: 'media'
     },
     {
-      label: 'Notification',
+      label: t('notification'),
       value: 'notification'
     },
     {
-      label: 'Report',
+      label: t('report'),
       value: 'report'
     }
   ]
@@ -133,16 +135,16 @@ export const MessageInformation = ({ show, toggleShow }: Props) => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader>Notification</ModalHeader>
+              <ModalHeader>{t('notification')}</ModalHeader>
               <ModalBody>
                 <NotificationModal />
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onClick={onClose}>
-                  Cancel
+                  {t('cancel')}
                 </Button>
                 <Button color="primary" variant="light" onClick={onClose}>
-                  Save
+                  {t('save')}
                 </Button>
               </ModalFooter>
             </>
@@ -153,16 +155,16 @@ export const MessageInformation = ({ show, toggleShow }: Props) => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader>Report a problem</ModalHeader>
+              <ModalHeader>{t('report_a_problem')}</ModalHeader>
               <ModalBody>
                 <ReportModal />
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onClick={onClose}>
-                  Cancel
+                  {t('cancel')}
                 </Button>
                 <Button color="primary" variant="light" onClick={onClose}>
-                  Send report
+                  {t('send_report')}
                 </Button>
               </ModalFooter>
             </>

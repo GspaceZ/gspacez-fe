@@ -226,5 +226,44 @@
     "join": "Tham gia",
     "pending": "Đã gửi yêu cầu",
     "joined": "Đã tham gia"
+  },
+  "message": {
+    "header": {
+      "title": "Tin nhắn",
+      "back_home": "Quay về trang chủ"
+    },
+    "page": {
+      "box": {
+        "no_conversation": "Chọn một cuộc trò chuyện để bắt đầu",
+        "no_message": "Bắt đầu cuộc trò chuyện bằng cách gửi tin nhắn"
+      },
+      "contacts": {
+        "last_message_by_me": "Bạn: ",
+        "search": "Tìm kiếm..."
+      },
+      "information": {
+        "profile": "Hồ sơ",
+        "block": "Chặn",
+        "change_nickname": "Thay đổi biệt danh",
+        "media": "Phương tiện",
+        "notification": "Thông báo",
+        "report": "Báo cáo",
+        "cancel": "Hủy",
+        "save": "Lưu",
+        "report_a_problem": "Báo cáo sự cố",
+        "send_report": "Gửi báo cáo"
+      },
+      "modal": {
+        "report_placeholder": "Báo cáo sự cố...",
+        "notification": {
+          "never": "Không bao giờ",
+          "1_hour": "1 giờ",
+          "8_hours": "8 giờ",
+          "24_hours": "24 giờ",
+          "end": "Đến cuối ngày",
+          "manual": "Cho đến khi tôi bật"
+        }
+      }
+    }
   }
 }
