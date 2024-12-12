@@ -1,7 +1,7 @@
 'use client'
 
 import { MessageLayoutProps } from '@/types/props/layouts'
-import MessageHeader from './MessageHeader'
+import MessageHeader from '../message/MessageHeader'
 
 const MessageLayout = (props: MessageLayoutProps) => {
   return (
