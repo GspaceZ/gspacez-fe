@@ -22,6 +22,7 @@ import ShowPassword from '@/components/common/ShowPassword'
 import { useProfile } from '@/hooks/useProfile'
 import { setUser } from '@/utils/store/user'
 import { IProfile } from '@/types/profile'
+import { FLink } from '@/components/common/FLink'
 
 type SignInResponse = {
   code: number
@@ -168,12 +169,11 @@ const Page: React.FC = () => {
               />
             </InputWithError>
             <div className="-mt-2 mr-2 flex w-full justify-end">
-              <Button
-                className="-p-2 cursor-pointer border-none bg-white text-[16px] font-bold text-gray-500"
-                onPress={() => handleRedirect(ROUTE.auth.forgot_password)}
-              >
-                {t('forgot_password_button')}
-              </Button>
+              <FLink path={ROUTE.auth.forgot_password}>
+                <Button className="-p-2 cursor-pointer border-none bg-white text-[16px] font-bold text-gray-500">
+                  {t('forgot_password_button')}
+                </Button>
+              </FLink>
             </div>
             <Button
               className={`mt-4 h-[38px] w-[90px] ${isLoading ? 'cursor-not-allowed' : ''}`}
@@ -187,14 +187,11 @@ const Page: React.FC = () => {
         </div>
         <div className="mx-auto mb-[30px] mt-[40px] flex items-center gap-[10px]">
           <span className="font-bold text-gray-500">{t('not_have_account')}</span>
-          <Button
-            className="h-[38px] w-[90px]"
-            color="primary"
-            variant="bordered"
-            onPress={() => handleRedirect(ROUTE.auth.signup)}
-          >
-            {t('sign_up')}
-          </Button>
+          <FLink path={ROUTE.auth.signup}>
+            <Button className="h-[38px] w-[90px]" color="primary" variant="bordered">
+              {t('sign_up')}
+            </Button>
+          </FLink>
         </div>
       </div>
     </AuthLayout>
