@@ -7,7 +7,7 @@ import { BoxHeader } from './message-box/BoxHeader'
 import { MessageInformation } from './MessageInformation'
 
 export const MessageBox = () => {
-  const [showInfo, setShowInfo] = useState<boolean>(true)
+  const [showInfo, setShowInfo] = useState<boolean>(false)
 
   const toggleShowInfo = () => {
     setShowInfo(!showInfo)
