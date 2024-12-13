@@ -1,8 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-/**
- * @deprecated should not be used in future, just to maintain and compare to new method
- */
 export async function callApi<D, T>(
   url: string,
   method: AxiosRequestConfig['method'],
