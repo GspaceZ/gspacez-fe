@@ -29,12 +29,24 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/utils/store'
 import { CreatePostRequestDto } from '@/types/response/post'
 import { fToast } from '@/helpers/toast'
+import { useForm } from 'react-hook-form'
+import { useCloudinary } from '@/hooks/useCloudinary'
 
 export interface PostModalProps {
   user: IProfile
   post?: IPost
   closePost: () => void
   isOpen: boolean
+}
+
+type PostForm = {
+  text: string | null
+  imageUrls?: string[]
+  videoUrls?: string[]
+  feeling: string | null
+  hashTags?: string[]
+  privacy: string | null
+  location: string | null
 }
 
 const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) => {
@@ -52,42 +64,47 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
   const [isFeelingOn, setIsFeelingOn] = useState<boolean>(!!post?.content.feeling)
   const [isTagOn, setIsTagOn] = useState<boolean>(false)
   const [isPrivacyOn, setIsPrivacyOn] = useState<boolean>(!!post?.privacy)
-  const [location, setLocation] = useState<string | undefined>(post?.content.location ?? undefined)
-  const [feeling, setFeeling] = useState<string | undefined>(post?.content.feeling ?? undefined)
-  const [privacy, setPrivacy] = useState<PostPrivacyEnum>(post?.privacy ?? PostPrivacyEnum.PUBLIC)
   const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([])
-  const [nextId, setNextId] = useState<number>(1)
-  const [content, setContent] = useState<string>(post?.content.text ?? '')
   const { createPost } = usePost()
+  const { register, reset, setValue, getValues } = useForm<PostForm>({
+    defaultValues: {
+      text: null,
+      imageUrls: [],
+      videoUrls: [],
+      feeling: null,
+      hashTags: [],
+      privacy: 'public',
+      location: null
+    }
+  })
+  const { uploadMedia } = useCloudinary()
+  const [isUploadMediaPending, setIsUploadMediaPending] = useState<boolean>(false)
 
   useEffect(() => {
     if (!post) return
 
     const imageFiles =
-      post.content.imageUrls?.map((url: string, index: number) => ({
-        id: index + 1,
+      post.content.imageUrls?.map((url: string) => ({
         file: new File([], ''),
         url,
         preview: url
       })) ?? []
 
     const videoFiles =
-      post.content.videoUrls?.map((url: string, index: number) => ({
-        id: (post.content.imageUrls?.length ?? 0) + index + 1,
+      post.content.videoUrls?.map((url: string) => ({
         file: new File([], ''),
         url,
         preview: url
       })) ?? []
 
     setMediaFiles([...imageFiles, ...videoFiles])
-    setNextId((post.content.imageUrls?.length ?? 0) + (post.content.videoUrls?.length ?? 0) + 1)
   }, [post])
 
   const handleTags = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === ' ') {
       event.preventDefault()
       if (currTag.trim()) {
-        setTags((prevTags) => [...prevTags, currTag.trim()])
+        setValue('hashTags', [...(getValues('hashTags') || []), currTag.trim()])
         setCurrTag('')
       }
     }
@@ -97,27 +114,8 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
     }
   }
 
-  const handleChangeContent = (event: ChangeEvent<HTMLInputElement>) => {
-    setContent(event.target.value)
-  }
-
   const handleChangeTag = (event: ChangeEvent<HTMLInputElement>) => {
     setCurrTag(event.target.value)
-  }
-
-  const handleChangeLocation = (event: ChangeEvent<HTMLInputElement>) => {
-    setLocation(event.target.value)
-  }
-
-  const handleChangeFeeling = (event: ChangeEvent<HTMLInputElement>) => {
-    setFeeling(event.target.value)
-  }
-
-  const handleChangePrivacy = (event: ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value as PostPrivacyEnum
-    if (privacyOptions.includes(value)) {
-      setPrivacy(value)
-    }
   }
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,14 +127,12 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
             ? await generateVideoThumbnail(file)
             : URL.createObjectURL(file)
           return {
-            id: nextId,
             file: file,
             url: URL.createObjectURL(file),
             preview: preview
           }
         })
       )
-      setNextId((prevId) => prevId + fileArray.length)
       setMediaFiles((prevFiles) => [...prevFiles, ...fileArray])
     }
   }
@@ -147,8 +143,8 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
     onChange: handleFileChange
   })
 
-  const handleRemoveFile = (id: number) => {
-    setMediaFiles((prevFiles) => prevFiles.filter((file) => file.id !== id))
+  const handleRemoveFile = (url: string) => {
+    setMediaFiles((prevFiles) => prevFiles.filter((file) => file.url !== url))
   }
 
   const handleSave = () => {
@@ -167,17 +163,43 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
     }
   })
 
-  const handleCreatePost = () => {
-    const dto: CreatePostRequestDto = {
-      text: content,
-      imageUrls: [],
-      videoUrls: [],
-      feeling: feeling,
-      hashTags: tags,
-      privacy: privacy,
-      location: location
-    }
-    mutateCreatePost({ dto, token })
+  const handleCreatePost = async () => {
+    setIsUploadMediaPending(true)
+
+    const promises = mediaFiles.map((file) => {
+      return new Promise<void>((resolve) => {
+        // eslint-disable-next-line no-extra-semi
+        ;(async () => {
+          const type = file.file.type.split('/')[0]
+          const data = await uploadMedia(file.file, type)
+          if (type === 'image') {
+            setValue('imageUrls', [...(getValues('imageUrls') || []), data.secure_url])
+          } else {
+            setValue('videoUrls', [...(getValues('videoUrls') || []), data.secure_url])
+          }
+          resolve()
+        })()
+      })
+    })
+
+    Promise.all(promises)
+      .then(() => {
+        const dto: CreatePostRequestDto = {
+          text: getValues('text'),
+          imageUrls: getValues('imageUrls'),
+          videoUrls: getValues('videoUrls'),
+          feeling: getValues('feeling'),
+          hashTags: getValues('hashTags'),
+          privacy: getValues('privacy'),
+          location: getValues('location')
+        }
+        mutateCreatePost({ dto, token })
+        reset()
+        setMediaFiles([])
+      })
+      .finally(() => {
+        setIsUploadMediaPending(false)
+      })
   }
 
   return (
@@ -194,19 +216,16 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
                 />
                 <div className="mt-4 flex min-h-[200px] w-full flex-col rounded-lg bg-white">
                   <Textarea
+                    {...register('text')}
                     className="border-b-none w-full text-lg"
                     placeholder={t('placeholder')}
-                    value={content}
-                    onChange={handleChangeContent}
                     minRows={6}
                   />
                   <div className="mt-2 flex w-full flex-wrap gap-2">
                     {mediaFiles.map((mediaFile) => (
-                      <Media
-                        file={mediaFile}
-                        key={mediaFile.id}
-                        handleRemoveFile={handleRemoveFile}
-                      />
+                      <div key={mediaFile.url}>
+                        <Media file={mediaFile} handleRemoveFile={handleRemoveFile} />
+                      </div>
                     ))}
                   </div>
                   <div className="mt-4 flex w-fit flex-wrap gap-4 rounded-xl bg-gray-100 px-2 py-1">
@@ -246,33 +265,30 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
                   <div className="mt-4 flex items-center gap-4">
                     {isLocationOn && (
                       <Input
+                        {...register('location')}
                         startContent={
                           <span className="text-nowrap text-sm text-gray-600">{t('location')}</span>
                         }
                         className="w-[200px] max-w-full rounded-lg bg-gray-100"
-                        value={location}
-                        onChange={handleChangeLocation}
                       />
                     )}
                     {isFeelingOn && (
                       <Input
+                        {...register('feeling')}
                         startContent={
                           <span className="text-nowrap text-sm text-gray-600">{t('feeling')}</span>
                         }
                         className="w-[200px] max-w-full rounded-lg bg-gray-100"
-                        value={feeling}
-                        onChange={handleChangeFeeling}
                       />
                     )}
                     {isPrivacyOn && (
                       <Select
+                        {...register('privacy')}
                         startContent={
                           <span className="text-nowrap text-sm text-gray-600">{t('privacy')}</span>
                         }
                         aria-label="Privacy"
                         className="w-[200px] max-w-full rounded-lg bg-gray-100"
-                        value={privacy}
-                        onChange={handleChangePrivacy}
                       >
                         {privacyOptions.map((privacyOption) => (
                           <SelectItem key={privacyOption} value={privacyOption}>
@@ -285,7 +301,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
                   {isTagOn && (
                     <Input
                       className="mt-4 rounded-lg bg-gray-100"
-                      startContent={<Tags tags={tags} />}
+                      startContent={<Tags tags={getValues('hashTags') || []} />}
                       value={currTag}
                       onChange={handleChangeTag}
                       onKeyDown={handleTags}
@@ -300,7 +316,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
               color="default"
               size="sm"
               className="text-md"
-              isLoading={isCreatePostPending}
+              disabled={isCreatePostPending || isUploadMediaPending}
               onClick={closePost}
             >
               {t('cancel')}
@@ -310,7 +326,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
               size="sm"
               className="text-md"
               onClick={isEditPost ? handleSave : handleCreatePost}
-              isLoading={isCreatePostPending}
+              isLoading={isCreatePostPending || isUploadMediaPending}
             >
               {isEditPost ? t('save') : t('post')}
             </Button>

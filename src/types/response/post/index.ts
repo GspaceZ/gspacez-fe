@@ -1,5 +1,5 @@
 export type CreatePostRequestDto = {
-  text: string
+  text?: string | null
   imageUrls?: string[]
   videoUrls?: string[]
   feeling?: string | null

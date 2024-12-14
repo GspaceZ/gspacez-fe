@@ -26,7 +26,6 @@ export interface FVideoProps {
 }
 
 export interface MediaFile {
-  id: number
   file: File
   url: string
   preview?: string
