@@ -296,7 +296,13 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
             </div>
           </div>
           <ModalFooter>
-            <Button color="default" size="sm" className="text-md" onClick={closePost}>
+            <Button
+              color="default"
+              size="sm"
+              className="text-md"
+              isLoading={isCreatePostPending}
+              onClick={closePost}
+            >
               {t('cancel')}
             </Button>
             <Button
