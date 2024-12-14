@@ -41,7 +41,7 @@ export const useProfile = () => {
 
   const uploadAvatar = async (avatarUrl: string, token: string) => {
     const response = await callApi<UploadAvatarRequest, UploadAvatarResponse>(
-      '/profile/users/avatar',
+      '/profile-service/users/avatar',
       'POST',
       {
         avatarUrl
@@ -64,7 +64,7 @@ export const useProfile = () => {
     token: string
   ) => {
     const response = await callApi<UpdateProfileRequest, UpdateProfileResponse>(
-      '/profile/users',
+      '/profile-service/users',
       'PUT',
       {
         firstName,
@@ -84,7 +84,7 @@ export const useProfile = () => {
 
   const getProfile = async (token: string) => {
     const response = await callApi<never, GetProfileResponse>(
-      '/profile/users',
+      '/profile-service/info',
       'GET',
       {} as never,
       token

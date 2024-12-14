@@ -23,6 +23,12 @@ import { useTranslations } from 'next-intl'
 import { IPost } from '@/types/post'
 import { IProfile } from '@/types/profile'
 import { IconHash, IconLock, IconMapPin, IconMoodHappy, IconPhotoScan } from '@tabler/icons-react'
+import { usePost } from '@/hooks/usePost'
+import { useMutation } from '@tanstack/react-query'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/utils/store'
+import { CreatePostRequestDto } from '@/types/response/post'
+import { fToast } from '@/helpers/toast'
 
 export interface PostModalProps {
   user: IProfile
@@ -38,18 +44,21 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
 
   const isEditPost = !!post
 
+  const token = useSelector((state: RootState) => state.auth.token)
+
   const [tags, setTags] = useState<string[]>(post?.content.tag ?? [])
   const [currTag, setCurrTag] = useState<string>('')
   const [isLocationOn, setIsLocationOn] = useState<boolean>(!!post?.content.location)
   const [isFeelingOn, setIsFeelingOn] = useState<boolean>(!!post?.content.feeling)
   const [isTagOn, setIsTagOn] = useState<boolean>(false)
   const [isPrivacyOn, setIsPrivacyOn] = useState<boolean>(!!post?.privacy)
-  const [location, setLocation] = useState<string>(post?.content.location ?? '')
-  const [feeling, setFeeling] = useState<string>(post?.content.feeling ?? '')
+  const [location, setLocation] = useState<string | undefined>(post?.content.location ?? undefined)
+  const [feeling, setFeeling] = useState<string | undefined>(post?.content.feeling ?? undefined)
   const [privacy, setPrivacy] = useState<PostPrivacyEnum>(post?.privacy ?? PostPrivacyEnum.PUBLIC)
   const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([])
   const [nextId, setNextId] = useState<number>(1)
   const [content, setContent] = useState<string>(post?.content.text ?? '')
+  const { createPost } = usePost()
 
   useEffect(() => {
     if (!post) return
@@ -146,8 +155,29 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
     // handle edit post
   }
 
-  const handlePost = () => {
-    // handle create new post
+  const { isPending: isCreatePostPending, mutate: mutateCreatePost } = useMutation({
+    mutationFn: ({ dto, token }: { dto: CreatePostRequestDto; token: string }) =>
+      createPost(dto, token),
+    onSuccess: () => {
+      fToast('Create post successfully', 'success')
+      closePost()
+    },
+    onError: () => {
+      fToast('Create post unsucessfully', 'failed')
+    }
+  })
+
+  const handleCreatePost = () => {
+    const dto: CreatePostRequestDto = {
+      text: content,
+      imageUrls: [],
+      videoUrls: [],
+      feeling: feeling,
+      hashTags: tags,
+      privacy: privacy,
+      location: location
+    }
+    mutateCreatePost({ dto, token })
   }
 
   return (
@@ -266,14 +296,21 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
             </div>
           </div>
           <ModalFooter>
-            <Button color="default" size="sm" className="text-md" onClick={closePost}>
+            <Button
+              color="default"
+              size="sm"
+              className="text-md"
+              isLoading={isCreatePostPending}
+              onClick={closePost}
+            >
               {t('cancel')}
             </Button>
             <Button
               color="primary"
               size="sm"
               className="text-md"
-              onClick={isEditPost ? handleSave : handlePost}
+              onClick={isEditPost ? handleSave : handleCreatePost}
+              isLoading={isCreatePostPending}
             >
               {isEditPost ? t('save') : t('post')}
             </Button>
