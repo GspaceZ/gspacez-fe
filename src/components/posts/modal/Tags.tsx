@@ -8,7 +8,7 @@ const Tags: React.FC<TagsProps> = ({ tags }) => {
       {t('tags')}
       {tags.map((tag: string) => {
         return (
-          <span className="rounded-full bg-gray-200 px-2 py-1 font-bold" key={tag}>
+          <span className="rounded-full bg-gray-200 px-2 py-1 text-sm font-bold" key={tag}>
             {tag}
           </span>
         )

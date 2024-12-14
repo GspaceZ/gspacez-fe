@@ -12,6 +12,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { ROUTE } from '@/utils/constant/route'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
 import { fToast } from '@/helpers/toast'
+import { useCloudinary } from '@/hooks/useCloudinary'
 
 const Page: React.FC = () => {
   const t = useTranslations('profile.avatar')
@@ -25,7 +26,8 @@ const Page: React.FC = () => {
   )
   const [defaultImageUrl, setDefaultImageUrl] = useState<string>(imageUrl)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const { uploadImage, uploadAvatar } = useProfile()
+  const { uploadAvatar } = useProfile()
+  const { uploadMedia } = useCloudinary()
   const router = useRouter()
   const pathname = usePathname()
 
@@ -57,8 +59,12 @@ const Page: React.FC = () => {
   }
 
   const handleSave = async () => {
+    if (!selectedFile) {
+      return
+    }
+
     try {
-      const response = await uploadImage(selectedFile)
+      const response = await uploadMedia(selectedFile)
 
       if (response) {
         const secureUrl = response.secure_url

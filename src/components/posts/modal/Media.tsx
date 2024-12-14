@@ -3,7 +3,7 @@ import { Image } from '@nextui-org/react'
 
 interface MediaProps {
   file: MediaFile
-  handleRemoveFile: (id: number) => void
+  handleRemoveFile: (url: string) => void
 }
 
 const Media: React.FC<MediaProps> = ({ file, handleRemoveFile }) => {
@@ -12,7 +12,7 @@ const Media: React.FC<MediaProps> = ({ file, handleRemoveFile }) => {
       {file.file.type.startsWith('image') ? (
         <Image
           src={file.url}
-          alt={`Preview ${file.id}`}
+          alt={`Preview ${file.url}`}
           className="w-[100px] rounded-lg border border-gray-300"
         />
       ) : (
@@ -24,7 +24,7 @@ const Media: React.FC<MediaProps> = ({ file, handleRemoveFile }) => {
         />
       )}
       <button
-        onClick={() => handleRemoveFile(file.id)}
+        onClick={() => handleRemoveFile(file.url)}
         className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200"
       >
         <span className="text-sm">&times;</span>
