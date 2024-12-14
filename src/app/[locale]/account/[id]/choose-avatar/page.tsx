@@ -64,7 +64,7 @@ const Page: React.FC = () => {
     }
 
     try {
-      const response = await uploadMedia(selectedFile)
+      const response = await uploadMedia(selectedFile, 'image')
 
       if (response) {
         const secureUrl = response.secure_url
