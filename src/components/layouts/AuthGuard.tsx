@@ -13,6 +13,7 @@ import { logout as logoutUser } from '@/utils/store/user'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { usePathname, useRouter } from 'next/navigation'
 import { ROUTE } from '@/utils/constant/route'
+import { getCookie } from '@/helpers/cookie'
 
 interface AuthGuardProps {
   children: ReactNode
@@ -21,7 +22,7 @@ interface AuthGuardProps {
 export const AuthGuard = ({ children }: AuthGuardProps) => {
   const { verifyToken, refreshToken: refresh } = useAuth()
   const token = useSelector((state: RootState) => state.auth.token)
-  const refreshToken = useSelector((state: RootState) => state.auth.refreshToken)
+  const refreshToken = getCookie('refreshToken')
   const dispatch = useAppDispatch()
   const pathname = usePathname()
   const router = useRouter()
@@ -57,7 +58,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
       mutateRefreshToken({
         dto: {
           accessTokenExpired: token,
-          refreshToken: refreshToken
+          refreshToken: refreshToken || ''
         }
       })
   }, [data])
