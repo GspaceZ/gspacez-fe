@@ -11,7 +11,11 @@ import {
   SignInRequest,
   ForgotPasswordRequest,
   VerifyOTPRequest,
-  ResetPasswordRequest
+  ResetPasswordRequest,
+  VerifyTokenRequestDto,
+  RefreshTokenRequestDto,
+  RefreshTokenResponseDto,
+  VerifyTokenResponseDto
 } from '@/types/response/auth'
 
 export const useAuth = () => {
@@ -96,5 +100,33 @@ export const useAuth = () => {
     return data
   }
 
-  return { getEncodedUrl, signUp, signIn, forgotPassword, verifyOTP, resetPassword }
+  const verifyToken = async (dto: VerifyTokenRequestDto) => {
+    const response = await callApi<VerifyTokenRequestDto, VerifyTokenResponseDto>(
+      '/identity/auth/introspect',
+      'POST',
+      dto
+    )
+
+    const data = response.data
+    return data
+  }
+
+  const refreshToken = async (dto: RefreshTokenRequestDto) => {
+    return await callApi<RefreshTokenRequestDto, RefreshTokenResponseDto>(
+      '/identity/auth/refresh',
+      'POST',
+      dto
+    )
+  }
+
+  return {
+    getEncodedUrl,
+    signUp,
+    signIn,
+    forgotPassword,
+    verifyOTP,
+    resetPassword,
+    verifyToken,
+    refreshToken
+  }
 }

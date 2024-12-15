@@ -71,3 +71,27 @@ export type ResetPasswordResponse = {
     message: string
   }
 }
+
+export type VerifyTokenRequestDto = {
+  token: string
+}
+
+export type VerifyTokenResponseDto = {
+  code: number
+  result: {
+    valid: boolean
+  }
+}
+
+export type RefreshTokenRequestDto = {
+  accessTokenExpired: string
+  refreshToken: string
+}
+
+export type RefreshTokenResponseDto = {
+  code: number
+  result: {
+    token: string
+    refreshToken: string
+  }
+}
