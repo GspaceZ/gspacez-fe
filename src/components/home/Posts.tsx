@@ -2,7 +2,6 @@
 
 import Post from '../common/Post'
 import { POST_VARIANTS } from '@/utils/constant/variants'
-import PostSkeleton from '../posts/PostSkeleton'
 import { IPost } from '@/types/post'
 
 export interface PostsProps {
@@ -51,7 +50,6 @@ const Posts: React.FC<PostsProps> = ({
             />
           )
         })}
-      <PostSkeleton variant={POST_VARIANTS.feed} />
     </div>
   )
 }

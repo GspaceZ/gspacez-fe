@@ -3,7 +3,7 @@
 import { useAuth } from '@/hooks/useAuth'
 import { RootState } from '@/utils/store'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { ReactNode, useEffect } from 'react'
+import { ReactNode, useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { RefreshTokenRequestDto } from '@/types/response/auth'
 import { useAppDispatch } from '@/utils/store'
@@ -28,10 +28,13 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
   const pathname = usePathname()
   const router = useRouter()
 
-  const handleRedirect = (path: string) => {
-    const destinationPath = pathWithLocale(pathname, path)
-    router.push(destinationPath)
-  }
+  const handleRedirect = useCallback(
+    (path: string) => {
+      const destinationPath = pathWithLocale(pathname, path)
+      router.push(destinationPath)
+    },
+    [pathname, router]
+  )
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data } = useQuery({
@@ -56,15 +59,16 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
     }
   })
 
-  // useEffect(() => {
-  //   if (!data?.result.valid)
-  //     mutateRefreshToken({
-  //       dto: {
-  //         accessTokenExpired: token,
-  //         refreshToken: refreshToken || ''
-  //       }
-  //     })
-  // }, [data])
+  useEffect(() => {
+    if (!data?.result.valid)
+      mutateRefreshToken({
+        dto: {
+          accessTokenExpired: token,
+          refreshToken: refreshToken || ''
+        }
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.result.valid])
 
   useEffect(() => {
     if (!token) {

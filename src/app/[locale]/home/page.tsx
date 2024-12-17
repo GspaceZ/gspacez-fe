@@ -15,7 +15,8 @@ import { PostPrivacyEnum } from '@/utils/constant'
 import { DeleteModal } from '@/components/posts/DeleteModal'
 import { useQuery } from '@tanstack/react-query'
 import { usePost } from '@/hooks/usePost'
-import { IconLoader } from '@tabler/icons-react'
+import PostSkeleton from '@/components/posts/PostSkeleton'
+import { POST_VARIANTS } from '@/utils/constant/variants'
 
 const Page = () => {
   const t = useTranslations('title')
@@ -98,7 +99,15 @@ const Page = () => {
           </div>
           <div className="pb-[20px]">
             {newsfeedLoading ? (
-              <IconLoader />
+              <div className="mt-6 flex w-full flex-col items-center gap-4">
+                {Array(4)
+                  .fill(0)
+                  .map((_, index) => (
+                    <div key={index}>
+                      <PostSkeleton variant={POST_VARIANTS.feed} />
+                    </div>
+                  ))}
+              </div>
             ) : (
               <Posts
                 posts={newsfeedData?.data.result}
