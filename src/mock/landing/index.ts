@@ -1,6 +1,7 @@
 import { IProfile } from '@/types/profile'
 import { PostPrivacyEnum, PostTypeEnum } from '../../utils/constant'
 import LandingAvatar from '@/public/landingAvatar.png'
+import { IPost } from '@/types/post'
 
 export const landingProfile = {
   id: '12334',
@@ -18,21 +19,8 @@ export const landingProfile = {
   isActivated: true
 } as IProfile
 
-export const landingPost = {
+export const landingPost: IPost = {
   id: '3',
-  user: {
-    id: '1',
-    phone: '',
-    country: '',
-    city: '',
-    address: 'string',
-    dob: new Date('1900/01/01'),
-    shortDescription: 'string',
-    fullDescription: 'string',
-    avtUrl: LandingAvatar.src,
-    firstName: 'GspaceZ',
-    lastName: 'User'
-  },
   content: {
     text: 'Welcome to GspaceZ',
     imageUrls: [],
@@ -48,5 +36,10 @@ export const landingPost = {
   location: '',
   type: PostTypeEnum.USER,
   createdAt: new Date('2024/06/01'),
-  updatedAt: new Date('2024/06/01')
+  updatedAt: new Date('2024/06/01'),
+  profileId: '123',
+  profileName: 'Dung Tran',
+  trendingPoint: 0,
+  avatarUrl: LandingAvatar.src,
+  hidden: false
 }

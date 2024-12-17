@@ -1,3 +1,5 @@
+import { IPost } from '@/types/post'
+
 export type CreatePostRequestDto = {
   text?: string | null
   imageUrls?: string[]
@@ -30,4 +32,10 @@ export type CreatePostResponseDto = {
   createdAt: Date
   updatedAt: Date
   hidden: boolean
+}
+
+export type GetNewsfeedResponseDto = {
+  code: number
+  message: string
+  result: IPost[]
 }

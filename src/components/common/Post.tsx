@@ -1,6 +1,5 @@
 'use client'
 
-import { fullName } from '@/helpers/user/full-name'
 import { postTime } from '@/helpers/post/post-time'
 import { User } from '@nextui-org/user'
 import * as React from 'react'
@@ -131,9 +130,9 @@ const Post: React.FC<PostProps> = ({
           >
             <div className="flex w-full items-start justify-between">
               <User
-                name={fullName(post.user.firstName, post.user.lastName)}
+                name={post.profileName}
                 description={postTime(post)}
-                avatarProps={{ src: post.user.avtUrl }}
+                avatarProps={{ src: post.avatarUrl }}
                 className="text-xl font-bold"
               />
               <div className="flex flex-col items-end">

@@ -3,7 +3,7 @@
 import { useAuth } from '@/hooks/useAuth'
 import { RootState } from '@/utils/store'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { ReactNode, useEffect } from 'react'
+import { ReactNode, useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { RefreshTokenRequestDto } from '@/types/response/auth'
 import { useAppDispatch } from '@/utils/store'
@@ -22,16 +22,21 @@ interface AuthGuardProps {
 export const AuthGuard = ({ children }: AuthGuardProps) => {
   const { verifyToken, refreshToken: refresh } = useAuth()
   const token = useSelector((state: RootState) => state.auth.token)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const refreshToken = getCookie('refreshToken')
   const dispatch = useAppDispatch()
   const pathname = usePathname()
   const router = useRouter()
 
-  const handleRedirect = (path: string) => {
-    const destinationPath = pathWithLocale(pathname, path)
-    router.push(destinationPath)
-  }
+  const handleRedirect = useCallback(
+    (path: string) => {
+      const destinationPath = pathWithLocale(pathname, path)
+      router.push(destinationPath)
+    },
+    [pathname, router]
+  )
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data } = useQuery({
     queryKey: ['verify'],
     queryFn: () => {
@@ -41,6 +46,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
     refetchIntervalInBackground: true
   })
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { mutate: mutateRefreshToken } = useMutation({
     mutationFn: ({ dto }: { dto: RefreshTokenRequestDto }) => refresh(dto),
     onSuccess: (data) => {
@@ -61,7 +67,14 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
           refreshToken: refreshToken || ''
         }
       })
-  }, [data])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.result.valid])
+
+  useEffect(() => {
+    if (!token) {
+      handleRedirect(ROUTE.auth.signin)
+    }
+  }, [token, handleRedirect])
 
   return <>{children}</>
 }
