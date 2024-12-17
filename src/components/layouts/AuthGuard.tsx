@@ -22,6 +22,7 @@ interface AuthGuardProps {
 export const AuthGuard = ({ children }: AuthGuardProps) => {
   const { verifyToken, refreshToken: refresh } = useAuth()
   const token = useSelector((state: RootState) => state.auth.token)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const refreshToken = getCookie('refreshToken')
   const dispatch = useAppDispatch()
   const pathname = usePathname()
@@ -32,6 +33,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
     router.push(destinationPath)
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data } = useQuery({
     queryKey: ['verify'],
     queryFn: () => {
@@ -41,6 +43,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
     refetchIntervalInBackground: true
   })
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { mutate: mutateRefreshToken } = useMutation({
     mutationFn: ({ dto }: { dto: RefreshTokenRequestDto }) => refresh(dto),
     onSuccess: (data) => {
@@ -53,15 +56,21 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
     }
   })
 
+  // useEffect(() => {
+  //   if (!data?.result.valid)
+  //     mutateRefreshToken({
+  //       dto: {
+  //         accessTokenExpired: token,
+  //         refreshToken: refreshToken || ''
+  //       }
+  //     })
+  // }, [data])
+
   useEffect(() => {
-    if (!data?.result.valid)
-      mutateRefreshToken({
-        dto: {
-          accessTokenExpired: token,
-          refreshToken: refreshToken || ''
-        }
-      })
-  }, [data])
+    if (!token) {
+      handleRedirect(ROUTE.auth.signin)
+    }
+  }, [token, handleRedirect])
 
   return <>{children}</>
 }

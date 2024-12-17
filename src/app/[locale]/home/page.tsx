@@ -6,13 +6,16 @@ import PrivacyModal from '@/components/posts/PrivacyModal'
 import Posts from '@/components/home/Posts'
 import MainLayout from '@/components/layouts/MainLayout'
 import { fakePosts } from '@/mock/posts'
-import { useAppSelector } from '@/utils/store'
+import { RootState, useAppSelector } from '@/utils/store'
 import { Button } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
 import { useState, useEffect } from 'react'
 import { IPost } from '@/types/post'
 import { PostPrivacyEnum } from '@/utils/constant'
 import { DeleteModal } from '@/components/posts/DeleteModal'
+import { useQuery } from '@tanstack/react-query'
+import { usePost } from '@/hooks/usePost'
+import { IconLoader } from '@tabler/icons-react'
 
 const Page = () => {
   const t = useTranslations('title')
@@ -24,7 +27,9 @@ const Page = () => {
   const [selectedPost, setSelectedPost] = useState<IPost | undefined>(undefined)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedPrivacy, setSelectedPrivacy] = useState<PostPrivacyEnum>(PostPrivacyEnum.PUBLIC)
+  const { getNewsfeed } = usePost()
   const user = useAppSelector((state) => state.user)
+  const token = useAppSelector((state: RootState) => state.auth.token)
 
   const [imageUrl, setImageUrl] = useState<string>('')
 
@@ -73,6 +78,11 @@ const Page = () => {
     // Do something later
   }
 
+  const { data: newsfeedData, isLoading: newsfeedLoading } = useQuery({
+    queryKey: ['newsfeed'],
+    queryFn: () => getNewsfeed(token)
+  })
+
   return (
     <MainLayout title={t('home')}>
       <div className="flex w-full flex-col items-center">
@@ -87,12 +97,16 @@ const Page = () => {
             </Button>
           </div>
           <div className="pb-[20px]">
-            <Posts
-              posts={fakePosts}
-              toggleEditPost={(postId) => handleSelectedPost(postId)}
-              toggleSetPrivacyModal={togglePrivacyModal}
-              toggleDeleteModal={toggleDeleteModal}
-            />
+            {newsfeedLoading ? (
+              <IconLoader />
+            ) : (
+              <Posts
+                posts={newsfeedData?.data.result}
+                toggleEditPost={(postId) => handleSelectedPost(postId)}
+                toggleSetPrivacyModal={togglePrivacyModal}
+                toggleDeleteModal={toggleDeleteModal}
+              />
+            )}
           </div>
         </div>
         <PostModal

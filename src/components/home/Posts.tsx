@@ -6,7 +6,7 @@ import PostSkeleton from '../posts/PostSkeleton'
 import { IPost } from '@/types/post'
 
 export interface PostsProps {
-  posts: IPost[]
+  posts: IPost[] | undefined
   toggleEditPost?: (postId: string) => void
   toggleSetPrivacyModal?: () => void
   toggleDeleteModal?: () => void
@@ -38,18 +38,19 @@ const Posts: React.FC<PostsProps> = ({
 
   return (
     <div className="mt-6 flex w-full flex-col items-center gap-4">
-      {posts.map((post) => {
-        return (
-          <Post
-            post={post}
-            variant={POST_VARIANTS.feed}
-            key={post.id}
-            toggleEditModal={() => onEdit(post.id)}
-            togglePrivacyModal={onSetPrivacy}
-            toggleDeleteModal={onDelete}
-          />
-        )
-      })}
+      {posts &&
+        posts.map((post) => {
+          return (
+            <Post
+              post={post}
+              variant={POST_VARIANTS.feed}
+              key={post.id}
+              toggleEditModal={() => onEdit(post.id)}
+              togglePrivacyModal={onSetPrivacy}
+              toggleDeleteModal={onDelete}
+            />
+          )
+        })}
       <PostSkeleton variant={POST_VARIANTS.feed} />
     </div>
   )

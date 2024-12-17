@@ -1,5 +1,9 @@
 import callApi from '@/axios'
-import { CreatePostRequestDto, CreatePostResponseDto } from '@/types/response/post'
+import {
+  CreatePostRequestDto,
+  CreatePostResponseDto,
+  GetNewsfeedResponseDto
+} from '@/types/response/post'
 
 export const usePost = () => {
   const createPost = async (dto: CreatePostRequestDto, token: string) => {
@@ -11,5 +15,14 @@ export const usePost = () => {
     )
   }
 
-  return { createPost }
+  const getNewsfeed = async (token: string) => {
+    return await callApi<never, GetNewsfeedResponseDto>(
+      '/post-service/posts/newsfeed',
+      'GET',
+      undefined,
+      token
+    )
+  }
+
+  return { createPost, getNewsfeed }
 }

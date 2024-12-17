@@ -1,9 +1,7 @@
 import { PostPrivacyEnum, PostTypeEnum } from '@/utils/constant'
-import { IProfile } from '../profile'
 
 export interface IPost {
   id: string
-  user: IProfile
   content: {
     text: string
     imageUrls: string[]
@@ -20,4 +18,9 @@ export interface IPost {
   type: PostTypeEnum
   createdAt: Date
   updatedAt: Date
+  profileId: string
+  profileName: string
+  avatarUrl: string
+  trendingPoint: number
+  hidden: boolean
 }
