@@ -29,7 +29,6 @@ export const landingPost = {
     dob: new Date('1900/01/01'),
     shortDescription: 'string',
     fullDescription: 'string',
-    avtUrl: LandingAvatar.src,
     firstName: 'GspaceZ',
     lastName: 'User'
   },
@@ -48,5 +47,10 @@ export const landingPost = {
   location: '',
   type: PostTypeEnum.USER,
   createdAt: new Date('2024/06/01'),
-  updatedAt: new Date('2024/06/01')
+  updatedAt: new Date('2024/06/01'),
+  profileId: '123',
+  profileName: 'Dung Tran',
+  trendingPoint: 0,
+  avatarUrl: LandingAvatar.src,
+  hidden: false
 }
