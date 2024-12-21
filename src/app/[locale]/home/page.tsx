@@ -103,7 +103,7 @@ const Page = () => {
                 {Array(4)
                   .fill(0)
                   .map((_, index) => (
-                    <div key={index}>
+                    <div key={index} className="flex w-full justify-center">
                       <PostSkeleton variant={POST_VARIANTS.feed} />
                     </div>
                   ))}
