@@ -10,12 +10,16 @@ import { ROUTE } from '@/utils/constant/route'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import Logo from '@/public/logo.png'
 import { FLink } from '@/components/common/FLink'
+import { LocaleButton } from '@/components/layouts/LocaleButton'
 
 export default function Home() {
   const t = useTranslations('landing')
 
   return (
     <BlankLayout>
+      <div className="mt-4 flex w-full justify-end">
+        <LocaleButton />
+      </div>
       <div className="flex h-screen flex-col-reverse justify-end md:flex-col md:justify-start">
         <div className="mt-[80px] flex flex-col gap-4 text-center text-3xl font-bold text-gray-700 md:text-4xl">
           <span>{t('text_1')}</span>

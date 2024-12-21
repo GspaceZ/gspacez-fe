@@ -73,8 +73,10 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
   useEffect(() => {
     if (!token) {
       handleRedirect(ROUTE.auth.signin)
+    } else {
+      handleRedirect(ROUTE.pages.home)
     }
-  }, [token, handleRedirect])
+  }, [token])
 
   return <>{children}</>
 }
