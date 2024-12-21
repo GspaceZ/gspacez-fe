@@ -76,6 +76,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
     } else {
       handleRedirect(ROUTE.pages.home)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
 
   return <>{children}</>
