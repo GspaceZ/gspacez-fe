@@ -60,7 +60,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
   })
 
   useEffect(() => {
-    if (!data?.result.valid)
+    if (data?.result.valid === false)
       mutateRefreshToken({
         dto: {
           accessTokenExpired: token,
