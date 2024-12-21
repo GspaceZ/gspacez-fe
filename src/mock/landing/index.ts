@@ -41,5 +41,6 @@ export const landingPost: IPost = {
   profileName: 'Dung Tran',
   trendingPoint: 0,
   avatarUrl: LandingAvatar.src,
-  hidden: false
+  hidden: false,
+  hashTags: []
 }
