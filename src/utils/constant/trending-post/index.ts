@@ -25,7 +25,8 @@ export const trendingPostsData: IPost[] = [
     profileName: '',
     avatarUrl: '',
     trendingPoint: 0,
-    hidden: false
+    hidden: false,
+    hashTags: []
   },
   {
     id: '2',
@@ -49,7 +50,8 @@ export const trendingPostsData: IPost[] = [
     profileName: '',
     avatarUrl: '',
     trendingPoint: 0,
-    hidden: false
+    hidden: false,
+    hashTags: []
   },
   {
     id: '3',
@@ -73,7 +75,8 @@ export const trendingPostsData: IPost[] = [
     profileName: '',
     avatarUrl: '',
     trendingPoint: 0,
-    hidden: false
+    hidden: false,
+    hashTags: []
   }
 ]
 
