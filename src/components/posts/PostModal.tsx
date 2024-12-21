@@ -66,15 +66,18 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
   const [isPrivacyOn, setIsPrivacyOn] = useState<boolean>(!!post?.privacy)
   const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([])
   const { createPost } = usePost()
+
+  console.log(post)
+
   const { register, reset, setValue, getValues } = useForm<PostForm>({
     defaultValues: {
-      text: null,
-      imageUrls: [],
-      videoUrls: [],
-      feeling: null,
-      hashTags: [],
-      privacy: 'public',
-      location: null
+      text: post?.content.text || null,
+      imageUrls: post?.content.imageUrls || [],
+      videoUrls: post?.content.videoUrls || [],
+      feeling: post?.content.feeling || null,
+      hashTags: post?.hashTags || [],
+      privacy: post?.privacy || 'public',
+      location: post?.location || null
     }
   })
   const { uploadMedia } = useCloudinary()
@@ -85,14 +88,14 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
 
     const imageFiles =
       post.content.imageUrls?.map((url: string) => ({
-        file: new File([], ''),
+        file: new File([], '', { type: 'image/*' }),
         url,
         preview: url
       })) ?? []
 
     const videoFiles =
       post.content.videoUrls?.map((url: string) => ({
-        file: new File([], ''),
+        file: new File([], '', { type: 'video/*' }),
         url,
         preview: url
       })) ?? []
@@ -202,9 +205,27 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
       })
   }
 
+  useEffect(() => {
+    reset({
+      text: post?.content.text || null,
+      imageUrls: post?.content.imageUrls || [],
+      videoUrls: post?.content.videoUrls || [],
+      feeling: post?.content.feeling || null,
+      hashTags: post?.hashTags || [],
+      privacy: post?.privacy || 'public',
+      location: post?.location || null
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [post?.id])
+
+  const closeModal = () => {
+    setMediaFiles([])
+    closePost()
+  }
+
   return (
     <>
-      <Modal size="3xl" isOpen={isOpen} onClose={closePost}>
+      <Modal size="3xl" isOpen={isOpen} onClose={closeModal}>
         <ModalContent>
           <div>
             <div>
@@ -318,7 +339,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
               size="sm"
               className="text-md"
               disabled={isCreatePostPending || isUploadMediaPending}
-              onPress={closePost}
+              onPress={closeModal}
             >
               {t('cancel')}
             </Button>

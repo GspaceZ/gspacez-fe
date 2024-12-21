@@ -1,7 +1,7 @@
 'use client'
 
 import { GroupInfo } from '@/components/group/GroupInfo'
-import Posts from '@/components/home/Posts'
+import Posts from '@/components/posts/Posts'
 import MainLayout from '@/components/layouts/MainLayout'
 import PostModal from '@/components/posts/PostModal'
 import PrivacyModal from '@/components/posts/PrivacyModal'

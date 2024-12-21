@@ -3,9 +3,8 @@
 import FImage from '@/components/common/FImage'
 import PostModal from '@/components/posts/PostModal'
 import PrivacyModal from '@/components/posts/PrivacyModal'
-import Posts from '@/components/home/Posts'
+import Posts from '@/components/posts/Posts'
 import MainLayout from '@/components/layouts/MainLayout'
-import { fakePosts } from '@/mock/posts'
 import { RootState, useAppSelector } from '@/utils/store'
 import { Button } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
@@ -34,6 +33,11 @@ const Page = () => {
 
   const [imageUrl, setImageUrl] = useState<string>('')
 
+  const { data: newsfeedData, isLoading: newsfeedLoading } = useQuery({
+    queryKey: ['newsfeed'],
+    queryFn: () => getNewsfeed(token)
+  })
+
   useEffect(() => {
     setImageUrl(
       user.avtUrl ||
@@ -42,7 +46,7 @@ const Page = () => {
   }, [user.avtUrl])
 
   const getPostById = (postId: string): IPost => {
-    const post = fakePosts.find((post) => post.id === postId)
+    const post = newsfeedData?.data.result.find((post) => post.id === postId)
     if (!post) {
       throw new Error(`Post with ID ${postId} not found`)
     }
@@ -78,11 +82,6 @@ const Page = () => {
   const handleDelete = () => {
     // Do something later
   }
-
-  const { data: newsfeedData, isLoading: newsfeedLoading } = useQuery({
-    queryKey: ['newsfeed'],
-    queryFn: () => getNewsfeed(token)
-  })
 
   return (
     <MainLayout title={t('home')}>

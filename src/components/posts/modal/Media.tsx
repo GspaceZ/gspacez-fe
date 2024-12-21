@@ -1,5 +1,6 @@
 import { MediaFile } from '@/types/props/common'
-import { Image } from '@nextui-org/react'
+import { Button, Image } from '@nextui-org/react'
+import { IconX } from '@tabler/icons-react'
 
 interface MediaProps {
   file: MediaFile
@@ -23,12 +24,9 @@ const Media: React.FC<MediaProps> = ({ file, handleRemoveFile }) => {
           className="h-[80px] w-[100px] rounded-lg border border-gray-300"
         />
       )}
-      <button
-        onClick={() => handleRemoveFile(file.url)}
-        className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200"
-      >
-        <span className="text-sm">&times;</span>
-      </button>
+      <Button isIconOnly size="sm" onPress={() => handleRemoveFile(file.url)}>
+        <IconX size={12} />
+      </Button>
     </div>
   )
 }
