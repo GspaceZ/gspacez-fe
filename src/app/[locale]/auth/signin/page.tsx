@@ -98,7 +98,6 @@ const Page: React.FC = () => {
       return
     }
     const { code, result } = getProfileRes
-    console.log(getProfileRes)
     switch (code) {
       case RESPONSE_CODES.SUCCESS:
         return result

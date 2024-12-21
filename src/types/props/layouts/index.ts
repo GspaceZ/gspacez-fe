@@ -1,4 +1,3 @@
-import { IPost } from '@/types/post'
 import { IProfile } from '@/types/profile'
 import { ReactNode } from 'react'
 
@@ -22,7 +21,6 @@ export interface MainLayoutProps {
 }
 
 export interface TrendingSidebarProps {
-  posts: IPost[]
   trendingPeople: IProfile[]
   isVisible: boolean
 }

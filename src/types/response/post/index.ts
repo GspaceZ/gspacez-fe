@@ -39,3 +39,9 @@ export type GetNewsfeedResponseDto = {
   message: string
   result: IPost[]
 }
+
+export type GetTrendingPostsResponseDto = {
+  code: number
+  message: string
+  result: IPost[]
+}

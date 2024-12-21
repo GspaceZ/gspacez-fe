@@ -2,7 +2,8 @@ import callApi from '@/axios'
 import {
   CreatePostRequestDto,
   CreatePostResponseDto,
-  GetNewsfeedResponseDto
+  GetNewsfeedResponseDto,
+  GetTrendingPostsResponseDto
 } from '@/types/response/post'
 
 export const usePost = () => {
@@ -24,5 +25,14 @@ export const usePost = () => {
     )
   }
 
-  return { createPost, getNewsfeed }
+  const getTrendingPosts = async (token: string) => {
+    return await callApi<never, GetTrendingPostsResponseDto>(
+      '/post-service/posts/trending-posts',
+      'GEt',
+      undefined,
+      token
+    )
+  }
+
+  return { createPost, getNewsfeed, getTrendingPosts }
 }
