@@ -40,7 +40,9 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
   const { data } = useQuery({
     queryKey: ['verify'],
     queryFn: () => {
-      return verifyToken({ token })
+      if (token) {
+        return verifyToken({ token })
+      }
     },
     refetchInterval: 30000,
     refetchIntervalInBackground: true

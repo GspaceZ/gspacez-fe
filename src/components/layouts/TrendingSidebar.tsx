@@ -10,9 +10,16 @@ import { fullName } from '@/helpers/user/full-name'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import { IconBell, IconSend, IconSettings, IconTrendingUp } from '@tabler/icons-react'
 import { FLink } from '../common/FLink'
+import { useQuery } from '@tanstack/react-query'
+import PostSkeleton from '../posts/PostSkeleton'
+import { usePost } from '@/hooks/usePost'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/utils/store'
 
-const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarProps) => {
+const TrendingSidebar = ({ trendingPeople, isVisible }: TrendingSidebarProps) => {
   const t = useTranslations('trending_posts')
+  const token = useSelector((state: RootState) => state.auth.token)
+  const { getTrendingPosts } = usePost()
 
   const handleSelectedPost = () => {
     // handle
@@ -49,6 +56,11 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
     }
   ]
 
+  const { data: trendingPostsData, isLoading: isTrendingPostsLoading } = useQuery({
+    queryKey: ['trending-posts'],
+    queryFn: () => getTrendingPosts(token)
+  })
+
   return (
     <div
       className={`fixed bottom-0 right-0 h-[88vh] w-[100vw] transform overflow-y-auto border-l border-none border-gray-300 bg-white pb-[12vh] shadow-lg transition-transform duration-300 ease-in-out ${
@@ -65,15 +77,19 @@ const TrendingSidebar = ({ posts, trendingPeople, isVisible }: TrendingSidebarPr
           </FLink>
         </div>
         <div>
-          {posts.map((post, index) => (
-            <Post
-              key={index}
-              post={post}
-              variant={POST_VARIANTS.sidebar}
-              toggleEditModal={() => handleSelectedPost}
-              togglePrivacyModal={() => setPrivacy}
-            />
-          ))}
+          {isTrendingPostsLoading ? (
+            <PostSkeleton variant={POST_VARIANTS.sidebar} />
+          ) : (
+            trendingPostsData?.data.result.map((post, index) => (
+              <Post
+                key={index}
+                post={post}
+                variant={POST_VARIANTS.sidebar}
+                toggleEditModal={() => handleSelectedPost}
+                togglePrivacyModal={() => setPrivacy}
+              />
+            ))
+          )}
         </div>
         <div className="mt-[50px] flex justify-between px-4 py-5 lg:border lg:border-gray-300">
           <span className="p-1 text-xl font-bold">{t('trending_people')}</span>

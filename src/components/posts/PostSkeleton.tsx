@@ -10,47 +10,52 @@ interface PostSkeletonProps {
 const PostSkeleton: React.FC<PostSkeletonProps> = ({ variant }) => {
   return (
     <div
-      className={`w-full border border-gray-200 flex-col ${
+      className={`w-full flex-col border border-gray-200 ${
         variant === POST_VARIANTS.feed
           ? 'max-w-[600px] rounded-lg bg-white'
           : variant === POST_VARIANTS.sidebar
-          ? 'max-w-[448px] rounded-lg min-h-[220px] drop-shadow-md'
-          : 'hidden'
+            ? 'min-h-[100px] max-w-[448px] rounded-lg drop-shadow-md'
+            : 'hidden'
       }`}
     >
       <div
-        className={`mx-3 md:mx-6 mt-4 flex flex-col items-start ${
+        className={`mx-3 mt-4 flex flex-col items-start md:mx-6 ${
           variant === POST_VARIANTS.sidebar ? 'gap-1' : 'gap-5'
         }`}
       >
-        <div className="flex justify-between w-full items-start">
-          <div className="flex gap-2 items-center">
-            <Skeleton className="w-10 h-10 rounded-full" />
-            <div className="flex flex-col gap-2 justify-start">
-              <Skeleton className="w-[120px] h-4 rounded-full" />
-              <Skeleton className="w-[60px] h-3 rounded-full" />
+        <div className="flex w-full items-start justify-between">
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-10 w-10 rounded-full" />
+            <div className="flex flex-col justify-start gap-2">
+              <Skeleton className="h-4 w-[120px] rounded-full" />
+              <Skeleton className="h-3 w-[60px] rounded-full" />
             </div>
           </div>
-          <Skeleton className="w-10 h-10 rounded-full" />
+          {variant !== POST_VARIANTS.sidebar && <Skeleton className="h-10 w-10 rounded-full" />}
         </div>
-        <div className="flex flex-col gap-2 w-full">
-          <Skeleton className="w-2/3 h-6 rounded-full" />
-          <Skeleton className="w-1/3 h-4 rounded-full" />
+        <div className="flex w-full flex-col gap-2">
+          <Skeleton className="h-6 w-2/3 rounded-full" />
+          {variant !== POST_VARIANTS.sidebar && <Skeleton className="h-4 w-1/3 rounded-full" />}
         </div>
-        <Skeleton className="w-full h-[400px] rounded-lg" />
-        <div className="w-full h-[48px] border-t border-gray-200 items-center flex justify-between">
-          <Skeleton
-            className={`w-[80px] h-6 rounded-lg ${
-              variant === POST_VARIANTS.feed ? 'md:ml-10' : ''
-            }`}
-          />
-          <Skeleton className="w-[80px] h-6 rounded-lg" />
-          <Skeleton
-            className={`w-[80px] h-6 rounded-lg ${
-              variant === POST_VARIANTS.feed ? 'md:mr-10' : ''
-            }`}
-          />
-        </div>
+
+        {variant !== POST_VARIANTS.sidebar && (
+          <>
+            <Skeleton className="h-[400px] w-full rounded-lg" />
+            <div className="flex h-[48px] w-full items-center justify-between border-t border-gray-200">
+              <Skeleton
+                className={`h-6 w-[80px] rounded-lg ${
+                  variant === POST_VARIANTS.feed ? 'md:ml-10' : ''
+                }`}
+              />
+              <Skeleton className="h-6 w-[80px] rounded-lg" />
+              <Skeleton
+                className={`h-6 w-[80px] rounded-lg ${
+                  variant === POST_VARIANTS.feed ? 'md:mr-10' : ''
+                }`}
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   )

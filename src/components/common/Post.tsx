@@ -169,7 +169,9 @@ const Post: React.FC<PostProps> = ({
                 </div>
               </div>
             </div>
-            <span className={`${content.isBigContent ? 'text-2xl' : 'text-xl'}`}>
+            <span
+              className={`${variant === POST_VARIANTS.sidebar ? 'text-md' : content.isBigContent ? 'text-2xl' : 'text-xl'}`}
+            >
               {content.shortContent}
             </span>
             <Button

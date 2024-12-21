@@ -4,7 +4,7 @@ import * as React from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import TrendingSidebar from './TrendingSidebar'
-import { trendingPostsData, trendingPeopleData } from '@/utils/constant/trending-post/index'
+import { trendingPeopleData } from '@/utils/constant/trending-post/index'
 import ButtonOption from '@/components/trending-post/button-option'
 import { useState } from 'react'
 import Overlay from '../common/Overlay'
@@ -74,7 +74,6 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
               {children}
             </main>
             <TrendingSidebar
-              posts={trendingPostsData}
               trendingPeople={trendingPeopleData}
               isVisible={isTrendingSidebarOpen}
             />
