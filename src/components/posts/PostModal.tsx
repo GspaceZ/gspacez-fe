@@ -27,10 +27,11 @@ import { usePost } from '@/hooks/usePost'
 import { useMutation } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/utils/store'
-import { CreatePostRequestDto } from '@/types/response/post'
+import { CreatePostRequestDto, UpdatePostRequestDto } from '@/types/response/post'
 import { fToast } from '@/helpers/toast'
 import { useForm } from 'react-hook-form'
 import { useCloudinary } from '@/hooks/useCloudinary'
+import { checkCloudFile } from '@/helpers/media/check-cloud-file'
 
 export interface PostModalProps {
   user: IProfile
@@ -54,8 +55,6 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
 
   const privacyOptions = Object.values(PostPrivacyEnum)
 
-  const isEditPost = !!post
-
   const token = useSelector((state: RootState) => state.auth.token)
 
   const [tags, setTags] = useState<string[]>(post?.content.tag ?? [])
@@ -65,16 +64,19 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
   const [isTagOn, setIsTagOn] = useState<boolean>(false)
   const [isPrivacyOn, setIsPrivacyOn] = useState<boolean>(!!post?.privacy)
   const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([])
-  const { createPost } = usePost()
+  const { createPost, updatePost } = usePost()
+
+  console.log(post)
+
   const { register, reset, setValue, getValues } = useForm<PostForm>({
     defaultValues: {
-      text: null,
-      imageUrls: [],
-      videoUrls: [],
-      feeling: null,
-      hashTags: [],
-      privacy: 'public',
-      location: null
+      text: post?.content.text || null,
+      imageUrls: post?.content.imageUrls || [],
+      videoUrls: post?.content.videoUrls || [],
+      feeling: post?.content.feeling || null,
+      hashTags: post?.hashTags || [],
+      privacy: post?.privacy || 'public',
+      location: post?.location || null
     }
   })
   const { uploadMedia } = useCloudinary()
@@ -85,14 +87,14 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
 
     const imageFiles =
       post.content.imageUrls?.map((url: string) => ({
-        file: new File([], ''),
+        file: new File([], '', { type: 'image/*' }),
         url,
         preview: url
       })) ?? []
 
     const videoFiles =
       post.content.videoUrls?.map((url: string) => ({
-        file: new File([], ''),
+        file: new File([], '', { type: 'video/*' }),
         url,
         preview: url
       })) ?? []
@@ -147,35 +149,52 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
     setMediaFiles((prevFiles) => prevFiles.filter((file) => file.url !== url))
   }
 
-  const handleSave = () => {
-    // handle edit post
-  }
-
   const { isPending: isCreatePostPending, mutate: mutateCreatePost } = useMutation({
     mutationFn: ({ dto, token }: { dto: CreatePostRequestDto; token: string }) =>
       createPost(dto, token),
     onSuccess: () => {
       fToast('Create post successfully', 'success')
-      closePost()
+      closeModal()
     },
     onError: () => {
       fToast('Create post unsucessfully', 'failed')
     }
   })
 
-  const handleCreatePost = async () => {
+  const { isPending: isUpdatePostPending, mutate: mutateUpdatePost } = useMutation({
+    mutationFn: ({ id, dto, token }: { id: string; dto: UpdatePostRequestDto; token: string }) =>
+      updatePost(id, dto, token),
+    onSuccess: () => {
+      fToast('Update post successfully', 'success')
+      closeModal()
+    },
+    onError: () => {
+      fToast('Create post failed', 'failed')
+    }
+  })
+
+  const handleSave = async () => {
     setIsUploadMediaPending(true)
+    setValue('imageUrls', [])
+    setValue('videoUrls', [])
 
     const promises = mediaFiles.map((file) => {
       return new Promise<void>((resolve) => {
         // eslint-disable-next-line no-extra-semi
         ;(async () => {
           const type = file.file.type.split('/')[0]
-          const data = await uploadMedia(file.file, type)
+          const generateMediaUrl = async () => {
+            if (checkCloudFile(file)) {
+              return file.url
+            }
+            const data = await uploadMedia(file.file, type)
+            return data.secure_url
+          }
+          const url = await generateMediaUrl()
           if (type === 'image') {
-            setValue('imageUrls', [...(getValues('imageUrls') || []), data.secure_url])
+            setValue('imageUrls', [...(getValues('imageUrls') || []), url])
           } else {
-            setValue('videoUrls', [...(getValues('videoUrls') || []), data.secure_url])
+            setValue('videoUrls', [...(getValues('videoUrls') || []), url])
           }
           resolve()
         })()
@@ -193,7 +212,11 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
           privacy: getValues('privacy'),
           location: getValues('location')
         }
-        mutateCreatePost({ dto, token })
+        if (!post?.id) {
+          mutateCreatePost({ dto, token })
+        } else {
+          mutateUpdatePost({ id: post.id, dto, token })
+        }
         reset()
         setMediaFiles([])
       })
@@ -202,9 +225,39 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
       })
   }
 
+  useEffect(() => {
+    reset({
+      text: post?.content.text || null,
+      imageUrls: post?.content.imageUrls || [],
+      videoUrls: post?.content.videoUrls || [],
+      feeling: post?.content.feeling || null,
+      hashTags: post?.hashTags || [],
+      privacy: post?.privacy || 'public',
+      location: post?.location || null
+    })
+    if (post?.hashTags && post.hashTags.length > 0) {
+      setIsTagOn(true)
+    }
+    if (post?.content.feeling) {
+      setIsFeelingOn(true)
+    }
+    if (post?.privacy) {
+      setIsPrivacyOn(true)
+    }
+    if (post?.location) {
+      setIsLocationOn(true)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [post])
+
+  const closeModal = () => {
+    setMediaFiles([])
+    closePost()
+  }
+
   return (
     <>
-      <Modal size="3xl" isOpen={isOpen} onClose={closePost}>
+      <Modal size="3xl" isOpen={isOpen} onClose={closeModal}>
         <ModalContent>
           <div>
             <div>
@@ -317,8 +370,8 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
               color="default"
               size="sm"
               className="text-md"
-              disabled={isCreatePostPending || isUploadMediaPending}
-              onPress={closePost}
+              disabled={isCreatePostPending || isUploadMediaPending || isUpdatePostPending}
+              onPress={closeModal}
             >
               {t('cancel')}
             </Button>
@@ -326,10 +379,10 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
               color="primary"
               size="sm"
               className="text-md"
-              onPress={isEditPost ? handleSave : handleCreatePost}
-              isLoading={isCreatePostPending || isUploadMediaPending}
+              onPress={handleSave}
+              isLoading={isCreatePostPending || isUploadMediaPending || isUpdatePostPending}
             >
-              {isEditPost ? t('save') : t('post')}
+              {post?.id ? t('update') : t('post')}
             </Button>
           </ModalFooter>
         </ModalContent>

@@ -3,7 +3,9 @@ import {
   CreatePostRequestDto,
   CreatePostResponseDto,
   GetNewsfeedResponseDto,
-  GetTrendingPostsResponseDto
+  GetTrendingPostsResponseDto,
+  UpdatePostRequestDto,
+  UpdatePostResponseDto
 } from '@/types/response/post'
 
 export const usePost = () => {
@@ -28,11 +30,20 @@ export const usePost = () => {
   const getTrendingPosts = async (token: string) => {
     return await callApi<never, GetTrendingPostsResponseDto>(
       '/post-service/posts/trending-posts',
-      'GEt',
+      'GET',
       undefined,
       token
     )
   }
 
-  return { createPost, getNewsfeed, getTrendingPosts }
+  const updatePost = async (id: string, dto: UpdatePostRequestDto, token: string) => {
+    return await callApi<UpdatePostRequestDto, UpdatePostResponseDto>(
+      `/post-service/posts/update/${id}`,
+      'PUT',
+      dto,
+      token
+    )
+  }
+
+  return { createPost, getNewsfeed, getTrendingPosts, updatePost }
 }

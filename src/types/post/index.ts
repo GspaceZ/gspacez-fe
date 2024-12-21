@@ -23,4 +23,5 @@ export interface IPost {
   avatarUrl: string
   trendingPoint: number
   hidden: boolean
+  hashTags: string[]
 }

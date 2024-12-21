@@ -19,7 +19,7 @@ import {
   IconStarFilled
 } from '@tabler/icons-react'
 
-export interface PostProps {
+interface PostProps {
   post: IPost
   variant?: POST_VARIANTS
   toggleEditModal?: () => void

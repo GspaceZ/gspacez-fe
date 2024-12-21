@@ -31,7 +31,7 @@
     },
     "modal": {
       "cancel": "Cancel",
-      "save": "Save",
+      "update": "Update",
       "post": "Post",
       "tags": "Tags",
       "location": "Location:",

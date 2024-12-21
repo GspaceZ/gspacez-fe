@@ -24,7 +24,8 @@ export const fakePosts: IPost[] = [
     profileName: '',
     avatarUrl: '',
     trendingPoint: 0,
-    hidden: false
+    hidden: false,
+    hashTags: []
   },
   {
     id: '2',
@@ -53,7 +54,8 @@ export const fakePosts: IPost[] = [
     profileName: '',
     avatarUrl: '',
     trendingPoint: 0,
-    hidden: false
+    hidden: false,
+    hashTags: []
   },
   {
     id: '4',
@@ -81,6 +83,7 @@ export const fakePosts: IPost[] = [
     profileName: '',
     avatarUrl: '',
     trendingPoint: 0,
-    hidden: false
+    hidden: false,
+    hashTags: []
   }
 ]
