@@ -242,6 +242,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
                     placeholder={t('placeholder')}
                     minRows={6}
                     defaultValue={getValues('text') || ''}
+                    defaultValue={getValues('text') || ''}
                   />
                   <div className="mt-2 flex w-full flex-wrap gap-2">
                     {mediaFiles.map((mediaFile) => (
