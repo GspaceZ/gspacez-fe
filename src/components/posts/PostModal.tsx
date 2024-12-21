@@ -220,6 +220,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
                     className="border-b-none w-full text-lg"
                     placeholder={t('placeholder')}
                     minRows={6}
+                    defaultValue={getValues('text') || ''}
                   />
                   <div className="mt-2 flex w-full flex-wrap gap-2">
                     {mediaFiles.map((mediaFile) => (
@@ -229,35 +230,35 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
                     ))}
                   </div>
                   <div className="mt-4 flex w-fit flex-wrap gap-4 rounded-xl bg-gray-100 px-2 py-1">
-                    <Button isIconOnly className="bg-gray-100" onClick={openFileDialog}>
+                    <Button isIconOnly className="bg-gray-100" onPress={openFileDialog}>
                       <IconPhotoScan className="h-5 w-5" />
                     </Button>
                     <input {...inputProps} />
                     <Button
                       isIconOnly
                       className="bg-gray-100"
-                      onClick={() => setIsLocationOn((prev) => !prev)}
+                      onPress={() => setIsLocationOn((prev) => !prev)}
                     >
                       <IconMapPin className="h-5 w-5" />
                     </Button>
                     <Button
                       isIconOnly
                       className="bg-gray-100"
-                      onClick={() => setIsFeelingOn((prev) => !prev)}
+                      onPress={() => setIsFeelingOn((prev) => !prev)}
                     >
                       <IconMoodHappy className="h-5 w-5" />
                     </Button>
                     <Button
                       isIconOnly
                       className="bg-gray-100"
-                      onClick={() => setIsTagOn((prev) => !prev)}
+                      onPress={() => setIsTagOn((prev) => !prev)}
                     >
                       <IconHash className="h-5 w-5" />
                     </Button>
                     <Button
                       isIconOnly
                       className="bg-gray-100"
-                      onClick={() => setIsPrivacyOn((prev) => !prev)}
+                      onPress={() => setIsPrivacyOn((prev) => !prev)}
                     >
                       <IconLock className="h-5 w-5" />
                     </Button>
@@ -317,7 +318,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
               size="sm"
               className="text-md"
               disabled={isCreatePostPending || isUploadMediaPending}
-              onClick={closePost}
+              onPress={closePost}
             >
               {t('cancel')}
             </Button>
@@ -325,7 +326,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
               color="primary"
               size="sm"
               className="text-md"
-              onClick={isEditPost ? handleSave : handleCreatePost}
+              onPress={isEditPost ? handleSave : handleCreatePost}
               isLoading={isCreatePostPending || isUploadMediaPending}
             >
               {isEditPost ? t('save') : t('post')}
