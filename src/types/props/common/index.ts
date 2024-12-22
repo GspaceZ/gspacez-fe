@@ -16,13 +16,15 @@ export interface ShowPasswordProps {
 
 export interface FCarouselItemProps {
   id: string
-  mediaUrl: string
+  url: string
   type: string
+  error?: boolean
 }
 
 export interface FVideoProps {
   src: string
   className?: string
+  onError: () => void
 }
 
 export interface MediaFile {

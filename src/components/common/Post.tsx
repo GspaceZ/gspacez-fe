@@ -6,7 +6,7 @@ import * as React from 'react'
 import { formattedContent } from '@/helpers/post/formatted-content'
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FCarouselItemProps } from '@/types/props/common'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import FCarousel from './FCarousel'
@@ -39,6 +39,7 @@ const Post: React.FC<PostProps> = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
+  const [mediaFiles, setMediaFiles] = useState<FCarouselItemProps[]>([])
 
   const content = formattedContent(post)
 
@@ -68,39 +69,48 @@ const Post: React.FC<PostProps> = ({
     }
   }
 
-  const items: FCarouselItemProps[] = [
-    {
-      id: '1',
-      mediaUrl:
-        'https://res.cloudinary.com/dszkt92jr/image/upload/v1721463934/fgcnetakyb8nibeqr9do.png',
-      type: 'image'
-    },
-    {
-      id: '2',
-      mediaUrl:
-        'https://res.cloudinary.com/dszkt92jr/video/upload/v1721473062/Screencast_from_18-07-2024_15_42_45_nxip2u.mp4',
-      type: 'video'
-    }
-  ]
-
   const postOptions = [
     {
       label: t('options.hide'),
-      onClick: togglePost
+      onPress: togglePost
     },
     {
       label: t('options.privacy'),
-      onClick: setPrivacy
+      onPress: setPrivacy
     },
     {
       label: t('options.edit'),
-      onClick: toggleEditPost
+      onPress: toggleEditPost
     },
     {
       label: t('options.delete'),
-      onClick: deletePost
+      onPress: deletePost
     }
   ]
+
+  useEffect(() => {
+    const imageFiles = post.content.imageUrls
+      ? post.content.imageUrls.map((url) => {
+          return {
+            url,
+            id: url,
+            type: 'image'
+          }
+        })
+      : []
+
+    const videoFiles = post.content.videoUrls
+      ? post.content.videoUrls.map((url) => {
+          return {
+            url,
+            id: url,
+            type: 'video'
+          }
+        })
+      : []
+
+    setMediaFiles([...imageFiles, ...videoFiles])
+  }, [post])
 
   return (
     <>
@@ -108,7 +118,7 @@ const Post: React.FC<PostProps> = ({
         <div className="w-full max-w-[600px] rounded-lg border border-gray-200 bg-white">
           <div className="mx-3 my-2 flex flex-col">
             <span>{t('toggle.hide')}</span>
-            <Button onClick={() => togglePost()}>{t('toggle.restore')}</Button>
+            <Button onPress={() => togglePost()}>{t('toggle.restore')}</Button>
           </div>
         </div>
       ) : (
@@ -142,14 +152,14 @@ const Post: React.FC<PostProps> = ({
                       isIconOnly
                       className={`${variant === POST_VARIANTS.sidebar ? 'hidden' : 'text-2xl'}`}
                       variant="light"
-                      onClick={() => toggleMenu()}
+                      onPress={() => toggleMenu()}
                     >
                       <IconDotsCircleHorizontal />
                     </Button>
                   </DropdownTrigger>
                   <DropdownMenu>
                     {postOptions.map((option) => (
-                      <DropdownItem key={option.label} onClick={option.onClick}>
+                      <DropdownItem key={option.label} onPress={option.onPress}>
                         {option.label}
                       </DropdownItem>
                     ))}
@@ -182,7 +192,7 @@ const Post: React.FC<PostProps> = ({
             >
               {t('read_more')}
             </Button>
-            {variant === POST_VARIANTS.feed && <FCarousel items={items} />}
+            {variant === POST_VARIANTS.feed && <FCarousel items={mediaFiles} />}
           </div>
           <div
             className={`flex h-[48px] w-full items-center justify-between border-t border-gray-200 ${
@@ -195,7 +205,7 @@ const Post: React.FC<PostProps> = ({
               className={`text-base font-semibold ${isLiked ? 'text-yellow-500' : ''} ${
                 variant === POST_VARIANTS.feed ? 'md:ml-10' : ''
               }`}
-              onClick={() => {
+              onPress={() => {
                 setIsLiked(!isLiked)
               }}
             >
