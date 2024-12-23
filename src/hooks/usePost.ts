@@ -45,5 +45,9 @@ export const usePost = () => {
     )
   }
 
-  return { createPost, getNewsfeed, getTrendingPosts, updatePost }
+  const reactPost = async () => {
+    return null
+  }
+
+  return { createPost, getNewsfeed, getTrendingPosts, updatePost, reactPost }
 }

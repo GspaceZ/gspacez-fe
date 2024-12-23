@@ -11,13 +11,8 @@ import { FCarouselItemProps } from '@/types/props/common'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import FCarousel from './FCarousel'
 import { IPost } from '@/types/post'
-import {
-  IconDotsCircleHorizontal,
-  IconMessage,
-  IconShare3,
-  IconStar,
-  IconStarFilled
-} from '@tabler/icons-react'
+import { IconDotsCircleHorizontal, IconMessage, IconShare3 } from '@tabler/icons-react'
+import { PostReacts } from '../posts/PostReacts'
 
 interface PostProps {
   post: IPost
@@ -38,7 +33,6 @@ const Post: React.FC<PostProps> = ({
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
-  const [isLiked, setIsLiked] = useState(false)
   const [mediaFiles, setMediaFiles] = useState<FCarouselItemProps[]>([])
 
   const content = formattedContent(post)
@@ -199,18 +193,7 @@ const Post: React.FC<PostProps> = ({
               variant === POST_VARIANTS.sidebar ? 'hidden' : ''
             }`}
           >
-            <Button
-              variant="light"
-              startContent={isLiked ? <IconStarFilled /> : <IconStar />}
-              className={`text-base font-semibold ${isLiked ? 'text-yellow-500' : ''} ${
-                variant === POST_VARIANTS.feed ? 'md:ml-10' : ''
-              }`}
-              onPress={() => {
-                setIsLiked(!isLiked)
-              }}
-            >
-              {t('like')}
-            </Button>
+            <PostReacts variant={variant} />
             <Button
               variant="light"
               startContent={<IconMessage />}
