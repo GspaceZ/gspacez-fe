@@ -79,3 +79,8 @@ export type UpdatePostResponseDto = {
   updatedAt: Date
   hidden: boolean
 }
+
+export type DeletePostResponseDto = {
+  code: number
+  message: string
+}

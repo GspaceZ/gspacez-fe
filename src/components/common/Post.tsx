@@ -13,6 +13,11 @@ import FCarousel from './FCarousel'
 import { IPost } from '@/types/post'
 import { IconDotsCircleHorizontal, IconMessage, IconShare3 } from '@tabler/icons-react'
 import { PostReacts } from '../posts/PostReacts'
+import { useMutation } from '@tanstack/react-query'
+import { fToast } from '@/helpers/toast'
+import { usePost } from '@/hooks/usePost'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/utils/store'
 
 interface PostProps {
   post: IPost
@@ -22,20 +27,28 @@ interface PostProps {
   toggleDeleteModal?: () => void
 }
 
-const Post: React.FC<PostProps> = ({
-  post,
-  variant,
-  toggleEditModal,
-  togglePrivacyModal,
-  toggleDeleteModal
-}) => {
+const Post: React.FC<PostProps> = ({ post, variant, toggleEditModal, togglePrivacyModal }) => {
   const t = useTranslations('post')
+
+  const token = useSelector((state: RootState) => state.auth.token)
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
   const [mediaFiles, setMediaFiles] = useState<FCarouselItemProps[]>([])
+  const { deletePost } = usePost()
 
   const content = formattedContent(post)
+
+  const { mutate: mutateDeletePost } = useMutation({
+    mutationFn: ({ id, dto, token }: { id: string; dto: null; token: string }) =>
+      deletePost(id, dto, token),
+    onSuccess: () => {
+      fToast('Delete post successfully', 'success')
+    },
+    onError: () => {
+      fToast('Delete post unsuccessfully', 'failed')
+    }
+  })
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -57,10 +70,8 @@ const Post: React.FC<PostProps> = ({
     }
   }
 
-  const deletePost = () => {
-    if (toggleDeleteModal !== undefined) {
-      toggleDeleteModal()
-    }
+  const handleDeletePost = () => {
+    mutateDeletePost({ id: post.id, dto: null, token })
   }
 
   const postOptions = [
@@ -78,7 +89,7 @@ const Post: React.FC<PostProps> = ({
     },
     {
       label: t('options.delete'),
-      onPress: deletePost
+      onPress: handleDeletePost
     }
   ]
 
