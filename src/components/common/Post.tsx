@@ -18,6 +18,7 @@ import { fToast } from '@/helpers/toast'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/utils/store'
 import { useMutation } from '@tanstack/react-query'
+import { TogglePostResponseDto } from '@/types/response/post'
 
 interface PostProps {
   post: IPost
@@ -41,18 +42,21 @@ const Post: React.FC<PostProps> = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
   const [mediaFiles, setMediaFiles] = useState<FCarouselItemProps[]>([])
-  const { hidePost } = usePost()
+  const { togglePost } = usePost()
 
   const content = formattedContent(post)
 
-  const { isPending: isHidePostPending, mutate: mutateHidePost } = useMutation({
-    mutationFn: ({ id, dto, token }: { id: string; dto: null; token: string }) =>
-      hidePost(id, dto, token),
-    onSuccess: () => {
+  const { isPending: isTogglePostPending, mutate: mutateTogglePost } = useMutation({
+    mutationFn: async ({ id, dto, token }: { id: string; dto: null; token: string }) =>
+      (await togglePost(id, dto, token)).data,
+
+    onSuccess: ({ result }: TogglePostResponseDto) => {
+      setIsHidden(result.hidden)
       fToast('Hide post successfully', 'success')
     },
+
     onError: () => {
-      fToast('Hide post unsucessfully', 'failed')
+      fToast('Hide post unsuccessfully', 'failed')
     }
   })
 
@@ -60,12 +64,11 @@ const Post: React.FC<PostProps> = ({
     setIsMenuOpen(!isMenuOpen)
   }
 
-  const togglePost = () => {
-    mutateHidePost({ id: post.id, dto: null, token })
-    setIsHidden(!isHidden)
+  const handleTogglePost = () => {
+    mutateTogglePost({ id: post.id, dto: null, token })
   }
 
-  const toggleEditPost = () => {
+  const handleEditPost = () => {
     if (toggleEditModal !== undefined) {
       toggleEditModal()
     }
@@ -86,7 +89,7 @@ const Post: React.FC<PostProps> = ({
   const postOptions = [
     {
       label: t('options.hide'),
-      onPress: togglePost
+      onPress: handleTogglePost
     },
     {
       label: t('options.privacy'),
@@ -94,7 +97,7 @@ const Post: React.FC<PostProps> = ({
     },
     {
       label: t('options.edit'),
-      onPress: toggleEditPost
+      onPress: handleEditPost
     },
     {
       label: t('options.delete'),
@@ -132,7 +135,7 @@ const Post: React.FC<PostProps> = ({
         <div className="w-full max-w-[600px] rounded-lg border border-gray-200 bg-white">
           <div className="mx-3 my-2 flex flex-col">
             <span>{t('toggle.hide')}</span>
-            <Button isLoading={isHidePostPending} onPress={() => togglePost()}>
+            <Button isLoading={isTogglePostPending} onPress={() => handleTogglePost()}>
               {t('toggle.restore')}
             </Button>
           </div>

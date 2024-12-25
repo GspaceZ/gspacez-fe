@@ -22,16 +22,16 @@ export type CreatePostResponseDto = {
       videoUrls: string[] | null
       activity: string | null
     }
+    privacy: string
+    hashTags: string[] | null
+    location: string | null
+    feeling: string | null
+    type: string
+    trendingPoint: number
+    createdAt: Date
+    updatedAt: Date
+    hidden: boolean
   }
-  privacy: string
-  hashTags: string[] | null
-  location: string | null
-  feeling: string | null
-  type: string
-  trendingPoint: number
-  createdAt: Date
-  updatedAt: Date
-  hidden: boolean
 }
 
 export type GetNewsfeedResponseDto = {
@@ -68,19 +68,45 @@ export type UpdatePostResponseDto = {
       videoUrls: string[] | null
       activity: string | null
     }
+    privacy: string
+    hashTags: string[] | null
+    location: string | null
+    feeling: string | null
+    type: string
+    trendingPoint: number
+    createdAt: Date
+    updatedAt: Date
+    hidden: boolean
   }
-  privacy: string
-  hashTags: string[] | null
-  location: string | null
-  feeling: string | null
-  type: string
-  trendingPoint: number
-  createdAt: Date
-  updatedAt: Date
-  hidden: boolean
 }
 
-export type HidePostResponseDto = {
+export type ReactPostRequestDto = {
+  reactType: string
+}
+
+export type ReactPostResponseDto = {
+  code: number
+  message: string
+  result: {
+    currentReact: {
+      reactionId: string
+      entityId: string
+      entityType: string
+      profileId: string
+      profileName: string
+      reactType: string
+      createdAt: Date
+    } | null
+    reactNum: number
+  }
+}
+
+export type DeletePostResponseDto = {
+  code: number
+  message: string
+}
+
+export type TogglePostResponseDto = {
   code: number
   message: string
   result: {
@@ -92,17 +118,17 @@ export type HidePostResponseDto = {
       videoUrls: string[] | null
       activity: string | null
     }
+    shares: string | null
+    reacts: string[] | null
+    comments: string | null
+    privacy: string
+    hashTags: string[] | null
+    location: string | null
+    feeling: string | null
+    type: string
+    trendingPoint: number
+    createdAt: Date
+    updatedAt: Date
+    hidden: boolean
   }
-  shares: string | null
-  reacts: string[] | null
-  comments: string | null
-  privacy: string
-  hashTags: string[] | null
-  location: string | null
-  feeling: string | null
-  type: string
-  trendingPoint: number
-  createdAt: Date
-  updatedAt: Date
-  hidden: boolean
 }
