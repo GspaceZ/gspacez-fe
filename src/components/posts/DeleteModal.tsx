@@ -1,7 +1,9 @@
 'use client'
 
+import { queryClient } from '@/app/providers'
 import { fToast } from '@/helpers/toast'
 import { usePost } from '@/hooks/usePost'
+import { GetNewsfeedResponseDto } from '@/types/response/post'
 import { RootState } from '@/utils/store'
 import { Button, Modal, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react'
 import { useMutation } from '@tanstack/react-query'
@@ -21,6 +23,13 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({ isOpen, onClose, id })
     mutationFn: () => deletePost(id, token),
     onSuccess: () => {
       fToast('Delete post successfully', 'success')
+      queryClient.setQueryData(['newsfeed'], (posts: GetNewsfeedResponseDto | undefined) => {
+        if (!posts) return posts
+        return {
+          ...posts,
+          result: posts.result.filter((post) => post.id !== id)
+        }
+      })
       onClose()
     },
     onError: () => {

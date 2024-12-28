@@ -7,7 +7,7 @@ import { persistStore } from 'redux-persist'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 persistStore(store)
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
