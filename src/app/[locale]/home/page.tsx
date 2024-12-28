@@ -30,6 +30,7 @@ const Page = () => {
   const { getNewsfeed } = usePost()
   const user = useAppSelector((state) => state.user)
   const token = useAppSelector((state: RootState) => state.auth.token)
+  const [currPostId, setCurrPostId] = useState<string>('')
 
   const [imageUrl, setImageUrl] = useState<string>('')
 
@@ -62,7 +63,8 @@ const Page = () => {
     setIsPrivacyModalOpen(true)
   }
 
-  const toggleDeleteModal = () => {
+  const toggleDeleteModal = (id: string) => {
+    setCurrPostId(id)
     setIsDeleteModalOpen(true)
   }
 
@@ -77,10 +79,6 @@ const Page = () => {
 
   const handleSavePrivacy = (privacy: PostPrivacyEnum) => {
     setSelectedPrivacy(privacy)
-  }
-
-  const handleDelete = () => {
-    // Do something later
   }
 
   return (
@@ -131,7 +129,7 @@ const Page = () => {
         <DeleteModal
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
-          onSave={handleDelete}
+          id={currPostId}
         />
       </div>
     </MainLayout>
