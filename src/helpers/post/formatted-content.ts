@@ -3,11 +3,20 @@ import { IPost } from '@/types/post'
 interface ContentProps {
   isBigContent: boolean
   isNeedReadMore: boolean
-  shortContent: string
-  fullContent: string
+  shortContent: string | null
+  fullContent: string | null
 }
 
 export const formattedContent = (post: IPost): ContentProps => {
+  if (!post.content.text) {
+    return {
+      isBigContent: false,
+      isNeedReadMore: false,
+      shortContent: null,
+      fullContent: null
+    }
+  }
+
   const isBigContent = post.content.text.length <= 50
   const isNeedReadMore = post.content.text.length >= 200
 
