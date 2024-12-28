@@ -65,7 +65,6 @@ const FCarousel: React.FC<FCarouselProps> = ({ items }) => {
                 src={item.url}
                 onError={() => {
                   hideFile(item.id)
-                  console.log('a')
                 }}
               />
             ) : (
@@ -74,7 +73,6 @@ const FCarousel: React.FC<FCarouselProps> = ({ items }) => {
                 alt="Image"
                 onError={() => {
                   hideFile(item.id)
-                  console.log('a')
                 }}
               />
             )}

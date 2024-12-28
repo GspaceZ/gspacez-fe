@@ -2,6 +2,7 @@ import callApi from '@/axios'
 import {
   CreatePostRequestDto,
   CreatePostResponseDto,
+  DeletePostResponseDto,
   GetNewsfeedResponseDto,
   GetTrendingPostsResponseDto,
   ReactPostRequestDto,
@@ -56,5 +57,14 @@ export const usePost = () => {
     )
   }
 
-  return { createPost, getNewsfeed, getTrendingPosts, updatePost, reactPost }
+  const deletePost = async (id: string, token: string) => {
+    return await callApi<never, DeletePostResponseDto>(
+      `/post-service/posts/delete/${id}`,
+      'DELETE',
+      undefined,
+      token
+    )
+  }
+
+  return { createPost, getNewsfeed, getTrendingPosts, updatePost, reactPost, deletePost }
 }
