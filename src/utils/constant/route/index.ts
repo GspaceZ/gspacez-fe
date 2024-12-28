@@ -9,7 +9,8 @@ export const ROUTE = {
     reset_password: 'auth/reset-password'
   },
   sidebar: {
-    home: 'home'
+    home: 'home',
+    search: 'search'
   },
   pages: {
     home: 'home',

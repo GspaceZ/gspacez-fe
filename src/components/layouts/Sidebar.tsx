@@ -56,7 +56,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
     {
       name: 'search',
       icon: <IconSearch />,
-      path: ROUTE.sidebar.home
+      path: ROUTE.sidebar.search
     },
     {
       name: 'profile',

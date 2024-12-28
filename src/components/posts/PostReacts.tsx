@@ -1,6 +1,9 @@
 'use client'
 
+import { usePost } from '@/hooks/usePost'
+import { ReactPostRequestDto } from '@/types/response/post'
 import { POST_VARIANTS } from '@/utils/constant/variants'
+import { RootState } from '@/utils/store'
 import { Button, Popover, PopoverContent, PopoverTrigger, Tooltip } from '@nextui-org/react'
 import {
   IconHeart,
@@ -10,7 +13,9 @@ import {
   IconMoodSurprised,
   IconThumbUp
 } from '@tabler/icons-react'
+import { useMutation } from '@tanstack/react-query'
 import { ReactNode, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 type ReactButton = {
   value: string
@@ -22,11 +27,14 @@ type ReactButton = {
 
 interface Props {
   variant: POST_VARIANTS | undefined
+  id: string
 }
 
-export const PostReacts = ({ variant }: Props) => {
+export const PostReacts = ({ variant, id }: Props) => {
   const [react, setReact] = useState<ReactButton | null>(null)
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { reactPost } = usePost()
+  const token = useSelector((state: RootState) => state.auth.token)
 
   const reacts: Record<string, ReactButton> = {
     LIKE: {
@@ -73,33 +81,50 @@ export const PostReacts = ({ variant }: Props) => {
     }
   }
 
+  const { mutate: mutateReact } = useMutation({
+    mutationFn: ({ dto }: { dto: ReactPostRequestDto | never }) => reactPost(id, dto, token),
+    onSuccess: (data) => {
+      const currentReact = data.data.result.currentReact
+      if (!currentReact) {
+        setReact(null)
+      } else {
+        setReact(reacts[currentReact.reactType])
+      }
+    }
+  })
+
   const handleClickReact = () => {
+    console.log('a')
     if (react) {
-      setReact(null)
+      mutateReact({ dto: undefined as never })
     } else {
-      setReact(reacts.LIKE)
+      mutateReact({ dto: { reactType: 'LIKE' } })
     }
   }
 
   const handleReact = (value: string) => {
-    setReact(reacts[value])
+    mutateReact({ dto: { reactType: value } })
   }
 
-  const handleEnterMouse = () => {
+  const handleEnterMouse = (delay: number) => {
     setTimeout(() => {
       setIsOpen(true)
-    }, 300)
+    }, delay)
   }
 
-  const handleLeaveMouse = () => {
+  const handleLeaveMouse = (delay: number) => {
     setTimeout(() => {
       setIsOpen(false)
-    }, 300)
+    }, delay)
   }
 
   const ReactsBox = () => {
     return (
-      <div className="flex items-center gap-2" onMouseLeave={handleLeaveMouse}>
+      <div
+        className="flex items-center gap-2"
+        onMouseLeave={() => handleLeaveMouse(0)}
+        onMouseEnter={() => handleEnterMouse(0)}
+      >
         {Object.values(reacts).map((reactItem) => (
           <Tooltip content={reactItem.label} key={reactItem.value} placement="bottom">
             <Button
@@ -120,11 +145,12 @@ export const PostReacts = ({ variant }: Props) => {
     <Popover placement="top" isOpen={isOpen}>
       <PopoverTrigger>
         <Button
-          onPress={handleClickReact}
-          onMouseEnter={handleEnterMouse}
-          onMouseLeave={handleLeaveMouse}
+          // ignore deprecated onClick
+          onClick={() => handleClickReact()}
+          onMouseEnter={() => handleEnterMouse(0)}
+          onMouseLeave={() => handleLeaveMouse(0)}
           variant="light"
-          className={`flex items-center gap-1 font-semibold text-gray-700 ${react ? react.color : ''} ${variant === POST_VARIANTS.feed ? 'md:ml-10' : ''}`}
+          className={`mx-auto flex grow items-center gap-1 font-semibold text-gray-700 ${react ? react.color : ''} ${variant === POST_VARIANTS.feed ? 'md:ml-10' : ''}`}
           startContent={react ? react.icon : <IconThumbUp />}
         >
           {react ? react.label : 'Like'}
