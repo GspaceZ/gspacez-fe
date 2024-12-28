@@ -8,7 +8,7 @@ export interface PostsProps {
   posts: IPost[] | undefined
   toggleEditPost?: (postId: string) => void
   toggleSetPrivacyModal?: () => void
-  toggleDeleteModal?: () => void
+  toggleDeleteModal?: (id: string) => void
 }
 
 const Posts: React.FC<PostsProps> = ({
@@ -29,9 +29,9 @@ const Posts: React.FC<PostsProps> = ({
     }
   }
 
-  const onDelete = () => {
+  const onDelete = (id: string) => {
     if (toggleDeleteModal !== undefined) {
-      toggleDeleteModal()
+      toggleDeleteModal(id)
     }
   }
 

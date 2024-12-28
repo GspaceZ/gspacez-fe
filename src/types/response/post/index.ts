@@ -100,3 +100,8 @@ export type ReactPostResponseDto = {
     reactNum: number
   }
 }
+
+export type DeletePostResponseDto = {
+  code: number
+  message: string
+}

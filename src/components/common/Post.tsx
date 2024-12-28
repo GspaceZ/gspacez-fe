@@ -19,7 +19,7 @@ interface PostProps {
   variant?: POST_VARIANTS
   toggleEditModal?: () => void
   togglePrivacyModal?: () => void
-  toggleDeleteModal?: () => void
+  toggleDeleteModal?: (id: string) => void
 }
 
 const Post: React.FC<PostProps> = ({
@@ -57,9 +57,9 @@ const Post: React.FC<PostProps> = ({
     }
   }
 
-  const deletePost = () => {
+  const handleDeletePost = () => {
     if (toggleDeleteModal !== undefined) {
-      toggleDeleteModal()
+      toggleDeleteModal(post.id)
     }
   }
 
@@ -78,7 +78,7 @@ const Post: React.FC<PostProps> = ({
     },
     {
       label: t('options.delete'),
-      onPress: deletePost
+      onPress: handleDeletePost
     }
   ]
 
