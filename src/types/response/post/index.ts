@@ -79,3 +79,24 @@ export type UpdatePostResponseDto = {
   updatedAt: Date
   hidden: boolean
 }
+
+export type ReactPostRequestDto = {
+  reactType: string
+}
+
+export type ReactPostResponseDto = {
+  code: number
+  message: string
+  result: {
+    currentReact: {
+      reactionId: string
+      entityId: string
+      entityType: string
+      profileId: string
+      profileName: string
+      reactType: string
+      createdAt: Date
+    } | null
+    reactNum: number
+  }
+}

@@ -4,6 +4,8 @@ import {
   CreatePostResponseDto,
   GetNewsfeedResponseDto,
   GetTrendingPostsResponseDto,
+  ReactPostRequestDto,
+  ReactPostResponseDto,
   UpdatePostRequestDto,
   UpdatePostResponseDto
 } from '@/types/response/post'
@@ -45,8 +47,13 @@ export const usePost = () => {
     )
   }
 
-  const reactPost = async () => {
-    return null
+  const reactPost = async (id: string, dto: ReactPostRequestDto, token: string) => {
+    return await callApi<ReactPostRequestDto, ReactPostResponseDto>(
+      `/post-service/posts/react/${id}`,
+      'PATCH',
+      dto,
+      token
+    )
   }
 
   return { createPost, getNewsfeed, getTrendingPosts, updatePost, reactPost }
