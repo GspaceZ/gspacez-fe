@@ -23,6 +23,7 @@ import { useProfile } from '@/hooks/useProfile'
 import { setUser } from '@/utils/store/user'
 import { IProfile } from '@/types/profile'
 import { FLink } from '@/components/common/FLink'
+import { LoginByGoogle } from '@/components/auth/LoginByGoogle'
 
 type SignInResponse = {
   code: number
@@ -138,7 +139,7 @@ const Page: React.FC = () => {
 
   return (
     <AuthLayout>
-      <div className="mt-[50px] flex min-h-[420px] w-[360px] flex-col justify-between rounded-[20px] border border-gray-200 shadow-md md:w-[420px]">
+      <div className="mt-[50px] flex min-h-[460px] w-[360px] flex-col justify-between rounded-[20px] border border-gray-200 shadow-md md:w-[420px]">
         <div className="flex flex-col items-center">
           <span className="mt-[20px] text-3xl font-extrabold">{t('sign_in')}</span>
           <form className="mt-[20px] flex w-fit flex-col items-center gap-[14px]">
@@ -191,6 +192,9 @@ const Page: React.FC = () => {
               {t('sign_up')}
             </Button>
           </FLink>
+        </div>
+        <div className="mx-auto pb-9">
+          <LoginByGoogle />
         </div>
       </div>
     </AuthLayout>
