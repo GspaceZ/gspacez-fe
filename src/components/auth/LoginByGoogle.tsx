@@ -1,7 +1,7 @@
 import { fToast } from '@/helpers/toast'
-import { Button } from '@nextui-org/react'
-import { IconBrandGoogle } from '@tabler/icons-react'
+import { Button, Image } from '@nextui-org/react'
 import { useLocale } from 'next-intl'
+import GoogleLogo from '@/public/google.svg'
 
 export const LoginByGoogle = () => {
   const locale = useLocale()
@@ -23,7 +23,7 @@ export const LoginByGoogle = () => {
 
   return (
     <Button
-      startContent={<IconBrandGoogle />}
+      startContent={<Image height={20} width={20} src={GoogleLogo.src} alt="Google Logo" />}
       onPress={handleGoogleLogin}
       variant="bordered"
       color="primary"
