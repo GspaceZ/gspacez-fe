@@ -54,7 +54,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
     onSuccess: (data) => {
       dispatch(setAuth(data.data.result))
     },
-    onError() {
+    onError: () => {
       dispatch(logout())
       dispatch(logoutUser())
       handleRedirect(ROUTE.auth.signin)

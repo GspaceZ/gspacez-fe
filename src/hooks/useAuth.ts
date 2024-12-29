@@ -15,7 +15,8 @@ import {
   VerifyTokenRequestDto,
   RefreshTokenRequestDto,
   RefreshTokenResponseDto,
-  VerifyTokenResponseDto
+  VerifyTokenResponseDto,
+  GetTokenByGoogleResponseDto
 } from '@/types/response/auth'
 
 export const useAuth = () => {
@@ -119,6 +120,18 @@ export const useAuth = () => {
     )
   }
 
+  const getTokenByGoogle = async (locale: string, code: string) => {
+    return await callApi<never, GetTokenByGoogleResponseDto>(
+      `/identity/auth/oauth2?code=${code}`,
+      'POST',
+      undefined,
+      undefined,
+      {
+        locale
+      }
+    )
+  }
+
   return {
     getEncodedUrl,
     signUp,
@@ -127,6 +140,7 @@ export const useAuth = () => {
     verifyOTP,
     resetPassword,
     verifyToken,
-    refreshToken
+    refreshToken,
+    getTokenByGoogle
   }
 }
