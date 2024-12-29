@@ -95,3 +95,11 @@ export type RefreshTokenResponseDto = {
     refreshToken: string
   }
 }
+
+export type GetTokenByGoogleResponseDto = {
+  code: number
+  result: {
+    token: string
+    refreshToken: string
+  }
+}

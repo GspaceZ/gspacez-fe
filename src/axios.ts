@@ -4,11 +4,13 @@ export async function callApi<D, T>(
   url: string,
   method: AxiosRequestConfig['method'],
   data?: D,
-  token?: string
+  token?: string,
+  headerOptions?: Record<string, string>
 ): Promise<AxiosResponse<T>> {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    Accept: 'application/json'
+    Accept: 'application/json',
+    ...headerOptions
   }
 
   if (token) {
