@@ -41,7 +41,9 @@ const Post: React.FC<PostProps> = ({
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
+  const [isRemoved, setIsRemoved] = useState(false)
   const [mediaFiles, setMediaFiles] = useState<FCarouselItemProps[]>([])
+  const [timer, setTimer] = useState<number | null>(null)
   const { togglePost } = usePost()
 
   const content = formattedContent(post)
@@ -65,8 +67,32 @@ const Post: React.FC<PostProps> = ({
   }
 
   const handleTogglePost = () => {
-    mutateTogglePost({ id: post.id, dto: null, token })
+    setIsHidden(true)
+    setIsRemoved(true)
+
+    const timerId = window.setTimeout(() => {
+      mutateTogglePost({ id: post.id, dto: null, token })
+      setIsRemoved(false)
+    }, 5000)
+
+    setTimer(timerId)
   }
+
+  const handleRestorePost = () => {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    setIsHidden(false)
+    setIsRemoved(false)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+    }
+  }, [timer])
 
   const handleEditPost = () => {
     if (toggleEditModal !== undefined) {
@@ -132,14 +158,20 @@ const Post: React.FC<PostProps> = ({
   return (
     <>
       {isHidden ? (
-        <div className="w-full max-w-[600px] rounded-lg border border-gray-200 bg-white">
-          <div className="mx-3 my-2 flex flex-col">
-            <span>{t('toggle.hide')}</span>
-            <Button isLoading={isTogglePostPending} onPress={() => handleTogglePost()}>
-              {t('toggle.restore')}
-            </Button>
+        isRemoved ? (
+          <div className="w-full max-w-[600px] rounded-lg border border-gray-200 bg-white">
+            <div className="mx-3 my-2 flex flex-col">
+              <span>{t('toggle.hide')}</span>
+              <Button
+                isLoading={isTogglePostPending}
+                onPress={handleRestorePost}
+                disabled={isTogglePostPending}
+              >
+                {t('toggle.restore')}
+              </Button>
+            </div>
           </div>
-        </div>
+        ) : null
       ) : (
         <div
           className={`w-full ${
