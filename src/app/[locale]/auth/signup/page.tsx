@@ -138,7 +138,7 @@ const Page: React.FC = () => {
   }
 
   return (
-    <AuthLayout>
+    <AuthLayout disabledGuard>
       <div className="mt-[50px] flex min-h-[485px] w-[360px] flex-col justify-between rounded-[20px] border border-gray-200 shadow-md md:w-[420px]">
         <div className="flex flex-col items-center">
           <span className="mt-[20px] text-3xl font-extrabold">{t('sign_up')}</span>

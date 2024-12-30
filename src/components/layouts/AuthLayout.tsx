@@ -9,9 +9,25 @@ import Loading from './loading'
 import { AuthGuard } from './AuthGuard'
 import { LocaleButton } from './LocaleButton'
 
-const AuthLayout = ({ children }: AuthLayoutProps) => {
+const AuthLayout = ({ children, disabledGuard }: AuthLayoutProps) => {
+  if (!disabledGuard) {
+    return (
+      <AuthGuard>
+        <div className="mt-4 flex w-full justify-end">
+          <LocaleButton />
+        </div>
+        <div className="mt-[100px] flex w-full flex-col items-center">
+          <FImage alt="logo" src={Logo.src} className="w-[235px]" />
+          <Suspense fallback={<Loading />}>
+            <div>{children}</div>
+          </Suspense>
+        </div>
+      </AuthGuard>
+    )
+  }
+
   return (
-    <AuthGuard>
+    <>
       <div className="mt-4 flex w-full justify-end">
         <LocaleButton />
       </div>
@@ -21,7 +37,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
           <div>{children}</div>
         </Suspense>
       </div>
-    </AuthGuard>
+    </>
   )
 }
 
