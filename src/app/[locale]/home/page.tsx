@@ -81,6 +81,8 @@ const Page = () => {
     setSelectedPrivacy(privacy)
   }
 
+  const showNewsFeedData = newsfeedData?.data.result.filter((post) => !post.hidden)
+
   return (
     <MainLayout title={t('home')}>
       <div className="flex w-full flex-col items-center">
@@ -107,7 +109,7 @@ const Page = () => {
               </div>
             ) : (
               <Posts
-                posts={newsfeedData?.data.result}
+                posts={showNewsFeedData}
                 toggleEditPost={(postId) => handleSelectedPost(postId)}
                 toggleSetPrivacyModal={togglePrivacyModal}
                 toggleDeleteModal={toggleDeleteModal}

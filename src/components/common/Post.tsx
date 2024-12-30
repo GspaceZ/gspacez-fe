@@ -6,13 +6,19 @@ import * as React from 'react'
 import { formattedContent } from '@/helpers/post/formatted-content'
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FCarouselItemProps } from '@/types/props/common'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import FCarousel from './FCarousel'
 import { IPost } from '@/types/post'
 import { IconDotsCircleHorizontal, IconMessage, IconShare3 } from '@tabler/icons-react'
 import { PostReacts } from '../posts/PostReacts'
+import { usePost } from '@/hooks/usePost'
+import { fToast } from '@/helpers/toast'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/utils/store'
+import { useMutation } from '@tanstack/react-query'
+import { TogglePostResponseDto } from '@/types/response/post'
 
 interface PostProps {
   post: IPost
@@ -31,21 +37,64 @@ const Post: React.FC<PostProps> = ({
 }) => {
   const t = useTranslations('post')
 
+  const token = useSelector((state: RootState) => state.auth.token)
+
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
+  const [isRemoved, setIsRemoved] = useState(false)
   const [mediaFiles, setMediaFiles] = useState<FCarouselItemProps[]>([])
+  const [timer, setTimer] = useState<number | null>(null)
+  const { togglePost } = usePost()
 
   const content = formattedContent(post)
+
+  const { isPending: isTogglePostPending, mutate: mutateTogglePost } = useMutation({
+    mutationFn: async ({ id, dto, token }: { id: string; dto: null; token: string }) =>
+      (await togglePost(id, dto, token)).data,
+
+    onSuccess: ({ result }: TogglePostResponseDto) => {
+      setIsHidden(result.hidden)
+      fToast('Hide post successfully', 'success')
+    },
+
+    onError: () => {
+      fToast('Hide post unsuccessfully', 'failed')
+    }
+  })
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
-  const togglePost = () => {
-    setIsHidden(!isHidden)
+  const handleTogglePost = () => {
+    setIsHidden(true)
+    setIsRemoved(true)
+
+    const timerId = window.setTimeout(() => {
+      mutateTogglePost({ id: post.id, dto: null, token })
+      setIsRemoved(false)
+    }, 5000)
+
+    setTimer(timerId)
   }
 
-  const toggleEditPost = () => {
+  const handleRestorePost = () => {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    setIsHidden(false)
+    setIsRemoved(false)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+    }
+  }, [timer])
+
+  const handleEditPost = () => {
     if (toggleEditModal !== undefined) {
       toggleEditModal()
     }
@@ -66,7 +115,7 @@ const Post: React.FC<PostProps> = ({
   const postOptions = [
     {
       label: t('options.hide'),
-      onPress: togglePost
+      onPress: handleTogglePost
     },
     {
       label: t('options.privacy'),
@@ -74,7 +123,7 @@ const Post: React.FC<PostProps> = ({
     },
     {
       label: t('options.edit'),
-      onPress: toggleEditPost
+      onPress: handleEditPost
     },
     {
       label: t('options.delete'),
@@ -109,12 +158,20 @@ const Post: React.FC<PostProps> = ({
   return (
     <>
       {isHidden ? (
-        <div className="w-full max-w-[600px] rounded-lg border border-gray-200 bg-white">
-          <div className="mx-3 my-2 flex flex-col">
-            <span>{t('toggle.hide')}</span>
-            <Button onPress={() => togglePost()}>{t('toggle.restore')}</Button>
+        isRemoved ? (
+          <div className="w-full max-w-[600px] rounded-lg border border-gray-200 bg-white">
+            <div className="mx-3 my-2 flex flex-col">
+              <span>{t('toggle.hide')}</span>
+              <Button
+                isLoading={isTogglePostPending}
+                onPress={handleRestorePost}
+                disabled={isTogglePostPending}
+              >
+                {t('toggle.restore')}
+              </Button>
+            </div>
           </div>
-        </div>
+        ) : null
       ) : (
         <div
           className={`w-full ${
@@ -159,18 +216,6 @@ const Post: React.FC<PostProps> = ({
                     ))}
                   </DropdownMenu>
                 </Dropdown>
-                <div
-                  className={`${
-                    isMenuOpen ? '' : 'hidden'
-                  } absolute right-[30px] top-[55px] flex flex-col rounded-[8px] border border-gray-200`}
-                >
-                  <Button variant="light" className="h-[30px] w-[80px]" radius="none">
-                    {t('hide')}
-                  </Button>
-                  <Button variant="light" className="h-[30px] w-[80px]" radius="none">
-                    {t('report')}
-                  </Button>
-                </div>
               </div>
             </div>
             <span

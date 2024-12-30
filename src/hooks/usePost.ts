@@ -7,6 +7,7 @@ import {
   GetTrendingPostsResponseDto,
   ReactPostRequestDto,
   ReactPostResponseDto,
+  TogglePostResponseDto,
   UpdatePostRequestDto,
   UpdatePostResponseDto
 } from '@/types/response/post'
@@ -66,5 +67,14 @@ export const usePost = () => {
     )
   }
 
-  return { createPost, getNewsfeed, getTrendingPosts, updatePost, reactPost, deletePost }
+  const togglePost = async (id: string, dto: null, token: string) => {
+    return await callApi<null, TogglePostResponseDto>(
+      `/post-service/posts/toggle/${id}`,
+      'POST',
+      dto,
+      token
+    )
+  }
+
+  return { createPost, getNewsfeed, getTrendingPosts, updatePost, reactPost, deletePost, togglePost }
 }
