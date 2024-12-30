@@ -194,17 +194,13 @@ const Post: React.FC<PostProps> = ({
             }`}
           >
             <PostReacts variant={variant} id={post.id} />
-            <Button
-              variant="light"
-              startContent={<IconMessage />}
-              className="grow text-base font-semibold"
-            >
+            <Button variant="light" startContent={<IconMessage />} className="grow font-semibold">
               {t('comment')}
             </Button>
             <Button
               variant="light"
               startContent={<IconShare3 />}
-              className={`grow text-base font-semibold ${variant === POST_VARIANTS.feed ? 'md:mr-10' : ''}`}
+              className={`grow font-semibold ${variant === POST_VARIANTS.feed ? 'md:mr-10' : ''}`}
             >
               {t('share')}
             </Button>
