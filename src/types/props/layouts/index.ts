@@ -13,7 +13,6 @@ export interface BlankLayoutProps {
 
 export interface AuthLayoutProps {
   children: ReactNode
-  disabledGuard?: boolean
 }
 
 export interface MainLayoutProps {

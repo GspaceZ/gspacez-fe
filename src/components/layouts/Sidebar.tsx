@@ -18,6 +18,7 @@ import {
   IconHome,
   IconLayoutSidebarRightExpandFilled,
   IconPower,
+  IconRobot,
   IconSearch,
   IconStopwatch,
   IconUserScan
@@ -77,6 +78,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
       name: 'upcoming_streams',
       icon: <IconCast />,
       path: ROUTE.sidebar.home
+    },
+    {
+      name: 'gzbot',
+      icon: <IconRobot />,
+      path: ROUTE.sidebar.gzbot
     }
   ]
 

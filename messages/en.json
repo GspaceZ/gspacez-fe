@@ -13,7 +13,8 @@
     "your_pages": "Your Pages",
     "events": "Events",
     "upcoming_streams": "Upcoming Streams",
-    "logout_switch": "Logout/Switch Account"
+    "logout_switch": "Logout/Switch Account",
+    "gzbot": "GZBot"
   },
   "post": {
     "read_more": "Read more",
