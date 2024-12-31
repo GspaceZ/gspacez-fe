@@ -19,7 +19,7 @@ interface AuthGuardProps {
   children: ReactNode
 }
 
-export const AuthGuard = ({ children }: AuthGuardProps) => {
+export const LoginGuard = ({ children }: AuthGuardProps) => {
   const { verifyToken, refreshToken: refresh } = useAuth()
   const token = useSelector((state: RootState) => state.auth.token)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -74,7 +74,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
 
   useEffect(() => {
     if (!token) {
-      handleRedirect(ROUTE.auth.signin)
+      handleRedirect(ROUTE.pages.home)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])

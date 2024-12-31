@@ -27,7 +27,7 @@ const Page = () => {
       router.push(`/${locale}/home`)
     },
     onError: () => {
-      router.push(`${locale}/auth/signin`)
+      router.push(`/${locale}/auth/signin`)
       fToast('Something happen! Try it later', 'error')
     }
   })
