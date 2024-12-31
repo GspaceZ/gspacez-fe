@@ -154,7 +154,6 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
       createPost(dto, token),
     onSuccess: () => {
       fToast('Create post successfully', 'success')
-      closeModal()
     },
     onError: () => {
       fToast('Create post unsucessfully', 'failed')
@@ -166,7 +165,6 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
       updatePost(id, dto, token),
     onSuccess: () => {
       fToast('Update post successfully', 'success')
-      closeModal()
     },
     onError: () => {
       fToast('Create post failed', 'failed')
@@ -219,6 +217,9 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
         }
         reset()
         setMediaFiles([])
+        setTimeout(() => {
+          closeModal();
+        }, 1000);
       })
       .finally(() => {
         setIsUploadMediaPending(false)
