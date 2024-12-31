@@ -10,7 +10,8 @@ export const ROUTE = {
   },
   sidebar: {
     home: 'home',
-    search: 'search'
+    search: 'search',
+    gzbot: 'gzbot'
   },
   pages: {
     home: 'home',
