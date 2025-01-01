@@ -12,8 +12,11 @@ const Page = () => {
   const handleOnChat = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     const recognition = new SpeechRecognition()
-    recognition.onresult = (e) => {
+    console.log('a')
+    recognition.onresult = async (e) => {
+      console.log(e)
       setText(e.results[0][0].transcript)
+      setChatting(false)
     }
     recognition.start()
   }
@@ -25,7 +28,7 @@ const Page = () => {
           <Button
             startContent={!chatting && <IconMicrophone />}
             onPress={() => {
-              setChatting(!chatting)
+              setChatting(true)
               handleOnChat()
             }}
             color={chatting ? 'danger' : 'primary'}
