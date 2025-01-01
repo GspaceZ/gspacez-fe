@@ -7,6 +7,16 @@ import { useState } from 'react'
 
 const Page = () => {
   const [chatting, setChatting] = useState<boolean>(false)
+  const [text, setText] = useState<string>('')
+
+  const handleOnChat = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    const recognition = new SpeechRecognition()
+    recognition.onresult = (e) => {
+      setText(e.results[0][0].transcript)
+    }
+    recognition.start()
+  }
 
   return (
     <MainLayout title={'GZBot'}>
@@ -14,11 +24,15 @@ const Page = () => {
         <div className="mx-auto mt-8 flex min-h-screen w-screen flex-col items-center">
           <Button
             startContent={!chatting && <IconMicrophone />}
-            onPress={() => setChatting(!chatting)}
+            onPress={() => {
+              setChatting(!chatting)
+              handleOnChat()
+            }}
             color={chatting ? 'danger' : 'primary'}
           >
             {chatting ? 'Stop chatting' : 'Start Chatting with GZBot'}
           </Button>
+          <span>Text recorded: {text}</span>
         </div>
       </div>
     </MainLayout>
