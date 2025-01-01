@@ -73,7 +73,7 @@ export const LoginGuard = ({ children }: AuthGuardProps) => {
   }, [data?.result.valid])
 
   useEffect(() => {
-    if (!token) {
+    if (token) {
       handleRedirect(ROUTE.pages.home)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
