@@ -3,15 +3,31 @@
 import MainLayout from '@/components/layouts/MainLayout'
 import { Button } from '@nextui-org/react'
 import { IconMicrophone } from '@tabler/icons-react'
-import { useState } from 'react'
+import { useLocale } from 'next-intl'
+import { useEffect, useState } from 'react'
 
 const Page = () => {
   const [chatting, setChatting] = useState<boolean>(false)
   const [text, setText] = useState<string>('')
+  const [language, setLanguage] = useState<string>('')
+  const locale = useLocale()
+  const languageOptions = {
+    en: 'en-US',
+    vi: 'vi-VN'
+  }
+
+  useEffect(() => {
+    if (locale === 'vi') {
+      setLanguage(languageOptions.vi)
+    } else {
+      setLanguage(languageOptions.en)
+    }
+  }, [languageOptions.en, languageOptions.vi, locale])
 
   const handleOnChat = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     const recognition = new SpeechRecognition()
+    recognition.lang = language
     console.log('a')
     recognition.onresult = async (e) => {
       console.log(e)
