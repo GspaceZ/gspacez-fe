@@ -1,7 +1,7 @@
 'use client'
 
 import { usePost } from '@/hooks/usePost'
-import { ReactPostRequestDto } from '@/types/response/post'
+import { ReactPostRequestDto } from '@/types/dto/post'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import { RootState } from '@/utils/store'
 import { Button, Popover, PopoverContent, PopoverTrigger, Tooltip } from '@nextui-org/react'

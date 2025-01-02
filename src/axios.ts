@@ -5,7 +5,8 @@ export async function callApi<D, T>(
   method: AxiosRequestConfig['method'],
   data?: D,
   token?: string,
-  headerOptions?: Record<string, string>
+  headerOptions?: Record<string, string>,
+  customOrigin?: string
 ): Promise<AxiosResponse<T>> {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -18,7 +19,7 @@ export async function callApi<D, T>(
   }
 
   const response = await axios({
-    url: process.env.NEXT_PUBLIC_BACKEND_URL + url,
+    url: (customOrigin ?? process.env.NEXT_PUBLIC_BACKEND_URL) + url,
     method,
     data,
     headers
