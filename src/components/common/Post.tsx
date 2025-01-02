@@ -18,7 +18,7 @@ import { fToast } from '@/helpers/toast'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/utils/store'
 import { useMutation } from '@tanstack/react-query'
-import { TogglePostResponseDto } from '@/types/response/post'
+import { TogglePostResponseDto } from '@/types/dto/post'
 
 interface PostProps {
   post: IPost

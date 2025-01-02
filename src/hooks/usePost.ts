@@ -10,7 +10,7 @@ import {
   TogglePostResponseDto,
   UpdatePostRequestDto,
   UpdatePostResponseDto
-} from '@/types/response/post'
+} from '@/types/dto/post'
 
 export const usePost = () => {
   const createPost = async (dto: CreatePostRequestDto, token: string) => {
@@ -76,5 +76,13 @@ export const usePost = () => {
     )
   }
 
-  return { createPost, getNewsfeed, getTrendingPosts, updatePost, reactPost, deletePost, togglePost }
+  return {
+    createPost,
+    getNewsfeed,
+    getTrendingPosts,
+    updatePost,
+    reactPost,
+    deletePost,
+    togglePost
+  }
 }

@@ -27,7 +27,7 @@ import { usePost } from '@/hooks/usePost'
 import { useMutation } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/utils/store'
-import { CreatePostRequestDto, UpdatePostRequestDto } from '@/types/response/post'
+import { CreatePostRequestDto, UpdatePostRequestDto } from '@/types/dto/post'
 import { fToast } from '@/helpers/toast'
 import { useForm } from 'react-hook-form'
 import { useCloudinary } from '@/hooks/useCloudinary'
@@ -218,8 +218,8 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
         reset()
         setMediaFiles([])
         setTimeout(() => {
-          closeModal();
-        }, 1000);
+          closeModal()
+        }, 1000)
       })
       .finally(() => {
         setIsUploadMediaPending(false)

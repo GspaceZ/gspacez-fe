@@ -6,7 +6,7 @@ import {
   GetProfileResponse,
   UpdateProfileRequest,
   UploadAvatarRequest
-} from '@/types/response/profile'
+} from '@/types/dto/profile'
 import axios from 'axios'
 
 export const useProfile = () => {

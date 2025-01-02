@@ -1,6 +1,9 @@
 'use client'
 
 import MainLayout from '@/components/layouts/MainLayout'
+import { fToast } from '@/helpers/toast'
+import { useBot } from '@/hooks/useBot'
+import { BotCompletionRequestDto } from '@/types/dto/bot'
 import { Button } from '@nextui-org/react'
 import { IconMicrophone } from '@tabler/icons-react'
 import { useLocale } from 'next-intl'
@@ -8,13 +11,14 @@ import { useEffect, useState } from 'react'
 
 const Page = () => {
   const [chatting, setChatting] = useState<boolean>(false)
-  const [text, setText] = useState<string>('')
+  const [text, setText] = useState<string | undefined>()
   const [language, setLanguage] = useState<string>('')
   const locale = useLocale()
   const languageOptions = {
     en: 'en-US',
     vi: 'vi-VN'
   }
+  const { textGenerate } = useBot()
 
   useEffect(() => {
     if (locale === 'vi') {
@@ -24,14 +28,24 @@ const Page = () => {
     }
   }, [languageOptions.en, languageOptions.vi, locale])
 
+  const generateText = async ({ dto }: { dto: BotCompletionRequestDto }) => {
+    const response = await textGenerate({ dto })
+    if (response.response.candidates && response.response.candidates.length > 0) {
+      setText(response.response.candidates[0].content.parts[0].text)
+    } else {
+      fToast('Error: No candidates found in the response', 'danger')
+    }
+  }
+
   const handleOnChat = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     const recognition = new SpeechRecognition()
     recognition.lang = language
-    console.log('a')
     recognition.onresult = async (e) => {
-      console.log(e)
-      setText(e.results[0][0].transcript)
+      e.preventDefault()
+      generateText({
+        dto: { prompt: e.results[0][0].transcript }
+      })
       setChatting(false)
     }
     recognition.start()
