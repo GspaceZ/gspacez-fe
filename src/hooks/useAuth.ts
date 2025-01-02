@@ -17,7 +17,7 @@ import {
   RefreshTokenResponseDto,
   VerifyTokenResponseDto,
   GetTokenByGoogleResponseDto
-} from '@/types/response/auth'
+} from '@/types/dto/auth'
 
 export const useAuth = () => {
   const getEncodedUrl = async (email: string, url: string) => {
