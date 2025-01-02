@@ -32,8 +32,10 @@ const Page = () => {
     const response = await textGenerate({ dto })
     if (response.response.candidates && response.response.candidates.length > 0) {
       setText(response.response.candidates[0].content.parts[0].text)
+      handleOnChat()
     } else {
       fToast('Error: No candidates found in the response', 'danger')
+      setChatting(false)
     }
   }
 
@@ -46,7 +48,6 @@ const Page = () => {
       generateText({
         dto: { prompt: e.results[0][0].transcript }
       })
-      setChatting(false)
     }
     recognition.start()
   }
@@ -58,14 +59,14 @@ const Page = () => {
           <Button
             startContent={!chatting && <IconMicrophone />}
             onPress={() => {
-              setChatting(true)
+              setChatting(!chatting)
               handleOnChat()
             }}
             color={chatting ? 'danger' : 'primary'}
           >
             {chatting ? 'Stop chatting' : 'Start Chatting with GZBot'}
           </Button>
-          <span>Text recorded: {text}</span>
+          <span className="max-w-[600px] text-center">Text recorded: {text}</span>
         </div>
       </div>
     </MainLayout>
