@@ -12,7 +12,7 @@ export const BotMessagesBox = ({ messages }: Props) => {
     console.log(messages)
   }, [messages])
   return (
-    <div className="mt-4 flex max-h-full w-full max-w-[600px] flex-col gap-2 overflow-y-scroll px-2">
+    <div className="mt-4 flex max-h-full w-full max-w-[600px] grow flex-col gap-2 overflow-y-scroll rounded-md bg-white px-2">
       {messages.length !== 0 ? (
         messages.map((message, index) => {
           return (
@@ -25,7 +25,9 @@ export const BotMessagesBox = ({ messages }: Props) => {
           )
         })
       ) : (
-        <span className="text-center">Start a conversation...</span>
+        <div className="flex grow items-end justify-center pb-6">
+          <span className="mb-4 text-center">Start a conversation...</span>
+        </div>
       )}
     </div>
   )
