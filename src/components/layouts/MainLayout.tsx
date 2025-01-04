@@ -66,11 +66,13 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
         <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <Suspense fallback={<Loading />}>
           <div
-            className={`flex flex-1 flex-col transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'ml-[300px]' : ''}`}
+            className={`flex min-h-screen flex-1 flex-col transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'ml-[300px]' : ''}`}
           >
             <Overlay isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <Header title={title} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-            <main className={`lg:ml-[-300px] ${isSidebarOpen ? 'hidden lg:block' : ''}`}>
+            <main
+              className={`flex grow flex-col lg:ml-[-300px] ${isSidebarOpen ? 'hidden lg:block' : ''}`}
+            >
               {children}
             </main>
             <TrendingSidebar
