@@ -3,31 +3,34 @@
 import * as React from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
-import { useState } from 'react'
 import Overlay from '../common/Overlay'
 import { MainLayoutProps } from '@/types/props/layouts'
 import { Suspense } from 'react'
 import Loading from './loading'
 import { AuthGuard } from './AuthGuard'
+import { toggleSidebar } from '@/utils/store/layout'
+import { RootState, useAppDispatch } from '@/utils/store'
+import { useSelector } from 'react-redux'
 
 const MainLayout = ({ children, title }: MainLayoutProps) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const isOpen = useSelector((state: RootState) => state.layout.sidebar.isOpen)
+  const dispatch = useAppDispatch()
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen)
+  const toggle = () => {
+    dispatch(toggleSidebar())
   }
 
   return (
     <AuthGuard>
       <div className="relative min-h-screen">
-        <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        <Sidebar isSidebarOpen={isOpen} toggleSidebar={toggle} />
         <Suspense fallback={<Loading />}>
           <div
-            className={`flex min-h-screen flex-1 flex-col transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'ml-[300px]' : ''}`}
+            className={`flex min-h-screen flex-1 flex-col transition-transform duration-300 ease-in-out ${isOpen ? 'ml-[300px]' : ''}`}
           >
-            <Overlay isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-            <Header title={title} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-            <main className={`flex grow flex-col ${isSidebarOpen ? 'hidden lg:block' : ''}`}>
+            <Overlay isSidebarOpen={isOpen} toggleSidebar={toggle} />
+            <Header title={title} isSidebarOpen={isOpen} toggleSidebar={toggle} />
+            <main className={`flex grow flex-col ${isOpen ? 'hidden lg:block' : ''}`}>
               {children}
             </main>
           </div>
