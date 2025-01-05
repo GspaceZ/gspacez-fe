@@ -11,7 +11,8 @@ export const ROUTE = {
   sidebar: {
     home: 'home',
     search: 'search',
-    gzbot: 'gzbot'
+    gzbot: 'gzbot',
+    trendingPosts: 'trending-posts'
   },
   pages: {
     home: 'home',
