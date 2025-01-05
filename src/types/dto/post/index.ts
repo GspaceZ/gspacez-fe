@@ -40,6 +40,7 @@ export type GetNewsfeedResponseDto = {
   result: IPost[]
 }
 
+/** @deprecated */
 export type GetTrendingPostsResponseDto = {
   code: number
   message: string
@@ -131,4 +132,34 @@ export type TogglePostResponseDto = {
     updatedAt: Date
     hidden: boolean
   }
+}
+
+export type TrendingTopicItem = {
+  id: string
+  query: string
+  exploreLink: string
+  geo: string
+  date: string
+  formattedTraffic: number
+  relatedQueries: string | null
+  articles: {
+    title: string
+    timeAgo: string
+    source: string
+    url: string
+    image: {
+      newsUrl: string
+      source: string
+      imageUrl: string
+    } | null
+    spinet: string | null
+  }[]
+  status: string
+  dateCreated: string
+}
+
+export type GetTrendingTopicsResponse = {
+  code: number
+  message: string
+  result: TrendingTopicItem[]
 }

@@ -5,6 +5,7 @@ import {
   DeletePostResponseDto,
   GetNewsfeedResponseDto,
   GetTrendingPostsResponseDto,
+  GetTrendingTopicsResponse,
   ReactPostRequestDto,
   ReactPostResponseDto,
   TogglePostResponseDto,
@@ -31,6 +32,7 @@ export const usePost = () => {
     )
   }
 
+  /** @deprecated */
   const getTrendingPosts = async (token: string) => {
     return await callApi<never, GetTrendingPostsResponseDto>(
       '/post-service/posts/trending-posts',
@@ -76,6 +78,15 @@ export const usePost = () => {
     )
   }
 
+  const getTrendingTopics = async (token: string) => {
+    return await callApi<never, GetTrendingTopicsResponse>(
+      `/post-service/posts/trending-topics`,
+      'GET',
+      undefined,
+      token
+    )
+  }
+
   return {
     createPost,
     getNewsfeed,
@@ -83,6 +94,7 @@ export const usePost = () => {
     updatePost,
     reactPost,
     deletePost,
-    togglePost
+    togglePost,
+    getTrendingTopics
   }
 }

@@ -12,7 +12,7 @@ export const ROUTE = {
     home: 'home',
     search: 'search',
     gzbot: 'gzbot',
-    trendingPosts: 'trending-posts'
+    trendingTopics: 'trending-topics'
   },
   pages: {
     home: 'home',

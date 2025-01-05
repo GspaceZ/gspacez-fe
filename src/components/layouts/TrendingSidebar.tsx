@@ -16,6 +16,7 @@ import { usePost } from '@/hooks/usePost'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/utils/store'
 
+/** @depreacted */
 const TrendingSidebar = ({ trendingPeople, isVisible }: TrendingSidebarProps) => {
   const t = useTranslations('trending_posts')
   const token = useSelector((state: RootState) => state.auth.token)

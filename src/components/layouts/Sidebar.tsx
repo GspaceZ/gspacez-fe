@@ -86,9 +86,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
       path: ROUTE.sidebar.gzbot
     },
     {
-      name: 'trending_posts',
+      name: 'trending_topics',
       icon: <IconTrendingUp />,
-      path: ROUTE.sidebar.trendingPosts
+      path: ROUTE.sidebar.trendingTopics
     }
   ]
 
