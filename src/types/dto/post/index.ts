@@ -40,13 +40,6 @@ export type GetNewsfeedResponseDto = {
   result: IPost[]
 }
 
-/** @deprecated */
-export type GetTrendingPostsResponseDto = {
-  code: number
-  message: string
-  result: IPost[]
-}
-
 export type UpdatePostRequestDto = {
   text?: string | null
   imageUrls?: string[]
