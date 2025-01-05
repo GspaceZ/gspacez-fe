@@ -50,13 +50,13 @@ export const LocaleButton = () => {
   return (
     <Dropdown placement="bottom-end" className="bg-gray-50">
       <DropdownTrigger className="mr-2 cursor-pointer">
-        <Image src={currLang?.image} alt={currLang?.value} width="24" className="rounded-full" />
+        <Image src={currLang?.image} alt={currLang?.value} width="20" className="rounded-full" />
       </DropdownTrigger>
       <DropdownMenu variant="shadow">
         {languages.map((lang) => (
           <DropdownItem key={lang.value} onClick={() => handleChangeLanguage(lang.value)}>
             <div className="flex items-center gap-2">
-              <Image src={lang.image} alt={lang.value} width="24" className="rounded-full" />
+              <Image src={lang.image} alt={lang.value} width="20" className="rounded-full" />
               <span>{lang.label}</span>
             </div>
           </DropdownItem>
