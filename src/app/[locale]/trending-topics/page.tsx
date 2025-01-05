@@ -7,23 +7,25 @@ import { useQuery } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import PostSkeleton from '@/components/posts/PostSkeleton'
 import { POST_VARIANTS } from '@/utils/constant/variants'
-import Posts from '@/components/posts/Posts'
+import { TopicItem } from '@/components/trending-topics/TopicItem'
+import { useTranslations } from 'next-intl'
 
 const Page = () => {
-  const { getTrendingPosts } = usePost()
+  const { getTrendingTopics } = usePost()
+  const t = useTranslations('sidebar')
   const token = useSelector((state: RootState) => state.auth.token)
 
-  const { data: trendingPostsData, isLoading: isTrendingPostsLoading } = useQuery({
-    queryKey: ['trending-posts'],
-    queryFn: () => getTrendingPosts(token)
+  const { data: trendingTopicsData, isLoading: isTrendingTopicsLoading } = useQuery({
+    queryKey: ['trending-topics'],
+    queryFn: () => getTrendingTopics(token)
   })
 
   return (
-    <MainLayout title="Trending Posts">
+    <MainLayout title={t('trending_topics')}>
       <div className="flex w-full flex-col items-center">
         <div className="mx-auto w-full max-w-[632px] rounded-lg bg-gray-50">
           <div className="pb-5">
-            {isTrendingPostsLoading ? (
+            {isTrendingTopicsLoading ? (
               <div className="mt-6 flex w-full flex-col items-center gap-4">
                 {Array(4)
                   .fill(0)
@@ -34,7 +36,13 @@ const Page = () => {
                   ))}
               </div>
             ) : (
-              <Posts posts={trendingPostsData?.data.result} />
+              <>
+                {trendingTopicsData?.data.result.map((topic) => (
+                  <div key={topic.id}>
+                    <TopicItem topic={topic} />
+                  </div>
+                ))}
+              </>
             )}
           </div>
         </div>
