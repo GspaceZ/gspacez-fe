@@ -6,24 +6,50 @@ import { HeaderProps } from '@/types/props/layouts'
 import {
   IconBell,
   IconLayoutSidebarLeftExpandFilled,
+  IconPower,
   IconSettings,
   IconUser
 } from '@tabler/icons-react'
 import { LocaleButton } from './LocaleButton'
+import { useAppDispatch } from '@/utils/store'
+import { logout } from '@/utils/store/auth'
+import { logout as logoutUser } from '@/utils/store/user'
+import { usePathname, useRouter } from 'next/navigation'
+import { pathWithLocale } from '@/helpers/url/path-with-locale'
+import { ROUTE } from '@/utils/constant/route'
+import { fToast } from '@/helpers/toast'
 
 const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
+  const dispatch = useAppDispatch()
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const handleRedirect = (path: string) => {
+    const destinationPath = pathWithLocale(pathname, path)
+    router.push(destinationPath)
+  }
+
+  const handleLogout = () => {
+    dispatch(logout())
+    dispatch(logoutUser())
+    handleRedirect(ROUTE.pages.default)
+    fToast('Logout successfully', 'success')
+  }
+
   const userOptions = [
     {
       label: 'Profile',
       key: 'profile',
       action: undefined,
-      showDivider: true
+      showDivider: true,
+      icon: <IconUser size={18} />
     },
     {
       label: 'Logout',
       key: 'logout',
-      action: undefined,
-      showDivider: false
+      action: handleLogout,
+      showDivider: false,
+      icon: <IconPower size={18} />
     }
   ]
 
@@ -63,7 +89,13 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
           <DropdownMenu>
             {userOptions.map((item) => {
               return (
-                <DropdownItem key={item.key} onPress={item.action} showDivider={item.showDivider}>
+                <DropdownItem
+                  key={item.key}
+                  onPress={item.action}
+                  showDivider={item.showDivider}
+                  className={`${item.key === 'logout' && 'text-red-500'}`}
+                  startContent={item.icon}
+                >
                   {item.label}
                 </DropdownItem>
               )
