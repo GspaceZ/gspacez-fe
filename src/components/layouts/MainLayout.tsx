@@ -3,8 +3,6 @@
 import * as React from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
-import TrendingSidebar from './TrendingSidebar'
-import { trendingPeopleData } from '@/utils/constant/trending-post/index'
 import ButtonOption from '@/components/trending-post/button-option'
 import { useState } from 'react'
 import Overlay from '../common/Overlay'
@@ -70,15 +68,9 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
           >
             <Overlay isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <Header title={title} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-            <main
-              className={`flex grow flex-col lg:ml-[-300px] ${isSidebarOpen ? 'hidden lg:block' : ''}`}
-            >
+            <main className={`flex grow flex-col ${isSidebarOpen ? 'hidden lg:block' : ''}`}>
               {children}
             </main>
-            <TrendingSidebar
-              trendingPeople={trendingPeopleData}
-              isVisible={isTrendingSidebarOpen}
-            />
             <div
               className={`fixed bottom-0 left-0 right-0 flex items-center justify-around bg-white px-2 py-1 shadow-lg transition-transform duration-300 ease-in-out ${
                 isSidebarOpen ? 'translate-y-full' : 'translate-y-0'
