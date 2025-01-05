@@ -14,7 +14,8 @@
     "events": "Sự kiện",
     "upcoming_streams": "Stream sắp tới",
     "logout_switch": "Đăng xuất/Chuyển tài khoản",
-    "gzbot": "GZBot"
+    "gzbot": "GZBot",
+    "trending_posts": "Bài viết xu hướng"
   },
   "post": {
     "read_more": "Đọc thêm",

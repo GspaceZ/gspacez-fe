@@ -21,6 +21,7 @@ import {
   IconRobot,
   IconSearch,
   IconStopwatch,
+  IconTrendingUp,
   IconUserScan
 } from '@tabler/icons-react'
 
@@ -83,6 +84,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
       name: 'gzbot',
       icon: <IconRobot />,
       path: ROUTE.sidebar.gzbot
+    },
+    {
+      name: 'trending_posts',
+      icon: <IconTrendingUp />,
+      path: ROUTE.sidebar.trendingPosts
     }
   ]
 
