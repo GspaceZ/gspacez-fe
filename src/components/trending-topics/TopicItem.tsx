@@ -29,7 +29,7 @@ export const TopicItem = ({ topic }: Props) => {
                 <div className="flex items-start justify-between">
                   <div className="flex max-w-[70%] flex-col gap-1">
                     <Link href={article.url} className="font-semibold">
-                      {decodeHTMLText(article.title)}
+                      <span dangerouslySetInnerHTML={{ __html: decodeHTMLText(article.title) }} />
                     </Link>
                     <span className="text-sm">{article.timeAgo}</span>
                   </div>
