@@ -1,7 +1,14 @@
 'use client'
 
 import * as React from 'react'
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Image
+} from '@nextui-org/react'
 import { HeaderProps } from '@/types/props/layouts'
 import {
   IconBell,
@@ -18,6 +25,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
 import { fToast } from '@/helpers/toast'
+import Logo from '@/public/logo.png'
 
 const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
   const dispatch = useAppDispatch()
@@ -57,16 +65,16 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
     <div
       className={`sticky top-0 z-30 flex h-[50px] items-center justify-between border-b border-gray-200 bg-white shadow-md ${isSidebarOpen ? 'hidden lg:flex' : ''}`}
     >
-      <div className="w-[80px]">
-        <Button
-          isIconOnly
-          className={`ml-4 ${isSidebarOpen && 'hidden'}`}
-          variant="light"
-          size="sm"
-          onPress={() => toggleSidebar()}
-        >
-          <IconLayoutSidebarLeftExpandFilled size="24" />
-        </Button>
+      <Button
+        isIconOnly
+        className={`${isSidebarOpen && 'hidden'} fixed bottom-0 left-0 z-30 border border-gray-300 shadow-md`}
+        variant="light"
+        onPress={() => toggleSidebar()}
+      >
+        <IconLayoutSidebarLeftExpandFilled size="24" />
+      </Button>
+      <div className="ml-4 flex items-center justify-start gap-4">
+        <Image alt="Logo" src={Logo.src} className="h-6" />
       </div>
       <div className="mr-2 flex items-center justify-end gap-2">
         <LocaleButton />
