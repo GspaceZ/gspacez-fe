@@ -24,7 +24,7 @@ import { IPost } from '@/types/post'
 import { IProfile } from '@/types/profile'
 import { IconHash, IconLock, IconMapPin, IconMoodHappy, IconPhotoScan } from '@tabler/icons-react'
 import { usePost } from '@/hooks/usePost'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/utils/store'
 import { CreatePostRequestDto, UpdatePostRequestDto } from '@/types/dto/post'
@@ -65,6 +65,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
   const [isPrivacyOn, setIsPrivacyOn] = useState<boolean>(!!post?.privacy)
   const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([])
   const { createPost, updatePost } = usePost()
+  const queryClient = useQueryClient()
 
   console.log(post)
 
@@ -152,14 +153,25 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
   const { isPending: isCreatePostPending, mutate: mutateCreatePost } = useMutation({
     mutationFn: ({ dto, token }: { dto: CreatePostRequestDto; token: string }) =>
       createPost(dto, token),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const newPost = data.data.result
       fToast('Create post successfully', 'success')
+      queryClient.setQueryData(['newsfeed'], (oldData: { data: { result: IPost[] } } | undefined) => {
+        if (!oldData) return { data: { result: [newPost] } };
+        return {
+          ...oldData,
+          data: {
+            ...oldData.data,
+            result: [newPost, ...oldData.data.result],
+          },
+        };
+      });
       setTimeout(() => {
         closeModal()
       }, 1000)
     },
     onError: () => {
-      fToast('Create post unsucessfully', 'failed')
+      fToast('Create post unsucessfully', 'danger')
     }
   })
 
@@ -173,7 +185,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
       }, 1000)
     },
     onError: () => {
-      fToast('Create post failed', 'danger')
+      fToast('Update post unsucessfully', 'danger')
     }
   })
 

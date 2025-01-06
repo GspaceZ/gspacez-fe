@@ -45,7 +45,7 @@ const PrivacyModal: React.FC<PrivacyProps> = ({ isOpen, onClose, onSave }) => {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-2xl -translate-x-40 transform rounded-lg bg-white p-4 shadow-lg"
+        className="w-full max-w-2xl -translate-x-30 transform rounded-lg bg-white p-4 shadow-lg"
         ref={modalRef}
         onClick={(e) => e.stopPropagation()}
       >
