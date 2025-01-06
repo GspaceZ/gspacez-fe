@@ -17,7 +17,8 @@ export const ROUTE = {
   pages: {
     home: 'home',
     default: '',
-    message: 'message'
+    message: 'message',
+    profile: 'profile'
   },
   profile: {
     edit: 'profile/edit'
