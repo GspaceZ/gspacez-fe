@@ -1,10 +1,9 @@
 'use client'
 
 import * as React from 'react'
-import { Button, Image } from '@nextui-org/react'
+import { Button } from '@nextui-org/react'
 import SidebarOption from '../sidebar/sidebar-option'
 import { ROUTE } from '@/utils/constant/route'
-import Logo from '@/public/logo.png'
 import {
   IconCast,
   IconFlag,
@@ -72,28 +71,27 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
     >
-      <div>
-        <div className="flex h-[80px] w-full items-center justify-between border-gray-200">
-          <Image className="ml-4 w-[140px]" alt="Logo" src={Logo.src} />
-          <Button
-            isIconOnly
-            className={`mr-2 ${isSidebarOpen ? '' : 'hidden'}`}
-            variant="light"
-            onPress={() => toggleSidebar()}
-          >
-            <IconLayoutSidebarRightExpandFilled size="28" />
-          </Button>
+      <div className="flex h-full flex-col justify-between">
+        <div>
+          {sidebarOptions.map((option) => {
+            return (
+              <SidebarOption
+                name={option.name}
+                icon={option.icon}
+                path={option.path}
+                key={option.name}
+              />
+            )
+          })}
         </div>
-        {sidebarOptions.map((option) => {
-          return (
-            <SidebarOption
-              name={option.name}
-              icon={option.icon}
-              path={option.path}
-              key={option.name}
-            />
-          )
-        })}
+        <Button
+          isIconOnly
+          className={`ml-auto mr-0 ${isSidebarOpen ? '' : 'hidden'}`}
+          variant="light"
+          onPress={() => toggleSidebar()}
+        >
+          <IconLayoutSidebarRightExpandFilled size="28" />
+        </Button>
       </div>
     </div>
   )
