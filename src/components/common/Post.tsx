@@ -11,7 +11,7 @@ import { FCarouselItemProps } from '@/types/props/common'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import FCarousel from './FCarousel'
 import { IPost } from '@/types/post'
-import { IconDotsCircleHorizontal, IconMessage, IconShare3 } from '@tabler/icons-react'
+import { IconDotsCircleHorizontal, IconLock, IconMessage, IconShare3, IconUserStar, IconWorld } from '@tabler/icons-react'
 import { PostReacts } from '../posts/PostReacts'
 import { usePost } from '@/hooks/usePost'
 import { fToast } from '@/helpers/toast'
@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/utils/store'
 import { useMutation } from '@tanstack/react-query'
 import { TogglePostResponseDto } from '@/types/dto/post'
+import { PostPrivacyEnum } from '@/utils/constant'
 
 interface PostProps {
   post: IPost
@@ -156,6 +157,24 @@ const Post: React.FC<PostProps> = ({
     setMediaFiles([...imageFiles, ...videoFiles])
   }, [post])
 
+  const privacyOptions = [
+    {
+      value: PostPrivacyEnum.PUBLIC,
+      icon: <IconWorld size={14} />
+    },
+    {
+      value: PostPrivacyEnum.FRIENDS,
+      icon: <IconUserStar size={14} />
+    },
+    {
+      value: PostPrivacyEnum.PRIVATE,
+      icon: <IconLock size={14} />
+    }
+  ]
+
+  const normalizedPrivacy = post.privacy?.toLowerCase() || 'public'
+  const privacyIcon = privacyOptions.find((option) => option.value === normalizedPrivacy)?.icon
+
   return (
     <>
       {isHidden ? (
@@ -192,8 +211,13 @@ const Post: React.FC<PostProps> = ({
           >
             <div className="flex w-full items-start justify-between">
               <User
-                name={post.profileName || `${firstName} ${lastName}`}
-                description={postTime(post)}
+                name={post.profileName}
+                description={
+                  <div className="flex items-center gap-2">
+                    <span>{postTime(post)}</span>
+                    {privacyIcon}
+                  </div>
+                }
                 avatarProps={{ src: post.avatarUrl }}
                 className="text-xl font-bold"
               />

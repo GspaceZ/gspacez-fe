@@ -83,6 +83,6 @@ export const usePost = () => {
     reactPost,
     deletePost,
     togglePost,
-    getTrendingTopics
+    getTrendingTopics,
   }
 }
