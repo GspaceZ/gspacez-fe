@@ -26,6 +26,7 @@ import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
 import { fToast } from '@/helpers/toast'
 import Logo from '@/public/logo.png'
+import { FLink } from '../common/FLink'
 
 const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
   const dispatch = useAppDispatch()
@@ -48,7 +49,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
     {
       label: 'Profile',
       key: 'profile',
-      action: undefined,
+      action: () => handleRedirect(ROUTE.pages.profile),
       showDivider: true,
       icon: <IconUser size={18} />
     },
@@ -74,7 +75,9 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
         <IconLayoutSidebarLeftExpandFilled size="24" />
       </Button>
       <div className="ml-4 flex items-center justify-start gap-4">
-        <Image alt="Logo" src={Logo.src} className="h-6" />
+        <FLink path={ROUTE.pages.home}>
+          <Image alt="Logo" src={Logo.src} className="h-6" />
+        </FLink>
       </div>
       <div className="mr-2 flex items-center justify-end gap-2">
         <LocaleButton />
