@@ -40,8 +40,6 @@ const FCarousel: React.FC<FCarouselProps> = ({ items }) => {
     setMediaFiles(items)
   }, [items])
 
-  console.log(mediaFiles)
-
   return (
     <Carousel
       customRightArrow={<CustomRightArrow />}
