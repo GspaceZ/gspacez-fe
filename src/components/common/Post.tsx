@@ -38,6 +38,7 @@ const Post: React.FC<PostProps> = ({
   const t = useTranslations('post')
 
   const token = useSelector((state: RootState) => state.auth.token)
+  const  { firstName, lastName } = useSelector((state: RootState) => state.user)
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
@@ -191,7 +192,7 @@ const Post: React.FC<PostProps> = ({
           >
             <div className="flex w-full items-start justify-between">
               <User
-                name={post.profileName}
+                name={post.profileName || `${firstName} ${lastName}`}
                 description={postTime(post)}
                 avatarProps={{ src: post.avatarUrl }}
                 className="text-xl font-bold"
