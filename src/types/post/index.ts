@@ -15,6 +15,7 @@ export interface IPost {
   shares: string[]
   privacy: PostPrivacyEnum
   location: string
+  feeling: string
   type: PostTypeEnum
   createdAt: Date
   updatedAt: Date

@@ -1,6 +1,5 @@
 'use client'
 
-import { postTime } from '@/helpers/post/post-time'
 import { User } from '@nextui-org/user'
 import * as React from 'react'
 import { formattedContent } from '@/helpers/post/formatted-content'
@@ -11,7 +10,14 @@ import { FCarouselItemProps } from '@/types/props/common'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import FCarousel from './FCarousel'
 import { IPost } from '@/types/post'
-import { IconDotsCircleHorizontal, IconLock, IconMessage, IconShare3, IconUserStar, IconWorld } from '@tabler/icons-react'
+import {
+  IconDotsCircleHorizontal,
+  IconLock,
+  IconMessage,
+  IconShare3,
+  IconUserStar,
+  IconWorld
+} from '@tabler/icons-react'
 import { PostReacts } from '../posts/PostReacts'
 import { usePost } from '@/hooks/usePost'
 import { fToast } from '@/helpers/toast'
@@ -20,6 +26,8 @@ import { RootState } from '@/utils/store'
 import { useMutation } from '@tanstack/react-query'
 import { TogglePostResponseDto } from '@/types/dto/post'
 import { PostPrivacyEnum } from '@/utils/constant'
+import PostUserName from '../posts/post-user/PostUserName'
+import PostUserDescription from '../posts/post-user/PostUserDescription'
 
 interface PostProps {
   post: IPost
@@ -39,7 +47,6 @@ const Post: React.FC<PostProps> = ({
   const t = useTranslations('post')
 
   const token = useSelector((state: RootState) => state.auth.token)
-  const { firstName, lastName } = useSelector((state: RootState) => state.user)
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
@@ -211,15 +218,10 @@ const Post: React.FC<PostProps> = ({
           >
             <div className="flex w-full items-start justify-between">
               <User
-                name={post.profileName || `${firstName} ${lastName}`}
-                description={
-                  <div className="flex items-center gap-2">
-                    <span>{postTime(post)}</span>
-                    {privacyIcon}
-                  </div>
-                }
+                name={<PostUserName post={post} />}
+                description={<PostUserDescription post={post} privacyIcon={privacyIcon} />}
                 avatarProps={{ src: post.avatarUrl }}
-                className="text-xl font-bold"
+                className="text-xl font-black"
               />
               <div className="flex flex-col items-end">
                 <Dropdown placement="bottom-start" className="w-[100px]">

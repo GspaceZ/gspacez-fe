@@ -18,6 +18,16 @@
     "trending_topics": "Chủ đề nổi bật"
   },
   "post": {
+    "feeling_mapping": {
+      "HAPPY": "hạnh phúc",
+      "SAD": "buồn",
+      "ANGRY": "tức giận",
+      "SURPRISED": "ngạc nhiên",
+      "LOVE": "yêu thích",
+      "CRAZY": "điên rồ"
+    },
+    "is_feeling": "đang cảm thấy",
+    "at_location": "tại",
     "read_more": "Đọc thêm",
     "like": "Thích",
     "comment": "Bình luận",
