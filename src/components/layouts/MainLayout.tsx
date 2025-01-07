@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import { useEffect } from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import Overlay from '../common/Overlay'
@@ -11,14 +11,32 @@ import { AuthGuard } from './AuthGuard'
 import { toggleSidebar } from '@/utils/store/layout'
 import { RootState, useAppDispatch } from '@/utils/store'
 import { useSelector } from 'react-redux'
+import { useProfile } from '@/hooks/useProfile'
+import { useQuery } from '@tanstack/react-query'
+import { setUser } from '@/utils/store/user'
 
 const MainLayout = ({ children, title }: MainLayoutProps) => {
   const isOpen = useSelector((state: RootState) => state.layout.sidebar.isOpen)
   const dispatch = useAppDispatch()
+  const { getProfile } = useProfile()
+  const token = useSelector((state: RootState) => state.auth.token)
 
   const toggle = () => {
     dispatch(toggleSidebar())
   }
+
+  const { data: profileData } = useQuery({
+    queryKey: ['profile'],
+    queryFn: () => getProfile(token)
+  })
+
+  useEffect(() => {
+    if (profileData) {
+      dispatch(setUser(profileData.result))
+    }
+  }, [dispatch, profileData])
+
+  console.log(useSelector((state: RootState) => state.user.id))
 
   return (
     <AuthGuard>
