@@ -1,19 +1,21 @@
 'use client'
 
-import * as React from 'react'
+import { useState } from 'react'
 import {
   Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Image
+  Image,
+  Input
 } from '@nextui-org/react'
 import { HeaderProps } from '@/types/props/layouts'
 import {
   IconBell,
   IconLayoutSidebarLeftExpandFilled,
   IconPower,
+  IconSearch,
   IconSettings,
   IconUser
 } from '@tabler/icons-react'
@@ -29,6 +31,7 @@ import Logo from '@/public/logo.png'
 import { FLink } from '../common/FLink'
 
 const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
+  const [text, setText] = useState<string>('')
   const dispatch = useAppDispatch()
   const pathname = usePathname()
   const router = useRouter()
@@ -76,8 +79,20 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
       </Button>
       <div className="ml-4 flex items-center justify-start gap-4">
         <FLink path={ROUTE.pages.home}>
-          <Image alt="Logo" src={Logo.src} className="h-6" />
+          <Image alt="Logo" src={Logo.src} className="h-6 object-contain" />
         </FLink>
+        <Input
+          placeholder="Search on GspaceZ"
+          value={text}
+          endContent={<IconSearch size={16} />}
+          onChange={(e) => setText(e.target.value)}
+          onKeyUp={(e) => {
+            if (e.key === 'Enter' || text !== '') {
+              handleRedirect(`${ROUTE.pages.search}?q=${text}`)
+            }
+          }}
+          size="sm"
+        />
       </div>
       <div className="mr-2 flex items-center justify-end gap-2">
         <LocaleButton />
