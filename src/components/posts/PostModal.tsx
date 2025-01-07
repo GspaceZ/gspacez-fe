@@ -178,8 +178,20 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
   const { isPending: isUpdatePostPending, mutate: mutateUpdatePost } = useMutation({
     mutationFn: ({ id, dto, token }: { id: string; dto: UpdatePostRequestDto; token: string }) =>
       updatePost(id, dto, token),
-    onSuccess: () => {
+    onSuccess: (data) => {
       fToast('Update post successfully', 'success')
+      queryClient.setQueryData(['newsfeed'], (oldData: { data: { result: IPost[] } } | undefined) => {
+        if (!oldData) return { data: { result: [] } };
+        return {
+          ...oldData,
+          data: {
+            ...oldData.data,
+            result: oldData.data.result.map((post) =>
+              post.id === data.data.result.id ? { ...post, ...data.data.result } : post
+            ),
+          },
+        };
+      });
       setTimeout(() => {
         closeModal()
       }, 1000)
