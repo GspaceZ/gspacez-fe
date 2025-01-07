@@ -59,7 +59,8 @@ const Page = () => {
     setIsPostModalOpen(true)
   }
 
-  const togglePrivacyModal = () => {
+  const togglePrivacyModal = (id: string) => {
+    setCurrPostId(id)
     setIsPrivacyModalOpen(true)
   }
 
@@ -126,6 +127,7 @@ const Page = () => {
         <PrivacyModal
           isOpen={isPrivacyModalOpen}
           onClose={() => setIsPrivacyModalOpen(false)}
+          postId={currPostId}
           onSave={handleSavePrivacy}
         />
         <DeleteModal
