@@ -1,16 +1,12 @@
 'use client'
 
 import { BotMessage } from '@/types/gzbot'
-import { useEffect } from 'react'
 
 interface Props {
   messages: BotMessage[]
 }
 
 export const BotMessagesBox = ({ messages }: Props) => {
-  useEffect(() => {
-    console.log(messages)
-  }, [messages])
   return (
     <div className="mt-4 flex max-h-full w-full max-w-[600px] grow flex-col gap-2 overflow-y-scroll rounded-md bg-white px-2">
       {messages.length !== 0 ? (

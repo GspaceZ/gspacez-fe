@@ -11,7 +11,6 @@ import { useLocale } from 'next-intl'
 
 const Page = () => {
   const params = new URLSearchParams(window.location.search)
-  console.log(params)
   const code = params.get('code') as string
   const locale = useLocale()
   const dispatch = useAppDispatch()

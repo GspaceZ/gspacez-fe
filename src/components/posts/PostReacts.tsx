@@ -94,7 +94,6 @@ export const PostReacts = ({ variant, id }: Props) => {
   })
 
   const handleClickReact = () => {
-    console.log('a')
     if (react) {
       mutateReact({ dto: undefined as never })
     } else {

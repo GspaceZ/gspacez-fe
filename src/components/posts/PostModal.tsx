@@ -67,8 +67,6 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
   const { createPost, updatePost } = usePost()
   const queryClient = useQueryClient()
 
-  console.log(post)
-
   const { register, reset, setValue, getValues } = useForm<PostForm>({
     defaultValues: {
       text: post?.content.text || null,
@@ -156,16 +154,19 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
     onSuccess: (data) => {
       const newPost = data.data.result
       fToast('Create post successfully', 'success')
-      queryClient.setQueryData(['newsfeed'], (oldData: { data: { result: IPost[] } } | undefined) => {
-        if (!oldData) return { data: { result: [newPost] } };
-        return {
-          ...oldData,
-          data: {
-            ...oldData.data,
-            result: [newPost, ...oldData.data.result],
-          },
-        };
-      });
+      queryClient.setQueryData(
+        ['newsfeed'],
+        (oldData: { data: { result: IPost[] } } | undefined) => {
+          if (!oldData) return { data: { result: [newPost] } }
+          return {
+            ...oldData,
+            data: {
+              ...oldData.data,
+              result: [newPost, ...oldData.data.result]
+            }
+          }
+        }
+      )
       setTimeout(() => {
         closeModal()
       }, 1000)
@@ -180,18 +181,21 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
       updatePost(id, dto, token),
     onSuccess: (data) => {
       fToast('Update post successfully', 'success')
-      queryClient.setQueryData(['newsfeed'], (oldData: { data: { result: IPost[] } } | undefined) => {
-        if (!oldData) return { data: { result: [] } };
-        return {
-          ...oldData,
-          data: {
-            ...oldData.data,
-            result: oldData.data.result.map((post) =>
-              post.id === data.data.result.id ? { ...post, ...data.data.result } : post
-            ),
-          },
-        };
-      });
+      queryClient.setQueryData(
+        ['newsfeed'],
+        (oldData: { data: { result: IPost[] } } | undefined) => {
+          if (!oldData) return { data: { result: [] } }
+          return {
+            ...oldData,
+            data: {
+              ...oldData.data,
+              result: oldData.data.result.map((post) =>
+                post.id === data.data.result.id ? { ...post, ...data.data.result } : post
+              )
+            }
+          }
+        }
+      )
       setTimeout(() => {
         closeModal()
       }, 1000)

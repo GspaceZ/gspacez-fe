@@ -8,7 +8,10 @@ import {
   DropdownMenu,
   DropdownTrigger,
   Image,
-  Input
+  Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger
 } from '@nextui-org/react'
 import { HeaderProps } from '@/types/props/layouts'
 import {
@@ -29,6 +32,7 @@ import { ROUTE } from '@/utils/constant/route'
 import { fToast } from '@/helpers/toast'
 import Logo from '@/public/logo.png'
 import { FLink } from '../common/FLink'
+import { Notifications } from '../notifications/Notifications'
 
 const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
   const [text, setText] = useState<string>('')
@@ -96,7 +100,19 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
       </div>
       <div className="mr-2 flex items-center justify-end gap-2">
         <LocaleButton />
-        <Button isIconOnly variant="light" size="sm" startContent={<IconBell size={20} />}></Button>
+        <Popover placement="bottom-end" showArrow offset={20}>
+          <PopoverTrigger>
+            <Button
+              isIconOnly
+              variant="light"
+              size="sm"
+              startContent={<IconBell size={20} />}
+            ></Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <Notifications />
+          </PopoverContent>
+        </Popover>
         <Button
           isIconOnly
           variant="light"
