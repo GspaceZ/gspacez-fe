@@ -38,7 +38,7 @@ const Post: React.FC<PostProps> = ({
   const t = useTranslations('post')
 
   const token = useSelector((state: RootState) => state.auth.token)
-  const  { firstName, lastName } = useSelector((state: RootState) => state.user)
+  const { firstName, lastName } = useSelector((state: RootState) => state.user)
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
@@ -220,7 +220,7 @@ const Post: React.FC<PostProps> = ({
               </div>
             </div>
             <span
-              className={`${variant === POST_VARIANTS.sidebar ? 'text-md' : content.isBigContent ? 'text-2xl' : 'text-xl'}`}
+              className={`${variant === POST_VARIANTS.sidebar ? 'text-md' : content.isBigContent ? 'text-2xl' : 'text-xl'} text-wrap break-all`}
             >
               {content.shortContent}
             </span>
