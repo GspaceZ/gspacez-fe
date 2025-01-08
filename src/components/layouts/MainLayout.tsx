@@ -36,8 +36,6 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
     }
   }, [dispatch, profileData])
 
-  console.log(useSelector((state: RootState) => state.user.id))
-
   return (
     <AuthGuard>
       <div className="relative min-h-screen">
