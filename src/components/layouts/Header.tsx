@@ -17,6 +17,7 @@ import { HeaderProps } from '@/types/props/layouts'
 import {
   IconBell,
   IconLayoutSidebarLeftExpandFilled,
+  IconMessage2,
   IconPower,
   IconSearch,
   IconSettings,
@@ -119,6 +120,14 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
           size="sm"
           startContent={<IconSettings size={20} />}
         ></Button>
+        <FLink path="/message">
+          <Button
+            isIconOnly
+            variant="light"
+            size="sm"
+            startContent={<IconMessage2 size={20} />}
+          ></Button>
+        </FLink>
         <Dropdown>
           <DropdownTrigger>
             <Button
