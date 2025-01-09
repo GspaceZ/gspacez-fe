@@ -14,15 +14,6 @@ import {
   PopoverTrigger
 } from '@nextui-org/react'
 import { HeaderProps } from '@/types/props/layouts'
-import {
-  IconBell,
-  IconLayoutSidebarLeftExpandFilled,
-  IconMessage2,
-  IconPower,
-  IconSearch,
-  IconSettings,
-  IconUser
-} from '@tabler/icons-react'
 import { LocaleButton } from './LocaleButton'
 import { useAppDispatch } from '@/utils/store'
 import { logout } from '@/utils/store/auth'
@@ -34,6 +25,7 @@ import { fToast } from '@/helpers/toast'
 import Logo from '@/public/logo.png'
 import { FLink } from '../common/FLink'
 import { Notifications } from '../notifications/Notifications'
+import { FIcon } from '../common/FIcon'
 
 const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
   const [text, setText] = useState<string>('')
@@ -59,14 +51,14 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
       key: 'profile',
       action: () => handleRedirect(ROUTE.pages.profile),
       showDivider: true,
-      icon: <IconUser size={18} />
+      icon: 'User'
     },
     {
       label: 'Logout',
       key: 'logout',
       action: handleLogout,
       showDivider: false,
-      icon: <IconPower size={18} />
+      icon: 'Power'
     }
   ]
 
@@ -80,7 +72,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
         variant="light"
         onPress={() => toggleSidebar()}
       >
-        <IconLayoutSidebarLeftExpandFilled size="24" />
+        <FIcon name="LayoutSidebarLeftExpandFilled" size="24" />
       </Button>
       <div className="ml-4 flex items-center justify-start gap-4">
         <FLink path={ROUTE.pages.home}>
@@ -89,7 +81,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
         <Input
           placeholder="Search on GspaceZ"
           value={text}
-          endContent={<IconSearch size={16} />}
+          endContent={<FIcon name="Search" size={16} />}
           onChange={(e) => setText(e.target.value)}
           onKeyUp={(e) => {
             if (e.key === 'Enter' || text !== '') {
@@ -107,7 +99,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
               isIconOnly
               variant="light"
               size="sm"
-              startContent={<IconBell size={20} />}
+              startContent={<FIcon name="Bell" size={20} />}
             ></Button>
           </PopoverTrigger>
           <PopoverContent>
@@ -118,14 +110,14 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
           isIconOnly
           variant="light"
           size="sm"
-          startContent={<IconSettings size={20} />}
+          startContent={<FIcon name="Settings" size={20} />}
         ></Button>
         <FLink path="/message">
           <Button
             isIconOnly
             variant="light"
             size="sm"
-            startContent={<IconMessage2 size={20} />}
+            startContent={<FIcon name="Message2" size={20} />}
           ></Button>
         </FLink>
         <Dropdown>
@@ -134,7 +126,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
               isIconOnly
               variant="light"
               size="sm"
-              startContent={<IconUser size={20} />}
+              startContent={<FIcon name="User" size={20} />}
             ></Button>
           </DropdownTrigger>
           <DropdownMenu>
@@ -145,7 +137,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
                   onPress={item.action}
                   showDivider={item.showDivider}
                   className={`${item.key === 'logout' && 'text-red-500'}`}
-                  startContent={item.icon}
+                  startContent={<FIcon name={item.icon} size={18} />}
                 >
                   {item.label}
                 </DropdownItem>
