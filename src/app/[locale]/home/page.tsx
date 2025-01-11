@@ -91,7 +91,7 @@ const Page = () => {
             {imageUrl && <FImage src={imageUrl} alt="Avatar" className="h-12 w-12" />}
             <Button
               className="ml-4 grow bg-gray-200 text-gray-700"
-              onClick={() => togglePostModal()}
+              onPress={() => togglePostModal()}
             >
               {tPost('create_placeholder')}
             </Button>
