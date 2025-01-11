@@ -25,6 +25,7 @@ const Page = () => {
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [selectedPost, setSelectedPost] = useState<IPost | undefined>(undefined)
+  const [pageId, setPageId] = useState<number>(1)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedPrivacy, setSelectedPrivacy] = useState<PostPrivacyEnum>(PostPrivacyEnum.PUBLIC)
   const { getNewsfeed } = usePost()
@@ -36,7 +37,7 @@ const Page = () => {
 
   const { data: newsfeedData, isLoading: newsfeedLoading } = useQuery({
     queryKey: ['newsfeed'],
-    queryFn: () => getNewsfeed(token)
+    queryFn: () => getNewsfeed({ pageNum: pageId, pageSize: 20 }, token)
   })
 
   useEffect(() => {
@@ -108,12 +109,15 @@ const Page = () => {
                   ))}
               </div>
             ) : (
-              <Posts
-                posts={showNewsFeedData}
-                toggleEditPost={(postId) => handleSelectedPost(postId)}
-                toggleSetPrivacyModal={togglePrivacyModal}
-                toggleDeleteModal={toggleDeleteModal}
-              />
+              <>
+                <Posts
+                  posts={showNewsFeedData}
+                  toggleEditPost={(postId) => handleSelectedPost(postId)}
+                  toggleSetPrivacyModal={togglePrivacyModal}
+                  toggleDeleteModal={toggleDeleteModal}
+                />
+                <PostSkeleton variant={POST_VARIANTS.feed} />
+              </>
             )}
           </div>
         </div>

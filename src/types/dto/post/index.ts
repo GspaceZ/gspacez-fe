@@ -34,6 +34,11 @@ export type CreatePostResponseDto = {
   }
 }
 
+export type GetNewsfeedRequestDto = {
+  pageNum: number
+  pageSize: number
+}
+
 export type GetNewsfeedResponseDto = {
   code: number
   message: string
