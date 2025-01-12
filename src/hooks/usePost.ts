@@ -24,11 +24,10 @@ export const usePost = () => {
   }
 
   const getNewsfeed = async (dto: GetNewsfeedRequestDto, token: string) => {
-    console.log(dto)
     return await callApi<GetNewsfeedRequestDto, GetNewsfeedResponseDto>(
-      '/post-service/posts/newsfeed',
+      `/post-service/posts/newsfeed?pageNum=${dto.pageNum}&pageSize=${dto.pageSize}`,
       'GET',
-      dto,
+      undefined,
       token
     )
   }
