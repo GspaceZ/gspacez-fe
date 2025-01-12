@@ -40,7 +40,8 @@ const Page = () => {
 
   const { data: newsfeedData, isLoading: newsfeedLoading } = useQuery({
     queryKey: ['newsfeed', pageId],
-    queryFn: () => getNewsfeed({ pageNum: pageId, pageSize: 5 }, token)
+    queryFn: () => getNewsfeed({ pageNum: pageId, pageSize: 5 }, token),
+    refetchOnWindowFocus: false
   })
 
   useEffect(() => {
