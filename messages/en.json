@@ -18,6 +18,16 @@
     "trending_topics": "Trending Topics"
   },
   "post": {
+    "feeling_mapping": {
+      "HAPPY": "happy",
+      "SAD": "sad",
+      "ANGRY": "angry",
+      "SURPRISED": "surprised",
+      "LOVE": "love",
+      "CRAZY": "crazy"
+    },
+    "is_feeling": "feeling",
+    "at_location": "at",
     "read_more": "Read more",
     "like": "Like",
     "comment": "Comment",

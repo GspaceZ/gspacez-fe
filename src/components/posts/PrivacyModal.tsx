@@ -8,10 +8,11 @@ import { IconLock, IconUserStar, IconWorld } from '@tabler/icons-react'
 interface PrivacyProps {
   isOpen: boolean
   onClose: () => void
+  postId: string
   onSave: (privacy: PostPrivacyEnum) => void
 }
 
-const PrivacyModal: React.FC<PrivacyProps> = ({ isOpen, onClose, onSave }) => {
+const PrivacyModal: React.FC<PrivacyProps> = ({ isOpen, onClose, postId, onSave }) => {
   const t = useTranslations('post.privacy')
   const [selectedOption, setSelectedOption] = useState<PostPrivacyEnum | undefined>(undefined)
 

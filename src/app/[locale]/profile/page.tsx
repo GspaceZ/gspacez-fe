@@ -90,6 +90,7 @@ const Page: React.FC = () => {
         <PrivacyModal
           isOpen={isPrivacyModalOpen}
           onClose={() => setIsPrivacyModalOpen(false)}
+          postId={selectedPost?.id || ''}
           onSave={handleSavePrivacy}
         />
       </div>

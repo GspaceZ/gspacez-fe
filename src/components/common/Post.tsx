@@ -1,6 +1,5 @@
 'use client'
 
-import { postTime } from '@/helpers/post/post-time'
 import { User } from '@nextui-org/user'
 import * as React from 'react'
 import { formattedContent } from '@/helpers/post/formatted-content'
@@ -11,17 +10,20 @@ import { FCarouselItemProps } from '@/types/props/common'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import FCarousel from './FCarousel'
 import { IPost } from '@/types/post'
-import { IconDotsCircleHorizontal, IconMessage, IconShare3 } from '@tabler/icons-react'
 import { PostReacts } from '../posts/PostReacts'
 import { usePost } from '@/hooks/usePost'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/utils/store'
 import { useMutation } from '@tanstack/react-query'
 import { TogglePostResponseDto } from '@/types/dto/post'
+import PostUserName from '../posts/post-user/PostUserName'
+import { FIcon } from './FIcon'
 import { useFToastContext } from './FToast'
 import { PostPrivacy } from '../posts/PostPrivacy'
-import { usePathname, useRouter } from 'next/navigation'
+import { postTime } from '@/helpers/post/post-time'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
+import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 
 interface PostProps {
   post: IPost
@@ -41,7 +43,6 @@ const Post: React.FC<PostProps> = ({
   const t = useTranslations('post')
 
   const token = useSelector((state: RootState) => state.auth.token)
-  const { firstName, lastName } = useSelector((state: RootState) => state.user)
   const { fToast } = useFToastContext()
   const router = useRouter()
   const pathname = usePathname()
@@ -210,12 +211,12 @@ const Post: React.FC<PostProps> = ({
           >
             <div className="flex w-full items-start justify-between">
               <User
-                name={post.profileName || `${firstName} ${lastName}`}
+                name={<PostUserName post={post} />}
                 description={
                   <PostPrivacy time={postTime(post)} privacy={post.privacy} postId={post.id} />
                 }
                 avatarProps={{ src: post.avatarUrl }}
-                className="text-xl font-bold"
+                className="text-xl font-black"
               />
               <div className="flex flex-col items-end">
                 <Dropdown placement="bottom-start" className="w-[100px]">
@@ -226,7 +227,7 @@ const Post: React.FC<PostProps> = ({
                       variant="light"
                       onPress={() => toggleMenu()}
                     >
-                      <IconDotsCircleHorizontal />
+                      <FIcon name="DotsCircleHorizontal" />
                     </Button>
                   </DropdownTrigger>
                   <DropdownMenu>
@@ -260,12 +261,16 @@ const Post: React.FC<PostProps> = ({
             }`}
           >
             <PostReacts variant={variant} id={post.id} />
-            <Button variant="light" startContent={<IconMessage />} className="grow font-semibold">
+            <Button
+              variant="light"
+              startContent={<FIcon name="Message" />}
+              className="grow font-semibold"
+            >
               {t('comment')}
             </Button>
             <Button
               variant="light"
-              startContent={<IconShare3 />}
+              startContent={<FIcon name="Share3" />}
               className={`grow font-semibold ${variant === POST_VARIANTS.feed ? 'md:mr-10' : ''}`}
             >
               {t('share')}
