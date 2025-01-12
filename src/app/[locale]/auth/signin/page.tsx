@@ -137,6 +137,12 @@ const Page: React.FC = () => {
     }
   }
 
+  const handlePressKey = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit(onSubmit)()
+    }
+  }
+
   return (
     <AuthLayout>
       <div className="mt-[50px] flex min-h-[460px] w-[360px] flex-col justify-between rounded-[20px] border border-gray-200 shadow-md md:w-[420px]">
@@ -150,6 +156,7 @@ const Page: React.FC = () => {
                 label={t('email')}
                 className="h-[56px] w-[314px] md:w-[340px]"
                 size="lg"
+                onKeyDown={handlePressKey}
               />
               <p className="text-sm text-red-500">{errors?.email?.message}</p>
             </InputWithError>
@@ -166,6 +173,7 @@ const Page: React.FC = () => {
                     toggleShowPassword={toggleShowPassword}
                   />
                 }
+                onKeyDown={handlePressKey}
               />
             </InputWithError>
             <div className="-mt-2 mr-2 flex w-full justify-end">
