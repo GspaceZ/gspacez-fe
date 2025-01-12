@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import React, { createContext, ReactNode, useContext, useState } from 'react'
 import { FModal } from './modals/FModal'
 import { FConfirmModalContent } from './modals/FConfirmModalContent'
 import { Button } from '@nextui-org/react'
@@ -38,9 +38,6 @@ const FModalsContext = createContext<FModalsContextProps | undefined>(undefined)
 
 export const FModalsProvider = ({ children }: FModalsProviderProps) => {
   const [modals, setModals] = useState<ModalManager[]>([])
-  useEffect(() => {
-    console.log(modals.map((modal) => modal.id))
-  }, [modals])
 
   const open = ({ id, content, closeAllModals, closeWithConfirm, footer, title }: ModalManager) => {
     setModals((prev) => {

@@ -3,6 +3,7 @@ import {
   CreatePostRequestDto,
   CreatePostResponseDto,
   DeletePostResponseDto,
+  GetNewsfeedRequestDto,
   GetNewsfeedResponseDto,
   GetTrendingTopicsResponse,
   ReactPostRequestDto,
@@ -22,9 +23,9 @@ export const usePost = () => {
     )
   }
 
-  const getNewsfeed = async (token: string) => {
-    return await callApi<never, GetNewsfeedResponseDto>(
-      '/post-service/posts/newsfeed',
+  const getNewsfeed = async (dto: GetNewsfeedRequestDto, token: string) => {
+    return await callApi<GetNewsfeedRequestDto, GetNewsfeedResponseDto>(
+      `/post-service/posts/newsfeed?pageNum=${dto.pageNum}&pageSize=${dto.pageSize}`,
       'GET',
       undefined,
       token

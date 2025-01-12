@@ -8,7 +8,7 @@ import MainLayout from '@/components/layouts/MainLayout'
 import { RootState, useAppSelector } from '@/utils/store'
 import { Button } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { IPost } from '@/types/post'
 import { PostPrivacyEnum } from '@/utils/constant'
 import { DeleteModal } from '@/components/posts/DeleteModal'
@@ -16,6 +16,7 @@ import { useQuery } from '@tanstack/react-query'
 import { usePost } from '@/hooks/usePost'
 import PostSkeleton from '@/components/posts/PostSkeleton'
 import { POST_VARIANTS } from '@/utils/constant/variants'
+import { FIcon } from '@/components/common/FIcon'
 
 const Page = () => {
   const t = useTranslations('title')
@@ -25,18 +26,21 @@ const Page = () => {
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [selectedPost, setSelectedPost] = useState<IPost | undefined>(undefined)
+  const [pageId, setPageId] = useState<number>(1)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedPrivacy, setSelectedPrivacy] = useState<PostPrivacyEnum>(PostPrivacyEnum.PUBLIC)
   const { getNewsfeed } = usePost()
   const user = useAppSelector((state) => state.user)
   const token = useAppSelector((state: RootState) => state.auth.token)
   const [currPostId, setCurrPostId] = useState<string>('')
-
+  const loadMoreSkeletonRef = useRef<HTMLDivElement | null>(null)
+  const [allPosts, setAllPosts] = useState<IPost[]>([])
+  const [currentScroll, setCurrentScroll] = useState<number>(0)
   const [imageUrl, setImageUrl] = useState<string>('')
 
   const { data: newsfeedData, isLoading: newsfeedLoading } = useQuery({
-    queryKey: ['newsfeed'],
-    queryFn: () => getNewsfeed(token)
+    queryKey: ['newsfeed', pageId],
+    queryFn: () => getNewsfeed({ pageNum: pageId, pageSize: 5 }, token)
   })
 
   useEffect(() => {
@@ -81,7 +85,45 @@ const Page = () => {
     setSelectedPrivacy(privacy)
   }
 
-  const showNewsFeedData = newsfeedData?.data.result.filter((post) => !post.hidden)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setPageId((prev) => prev + 1)
+          setCurrentScroll(window.scrollY)
+        }
+      },
+      { threshold: 1.0 }
+    )
+
+    if (loadMoreSkeletonRef.current) {
+      observer.observe(loadMoreSkeletonRef.current)
+    }
+
+    return () => {
+      if (loadMoreSkeletonRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        observer.unobserve(loadMoreSkeletonRef.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    const res = newsfeedData?.data.result
+    if (res) {
+      setAllPosts((prev) => {
+        return [...prev, ...res]
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newsfeedData])
+
+  useEffect(() => {
+    if (pageId > 2) {
+      window.scrollTo(0, currentScroll)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allPosts])
 
   return (
     <MainLayout title={t('home')}>
@@ -97,7 +139,7 @@ const Page = () => {
             </Button>
           </div>
           <div className="pb-[20px]">
-            {newsfeedLoading ? (
+            {newsfeedLoading && pageId < 2 ? (
               <div className="mt-6 flex w-full flex-col items-center gap-4">
                 {Array(4)
                   .fill(0)
@@ -108,13 +150,21 @@ const Page = () => {
                   ))}
               </div>
             ) : (
-              <Posts
-                posts={showNewsFeedData}
-                toggleEditPost={(postId) => handleSelectedPost(postId)}
-                toggleSetPrivacyModal={togglePrivacyModal}
-                toggleDeleteModal={toggleDeleteModal}
-              />
+              <>
+                <Posts
+                  posts={allPosts.filter((post) => !post.hidden)}
+                  toggleEditPost={(postId) => handleSelectedPost(postId)}
+                  toggleSetPrivacyModal={togglePrivacyModal}
+                  toggleDeleteModal={toggleDeleteModal}
+                />
+              </>
             )}
+            <div
+              ref={loadMoreSkeletonRef}
+              className="flex h-[200px] w-full items-center justify-center"
+            >
+              <FIcon name="Loader" size={24} />
+            </div>
           </div>
         </div>
         <PostModal
