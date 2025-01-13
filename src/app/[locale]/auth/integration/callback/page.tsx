@@ -1,13 +1,15 @@
 'use client'
 
 import { useAuth } from '@/hooks/useAuth'
-import { useAppDispatch } from '@/utils/store'
+import { RootState, useAppDispatch } from '@/utils/store'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { setAuth } from '@/utils/store/auth'
 import { fToast } from '@/helpers/toast'
 import { useLocale } from 'next-intl'
+import { useSelector } from 'react-redux'
+import { clearCallbackUrl } from '@/utils/store/guard'
 
 const Page = () => {
   const params = new URLSearchParams(window.location.search)
@@ -15,6 +17,7 @@ const Page = () => {
   const locale = useLocale()
   const dispatch = useAppDispatch()
   const router = useRouter()
+  const callbackUrl = useSelector((state: RootState) => state.guard.callbackUrl)
 
   const { getTokenByGoogle } = useAuth()
 
@@ -23,7 +26,12 @@ const Page = () => {
       getTokenByGoogle(locale, code),
     onSuccess: (data) => {
       dispatch(setAuth(data.data.result))
-      router.push(`/${locale}/home`)
+      if (callbackUrl) {
+        router.push(callbackUrl)
+        dispatch(clearCallbackUrl())
+      } else {
+        router.push(`/${locale}/home`)
+      }
     },
     onError: () => {
       router.push(`/${locale}/auth/signin`)

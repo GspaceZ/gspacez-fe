@@ -13,7 +13,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
 import { useAuth } from '@/hooks/useAuth'
-import { useAppDispatch } from '@/utils/store'
+import { RootState, useAppDispatch } from '@/utils/store'
 import { setAuth } from '@/utils/store/auth'
 import { fToast } from '@/helpers/toast'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
@@ -24,6 +24,8 @@ import { setUser } from '@/utils/store/user'
 import { IProfile } from '@/types/profile'
 import { FLink } from '@/components/common/FLink'
 import { LoginByGoogle } from '@/components/auth/LoginByGoogle'
+import { useSelector } from 'react-redux'
+import { clearCallbackUrl } from '@/utils/store/guard'
 
 type SignInResponse = {
   code: number
@@ -48,6 +50,7 @@ const Page: React.FC = () => {
   const { signIn } = useAuth()
   const { getProfile } = useProfile()
   const [isLoading, setIsLoading] = useState(false)
+  const callbackUrl = useSelector((state: RootState) => state.guard.callbackUrl)
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
 
   const toggleShowPassword = () => {
@@ -128,7 +131,12 @@ const Page: React.FC = () => {
       }
 
       fToast(t('toast.signin.success'), 'success')
-      handleRedirect(ROUTE.pages.home)
+      if (callbackUrl) {
+        router.push(callbackUrl)
+        dispatch(clearCallbackUrl())
+      } else {
+        handleRedirect(ROUTE.pages.home)
+      }
     } catch (error) {
       fToast(t('toast.unknown'), 'danger')
       console.error('Error: ', error)
