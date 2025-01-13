@@ -6,14 +6,15 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { setAuth } from '@/utils/store/auth'
-import { fToast } from '@/helpers/toast'
 import { useLocale } from 'next-intl'
 import { useSelector } from 'react-redux'
 import { clearCallbackUrl } from '@/utils/store/guard'
+import { useFToastContext } from '@/components/common/FToast'
 
 const Page = () => {
   const params = new URLSearchParams(window.location.search)
   const code = params.get('code') as string
+  const { fToast } = useFToastContext()
   const locale = useLocale()
   const dispatch = useAppDispatch()
   const router = useRouter()

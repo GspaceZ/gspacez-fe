@@ -1,5 +1,5 @@
 import callApi from '@/axios'
-import { fToast } from '@/helpers/toast'
+import { useFToastContext } from '@/components/common/FToast'
 import {
   UploadAvatarResponse,
   UpdateProfileResponse,
@@ -10,6 +10,7 @@ import {
 import axios from 'axios'
 
 export const useProfile = () => {
+  const { fToast } = useFToastContext()
   const uploadImage = async (file: File | null) => {
     const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string
     const apiKey = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY as string

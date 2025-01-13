@@ -17,8 +17,8 @@ import { ROUTE } from '@/utils/constant/route'
 import { useAuth } from '@/hooks/useAuth'
 import { useState } from 'react'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
-import { fToast } from '@/helpers/toast'
 import ShowPassword from '@/components/common/ShowPassword'
+import { useFToastContext } from '@/components/common/FToast'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
@@ -30,6 +30,7 @@ const Page: React.FC = () => {
   const resetEmail = useAppSelector((state) => state.email.resetEmail)
 
   const { resetPassword } = useAuth()
+  const { fToast } = useFToastContext()
   const [isLoading, setIsLoading] = useState(false)
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState<boolean>(false)

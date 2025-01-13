@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { FModalsProvider } from '@/components/common/FModals'
+import { FToastProvider } from '@/components/common/FToast'
 
 persistStore(store)
 const queryClient = new QueryClient()
@@ -15,11 +16,13 @@ const queryClient = new QueryClient()
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextUIProvider>
-      <ReduxProvider store={store}>
-        <FModalsProvider>
-          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-        </FModalsProvider>
-      </ReduxProvider>
+      <FToastProvider>
+        <ReduxProvider store={store}>
+          <FModalsProvider>
+            <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+          </FModalsProvider>
+        </ReduxProvider>
+      </FToastProvider>
     </NextUIProvider>
   )
 }

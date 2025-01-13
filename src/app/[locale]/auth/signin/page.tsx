@@ -15,7 +15,6 @@ import { ROUTE } from '@/utils/constant/route'
 import { useAuth } from '@/hooks/useAuth'
 import { RootState, useAppDispatch } from '@/utils/store'
 import { setAuth } from '@/utils/store/auth'
-import { fToast } from '@/helpers/toast'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
 import { useState } from 'react'
 import ShowPassword from '@/components/common/ShowPassword'
@@ -26,6 +25,7 @@ import { FLink } from '@/components/common/FLink'
 import { LoginByGoogle } from '@/components/auth/LoginByGoogle'
 import { useSelector } from 'react-redux'
 import { clearCallbackUrl } from '@/utils/store/guard'
+import { useFToastContext } from '@/components/common/FToast'
 
 type SignInResponse = {
   code: number
@@ -48,6 +48,7 @@ const Page: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const { signIn } = useAuth()
+  const { fToast } = useFToastContext()
   const { getProfile } = useProfile()
   const [isLoading, setIsLoading] = useState(false)
   const callbackUrl = useSelector((state: RootState) => state.guard.callbackUrl)

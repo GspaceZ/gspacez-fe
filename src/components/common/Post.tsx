@@ -14,11 +14,11 @@ import { IPost } from '@/types/post'
 import { IconDotsCircleHorizontal, IconMessage, IconShare3 } from '@tabler/icons-react'
 import { PostReacts } from '../posts/PostReacts'
 import { usePost } from '@/hooks/usePost'
-import { fToast } from '@/helpers/toast'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/utils/store'
 import { useMutation } from '@tanstack/react-query'
 import { TogglePostResponseDto } from '@/types/dto/post'
+import { useFToastContext } from './FToast'
 
 interface PostProps {
   post: IPost
@@ -39,6 +39,7 @@ const Post: React.FC<PostProps> = ({
 
   const token = useSelector((state: RootState) => state.auth.token)
   const { firstName, lastName } = useSelector((state: RootState) => state.user)
+  const { fToast } = useFToastContext()
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)

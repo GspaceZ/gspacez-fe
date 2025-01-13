@@ -1,11 +1,11 @@
 'use client'
 
-import { fToast } from '@/helpers/toast'
 import { usePost } from '@/hooks/usePost'
 import { RootState } from '@/utils/store'
 import { Button, Modal, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react'
 import { useMutation } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
+import { useFToastContext } from '../common/FToast'
 
 interface DeleteModalProps {
   isOpen: boolean
@@ -16,6 +16,7 @@ interface DeleteModalProps {
 export const DeleteModal: React.FC<DeleteModalProps> = ({ isOpen, onClose, id }) => {
   const { deletePost } = usePost()
   const token = useSelector((state: RootState) => state.auth.token)
+  const { fToast } = useFToastContext()
 
   const { mutate: mutateDeletePost } = useMutation({
     mutationFn: () => deletePost(id, token),

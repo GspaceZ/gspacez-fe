@@ -17,13 +17,14 @@ import { ROUTE } from '@/utils/constant/route'
 import { useAuth } from '@/hooks/useAuth'
 import { useState } from 'react'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
-import { fToast } from '@/helpers/toast'
+import { useFToastContext } from '@/components/common/FToast'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
 
   const router = useRouter()
   const pathname = usePathname()
+  const { fToast } = useFToastContext()
 
   const dispatch = useAppDispatch()
 
