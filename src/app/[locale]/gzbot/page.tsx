@@ -1,10 +1,10 @@
 'use client'
 
 import { FActionIcon } from '@/components/common/FActionIcon'
+import { useFToastContext } from '@/components/common/FToast'
 import { BotMessagesBox } from '@/components/gzbot/BotMessagesBox'
 import { BotNotice } from '@/components/gzbot/BotNotice'
 import MainLayout from '@/components/layouts/MainLayout'
-import { fToast } from '@/helpers/toast'
 import { useBot } from '@/hooks/useBot'
 import { BotCompletionRequestDto } from '@/types/dto/bot'
 import { BotMessage } from '@/types/gzbot'
@@ -20,6 +20,7 @@ const Page = () => {
   const [text, setText] = useState<string>('')
   const [chatting, setChatting] = useState<boolean>(false)
   const [language, setLanguage] = useState<string>('')
+  const { fToast } = useFToastContext()
   const locale = useLocale()
   const languageOptions = {
     en: 'en-US',

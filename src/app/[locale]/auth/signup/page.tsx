@@ -19,8 +19,8 @@ import { getBaseUrl } from '@/helpers/url/base-url'
 import { useAuth } from '@/hooks/useAuth'
 import { useState } from 'react'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
-import { fToast } from '@/helpers/toast'
 import ShowPassword from '@/components/common/ShowPassword'
+import { useFToastContext } from '@/components/common/FToast'
 
 const Page: React.FC = () => {
   const t = useTranslations('auth')
@@ -30,6 +30,7 @@ const Page: React.FC = () => {
 
   const { getEncodedUrl, signUp } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
+  const { fToast } = useFToastContext()
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState<boolean>(false)
 

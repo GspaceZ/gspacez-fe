@@ -11,12 +11,13 @@ import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { usePathname, useRouter } from 'next/navigation'
 import { ROUTE } from '@/utils/constant/route'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
-import { fToast } from '@/helpers/toast'
 import { useCloudinary } from '@/hooks/useCloudinary'
+import { useFToastContext } from '@/components/common/FToast'
 
 const Page: React.FC = () => {
   const t = useTranslations('profile.avatar')
   const tTitle = useTranslations('title')
+  const { fToast } = useFToastContext()
 
   const initialUrl = useAppSelector((state) => state.user.avtUrl)
 

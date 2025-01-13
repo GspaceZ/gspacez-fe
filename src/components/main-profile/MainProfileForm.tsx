@@ -12,8 +12,8 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import FImage from '../common/FImage'
 import { RESPONSE_CODES } from '@/utils/constant/codes'
-import { fToast } from '@/helpers/toast'
 import LandingAvatar from '@/public/landingAvatar.png'
+import { useFToastContext } from '../common/FToast'
 
 const MainProfileForm = () => {
   const t = useTranslations('profile')
@@ -23,16 +23,7 @@ const MainProfileForm = () => {
 
   const token = useAppSelector((state: RootState) => state.auth.token)
 
-  // useEffect(() => {
-  //   const handleRedirect = (path: string) => {
-  //     const destinationPath = pathWithLocale(pathname, path)
-  //     router.push(destinationPath)
-  //   }
-
-  //   if (!token) {
-  //     handleRedirect(ROUTE.auth.signin)
-  //   }
-  // }, [pathname, router, token])
+  const { fToast } = useFToastContext()
 
   const updateProfileSchema = z.object({
     firstName: z

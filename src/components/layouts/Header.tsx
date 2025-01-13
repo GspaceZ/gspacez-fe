@@ -21,17 +21,18 @@ import { logout as logoutUser } from '@/utils/store/user'
 import { usePathname, useRouter } from 'next/navigation'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { ROUTE } from '@/utils/constant/route'
-import { fToast } from '@/helpers/toast'
 import Logo from '@/public/logo.png'
 import { FLink } from '../common/FLink'
 import { Notifications } from '../notifications/Notifications'
 import { FIcon } from '../common/FIcon'
+import { useFToastContext } from '../common/FToast'
 
 const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
   const [text, setText] = useState<string>('')
   const dispatch = useAppDispatch()
   const pathname = usePathname()
   const router = useRouter()
+  const { fToast } = useFToastContext()
 
   const handleRedirect = (path: string) => {
     const destinationPath = pathWithLocale(pathname, path)

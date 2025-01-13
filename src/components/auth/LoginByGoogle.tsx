@@ -1,10 +1,11 @@
-import { fToast } from '@/helpers/toast'
 import { Button, Image } from '@nextui-org/react'
 import { useLocale } from 'next-intl'
 import GoogleLogo from '@/public/google.svg'
+import { useFToastContext } from '../common/FToast'
 
 export const LoginByGoogle = () => {
   const locale = useLocale()
+  const { fToast } = useFToastContext()
 
   const handleGoogleLogin = async () => {
     try {

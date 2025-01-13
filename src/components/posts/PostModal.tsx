@@ -28,10 +28,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/utils/store'
 import { CreatePostRequestDto, UpdatePostRequestDto } from '@/types/dto/post'
-import { fToast } from '@/helpers/toast'
 import { useForm } from 'react-hook-form'
 import { useCloudinary } from '@/hooks/useCloudinary'
 import { checkCloudFile } from '@/helpers/media/check-cloud-file'
+import { useFToastContext } from '../common/FToast'
 
 export interface PostModalProps {
   user: IProfile
@@ -56,6 +56,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, post, closePost, isOpen }) 
   const privacyOptions = Object.values(PostPrivacyEnum)
 
   const token = useSelector((state: RootState) => state.auth.token)
+  const { fToast } = useFToastContext()
 
   const [tags, setTags] = useState<string[]>(post?.content.tag ?? [])
   const [currTag, setCurrTag] = useState<string>('')
