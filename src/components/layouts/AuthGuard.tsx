@@ -14,6 +14,7 @@ import { pathWithLocale } from '@/helpers/url/path-with-locale'
 import { usePathname, useRouter } from 'next/navigation'
 import { ROUTE } from '@/utils/constant/route'
 import { getCookie } from '@/helpers/cookie'
+import { setCallbackUrl } from '@/utils/store/guard'
 
 interface AuthGuardProps {
   children: ReactNode
@@ -74,6 +75,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
 
   useEffect(() => {
     if (!token) {
+      dispatch(setCallbackUrl({ callbackUrl: window.location.href }))
       handleRedirect(ROUTE.auth.signin)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
