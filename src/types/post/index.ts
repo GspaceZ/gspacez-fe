@@ -26,3 +26,21 @@ export interface IPost {
   hidden: boolean
   hashTags: string[]
 }
+
+export interface IComment {
+  id: string
+  postId: string
+  profileId: string
+  content: {
+    text: string
+    images: string[]
+    videos: string[]
+  }
+  parentId: string
+  profileName: string
+  profileImageUrl: string
+  avatarUrl: string
+  createdAt: Date
+  updatedAt: Date
+  replies?: IComment[]
+}

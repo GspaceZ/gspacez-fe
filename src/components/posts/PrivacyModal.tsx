@@ -12,7 +12,7 @@ interface PrivacyProps {
   onSave: (privacy: PostPrivacyEnum) => void
 }
 
-const PrivacyModal: React.FC<PrivacyProps> = ({ isOpen, onClose, postId, onSave }) => {
+const PrivacyModal: React.FC<PrivacyProps> = ({ isOpen, onClose, onSave }) => {
   const t = useTranslations('post.privacy')
   const [selectedOption, setSelectedOption] = useState<PostPrivacyEnum | undefined>(undefined)
 

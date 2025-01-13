@@ -30,7 +30,17 @@
     "at_location": "tại",
     "read_more": "Đọc thêm",
     "like": "Thích",
+
     "comment": "Bình luận",
+    "comment_modal": {
+      "no_comment": "Không có bình luận nào trong bài viết này.",
+      "show_more": "Xem thêm",
+      "reply": "Phản hồi",
+      "cancel_reply": "Hủy phản hồi",
+      "view_all_replies": "Xem tất cả phản hồi",
+      "hide_replies": "Ẩn tất cả phản hồi",
+      "write_comment": "Viết bình luận..."
+    },
     "share": "Chia sẻ",
     "hide": "Ẩn bài viết",
     "report": "Báo cáo",

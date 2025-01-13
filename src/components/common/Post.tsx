@@ -19,11 +19,11 @@ import { TogglePostResponseDto } from '@/types/dto/post'
 import PostUserName from '../posts/post-user/PostUserName'
 import { FIcon } from './FIcon'
 import { useFToastContext } from './FToast'
+import PostComments from '../posts/comments/PostComments'
 import { PostPrivacy } from '../posts/PostPrivacy'
-import { postTime } from '@/helpers/post/post-time'
+import { calculateTime } from '@/helpers/post/post-time'
 import { pathWithLocale } from '@/helpers/url/path-with-locale'
-import { useRouter } from 'next/router'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 interface PostProps {
   post: IPost
@@ -213,7 +213,11 @@ const Post: React.FC<PostProps> = ({
               <User
                 name={<PostUserName post={post} />}
                 description={
-                  <PostPrivacy time={postTime(post)} privacy={post.privacy} postId={post.id} />
+                  <PostPrivacy
+                    time={calculateTime(post.createdAt)}
+                    privacy={post.privacy}
+                    postId={post.id}
+                  />
                 }
                 avatarProps={{ src: post.avatarUrl }}
                 className="text-xl font-black"
@@ -261,13 +265,7 @@ const Post: React.FC<PostProps> = ({
             }`}
           >
             <PostReacts variant={variant} id={post.id} />
-            <Button
-              variant="light"
-              startContent={<FIcon name="Message" />}
-              className="grow font-semibold"
-            >
-              {t('comment')}
-            </Button>
+            <PostComments id={post.id} />
             <Button
               variant="light"
               startContent={<FIcon name="Share3" />}
