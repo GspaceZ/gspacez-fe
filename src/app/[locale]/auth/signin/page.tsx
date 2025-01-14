@@ -195,6 +195,7 @@ const Page: React.FC = () => {
             <Button
               className={`mt-4 h-[38px] w-[90px] ${isLoading ? 'cursor-not-allowed' : ''}`}
               color="primary"
+              // ignore deprecated onClick
               onClick={handleSubmit(onSubmit)}
               isLoading={isLoading}
             >
