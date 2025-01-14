@@ -19,6 +19,7 @@ import { RootState } from '@/utils/store'
 import { useMutation } from '@tanstack/react-query'
 import { TogglePostResponseDto } from '@/types/dto/post'
 import { useFToastContext } from './FToast'
+import { PostPrivacy } from '../posts/PostPrivacy'
 
 interface PostProps {
   post: IPost
@@ -194,7 +195,7 @@ const Post: React.FC<PostProps> = ({
             <div className="flex w-full items-start justify-between">
               <User
                 name={post.profileName || `${firstName} ${lastName}`}
-                description={postTime(post)}
+                description={<PostPrivacy time={postTime(post)} privacy={post.privacy} />}
                 avatarProps={{ src: post.avatarUrl }}
                 className="text-xl font-bold"
               />
