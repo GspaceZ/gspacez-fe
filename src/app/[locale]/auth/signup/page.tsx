@@ -138,6 +138,12 @@ const Page: React.FC = () => {
     }
   }
 
+  const handlePressKey = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit(onSubmit)()
+    }
+  }
+
   return (
     <AuthLayout>
       <div className="mt-[50px] flex min-h-[485px] w-[360px] flex-col justify-between rounded-[20px] border border-gray-200 shadow-md md:w-[420px]">
@@ -150,6 +156,7 @@ const Page: React.FC = () => {
                 {...register('email')}
                 label={t('email')}
                 className="h-[56px] w-[314px] md:w-[340px]"
+                onKeyDown={handlePressKey}
                 size="lg"
               />
               <p className="text-sm text-red-500">{errors?.email?.message}</p>
@@ -161,6 +168,7 @@ const Page: React.FC = () => {
                   {...register('firstName')}
                   label={t('first_name')}
                   className="h-[56px] w-[150px] md:w-[162px]"
+                  onKeyDown={handlePressKey}
                   size="lg"
                 />
                 <Input
@@ -168,6 +176,7 @@ const Page: React.FC = () => {
                   {...register('lastName')}
                   label={t('last_name')}
                   className="h-[56px] w-[150px] md:w-[162px]"
+                  onKeyDown={handlePressKey}
                   size="lg"
                 />
               </div>
@@ -181,6 +190,7 @@ const Page: React.FC = () => {
                 {...register('password')}
                 className="h-[56px] w-[314px] md:w-[340px]"
                 size="lg"
+                onKeyDown={handlePressKey}
                 endContent={
                   <ShowPassword
                     isVisible={isShowPassword}
@@ -197,6 +207,7 @@ const Page: React.FC = () => {
                 label={t('confirm_password')}
                 className="h-[56px] w-[314px] md:w-[340px]"
                 size="lg"
+                onKeyDown={handlePressKey}
                 endContent={
                   <ShowPassword
                     isVisible={isShowConfirmPassword}
@@ -209,6 +220,7 @@ const Page: React.FC = () => {
             <Button
               className={`h-[38px] w-[90px] ${isLoading ? 'cursor-not-allowed' : ''}`}
               color="primary"
+              // ignore deprecated onClick
               onClick={handleSubmit(onSubmit)}
               isLoading={isLoading}
             >
