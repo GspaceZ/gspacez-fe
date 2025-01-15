@@ -13,7 +13,6 @@ import { useState } from 'react'
 import { PageInfo } from '@/components/pages/PageInfo'
 import NewPost from '@/components/profile/NewPost'
 import { StartEvent } from '@/components/pages/StartEvent'
-import { useTranslations } from 'next-intl'
 
 const Page: React.FC = () => {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false)
@@ -24,7 +23,6 @@ const Page: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isHost, setIsHost] = useState(true) // only set true for get host view
   const user = useAppSelector((state) => state.user)
-  const t = useTranslations('pages')
 
   const pageData = {
     name: 'Fanpage MU',
@@ -68,7 +66,7 @@ const Page: React.FC = () => {
   }
 
   return (
-    <MainLayout title={t('page')}>
+    <MainLayout>
       <div className="mx-auto min-h-screen w-full max-w-[632px] overflow-y-auto border border-gray-200 bg-gray-50">
         <div className="flex flex-col">
           <PageInfo

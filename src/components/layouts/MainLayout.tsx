@@ -15,7 +15,7 @@ import { useProfile } from '@/hooks/useProfile'
 import { useQuery } from '@tanstack/react-query'
 import { setUser } from '@/utils/store/user'
 
-const MainLayout = ({ children, title }: MainLayoutProps) => {
+const MainLayout = ({ children }: MainLayoutProps) => {
   const isOpen = useSelector((state: RootState) => state.layout.sidebar.isOpen)
   const dispatch = useAppDispatch()
   const { getProfile } = useProfile()
@@ -45,7 +45,7 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
             className={`flex min-h-screen flex-1 flex-col transition-transform duration-300 ease-in-out ${isOpen ? 'ml-[300px]' : ''}`}
           >
             <Overlay isSidebarOpen={isOpen} toggleSidebar={toggle} />
-            <Header title={title} isSidebarOpen={isOpen} toggleSidebar={toggle} />
+            <Header isSidebarOpen={isOpen} toggleSidebar={toggle} />
             <main className={`flex grow flex-col ${isOpen ? 'hidden lg:block' : ''}`}>
               {children}
             </main>

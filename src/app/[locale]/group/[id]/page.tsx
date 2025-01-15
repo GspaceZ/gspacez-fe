@@ -11,7 +11,6 @@ import GroupAvatar from '@/public/profileAvatar.png'
 import { IPost } from '@/types/post'
 import { PostPrivacyEnum } from '@/utils/constant'
 import { useAppSelector } from '@/utils/store'
-import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 const Page: React.FC = () => {
@@ -27,7 +26,6 @@ const Page: React.FC = () => {
     shortDescription: 'Glory glory Man United',
     fullDescription: 'Glory glory gloryyyyyyyyyyyyyyyyy'
   }
-  const t = useTranslations('group')
 
   const togglePostModal = (post?: IPost) => {
     setSelectedPost(post)
@@ -60,7 +58,7 @@ const Page: React.FC = () => {
   }
 
   return (
-    <MainLayout title={t('group')}>
+    <MainLayout>
       <div className="mx-auto min-h-screen max-w-[632px] overflow-y-auto border border-gray-200 bg-gray-50">
         <div className="flex flex-col">
           <GroupInfo
