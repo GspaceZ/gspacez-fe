@@ -2,7 +2,6 @@ import { IProfile } from '@/types/profile'
 import { ReactNode } from 'react'
 
 export interface HeaderProps {
-  title: string
   isSidebarOpen: boolean
   toggleSidebar: () => void
 }
@@ -17,7 +16,6 @@ export interface AuthLayoutProps {
 
 export interface MainLayoutProps {
   children: ReactNode
-  title: string
 }
 
 export interface TrendingSidebarProps {

@@ -8,11 +8,9 @@ import { useSelector } from 'react-redux'
 import PostSkeleton from '@/components/posts/PostSkeleton'
 import { POST_VARIANTS } from '@/utils/constant/variants'
 import { TopicItem } from '@/components/trending-topics/TopicItem'
-import { useTranslations } from 'next-intl'
 
 const Page = () => {
   const { getTrendingTopics } = usePost()
-  const t = useTranslations('sidebar')
   const token = useSelector((state: RootState) => state.auth.token)
 
   const { data: trendingTopicsData, isLoading: isTrendingTopicsLoading } = useQuery({
@@ -21,7 +19,7 @@ const Page = () => {
   })
 
   return (
-    <MainLayout title={t('trending_topics')}>
+    <MainLayout>
       <div className="flex w-full flex-col items-center">
         <div className="mx-auto w-full max-w-[632px] rounded-lg bg-gray-50">
           <div className="pb-5">

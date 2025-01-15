@@ -12,7 +12,6 @@ import ProfileAvatar from '@/public/profileAvatar.png'
 import { IPost } from '@/types/post'
 import { PostPrivacyEnum } from '@/utils/constant'
 import { useAppSelector } from '@/utils/store'
-import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 const Page: React.FC = () => {
@@ -22,7 +21,6 @@ const Page: React.FC = () => {
   const [selectedPrivacy, setSelectedPrivacy] = useState<PostPrivacyEnum>(PostPrivacyEnum.PUBLIC)
   const [selectedPost, setSelectedPost] = useState<IPost | undefined>(undefined)
   const user = useAppSelector((state) => state.user)
-  const tTitle = useTranslations('title')
 
   const profileData = {
     avatar: ProfileAvatar.src,
@@ -65,7 +63,7 @@ const Page: React.FC = () => {
   }
 
   return (
-    <MainLayout title={tTitle('profile')}>
+    <MainLayout>
       <div className="flex w-full flex-col items-center">
         <div className="mx-auto min-h-screen w-screen max-w-[632px] border border-gray-200 bg-gray-50">
           <ProfileInfo
