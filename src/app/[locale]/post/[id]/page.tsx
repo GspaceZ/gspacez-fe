@@ -25,8 +25,8 @@ const Page = () => {
 
   return (
     <MainLayout>
-      <div className="mx-auto min-h-screen w-full max-w-[632px] overflow-y-auto border border-gray-200">
-        <div className="flex flex-col gap-2">
+      <div className="mx-auto min-h-screen w-full max-w-[632px] overflow-y-auto">
+        <div className="flex flex-col gap-2 bg-gray-50 px-2 pb-[60px] pt-2">
           <Button
             startContent={<FIcon name="ArrowLeft" size={18} />}
             variant="light"

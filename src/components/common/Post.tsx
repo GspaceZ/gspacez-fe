@@ -20,6 +20,8 @@ import { useMutation } from '@tanstack/react-query'
 import { TogglePostResponseDto } from '@/types/dto/post'
 import { useFToastContext } from './FToast'
 import { PostPrivacy } from '../posts/PostPrivacy'
+import { usePathname, useRouter } from 'next/navigation'
+import { pathWithLocale } from '@/helpers/url/path-with-locale'
 
 interface PostProps {
   post: IPost
@@ -41,7 +43,8 @@ const Post: React.FC<PostProps> = ({
   const token = useSelector((state: RootState) => state.auth.token)
   const { firstName, lastName } = useSelector((state: RootState) => state.user)
   const { fToast } = useFToastContext()
-
+  const router = useRouter()
+  const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
   const [isRemoved, setIsRemoved] = useState(false)
@@ -115,7 +118,20 @@ const Post: React.FC<PostProps> = ({
     }
   }
 
+  const viewPost = () => {
+    const handleRedirect = (path: string) => {
+      const destinationPath = pathWithLocale(pathname, path)
+      router.push(destinationPath)
+    }
+
+    handleRedirect(`/post/${post.id}`)
+  }
+
   const postOptions = [
+    {
+      label: 'View post',
+      onPress: viewPost
+    },
     {
       label: t('options.hide'),
       onPress: handleTogglePost
@@ -195,7 +211,9 @@ const Post: React.FC<PostProps> = ({
             <div className="flex w-full items-start justify-between">
               <User
                 name={post.profileName || `${firstName} ${lastName}`}
-                description={<PostPrivacy time={postTime(post)} privacy={post.privacy} />}
+                description={
+                  <PostPrivacy time={postTime(post)} privacy={post.privacy} postId={post.id} />
+                }
                 avatarProps={{ src: post.avatarUrl }}
                 className="text-xl font-bold"
               />
