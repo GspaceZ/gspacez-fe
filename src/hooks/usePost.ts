@@ -5,6 +5,7 @@ import {
   DeletePostResponseDto,
   GetNewsfeedRequestDto,
   GetNewsfeedResponseDto,
+  GetPostResponseDto,
   GetTrendingTopicsResponse,
   ReactPostRequestDto,
   ReactPostResponseDto,
@@ -77,6 +78,15 @@ export const usePost = () => {
     )
   }
 
+  const getPost = async (id: string, token: string) => {
+    return await callApi<never, GetPostResponseDto>(
+      `/post-service/posts/${id}`,
+      'GET',
+      undefined,
+      token
+    )
+  }
+
   return {
     createPost,
     getNewsfeed,
@@ -84,6 +94,7 @@ export const usePost = () => {
     reactPost,
     deletePost,
     togglePost,
-    getTrendingTopics
+    getTrendingTopics,
+    getPost
   }
 }

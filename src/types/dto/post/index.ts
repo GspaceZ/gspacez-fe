@@ -143,3 +143,9 @@ export type GetTrendingTopicsResponse = {
   message: string
   result: TrendingTopicItem[]
 }
+
+export type GetPostResponseDto = {
+  code: number
+  message: string
+  result: IPost
+}
