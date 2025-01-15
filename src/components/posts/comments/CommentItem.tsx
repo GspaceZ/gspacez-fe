@@ -13,9 +13,10 @@ interface CommentItemProps {
   comment: IComment
   replies: IComment[]
   onReply: (parentId: string, content: string) => void
+  postId: string
 }
 
-const CommentItem = ({ comment, replies, onReply }: CommentItemProps) => {
+const CommentItem = ({ comment, replies, onReply, postId }: CommentItemProps) => {
   const t = useTranslations('post.comment_modal')
   const [expanded, setExpanded] = useState(false)
   const [expandedReply, setExpandedReply] = useState(false)
@@ -33,7 +34,7 @@ const CommentItem = ({ comment, replies, onReply }: CommentItemProps) => {
           </div>
           <p className="mt-1 text-sm text-gray-800">{comment.content.text}</p>
 
-          <div className="mt-2 flex gap-3 overflow-x-auto">
+          <div className="mt-2 flex gap-3">
             {[
               ...comment.content.images.map((image, index) => ({
                 id: `image-${index}`,
@@ -72,7 +73,7 @@ const CommentItem = ({ comment, replies, onReply }: CommentItemProps) => {
                 {expanded ? t('hide_replies') : t('view_all_replies')}
               </button>
             )}
-            <button onClick={toggleReplyTextarea} className="text-sm ml-4">
+            <button onClick={toggleReplyTextarea} className="ml-4 text-sm">
               {expandedReply ? t('cancel_reply') : t('reply')}
             </button>
           </div>
@@ -84,6 +85,7 @@ const CommentItem = ({ comment, replies, onReply }: CommentItemProps) => {
                 comment={reply}
                 replies={reply.replies || []}
                 onReply={onReply}
+                postId={postId}
               />
             ))}
 
@@ -91,6 +93,8 @@ const CommentItem = ({ comment, replies, onReply }: CommentItemProps) => {
             <div className="mt-3">
               <CommentTextarea
                 onSend={(content) => onReply(comment.id, content)}
+                postId={postId}
+                commentId={comment.id}
               />
             </div>
           )}

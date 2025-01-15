@@ -3,28 +3,30 @@
 import { FIcon } from '@/components/common/FIcon'
 import { usePost } from '@/hooks/usePost'
 import { RootState } from '@/utils/store'
-import { Button, Modal, ModalHeader, ModalBody, ModalContent, ModalFooter } from '@nextui-org/react'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { useSelector } from 'react-redux'
-import { useDisclosure } from '@nextui-org/react'
-import { IComment } from '@/types/post'
+import { Button, useDisclosure } from '@nextui-org/react'
+import { IComment, IPost } from '@/types/post'
 import CommentItem from './CommentItem'
 import CommentTextarea from './CommentTextArea'
+import { FModal } from '@/components/common/modals/FModal'
+import Post from '@/components/common/Post'
+import { POST_VARIANTS } from '@/utils/constant/variants'
 
-interface Props {
-  id: string
+interface CommentProps {
+  post: IPost
 }
 
-const PostComments = ({ id }: Props) => {
-  const t = useTranslations('post')
+const PostComments = ({ post }: CommentProps) => {
+  const t = useTranslations('post.comment_modal')
   const token = useSelector((state: RootState) => state.auth.token)
   const { getCommentsOfPost } = usePost()
 
   const { data: commentsData, isLoading } = useQuery({
-    queryKey: ['postComments', id],
-    queryFn: () => getCommentsOfPost(id, token),
-    enabled: !!id && !!token
+    queryKey: ['postComments', post.id],
+    queryFn: () => getCommentsOfPost(post.id, token),
+    enabled: !!post.id && !!token
   })
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -60,6 +62,7 @@ const PostComments = ({ id }: Props) => {
         onReply={(parentId: string, content: string) => {
           console.log(`Replying to comment with id ${parentId}: ${content}`)
         }}
+        postId={post.id}
       />
     ))
 
@@ -74,30 +77,26 @@ const PostComments = ({ id }: Props) => {
         {t('comment')}
       </Button>
 
-      <Modal
-        backdrop="opaque"
-        classNames={{
-          backdrop: 'bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20'
-        }}
-        isOpen={isOpen}
-        onOpenChange={onClose}
-      >
-        <ModalContent className="max-w-2xl">
-          <ModalHeader className="flex flex-col gap-1">{t('comment')}</ModalHeader>
-          <ModalBody>
-            <div className="flex max-h-[60vh] flex-col items-start space-y-4 overflow-y-auto p-4">
-              {!isLoading && commentTree.length > 0 ? (
-                renderComments(commentTree)
-              ) : (
-                <p>{t('comment_modal.no_comment')}</p>
-              )}
+      <FModal
+        id={`post-comments-${post.id}`}
+        title={t('comment')}
+        content={
+          <div className="max-h-[600px] max-w-none overflow-y-auto">
+            <Post post={post} variant={POST_VARIANTS.feed} className="max-w-none" />
+            <div className="flex max-h-[60vh] flex-col items-start space-y-4 p-4">
+              {!isLoading && commentTree.length > 0 && renderComments(commentTree)}
             </div>
-          </ModalBody>
-          <ModalFooter>
-            <CommentTextarea onSend={(content) => console.log(content)} />
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </div>
+        }
+        footer={
+          <CommentTextarea
+            onSend={(content) => console.log(content)}
+            postId={post.id}
+          />
+        }
+        isOpen={isOpen}
+        onClose={() => onClose()}
+      />
     </>
   )
 }

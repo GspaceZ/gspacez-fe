@@ -31,6 +31,7 @@ interface PostProps {
   toggleEditModal?: () => void
   togglePrivacyModal?: () => void
   toggleDeleteModal?: (id: string) => void
+  className?: string
 }
 
 const Post: React.FC<PostProps> = ({
@@ -38,7 +39,8 @@ const Post: React.FC<PostProps> = ({
   variant,
   toggleEditModal,
   togglePrivacyModal,
-  toggleDeleteModal
+  toggleDeleteModal,
+  className
 }) => {
   const t = useTranslations('post')
 
@@ -65,7 +67,7 @@ const Post: React.FC<PostProps> = ({
     },
 
     onError: () => {
-      fToast('Hide post unsuccessfully', 'failed')
+      fToast('Hide post unsuccessfully', 'danger')
     }
   })
 
@@ -202,7 +204,7 @@ const Post: React.FC<PostProps> = ({
                 : variant === POST_VARIANTS.sidebar
                   ? 'h-[110px] cursor-pointer hover:bg-gray-50'
                   : 'min-h-[220px] rounded-lg border-gray-50 bg-white'
-          } flex-col justify-between border border-gray-200 md:flex`}
+          } ${className} flex-col justify-between border border-gray-200 md:flex`}
         >
           <div
             className={`mx-3 mt-4 flex flex-col items-start md:mx-6 ${
@@ -265,7 +267,7 @@ const Post: React.FC<PostProps> = ({
             }`}
           >
             <PostReacts variant={variant} id={post.id} />
-            <PostComments id={post.id} />
+            <PostComments post={post} />
             <Button
               variant="light"
               startContent={<FIcon name="Share3" />}
