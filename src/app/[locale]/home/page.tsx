@@ -19,7 +19,6 @@ import { POST_VARIANTS } from '@/utils/constant/variants'
 import { FIcon } from '@/components/common/FIcon'
 
 const Page = () => {
-  const t = useTranslations('title')
   const tPost = useTranslations('post')
 
   const [isPostModalOpen, setIsPostModalOpen] = useState(false)
@@ -127,7 +126,7 @@ const Page = () => {
   }, [allPosts])
 
   return (
-    <MainLayout title={t('home')}>
+    <MainLayout>
       <div className="flex w-full flex-col items-center">
         <div className="mx-auto w-full max-w-[632px] rounded-lg bg-gray-50">
           <div className="mt-4 flex items-center p-4">

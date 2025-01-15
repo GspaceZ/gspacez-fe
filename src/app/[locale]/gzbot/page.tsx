@@ -88,7 +88,7 @@ const Page = () => {
   // }
 
   return (
-    <MainLayout title={'GZBot'}>
+    <MainLayout>
       <div className="mx-auto flex w-full max-w-[600px] grow flex-col items-center justify-between">
         <div className="mt-8 w-full">
           <BotNotice />

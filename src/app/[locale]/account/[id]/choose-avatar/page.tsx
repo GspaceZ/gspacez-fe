@@ -16,7 +16,6 @@ import { useFToastContext } from '@/components/common/FToast'
 
 const Page: React.FC = () => {
   const t = useTranslations('profile.avatar')
-  const tTitle = useTranslations('title')
   const { fToast } = useFToastContext()
 
   const initialUrl = useAppSelector((state) => state.user.avtUrl)
@@ -105,7 +104,7 @@ const Page: React.FC = () => {
   }
 
   return (
-    <MainLayout title={tTitle('avatar')}>
+    <MainLayout>
       <div className="mt-[100px] flex flex-col items-center gap-10">
         <div>
           <FImage

@@ -32,7 +32,7 @@ const Page = () => {
   ]
 
   return (
-    <MainLayout title="Search">
+    <MainLayout>
       <div className="flex w-full flex-col items-center">
         <div className="mx-auto w-full max-w-[632px]">
           <div className="mx-4">
