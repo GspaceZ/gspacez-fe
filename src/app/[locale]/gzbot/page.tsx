@@ -45,29 +45,19 @@ const Page = () => {
       setMessages((prevMessages) => [...prevMessages, newMessage])
       setText('')
 
-      if (chatting) {
-        const utterance = new SpeechSynthesisUtterance(answer)
-        utterance.lang = language
+      const utterance = new SpeechSynthesisUtterance(answer)
+      utterance.lang = language
+      recognition.stop()
 
-        utterance.onstart = () => {
-          recognition.stop()
-        }
-
-        utterance.onend = () => {
-          recognition.start()
-        }
-
-        synth.speak(utterance)
-
-        handleOnChat()
-      }
+      synth.speak(utterance)
+      setChatting(false)
     } else {
       fToast('Error: No candidates found in the response', 'danger')
-      setChatting(false)
     }
   }
 
   const handleOnChat = () => {
+    synth.cancel()
     recognition.lang = language
     recognition.onresult = async (e) => {
       e.preventDefault()
@@ -81,11 +71,11 @@ const Page = () => {
     recognition.start()
   }
 
-  // recognition.onspeechend = () => {
-  //   if (!synth.speaking) {
-  //     setChatting(false)
-  //   }
-  // }
+  recognition.onspeechend = () => {
+    if (!synth.speaking) {
+      setChatting(false)
+    }
+  }
 
   return (
     <MainLayout>
