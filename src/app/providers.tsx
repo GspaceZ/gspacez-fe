@@ -9,21 +9,24 @@ import { useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { FModalsProvider } from '@/components/common/FModals'
 import { FToastProvider } from '@/components/common/FToast'
+import { FWSProvider } from '@/components/common/FWS'
 
 persistStore(store)
 const queryClient = new QueryClient()
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <NextUIProvider>
-      <FToastProvider>
-        <ReduxProvider store={store}>
-          <FModalsProvider>
-            <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-          </FModalsProvider>
-        </ReduxProvider>
-      </FToastProvider>
-    </NextUIProvider>
+    <FWSProvider>
+      <NextUIProvider>
+        <FToastProvider>
+          <ReduxProvider store={store}>
+            <FModalsProvider>
+              <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+            </FModalsProvider>
+          </ReduxProvider>
+        </FToastProvider>
+      </NextUIProvider>
+    </FWSProvider>
   )
 }
 
