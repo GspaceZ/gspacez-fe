@@ -1,15 +1,16 @@
 'use client'
 
 import { FActionIcon } from '@/components/common/FActionIcon'
+import { FIcon } from '@/components/common/FIcon'
 import { useFToastContext } from '@/components/common/FToast'
 import { BotMessagesBox } from '@/components/gzbot/BotMessagesBox'
 import { BotNotice } from '@/components/gzbot/BotNotice'
 import MainLayout from '@/components/layouts/MainLayout'
 import { useBot } from '@/hooks/useBot'
+import { useVoice } from '@/hooks/useVoice'
 import { BotCompletionRequestDto } from '@/types/dto/bot'
 import { BotMessage } from '@/types/gzbot'
 import { Input } from '@nextui-org/react'
-import { IconMicrophone, IconPlayerStopFilled, IconSend } from '@tabler/icons-react'
 import { useLocale } from 'next-intl'
 import { useEffect, useState } from 'react'
 
@@ -27,6 +28,7 @@ const Page = () => {
     vi: 'vi-VN'
   }
   const { textGenerate } = useBot()
+  const { synthesizeSpeech } = useVoice()
   const [messages, setMessages] = useState<BotMessage[]>([])
 
   useEffect(() => {
@@ -49,7 +51,10 @@ const Page = () => {
       utterance.lang = language
       recognition.stop()
 
-      synth.speak(utterance)
+      // synth.speak(utterance)
+      if (answer) {
+        await synthesizeSpeech(answer)
+      }
       setChatting(false)
     } else {
       fToast('Error: No candidates found in the response', 'danger')
@@ -94,7 +99,7 @@ const Page = () => {
           <BotMessagesBox messages={messages} />
           <div className="flex w-full items-center gap-4 px-6 pb-6">
             <FActionIcon
-              icon={chatting ? <IconPlayerStopFilled /> : <IconMicrophone />}
+              icon={chatting ? <FIcon name="PlayerStopFilled" /> : <FIcon name="Microphone" />}
               onClick={() => {
                 setChatting(!chatting)
                 if (chatting) {
@@ -121,7 +126,7 @@ const Page = () => {
               disabled={chatting}
             />
             <FActionIcon
-              icon={<IconSend />}
+              icon={<FIcon name="Send" />}
               onClick={() => {
                 generateText({ dto: { prompt: text } })
                 const newMessage: BotMessage = { fromUser: true, message: text }
