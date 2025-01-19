@@ -8,6 +8,7 @@ import { Button } from '@nextui-org/react'
 export interface FModalProps {
   id: string
   content: ReactNode
+  isOpen: boolean
   onClose: ({ id }: { id: string }) => void
   footer?: ReactNode
   title: string
@@ -99,6 +100,7 @@ export const FModalsProvider = ({ children }: FModalsProviderProps) => {
               key={modal.id}
               id={modal.id}
               content={modal.content}
+              isOpen
               onClose={close}
               footer={modal.footer}
               title={modal.title}
@@ -109,6 +111,7 @@ export const FModalsProvider = ({ children }: FModalsProviderProps) => {
             key={modal.id}
             id={modal.id}
             content={modal.content || <FConfirmModalContent />}
+            isOpen
             onClose={close}
             footer={modal.footer}
             title={modal.title}

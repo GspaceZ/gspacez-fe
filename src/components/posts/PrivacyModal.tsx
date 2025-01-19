@@ -3,11 +3,11 @@ import { Button } from '@nextui-org/react'
 import { PostPrivacyEnum } from '@/utils/constant'
 import { useTranslations } from 'next-intl'
 import CustomCheckbox from './modal/CustomCheckbox'
-import { IconLock, IconUserStar, IconWorld } from '@tabler/icons-react'
-
+import { FIcon } from '../common/FIcon'
 interface PrivacyProps {
   isOpen: boolean
   onClose: () => void
+  postId: string
   onSave: (privacy: PostPrivacyEnum) => void
 }
 
@@ -56,7 +56,7 @@ const PrivacyModal: React.FC<PrivacyProps> = ({ isOpen, onClose, onSave }) => {
               description={t('description.public')}
               value={PostPrivacyEnum.PUBLIC}
               label={t('public')}
-              icon={<IconWorld />}
+              icon={<FIcon name="World" />}
               isSelected={selectedOption === PostPrivacyEnum.PUBLIC}
               onChange={() => handleOptionChange(PostPrivacyEnum.PUBLIC)}
             />
@@ -64,7 +64,7 @@ const PrivacyModal: React.FC<PrivacyProps> = ({ isOpen, onClose, onSave }) => {
               description={t('description.friends')}
               value={PostPrivacyEnum.FRIENDS}
               label={t('friends')}
-              icon={<IconUserStar />}
+              icon={<FIcon name="UserStar" />}
               isSelected={selectedOption === PostPrivacyEnum.FRIENDS}
               onChange={() => handleOptionChange(PostPrivacyEnum.FRIENDS)}
             />
@@ -72,7 +72,7 @@ const PrivacyModal: React.FC<PrivacyProps> = ({ isOpen, onClose, onSave }) => {
               description={t('description.private')}
               value={PostPrivacyEnum.PRIVATE}
               label={t('private')}
-              icon={<IconLock />}
+              icon={<FIcon name="Lock" />}
               isSelected={selectedOption === PostPrivacyEnum.PRIVATE}
               onChange={() => handleOptionChange(PostPrivacyEnum.PRIVATE)}
             />

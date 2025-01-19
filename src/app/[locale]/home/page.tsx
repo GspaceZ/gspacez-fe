@@ -50,41 +50,6 @@ const Page = () => {
     )
   }, [user.avtUrl])
 
-  const getPostById = (postId: string): IPost => {
-    const post = newsfeedData?.data.result.find((post) => post.id === postId)
-    if (!post) {
-      throw new Error(`Post with ID ${postId} not found`)
-    }
-    return post
-  }
-
-  const togglePostModal = (post?: IPost) => {
-    setSelectedPost(post)
-    setIsPostModalOpen(true)
-  }
-
-  const togglePrivacyModal = () => {
-    setIsPrivacyModalOpen(true)
-  }
-
-  const toggleDeleteModal = (id: string) => {
-    setCurrPostId(id)
-    setIsDeleteModalOpen(true)
-  }
-
-  const handleSelectedPost = (postId: string) => {
-    try {
-      const post = getPostById(postId)
-      togglePostModal(post)
-    } catch (error) {
-      console.error(error instanceof Error ? error.message : 'An unknown error occurred')
-    }
-  }
-
-  const handleSavePrivacy = (privacy: PostPrivacyEnum) => {
-    setSelectedPrivacy(privacy)
-  }
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -124,6 +89,42 @@ const Page = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allPosts])
+
+  const getPostById = (postId: string): IPost => {
+    const post = allPosts.find((post) => post.id === postId)
+    if (!post) {
+      throw new Error(`Post with ID ${postId} not found`)
+    }
+    return post
+  }
+
+  const togglePostModal = (post?: IPost) => {
+    setSelectedPost(post)
+    setIsPostModalOpen(true)
+  }
+
+  const togglePrivacyModal = (id: string) => {
+    setCurrPostId(id)
+    setIsPrivacyModalOpen(true)
+  }
+
+  const toggleDeleteModal = (id: string) => {
+    setCurrPostId(id)
+    setIsDeleteModalOpen(true)
+  }
+
+  const handleSelectedPost = (postId: string) => {
+    try {
+      const post = getPostById(postId)
+      togglePostModal(post)
+    } catch (error) {
+      console.error(error instanceof Error ? error.message : 'An unknown error occurred')
+    }
+  }
+
+  const handleSavePrivacy = (privacy: PostPrivacyEnum) => {
+    setSelectedPrivacy(privacy)
+  }
 
   return (
     <MainLayout>
@@ -176,6 +177,7 @@ const Page = () => {
         <PrivacyModal
           isOpen={isPrivacyModalOpen}
           onClose={() => setIsPrivacyModalOpen(false)}
+          postId={currPostId}
           onSave={handleSavePrivacy}
         />
         <DeleteModal

@@ -34,6 +34,7 @@ export const landingPost: IPost = {
   shares: [],
   privacy: PostPrivacyEnum.PUBLIC,
   location: '',
+  feeling: '',
   type: PostTypeEnum.USER,
   createdAt: new Date('2024/06/01'),
   updatedAt: new Date('2024/06/01'),

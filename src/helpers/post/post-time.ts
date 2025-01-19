@@ -1,9 +1,14 @@
-import { IPost } from '@/types/post'
-
-export const postTime = (post: IPost): string => {
+export const calculateTime = (createAt: Date | string): string => {
   const now = new Date()
-  const postCreatedAt = new Date(post.createdAt)
-  const timeDiff = now.getTime() - postCreatedAt.getTime()
+  let itemCreatedAt: Date
+  
+  if (typeof createAt === 'string') {
+    itemCreatedAt = new Date(createAt.replace('ICT', '+07:00'))
+  } else {
+    itemCreatedAt = createAt
+  }
+
+  const timeDiff = now.getTime() - itemCreatedAt.getTime()
 
   const seconds = Math.floor(timeDiff / 1000)
   const minutes = Math.floor(seconds / 60)
@@ -19,23 +24,21 @@ export const postTime = (post: IPost): string => {
   } else if (days < 7) {
     return `${days}d ago`
   } else {
-    const postYear = postCreatedAt.getFullYear()
+    const itemYear = itemCreatedAt.getFullYear()
     const currentYear = now.getFullYear()
-    if (postYear === currentYear) {
-      const formattedDate = postCreatedAt.toLocaleDateString('en-US', {
+    if (itemYear === currentYear) {
+      return itemCreatedAt.toLocaleDateString('en-US', {
         weekday: 'short',
         month: 'long',
         day: 'numeric'
       })
-      return `${formattedDate}`
     } else {
-      const formattedDate = postCreatedAt.toLocaleDateString('en-US', {
+      return itemCreatedAt.toLocaleDateString('en-US', {
         weekday: 'short',
         month: 'long',
         day: 'numeric',
         year: 'numeric'
       })
-      return `${formattedDate}`
     }
   }
 }

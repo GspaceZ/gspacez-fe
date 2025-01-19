@@ -1,4 +1,4 @@
-import { IPost } from '@/types/post'
+import { IComment, IPost } from '@/types/post'
 
 export type CreatePostRequestDto = {
   text?: string | null
@@ -43,6 +43,52 @@ export type GetNewsfeedResponseDto = {
   code: number
   message: string
   result: IPost[]
+}
+
+export type GetCommentsResponseDto = {
+  code: number
+  message: string
+  result: IComment[]
+}
+
+export type CommentPostRequestDto = {
+  comment: {
+    content: {
+      text: string
+      imageUrls: string[]
+      videoUrls: string[]
+    }
+    parentId: string
+  }
+}
+
+export type CommentPostResponseDto = {
+  code: number
+  message: string
+  result: {
+    id: string
+    profileId: string
+    content: {
+      text: string
+      imageUrls: string[]
+      videoUrls: string[]
+      location: string
+      feeling: string
+      activity: string
+      tag: string
+    }
+    comments: IComment[]
+    shares: string
+    hashTags: string
+    feeling: string
+    privacy: string
+    location: string
+    type: string
+    trendingPoint: number
+    createdAt: Date
+    updatedAt: Date
+    hidden: boolean
+  }
 }
 
 export type UpdatePostRequestDto = {

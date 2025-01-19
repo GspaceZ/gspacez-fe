@@ -18,9 +18,28 @@
     "trending_topics": "Trending Topics"
   },
   "post": {
+    "feeling_mapping": {
+      "HAPPY": "happy",
+      "SAD": "sad",
+      "ANGRY": "angry",
+      "SURPRISED": "surprised",
+      "LOVE": "love",
+      "CRAZY": "crazy"
+    },
+    "is_feeling": "feeling",
+    "at_location": "at",
     "read_more": "Read more",
     "like": "Like",
     "comment": "Comment",
+    "comment_modal": {
+      "no_comment": "There are no comments in this post.",
+      "show_more": "Show more",
+      "reply": "Reply",
+      "cancel_reply": "Cancel reply",
+      "view_all_replies": "View all replies",
+      "hide_replies": "Hide all replies",
+      "write_comment": "Write a comment..."
+    },
     "share": "Share",
     "hide": "Hide post",
     "report": "Report",

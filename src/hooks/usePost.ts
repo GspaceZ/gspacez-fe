@@ -1,8 +1,11 @@
 import callApi from '@/axios'
 import {
+  CommentPostRequestDto,
+  CommentPostResponseDto,
   CreatePostRequestDto,
   CreatePostResponseDto,
   DeletePostResponseDto,
+  GetCommentsResponseDto,
   GetNewsfeedRequestDto,
   GetNewsfeedResponseDto,
   GetPostResponseDto,
@@ -29,6 +32,24 @@ export const usePost = () => {
       `/post-service/posts/newsfeed?pageNum=${dto.pageNum}&pageSize=${dto.pageSize}`,
       'GET',
       undefined,
+      token
+    )
+  }
+
+  const getCommentsOfPost = async (id: string, token: string) => {
+    return await callApi<never, GetCommentsResponseDto>(
+      `/post-service/posts/${id}/comment`,
+      'GET',
+      undefined,
+      token
+    )
+  }
+
+  const commentPost = async (id: string, dto: CommentPostRequestDto, token: string) => {
+    return await callApi<CommentPostRequestDto, CommentPostResponseDto>(
+      `/post-service/posts/comment/${id}`,
+      'POST',
+      dto,
       token
     )
   }
@@ -90,11 +111,13 @@ export const usePost = () => {
   return {
     createPost,
     getNewsfeed,
+    commentPost,
     updatePost,
     reactPost,
     deletePost,
     togglePost,
     getTrendingTopics,
+    getCommentsOfPost,
     getPost
   }
 }

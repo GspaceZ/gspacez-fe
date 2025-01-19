@@ -7,7 +7,7 @@ import { IPost } from '@/types/post'
 export interface PostsProps {
   posts: IPost[] | undefined
   toggleEditPost?: (postId: string) => void
-  toggleSetPrivacyModal?: () => void
+  toggleSetPrivacyModal?: (id: string) => void
   toggleDeleteModal?: (id: string) => void
 }
 
@@ -23,9 +23,9 @@ const Posts: React.FC<PostsProps> = ({
     }
   }
 
-  const onSetPrivacy = () => {
+  const onSetPrivacy = (id: string) => {
     if (toggleSetPrivacyModal !== undefined) {
-      toggleSetPrivacyModal()
+      toggleSetPrivacyModal(id)
     }
   }
 
@@ -45,7 +45,7 @@ const Posts: React.FC<PostsProps> = ({
               variant={POST_VARIANTS.feed}
               key={post.id}
               toggleEditModal={() => onEdit(post.id)}
-              togglePrivacyModal={onSetPrivacy}
+              togglePrivacyModal={() => onSetPrivacy(post.id)}
               toggleDeleteModal={onDelete}
             />
           )
