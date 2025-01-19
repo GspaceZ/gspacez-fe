@@ -7,7 +7,6 @@ import { useState } from 'react'
 import { IComment } from '@/types/post'
 import CommentTextarea from './CommentTextArea'
 import { useTranslations } from 'next-intl'
-import LandingAvatar from '@/public/landingAvatar.png'
 
 interface CommentItemProps {
   comment: IComment
@@ -26,7 +25,7 @@ const CommentItem = ({ comment, replies, onReply, postId }: CommentItemProps) =>
   return (
     <div className="mb-4 w-full p-3">
       <div className="flex items-start gap-3">
-        <Avatar radius="full" size="md" src={comment.profileImageUrl} alt={LandingAvatar.src} />
+        <Avatar radius="full" size="md" src={comment.profileImageUrl} alt="" />
         <div className="flex flex-grow flex-col">
           <div className="flex items-center">
             <h5 className="text-sm font-semibold">{comment.profileName}</h5>

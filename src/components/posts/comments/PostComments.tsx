@@ -19,7 +19,7 @@ interface CommentProps {
 }
 
 const PostComments = ({ post }: CommentProps) => {
-  const t = useTranslations('post.comment_modal')
+  const t = useTranslations('post')
   const token = useSelector((state: RootState) => state.auth.token)
   const { getCommentsOfPost } = usePost()
 
@@ -88,12 +88,7 @@ const PostComments = ({ post }: CommentProps) => {
             </div>
           </div>
         }
-        footer={
-          <CommentTextarea
-            onSend={(content) => console.log(content)}
-            postId={post.id}
-          />
-        }
+        footer={<CommentTextarea onSend={(content) => console.log(content)} postId={post.id} />}
         isOpen={isOpen}
         onClose={() => onClose()}
       />

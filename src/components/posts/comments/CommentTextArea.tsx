@@ -6,7 +6,7 @@ import { useState } from 'react'
 import LandingAvatar from '@/public/landingAvatar.png'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/utils/store'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { usePost } from '@/hooks/usePost'
 import { useFToastContext } from '@/components/common/FToast'
 import { CommentPostRequestDto, CommentPostResponseDto } from '@/types/dto/post'
@@ -24,6 +24,7 @@ const CommentTextarea = ({ onSend, postId, commentId }: CommentTextareaProps) =>
   const token = useSelector((state: RootState) => state.auth.token)
   const [content, setContent] = useState('')
   const { commentPost } = usePost()
+  const queryClient = useQueryClient()
   const { fToast } = useFToastContext()
 
   const { isPending, mutate: mutateComment } = useMutation({
@@ -33,6 +34,27 @@ const CommentTextarea = ({ onSend, postId, commentId }: CommentTextareaProps) =>
     },
 
     onSuccess: (result: CommentPostResponseDto['result']) => {
+      queryClient.setQueryData(
+        ['postComments', postId],
+        (oldData: { data: { result: CommentPostResponseDto[] } } | undefined) => {
+          if (!oldData || oldData.data.result.length === 0) {
+            return {
+              data: {
+                result: [result.comments[result.comments.length - 1]]
+              }
+            }
+          }
+
+          return {
+            ...oldData,
+            data: {
+              ...oldData.data,
+              result: [...oldData.data.result, result.comments[result.comments.length - 1]]
+            }
+          }
+        }
+      )
+
       onSend(result.content.text)
       setContent('')
     },
